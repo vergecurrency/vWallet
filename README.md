@@ -1,3 +1,3 @@
 # Verge Wallet
 
-!()[https://i.imgur.com/7NDJQBa.png]
+![Verge test preview](https://i.imgur.com/7NDJQBa.png)
