@@ -38,17 +38,6 @@ export default class Statistics extends Component {
         console.error(err);
       }
     });
-
-    /* fetch('https://api.coinmarketcap.com/v1/ticker/verge/')
-      .then(res => res.ok && res.json())
-      .then(([resJson]) =>
-        this.setState({
-          price: `${resJson.price_usd} $`,
-          cap: formatter.format(Number(resJson.market_cap_usd)),
-          hourChange: resJson.percent_change_1h,
-          dayChange: resJson.percent_change_24h
-        }))
-      .catch(console.error); */
   }
 
   render() {

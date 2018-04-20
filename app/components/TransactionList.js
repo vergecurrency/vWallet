@@ -1,3 +1,4 @@
+// @ts-check
 import React, { Component } from 'react';
 import verge from 'node-verge';
 import uuidv1 from 'uuid/v1';
@@ -28,7 +29,7 @@ export default class TransactionList extends Component {
             </div>
           </div>
         </div>
-        <div className="scrollbar scrollbar-primary">
+        <div className="scrollbar scrollbar-primary transaction-list-top">
           <div className="container" style={{ overflowY: 'scroll', height: '450px' }}>
             {this.props.TransactionStore.transactions
               .sort((a, b) => a.time <= b.time)
@@ -38,8 +39,8 @@ export default class TransactionList extends Component {
                     <Transaction {...transaction} />
                   </div>
                   <div className="col-md-4" style={{ textAlign: 'right' }}>
-                    <p>{transaction.amount} XVG</p>
-                    <p>{transaction.confirmations} confirmations</p>
+                    <p style={{ color: 'white' }}>{transaction.amount} XVG</p>
+                    <p style={{ color: 'white' }}>{transaction.confirmations} confirmations</p>
                   </div>
                 </div>
               ))}
