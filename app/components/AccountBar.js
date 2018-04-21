@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { Client } from 'verge-node-typescript'
+import { inject, observer } from 'mobx-react'
 
-const vergeConnection = () => new Client({ user: 'kyon', pass: 'lolcat' })
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 2,
-  // the default value for minimumFractionDigits depends on the currency
-  // and is usually already 2
 })
 
+const vergeClient = new Client({ user: 'kyon', pass: 'lolcat' })
+
+@inject('SettingsStore')
+@observer
 export default class AccountBar extends Component {
   constructor(props) {
     super(props)
@@ -20,10 +22,10 @@ export default class AccountBar extends Component {
   }
 
   componentDidMount() {
-    /*vergeConnection()
+    vergeClient
       .getBalance()
       .then(balance => this.setState({ balance, usd_exchange: 0.0765 }))
-      .catch(console.error)*/
+      .catch(console.error)
   }
 
   render() {
@@ -70,33 +72,3 @@ export default class AccountBar extends Component {
     )
   }
 }
-/* <span
-            className="text-left"
-            style={{
-              color: '#00CBFF',
-              fontWeight: 'light',
-              widht: '50%',
-              float: 'left'
-            }}
-          >
-
-          </span>
-          <span
-            className="text-right"
-            style={{ float: 'right', display: 'inline-block', verticalAlign: 'middle' }}
-          >
-            <a href="#">
-              <img
-                src="resources/assets/Send.png"
-                style={{ maxHeight: '60px', marginLeft: '25px', paddingBottom: '20px' }}
-                alt="send xvg"
-              />
-            </a>
-            <a href="#">
-              <img
-                src="resources/assets/receive.png"
-                style={{ maxHeight: '60px', marginLeft: '25px', paddingBottom: '20px' }}
-                alt="receive xvg"
-              />
-            </a>
-          </span> */

@@ -65,8 +65,10 @@ export default class Header extends Component {
                   backgroundColor: 'inherit',
                   borderColor: 'transparent',
                   boxShadow: 'none',
-
                   margin: '0 auto',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                  paddingTop: '21%',
                 }}
               >
                 <Menu
@@ -89,16 +91,25 @@ export default class Header extends Component {
             </Dropdown>
           </div>
           <div className="col-md-8 text-center">
-            <img
-              className="center-block"
-              src="resources/assets/logo.png"
+            <div
               style={{
-                display: 'block',
+                display: 'inline-block',
                 margin: '0 auto',
-                height: '40px',
+                paddingTop: '10px',
+                verticalAlign: 'middle',
               }}
-              alt="verge logo"
-            />
+            >
+              <img
+                className="center-block"
+                src="resources/assets/logo.png"
+                style={{
+                  display: 'block',
+                  margin: '0 auto',
+                  height: '40px',
+                }}
+                alt="verge logo"
+              />
+            </div>
           </div>
           <div
             className="col-md-1"
