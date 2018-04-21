@@ -1,22 +1,21 @@
 // @ts-check
-import React, { Component } from 'react';
-import verge from 'node-verge';
-import uuidv1 from 'uuid/v1';
-import './TransactionList.css';
-import Transaction from './Transaction';
+import React, { Component } from 'react'
+//import verge from 'node-verge'
+import uuidv1 from 'uuid/v1'
+import './TransactionList.css'
+import Transaction from './Transaction'
 
-import { inject, observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react'
 
-const vergeConnection = () => verge().auth('kyon', 'lolcat');
+//const vergeConnection = () => verge().auth('kyon', 'lolcat')
 
 @inject('TransactionStore')
 @observer
 export default class TransactionList extends Component {
   componentDidMount() {
-    vergeConnection().listTransactions((_, transactionList) => {
-      console.log(transactionList);
-      this.props.TransactionStore.addTransactions(transactionList);
-    });
+    /*vergeConnection().listTransactions((_, transactionList) => {
+      this.props.TransactionStore.addTransactions(transactionList)
+    })*/
   }
 
   render() {
@@ -30,7 +29,10 @@ export default class TransactionList extends Component {
           </div>
         </div>
         <div className="scrollbar scrollbar-primary transaction-list-top">
-          <div className="container" style={{ overflowY: 'scroll', height: '450px' }}>
+          <div
+            className="container"
+            style={{ overflowY: 'scroll', height: '100%' }}
+          >
             {this.props.TransactionStore.transactions
               .sort((a, b) => a.time <= b.time)
               .map(transaction => (
@@ -40,13 +42,15 @@ export default class TransactionList extends Component {
                   </div>
                   <div className="col-md-4" style={{ textAlign: 'right' }}>
                     <p style={{ color: 'white' }}>{transaction.amount} XVG</p>
-                    <p style={{ color: 'white' }}>{transaction.confirmations} confirmations</p>
+                    <p style={{ color: 'white' }}>
+                      {transaction.confirmations} confirmations
+                    </p>
                   </div>
                 </div>
               ))}
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

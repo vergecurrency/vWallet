@@ -1,14 +1,9 @@
 // @flow
-import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import Routes from '../routes';
+import React, { Component } from 'react'
+import Routes from '../routes'
 
 export default class Root extends Component {
   render() {
-    return (
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    );
+    return <Routes />
   }
 }
