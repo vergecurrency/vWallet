@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
-  minimumFractionDigits: 2
+  minimumFractionDigits: 2,
   // the default value for minimumFractionDigits depends on the currency
   // and is usually already 2
-});
+})
 
 export default class Statistics extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       price: 'Loading ...',
       cap: '',
       hourChange: '',
       dayChange: '',
-      weekChange: ''
-    };
+      weekChange: '',
+    }
   }
 
   componentDidMount() {
-    console.log('hi');
+    console.log('hi')
     fetch('https://api.coinmarketcap.com/v1/ticker/verge/')
       .then(res => res.ok && res.json())
       .then(([resJson]) =>
@@ -30,9 +30,10 @@ export default class Statistics extends Component {
           cap: formatter.format(Number(resJson.market_cap_usd)),
           hourChange: resJson.percent_change_1h,
           dayChange: resJson.percent_change_24h,
-          weekChange: resJson.percent_change_7d
-        }))
-      .catch(console.error);
+          weekChange: resJson.percent_change_7d,
+        })
+      )
+      .catch(console.error)
   }
 
   render() {
@@ -63,6 +64,6 @@ export default class Statistics extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

@@ -13,20 +13,20 @@ root.id = 'root'
 document.body.appendChild(root)
 
 render(
-	<AppContainer>
-		<Root history={history} />
-	</AppContainer>,
-	document.getElementById('root')
+  <AppContainer>
+    <Root history={history} />
+  </AppContainer>,
+  document.getElementById('root')
 )
 
 if (module.hot) {
-	module.hot.accept('./containers/Root', () => {
-		const NextRoot = require('./containers/Root') // eslint-disable-line global-require
-		render(
-			<AppContainer>
-				<NextRoot history={history} />
-			</AppContainer>,
-			document.getElementById('root')
-		)
-	})
+  module.hot.accept('./containers/Root', () => {
+    const NextRoot = require('./containers/Root') // eslint-disable-line global-require
+    render(
+      <AppContainer>
+        <NextRoot history={history} />
+      </AppContainer>,
+      document.getElementById('root')
+    )
+  })
 }

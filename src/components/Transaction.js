@@ -1,5 +1,5 @@
-import React from 'react';
-import moment from 'moment';
+import React from 'react'
+import moment from 'moment'
 
 export default ({
   account,
@@ -10,7 +10,7 @@ export default ({
   confirmation,
   time,
   timereceived,
-  txid
+  txid,
 }) => (
   <div className="container">
     <div className="row">
@@ -20,7 +20,9 @@ export default ({
       <div className="col-md-2" style={{ color: 'white', fontWeight: 'bold' }}>
         Category:
       </div>
-      {category.includes('receive') ? `Received from ${account}` : `Sent to ${address}`}
+      {category.includes('receive')
+        ? `Received from ${account}`
+        : `Sent to ${address}`}
     </div>
     <div className="row">
       {' '}
@@ -30,4 +32,4 @@ export default ({
       {txid}
     </div>
   </div>
-);
+)

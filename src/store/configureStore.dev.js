@@ -1,5 +1,5 @@
-import { createHashHistory } from 'history';
+import { createHashHistory } from 'history'
 
-const history = createHashHistory();
+const history = createHashHistory()
 
-export default { history };
+export default { history }

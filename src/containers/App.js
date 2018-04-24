@@ -8,14 +8,14 @@ import logo from '../assets/images/verge-symbol.png'
 // import '../resources/css/menu_wave.css';
 
 export default class App extends Component {
-	render() {
-		return (
-			<div className="main-layer">
-				<TitleBar disableMaximize={true} icon={logo} />
-				<Header />
-				{this.props.children}
-				<Footer />
-			</div>
-		)
-	}
+  render() {
+    return (
+      <div className="main-layer">
+        <TitleBar disableMaximize={true} icon={logo} />
+        <Header />
+        {this.props.children}
+        <Footer />
+      </div>
+    )
+  }
 }

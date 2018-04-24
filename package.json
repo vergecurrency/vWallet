@@ -41,7 +41,10 @@
 		"dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
 		"build": "webpack --mode production --config=./webpack.dev.config.js",
 		"package": "webpack --config webpack.build.config.js",
-		"postpackage": "electron-packager ./ --out=./builds --overwrite"
+		"postpackage": "electron-packager ./ --out=./builds --overwrite",
+		"prettify":
+			"prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
+	
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.0",
@@ -100,6 +103,7 @@
 		"minimist": "^1.2.0",
 		"node-sass": "^4.8.3",
 		"npm-logical-tree": "^1.2.1",
+		"prettier": "^1.12.1",
 		"react-hot-loader": "^4.1.1",
 		"react-test-renderer": "^16.2.0",
 		"redux-logger": "^3.0.6",

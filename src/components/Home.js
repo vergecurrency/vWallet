@@ -1,7 +1,7 @@
 // @flow
-import React, { Component } from 'react';
-import TransactionList from './TransactionList';
-import AccountBar from './AccountBar';
+import React, { Component } from 'react'
+import TransactionList from './TransactionList'
+import AccountBar from './AccountBar'
 
 export default class Home extends Component {
   render() {
@@ -10,6 +10,6 @@ export default class Home extends Component {
         <AccountBar />
         <TransactionList />
       </div>
-    );
+    )
   }
 }
