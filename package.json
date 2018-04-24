@@ -20,7 +20,10 @@
 			]
 		},
 		"linux": {
-			"target": ["AppImage", "deb"]
+			"target": [
+				"AppImage",
+				"deb"
+			]
 		},
 		"win": {
 			"target": "squirrel",
@@ -29,21 +32,17 @@
 	},
 	"repository": {
 		"type": "git",
-		"url":
-			"https://github.com/pbarbiero/basic-electron-react-boilerplate.git"
+		"url": "https://github.com/pbarbiero/basic-electron-react-boilerplate.git"
 	},
 	"license": "MIT",
 	"main": "main.js",
 	"scripts": {
-		"prod":
-			"webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
-		"dev":
-			"webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+		"prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+		"dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
 		"build": "webpack --mode production --config=./webpack.dev.config.js",
 		"package": "webpack --mode production --config webpack.build.config.js",
 		"postpackage": "electron-packager ./ --all --out=./builds --overwrite",
-		"prettify":
-			"prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
+		"prettify": "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.0",
@@ -127,6 +126,7 @@
 		"electron-react-titlebar": "^0.8.1",
 		"font-awesome": "^4.7.0",
 		"history": "^4.7.2",
+		"i18n-react": "^0.6.4",
 		"mobx": "^4.2.0",
 		"mobx-react": "^5.0.0",
 		"moment": "^2.22.1",

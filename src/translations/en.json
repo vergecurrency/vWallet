@@ -1,0 +1,46 @@
+{
+	"account-bar": {
+		"receive": "Receive",
+		"send": "Send"
+	},
+	"transaction": {
+		"list": "Transaction List",
+		"confirmations": "confirmations"
+	},
+	"settings": {
+		"title": "Settings Overview",
+		"explaination": "Explaination",
+		"keymap": "Keymap Overview",
+		"usage": "Usage",
+		"shortkey": {
+			"quicksend": {
+				"name": "Quick Send",
+				"usage": "Opens the transaction form to send XVG."
+			},
+			"hideinformation": {
+				"name": "Show/Hide personal Information",
+				"usage":
+					"Hides all personal data, like transactions, balance etc. and replaces them with placeholders."
+			},
+			"lockwallet": {
+				"name": "Lock Wallet",
+				"usage":
+					"This locks your wallet, which means that you won`t be able to perform some of the offered options until you enter your password again (send XVG etc.)."
+			}
+		},
+		"region": {
+			"name": "Region/Language",
+			"explain":
+				"This switches locales not only languages. For example does it switch currencies formats from USD to EUR"
+		}
+	},
+	"header": {
+		"connection": "Connection(s)",
+		"synced": "synced",
+		"notsyncing": "not syncing",
+		"menu": {
+			"wallet": "Wallet",
+			"settings": "Settings"
+		}
+	}
+}
