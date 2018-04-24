@@ -20,7 +20,10 @@
 			]
 		},
 		"linux": {
-			"target": ["AppImage", "deb"]
+			"target": [
+				"AppImage",
+				"deb"
+			]
 		},
 		"win": {
 			"target": "squirrel",
@@ -29,16 +32,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url":
-			"https://github.com/pbarbiero/basic-electron-react-boilerplate.git"
+		"url": "https://github.com/pbarbiero/basic-electron-react-boilerplate.git"
 	},
 	"license": "MIT",
 	"main": "main.js",
 	"scripts": {
-		"prod":
-			"webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
-		"dev":
-			"webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+		"prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+		"dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
 		"build": "webpack --mode production --config=./webpack.dev.config.js",
 		"package": "webpack --config webpack.build.config.js",
 		"postpackage": "electron-packager ./ --out=./builds --overwrite"
@@ -69,7 +69,7 @@
 		"cross-spawn": "^6.0.4",
 		"css-loader": "^0.28.11",
 		"detect-port": "^1.2.2",
-		"electron": "^1.7.11",
+		"electron": "^1.8.4",
 		"electron-devtools-installer": "^2.2.3",
 		"electron-packager": "^12.0.1",
 		"electron-rebuild": "^1.7.3",
