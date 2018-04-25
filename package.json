@@ -5,11 +5,7 @@
 	"author": "Marvin Piekarek <marvin.piekarek5@gmail.com>",
 	"build": {
 		"appId": "org.verge.electronwallet",
-		"files": [
-			"dist/",
-			"main.js",
-			"package.json"
-		],
+		"files": ["dist/", "main.js", "package.json"],
 		"dmg": {
 			"contents": [
 				{
@@ -28,10 +24,7 @@
 			"target": "nsis"
 		},
 		"linux": {
-			"target": [
-				"AppImage",
-				"deb"
-			]
+			"target": ["AppImage", "deb"]
 		}
 	},
 	"repository": {
@@ -42,13 +35,16 @@
 	"main": "main.js",
 	"scripts": {
 		"postinstall": "install-app-deps",
-		"dist": "npm run build && build --publish onTagOrDraft",
-		"prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
-		"dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+		"dist": "yarn run build && build --publish onTagOrDraft",
+		"prod":
+			"webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+		"dev":
+			"webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
 		"build": "webpack --mode production --config=./webpack.build.config.js",
 		"package": "webpack --mode production --config webpack.build.config.js",
 		"postpackage": "electron-packager ./ --all --out=./builds --overwrite",
-		"prettify": "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
+		"prettify":
+			"prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.0",
