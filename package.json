@@ -4,30 +4,35 @@
 	"description": "Verge the privacy coin of the future.",
 	"author": "Marvin Piekarek",
 	"build": {
-		"appId": "verge",
+		"appId": "org.verge.electronwallet",
+		"category": "public.app-category.finance",
+		"files": [
+			"dist/",
+			"main.js",
+			"package.json"
+		],
 		"dmg": {
 			"contents": [
 				{
-					"x": 110,
-					"y": 150
+					"x": 130,
+					"y": 220
 				},
 				{
-					"x": 240,
-					"y": 150,
+					"x": 410,
+					"y": 220,
 					"type": "link",
 					"path": "/Applications"
 				}
 			]
+		},
+		"win": {
+			"target": "nsis"
 		},
 		"linux": {
 			"target": [
 				"AppImage",
 				"deb"
 			]
-		},
-		"win": {
-			"target": "squirrel",
-			"icon": "verge.ico"
 		}
 	},
 	"repository": {
@@ -37,9 +42,11 @@
 	"license": "MIT",
 	"main": "main.js",
 	"scripts": {
+		"postinstall": "install-app-deps",
+		"dist": "npm run build && build --publish onTagOrDraft",
 		"prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
 		"dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
-		"build": "webpack --mode production --config=./webpack.dev.config.js",
+		"build": "webpack --mode production --config=./webpack.build.config.js",
 		"package": "webpack --mode production --config webpack.build.config.js",
 		"postpackage": "electron-packager ./ --all --out=./builds --overwrite",
 		"prettify": "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
@@ -71,6 +78,7 @@
 		"css-loader": "^0.28.11",
 		"detect-port": "^1.2.2",
 		"electron": "^1.8.4",
+		"electron-builder": "^20.10.0",
 		"electron-devtools-installer": "^2.2.3",
 		"electron-packager": "^12.0.1",
 		"electron-rebuild": "^1.7.3",
@@ -98,6 +106,7 @@
 		"html-webpack-plugin": "^3.2.0",
 		"identity-obj-proxy": "^3.0.0",
 		"jest": "^22.1.4",
+		"jquery": "^3.3.1",
 		"minimist": "^1.2.0",
 		"node-sass": "^4.8.3",
 		"npm-logical-tree": "^1.2.1",

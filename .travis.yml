@@ -1,29 +1,46 @@
-language: node_js
-node_js: "8"
+sudo: required
+dist: trusty
 
-env:
-  global:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+language: c
 
-os:
-  - osx
+matrix:
+  include:
+    - os: osx
+    - os: linux
+      env: CC=clang CXX=clang++ npm_config_clang=1
+      compiler: clang
+
+node_js:
+  - 6
 
 cache:
   directories:
-  - node_modules
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
-  - $HOME/.npm/_prebuilds
+    - node_modules
 
-before_install:
-  - brew update && brew install wine
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - icnsutils
+      - graphicsmagick
+      - libgnome-keyring-dev
+      - xz-utils
+      - xorriso
+      - xvfb
 
 install:
-  - yarn
+  - nvm install 6
+  - npm install electron-builder@next
+  - npm install
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start &
+  - sleep 3
 
 script:
-  - yarn package
-
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
+  - npm run dist
