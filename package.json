@@ -5,7 +5,6 @@
 	"author": "Marvin Piekarek",
 	"build": {
 		"appId": "org.verge.electronwallet",
-		"category": "public.app-category.finance",
 		"files": [
 			"dist/",
 			"main.js",
