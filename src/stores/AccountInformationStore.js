@@ -28,7 +28,7 @@ class AccountInformationStore {
 					this.info = { ...this.info, info }
 				})
 				.catch(console.error)
-		}, 1000)
+		}, 5000)
 	}
 
 	@computed

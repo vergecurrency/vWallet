@@ -9,8 +9,20 @@ import {
 import T from 'i18n-react'
 
 const locales = [
-	{ name: 'German', locale: 'de', currency: 'EUR', symbol: '€' },
-	{ name: 'English', locale: 'en', currency: 'USD', symbol: '$' },
+	{
+		name: 'German',
+		localeId: 'de',
+		currency: 'EUR',
+		symbol: '€',
+		locale: 'de-DE',
+	},
+	{
+		name: 'English',
+		localeId: 'en',
+		currency: 'USD',
+		symbol: '$',
+		locale: 'en-US',
+	},
 ]
 
 @inject('SettingsStore')
@@ -65,7 +77,7 @@ export default class RegionSetting extends Component {
 									onClick={() => {
 										this.props.SettingsStore.setSettingOption(
 											{
-												key: 'locale',
+												key: 'name',
 												value: locale.name,
 											}
 										)
@@ -84,6 +96,12 @@ export default class RegionSetting extends Component {
 										this.props.SettingsStore.setSettingOption(
 											{
 												key: 'localeId',
+												value: locale.localeId,
+											}
+										)
+										this.props.SettingsStore.setSettingOption(
+											{
+												key: 'locale',
 												value: locale.locale,
 											}
 										)

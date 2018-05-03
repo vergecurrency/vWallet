@@ -17,15 +17,98 @@ body {
 }
 
 .big-button {
-	padding: 10% 10%;
-	margin-bottom: 15%;
-	border: 1px solid rgb(0, 203, 255);
+	padding: 5% 5%;
+	border: 2px solid #fff;
+	min-width: 150px;
 	border-radius: 5px;
 	color: #fff;
 }
 
-.main-layer {
-	background-color: #006994;
+.transaction-list {
+	position: relative;
+	bottom: 50px;
+	left: 40px;
+	width: 670px;
+	height: 450px;
+	border-radius: 7px;
+	background-color: #ffffff;
+	color: #003b54 !important;
+}
+
+.trans-title {
+	font-size: 26px;
+
+	&::before {
+		content: url('../images/layers.png');
+		padding-right: 15px;
+		padding-top: 20px;
+	}
+}
+
+.stats-item {
+	line-height: 3em;
+	border-bottom: #f2f2f2 solid 1px;
+}
+
+.trans-counter {
+	position: relative;
+	left: -33px;
+	bottom: 12px;
+	height: 25px;
+	width: 25px;
+	border-radius: 20px;
+	box-shadow: 0 0 29px rgba(0, 3, 10, 0.14);
+	background-color: #1dc9f3;
+	text-align: center;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 400;
+	vertical-align: middle;
+	line-height: 25px;
+}
+
+#app-menu-bar::before {
+	margin-top: 5px;
+	margin-left: 15px;
+	content: 'VERGE Wallet 0.0.3 (alpha)';
+	color: #3f5e78;
+}
+
+.modal-content {
+	background-color: transparent !important;
+	border: none !important;
+	color: white !important;
+	opacity: 1 !important;
+}
+
+.close {
+	text-shadow: transparent;
+}
+
+#app,
+.account-bar {
+	max-height: 200px;
+	min-height: 200px;
+	padding-top: 2%;
+	background-color: #00b8dc;
+	background-image: linear-gradient(
+		-86deg,
+		#1db6dc 0%,
+		#1db6dc 20%,
+		#25c5ed 46%,
+		#0fa2c6 75%,
+		#0fa2c6 100%
+	);
+}
+
+.content-container {
+	height: 475px;
+	border: 1px solid #d3d9dd;
+	background-color: #e7ebee;
+}
+
+.topbar {
+	background-color: #001d29;
 }
 
 #root {
@@ -38,24 +121,37 @@ body {
 
 .button-header {
 	padding-top: 20px;
-	background-color: #003d58;
+	background-color: transparent;
 	width: 100%;
 	padding-right: 5%;
 }
 
 .spacer {
-	margin-top: 40px;
+	padding: 10px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	&:nth-child(even) {
+		background-color: #f9f9f9;
+	}
 }
 
-#footer {
-	width: 100%;
-	font-size: 12px;
-	bottom: 0;
+.statistic {
 	position: absolute;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	background-color: #003d58;
-	color: #fff;
+	top: 243px;
+	left: 755px;
+	height: 450px;
+	width: 400px !important;
+	background-color: #fff;
+	border-radius: 7px;
+}
+
+.footer {
+	font-size: 15px;
+	font-weight: 500;
+	background-color: transparent;
+	color: #a7b6c1;
+	position: absolute;
+	bottom: 20px;
+	left: 30px;
 }
 
 .footer-block {
@@ -83,6 +179,18 @@ body {
 	background-color: #ccc;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
+}
+
+.trans-details {
+	background-color: transparent;
+	color: #999999;
+	font-size: 15px;
+	line-height: 1.65em;
+
+	a {
+		color: #999999 !important;
+		text-decoration: underline #999999;
+	}
 }
 
 .slider:before {
@@ -197,8 +305,8 @@ input:checked + .slider:before {
 
 #electron-app-title-bar {
 	height: 28px;
-	background: #002637;
-	border-bottom: 1px solid #000;
+	background: #001d29;
+	border-bottom: 1px solid #002d41;
 	-webkit-app-region: drag;
 	flex-grow: 0;
 	flex-shrink: 0;
@@ -733,4 +841,65 @@ input:checked + .slider:before {
 ::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+
+.switch input {
+	display: none;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #15344a;
+	color: #779ab3;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: '';
+	height: 20px;
+	width: 20px;
+	left: 7px;
+	bottom: 7px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	box-shadow: 0 0 5px rgba(0, 184, 220, 0.26);
+	background-color: #00b8dc;
+}
+
+input:checked + .slider {
+	background-color: #15344a !important;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #15344a !important;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(66px) !important;
+	-ms-transform: translateX(66px) !important;
+	transform: translateX(66px) !important;
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
 }

@@ -7,9 +7,19 @@ import {
 	DropdownMenu,
 	DropdownItem,
 } from 'reactstrap'
+import {
+	Button,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Input,
+} from 'reactstrap'
 import WifiIcon from 'react-material-icon-svg/dist/WifiIcon'
 import WifiOffIcon from 'react-material-icon-svg/dist/WifiOffIcon'
 import Menu from 'react-material-icon-svg/dist/MenuIcon'
+import UnLock from 'react-material-icon-svg/dist/CheckIcon'
+import Lock from 'react-material-icon-svg/dist/LockIcon'
 import LoadingIcon from './LoadingIcon'
 import T from 'i18n-react'
 
@@ -19,14 +29,23 @@ export default class Header extends Component {
 	constructor(props) {
 		super(props)
 		this.toggle = this.toggle.bind(this)
+		this.toggleUnlock = this.toggleUnlock.bind(this)
 		this.state = {
 			dropdownOpen: false,
+			modal: false,
+			stealthToggle: false,
 		}
 	}
 
 	toggle() {
 		this.setState({
 			dropdownOpen: !this.state.dropdownOpen,
+		})
+	}
+
+	toggleUnlock() {
+		this.setState({
+			modal: !this.state.modal,
 		})
 	}
 
@@ -37,6 +56,12 @@ export default class Header extends Component {
 			: 0
 	}
 
+	updateStealth() {
+		this.setState({
+			stealthToggle: !this.state.stealthToggle,
+		})
+	}
+
 	getBlockSyncInfo() {
 		return this.props.AccountInformationStore.info &&
 			this.props.AccountInformationStore.info.info
@@ -45,22 +70,62 @@ export default class Header extends Component {
 						this.props.AccountInformationStore.info.info
 							.highestBlock *
 						100
-			  ).toFixed(3)} % ${T.translate('header.synced')}`
+			  ).toFixed(2)} % ${T.translate('header.synced')}`
 			: T.translate('header.notsyncing')
 	}
 
 	render() {
 		return (
-			<div
-				className="container-fluid"
-				style={{
-					boxShadow:
-						'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-				}}
-			>
+			<div className="container-fluid topbar">
+				<Modal
+					isOpen={this.state.modal}
+					toggle={this.toggleUnlock}
+					className={this.props.className}
+					centered={true}
+					style={{ color: '#fff' }}
+				>
+					<ModalHeader
+						style={{ backgroundColor: '#006994' }}
+						toggle={this.toggleUnlock}
+					>
+						Unlock your wallet
+					</ModalHeader>
+					<ModalBody
+						style={{ background: '#003d58', padding: '10% 10%' }}
+					>
+						<p>Make sure that nobody can see your input.</p>
+						<div>
+							<Input
+								type="password"
+								name="password"
+								id="passpharse"
+								placeholder="Passphrase"
+							/>
+						</div>
+					</ModalBody>
+					<ModalFooter style={{ backgroundColor: '#006994' }}>
+						<Button
+							style={{
+								background: '#003d58',
+								border: 'none',
+							}}
+							onClick={this.toggleUnlock}
+						>
+							Unlock
+						</Button>{' '}
+						<Button
+							style={{
+								background: '#000',
+								border: 'none',
+							}}
+							onClick={this.toggleUnlock}
+						>
+							Cancel
+						</Button>
+					</ModalFooter>
+				</Modal>
 				<div className="row">
-					<div className="col-md-1" />
-					<div className="col-md-1">
+					<div className="col-md-1" style={{ marginLeft: '20px' }}>
 						<Dropdown
 							isOpen={this.state.dropdownOpen}
 							toggle={this.toggle}
@@ -73,7 +138,7 @@ export default class Header extends Component {
 									margin: '0 auto',
 									display: 'inline-block',
 									verticalAlign: 'middle',
-									paddingTop: '21%',
+									paddingTop: '18%',
 								}}
 							>
 								<Menu
@@ -99,7 +164,10 @@ export default class Header extends Component {
 							</DropdownMenu>
 						</Dropdown>
 					</div>
-					<div className="col-md-8 text-center">
+					<div
+						className="col-md-1 text-center"
+						style={{ left: '-40px' }}
+					>
 						<div
 							style={{
 								display: 'inline-block',
@@ -118,6 +186,30 @@ export default class Header extends Component {
 								alt="verge logo"
 							/>
 						</div>
+					</div>
+					<div className="col-md-5" />
+					<div
+						onClick={this.toggleUnlock}
+						className="col-md-1"
+						style={{
+							textAlign: 'center',
+							display: 'block',
+							margin: 'auto',
+							float: 'right',
+						}}
+					>
+						<span
+							style={{
+								paddingTop: '10px',
+								display: 'block',
+								margin: 'auto',
+							}}
+						>
+							<Lock style={{ fill: 'white' }} />
+						</span>
+						<font color="white" style={{ fontSize: '8px' }}>
+							Locked
+						</font>
 					</div>
 					<div
 						className="col-md-1"
@@ -169,6 +261,34 @@ export default class Header extends Component {
 							{this.getConnectionInfo()}{' '}
 							{T.translate('header.connection')}
 						</font>
+					</div>
+					<div
+						className="col-md-1"
+						style={{ paddingTop: '16px', marginRight: '60px' }}
+					>
+						<label className="switch" style={{ width: '100px' }}>
+							<input
+								type="checkbox"
+								checked={this.state.stealthToggle}
+								onClick={this.updateStealth.bind(this)}
+							/>
+							<span
+								className="slider round"
+								style={{
+									fontSize: 12,
+									textAlign: this.state.stealthToggle
+										? 'left'
+										: 'right',
+									paddingTop: '8px',
+									paddingLeft: '5px',
+									paddingRight: '5px',
+								}}
+							>
+								{this.state.stealthToggle
+									? 'Stealth ON'
+									: 'Stealth OFF'}
+							</span>
+						</label>
 					</div>
 				</div>
 			</div>

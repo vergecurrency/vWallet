@@ -8,7 +8,8 @@ import logo from '../assets/images/verge-symbol.png'
 // import '../resources/css/menu_wave.css';
 import T from 'i18n-react'
 import { inject, observer } from 'mobx-react'
-
+import ContentContainer from './ContentContainer'
+import AccountBar from '../components/AccountBar'
 @inject('SettingsStore')
 @observer
 export default class App extends Component {
@@ -18,10 +19,11 @@ export default class App extends Component {
 		T.setTexts(dictionary)
 		return (
 			<div className="main-layer">
-				<TitleBar disableMaximize={true} icon={logo} />
+				<TitleBar disableMaximize={true} menu={[]} />
 				<Header />
-				{this.props.children}
-				<Footer />
+				<AccountBar />
+				<ContentContainer>{this.props.children}</ContentContainer>
+				{/*<Footer />*/}
 			</div>
 		)
 	}

@@ -1,22 +1,28 @@
 import { observable, action, computed } from 'mobx'
+const ElectronStore = require('electron-store')
+const electronStore = new ElectronStore({
+	encryptionKey: new Buffer('vergecurrency'),
+})
 
 class SettingsStore {
 	@observable
 	settings = {
-		locale: 'English',
-		currency: 'USD',
-		symbol: '$',
-		localeId: 'en',
+		name: electronStore.get('name', 'English'),
+		currency: electronStore.get('currency', 'USD'),
+		symbol: electronStore.get('symbol', '$'),
+		locale: electronStore.get('locale', 'en-US'),
+		localeId: electronStore.get('localeId', 'en'),
 	}
 
 	@action
 	setSettingOption = option => {
+		electronStore.set(option.key, option.value)
 		this.settings[option.key] = option.value
 	}
 
 	@computed
-	get getLocale() {
-		return this.settings.locale
+	get getName() {
+		return this.settings.name
 	}
 
 	@computed
@@ -31,6 +37,11 @@ class SettingsStore {
 	@computed
 	get getLocaleId() {
 		return this.settings.localeId
+	}
+
+	@computed
+	get getLocale() {
+		return this.settings.locale
 	}
 }
 

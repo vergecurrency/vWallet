@@ -10,42 +10,40 @@ import T from 'i18n-react'
 export default class TransactionList extends Component {
 	render() {
 		return (
-			<div style={{ paddingTop: '5%', paddingBottom: '5%' }}>
+			<div
+				style={{
+					paddingLeft: '2%',
+					paddingRight: '2%',
+				}}
+				className="transaction-list"
+			>
+				<div className="trans-counter">
+					{this.props.TransactionStore.transactions.length}
+				</div>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h2 style={{ color: '#fff' }}>
+							<div className="trans-title">
 								{T.translate('transaction.list')}:
-							</h2>{' '}
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="scrollbar scrollbar-primary transaction-list-top">
-					<div
-						className="container"
-						style={{ overflowY: 'scroll', height: '100%' }}
-					>
+				<hr />
+				<div
+					className="scrollbar scrollbar-primary transaction-list-top"
+					style={{
+						overflowY: 'auto',
+						maxHeight: '340px',
+						minHeight: '340px',
+					}}
+				>
+					<div className="container">
 						{this.props.TransactionStore.transactions
 							.sort((a, b) => a.time <= b.time)
 							.map(transaction => (
 								<div className="row spacer" key={uuidv1()}>
-									<div className="col-md-8">
-										<Transaction {...transaction} />
-									</div>
-									<div
-										className="col-md-4"
-										style={{ textAlign: 'right' }}
-									>
-										<p style={{ color: 'white' }}>
-											{transaction.amount} XVG
-										</p>
-										<p style={{ color: 'white' }}>
-											{transaction.confirmations}{' '}
-											{T.translate(
-												'transaction.confirmations'
-											)}
-										</p>
-									</div>
+									<Transaction {...transaction} />
 								</div>
 							))}
 					</div>
