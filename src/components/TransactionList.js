@@ -10,26 +10,23 @@ import T from 'i18n-react'
 export default class TransactionList extends Component {
 	render() {
 		return (
-			<div
-				style={{
-					paddingLeft: '2%',
-					paddingRight: '2%',
-				}}
-				className="transaction-list"
-			>
+			<div className="transaction-list">
 				<div className="trans-counter">
 					{this.props.TransactionStore.transactions.length}
 				</div>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<div className="trans-title">
+							<div
+								className="trans-title"
+								style={{ paddingLeft: '10px' }}
+							>
 								{T.translate('transaction.list')}:
 							</div>
 						</div>
 					</div>
 				</div>
-				<hr />
+				<hr style={{ margin: '0px 0px' }} />
 				<div
 					className="scrollbar scrollbar-primary transaction-list-top"
 					style={{

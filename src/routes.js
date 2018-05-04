@@ -16,31 +16,17 @@ import TransactionStore from './stores/TransactionStore'
 import AccountInformationStore from './stores/AccountInformationStore'
 import SettingsStore from './stores/SettingsStore'
 import { Client } from 'verge-node-typescript'
+import ThemeProvider from 'styled-components'
 
 class RedirectHome extends Component {
 	render() {
 		return <Redirect to="/" />
 	}
 }
-const client = new Client({ user: 'kyon', pass: 'lolcat' })
+
+const theme = {}
 
 export default class Routes extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = { connectionThere: false }
-	}
-
-	componentDidMount() {
-		setInterval(() => {
-			client
-				.getInfo()
-				.then(() => {
-					this.setState({ connectionThere: true })
-				})
-				.catch(() => this.setState({ connectionThere: false }))
-		})
-	}
-
 	render() {
 		const props = this.props
 		return (

@@ -5,6 +5,7 @@ import AccountBar from './AccountBar'
 import PriceUpdater from './PriceUpdater'
 import Footer from './Footer'
 import Statistics from './Statistics'
+
 export default class Home extends Component {
 	// TODO: FILL
 	render() {
@@ -12,6 +13,7 @@ export default class Home extends Component {
 			<div>
 				<TransactionList />
 				<Statistics />
+				<PriceUpdater />
 				<Footer />
 			</div>
 		)

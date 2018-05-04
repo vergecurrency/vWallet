@@ -19,13 +19,17 @@ const getAccountInfo = () =>
 		.catch(console.error)
 
 class AccountInformationStore {
-	@observable info = {}
+	@observable
+	info = {
+		balance: 0,
+	}
 
 	constructor() {
 		setInterval(() => {
 			getAccountInfo()
 				.then(info => {
-					this.info = { ...this.info, info }
+					console.log(info)
+					this.info = { ...this.info, ...info }
 				})
 				.catch(console.error)
 		}, 5000)
@@ -34,6 +38,10 @@ class AccountInformationStore {
 	@computed
 	get getUpdatedInfo() {
 		return this.info
+	}
+
+	get getBalance() {
+		return this.info.balance
 	}
 }
 

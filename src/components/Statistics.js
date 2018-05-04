@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import tr from 'tor-request'
-
+import PriceUpdater from './PriceUpdater'
 tr.setTorAddress('localhost', 9089)
 
 @inject('SettingsStore')
@@ -74,40 +74,54 @@ export default class Statistics extends Component {
 		)
 		return (
 			<div className="container statistic">
-				<div className="row">
+				<div
+					className="row"
+					style={{ borderBottom: '#f2f2f2 solid 1px' }}
+				>
 					<div
 						className="col-md-12"
 						style={{ marginTop: '25px', marginLeft: '15px' }}
 					>
-						<div className="trans-title">Price Statistics</div>
+						<div
+							className="trans-title"
+							style={{ color: '#003b54' }}
+						>
+							Price Statistics
+						</div>
 					</div>
 				</div>
-				<hr />
 				<div className="row stats-item">
 					<div className="col-md-5">
 						XVG/{this.props.SettingsStore.getCurrency} Price
 					</div>
-					<div className="col-md-7">
+					<div className="col-md-7 info">
 						{formatter.format(this.state.price)}
 					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">Market Cap</div>
-					<div className="col-md-7">
+					<div className="col-md-7 info">
 						{bigNumber.format(this.state.cap)}
 					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">1 hour change</div>
-					<div className="col-md-7">{this.state.hourChange} %</div>
+					<div className="col-md-7 info">
+						{this.state.hourChange} %
+					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">24 hour change</div>
-					<div className="col-md-7">{this.state.dayChange} %</div>
+					<div className="col-md-7 info">
+						{this.state.dayChange} %
+					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">CMC Postion</div>
-					<div className="col-md-7">{this.state.rank}.</div>
+					<div className="col-md-7 info">{this.state.rank}.</div>
+				</div>
+				<div className="row stats-item chart">
+					<div className="col-md-5">7-days Chart</div>
 				</div>
 			</div>
 		)

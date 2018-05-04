@@ -63,6 +63,7 @@ export default class Transaction extends Component {
 						style={{
 							color: 'white',
 							fontWeight: 'bold',
+							marginTop: '8px',
 						}}
 					>
 						{category.includes('receive') ? (
@@ -216,17 +217,3 @@ export default class Transaction extends Component {
 		)
 	}
 }
-/*
-
-<div>
-				{category.includes('receive')
-					? `Received from ${address.substring(0, 10)} ...`
-					: `Sent to ${address.substring(0, 10)} ...`}{' '}
-				<div
-					className="col-md-2"
-					style={{ color: 'white', fontWeight: 'bold' }}
-				>
-					TXID:{txid.substring(0, 10)}...
-				</div>
-
-				*/

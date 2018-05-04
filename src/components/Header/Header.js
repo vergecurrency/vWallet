@@ -1,27 +1,16 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+
 import { inject, observer } from 'mobx-react'
-import {
-	Dropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-} from 'reactstrap'
-import {
-	Button,
-	Modal,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	Input,
-} from 'reactstrap'
+
+import UnlockPanel from '../modal/UnlockPanel'
 import WifiIcon from 'react-material-icon-svg/dist/WifiIcon'
 import WifiOffIcon from 'react-material-icon-svg/dist/WifiOffIcon'
-import Menu from 'react-material-icon-svg/dist/MenuIcon'
+
 import UnLock from 'react-material-icon-svg/dist/CheckIcon'
 import Lock from 'react-material-icon-svg/dist/LockIcon'
-import LoadingIcon from './LoadingIcon'
+import LoadingIcon from '../LoadingIcon'
 import T from 'i18n-react'
+import BurgerMenu from './BurgerMenu'
 
 @inject('AccountInformationStore')
 @observer
@@ -51,8 +40,8 @@ export default class Header extends Component {
 
 	getConnectionInfo() {
 		return this.props.AccountInformationStore.info &&
-			this.props.AccountInformationStore.info.info
-			? this.props.AccountInformationStore.info.info.connections
+			this.props.AccountInformationStore.info.connections
+			? this.props.AccountInformationStore.info.connections
 			: 0
 	}
 
@@ -64,11 +53,10 @@ export default class Header extends Component {
 
 	getBlockSyncInfo() {
 		return this.props.AccountInformationStore.info &&
-			this.props.AccountInformationStore.info.info
+			this.props.AccountInformationStore.info.blocks
 			? `${Number(
-					this.props.AccountInformationStore.info.info.blocks /
-						this.props.AccountInformationStore.info.info
-							.highestBlock *
+					this.props.AccountInformationStore.info.blocks /
+						this.props.AccountInformationStore.info.highestBlock *
 						100
 			  ).toFixed(2)} % ${T.translate('header.synced')}`
 			: T.translate('header.notsyncing')
@@ -77,92 +65,16 @@ export default class Header extends Component {
 	render() {
 		return (
 			<div className="container-fluid topbar">
-				<Modal
-					isOpen={this.state.modal}
-					toggle={this.toggleUnlock}
-					className={this.props.className}
-					centered={true}
-					style={{ color: '#fff' }}
-				>
-					<ModalHeader
-						style={{ backgroundColor: '#006994' }}
-						toggle={this.toggleUnlock}
-					>
-						Unlock your wallet
-					</ModalHeader>
-					<ModalBody
-						style={{ background: '#003d58', padding: '10% 10%' }}
-					>
-						<p>Make sure that nobody can see your input.</p>
-						<div>
-							<Input
-								type="password"
-								name="password"
-								id="passpharse"
-								placeholder="Passphrase"
-							/>
-						</div>
-					</ModalBody>
-					<ModalFooter style={{ backgroundColor: '#006994' }}>
-						<Button
-							style={{
-								background: '#003d58',
-								border: 'none',
-							}}
-							onClick={this.toggleUnlock}
-						>
-							Unlock
-						</Button>{' '}
-						<Button
-							style={{
-								background: '#000',
-								border: 'none',
-							}}
-							onClick={this.toggleUnlock}
-						>
-							Cancel
-						</Button>
-					</ModalFooter>
-				</Modal>
+				<UnlockPanel
+					open={this.state.modal}
+					toggle={this.toggleUnlock.bind(this)}
+				/>
 				<div className="row">
 					<div className="col-md-1" style={{ marginLeft: '20px' }}>
-						<Dropdown
-							isOpen={this.state.dropdownOpen}
-							toggle={this.toggle}
-						>
-							<DropdownToggle
-								style={{
-									backgroundColor: 'inherit',
-									borderColor: 'transparent',
-									boxShadow: 'none',
-									margin: '0 auto',
-									display: 'inline-block',
-									verticalAlign: 'middle',
-									paddingTop: '18%',
-								}}
-							>
-								<Menu
-									style={{
-										color: 'white',
-										fill: 'white',
-										height: '32px',
-										width: '32px',
-									}}
-								/>
-							</DropdownToggle>
-							<DropdownMenu>
-								<Link to="/">
-									<DropdownItem>
-										{T.translate('header.menu.wallet')}
-									</DropdownItem>
-								</Link>
-								<Link to="/settings">
-									<DropdownItem>
-										{T.translate('header.menu.settings')}
-									</DropdownItem>
-								</Link>
-							</DropdownMenu>
-						</Dropdown>
+						<BurgerMenu
+							dropdownOpen={this.state.dropdownOpen}
+							toggle={this.toggle.bind(this)}
+						/>
 					</div>
 					<div
 						className="col-md-1 text-center"
@@ -205,11 +117,17 @@ export default class Header extends Component {
 								margin: 'auto',
 							}}
 						>
-							<Lock style={{ fill: 'white' }} />
+							<Lock style={{ fill: '#467698' }} />
 						</span>
-						<font color="white" style={{ fontSize: '8px' }}>
+						<div
+							style={{
+								fontSize: '8px',
+								paddingBottom: '10px',
+								color: '#467698',
+							}}
+						>
 							Locked
-						</font>
+						</div>
 					</div>
 					<div
 						className="col-md-1"
@@ -228,9 +146,15 @@ export default class Header extends Component {
 						>
 							<LoadingIcon />
 						</span>
-						<font color="white" style={{ fontSize: '8px' }}>
+						<div
+							style={{
+								fontSize: '8px',
+								paddingBottom: '10px',
+								color: '#467698',
+							}}
+						>
 							{this.getBlockSyncInfo()}
-						</font>
+						</div>
 					</div>
 					<div
 						className="col-md-1"
@@ -240,7 +164,7 @@ export default class Header extends Component {
 							margin: 'auto',
 						}}
 					>
-						<span
+						<div
 							style={{
 								paddingTop: '10px',
 								display: 'block',
@@ -248,19 +172,21 @@ export default class Header extends Component {
 							}}
 						>
 							{this.getConnectionInfo() <= 0 ? (
-								<WifiOffIcon
-									style={{ color: 'white', fill: 'white' }}
-								/>
+								<WifiOffIcon style={{ fill: '#467698' }} />
 							) : (
-								<WifiIcon
-									style={{ color: 'white', fill: 'white' }}
-								/>
+								<WifiIcon style={{ fill: '#467698' }} />
 							)}
-						</span>
-						<font color="white" style={{ fontSize: '8px' }}>
+						</div>
+						<div
+							style={{
+								fontSize: '8px',
+								paddingBottom: '10px',
+								color: '#467698',
+							}}
+						>
 							{this.getConnectionInfo()}{' '}
 							{T.translate('header.connection')}
-						</font>
+						</div>
 					</div>
 					<div
 						className="col-md-1"
