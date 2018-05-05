@@ -104,7 +104,7 @@ export default class SendPanel extends React.Component {
 		const props = this.props
 		return (
 			<Modal {...props} title="Send XVG">
-				<Title>Reciepent Address</Title>
+				<Title>Recipient Address</Title>
 				<InputContainer>
 					<InputHandler
 						value={this.state.address}

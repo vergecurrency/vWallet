@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default () => (
+export default ({ height, width, color }) => (
 	/* <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL --> */
 	<svg
-		width="24"
-		height="24"
+		width={width ? width : '24'}
+		height={height ? height : '24'}
 		viewBox="0 0 38 38"
 		xmlns="http://www.w3.org/2000/svg"
-		stroke="#467698"
+		stroke={color ? color : '#467698'}
 	>
 		<g fill="none" fillRule="evenodd">
 			<g transform="translate(1 1)" strokeWidth="2">

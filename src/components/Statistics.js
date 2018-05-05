@@ -4,52 +4,9 @@ import tr from 'tor-request'
 import PriceUpdater from './PriceUpdater'
 tr.setTorAddress('localhost', 9089)
 
-@inject('SettingsStore')
+@inject('SettingsStore', 'CoinStatsStore')
 @observer
 export default class Statistics extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			price: 'Loading ...',
-			cap: '',
-			hourChange: '',
-			dayChange: '',
-			weekChange: '',
-			rank: 1,
-		}
-	}
-
-	componentDidMount() {
-		setInterval(() => {
-			tr.request(
-				`https://api.coinmarketcap.com/v1/ticker/verge/?convert=${
-					this.props.SettingsStore.getCurrency
-				}`,
-				(err, res, body) => {
-					if (!err && res.statusCode === 200) {
-						console.log(body)
-						const [resJson] = JSON.parse(body)
-						const currency = this.props.SettingsStore.getCurrency
-						this.setState({
-							price: Number(
-								`${resJson[`price_${currency.toLowerCase()}`]}`
-							),
-							price_btc: resJson.price_btc,
-							rank: resJson.rank,
-							cap: Number(
-								resJson[`market_cap_${currency.toLowerCase()}`]
-							),
-							hourChange: resJson.percent_change_1h,
-							dayChange: resJson.percent_change_24h,
-						})
-					} else {
-						console.error(err)
-					}
-				}
-			)
-		}, 5000)
-	}
-
 	render() {
 		const formatter = new Intl.NumberFormat(
 			this.props.SettingsStore.getLocale,
@@ -95,30 +52,36 @@ export default class Statistics extends Component {
 						XVG/{this.props.SettingsStore.getCurrency} Price
 					</div>
 					<div className="col-md-7 info">
-						{formatter.format(this.state.price)}
+						{formatter.format(
+							this.props.CoinStatsStore.getUpdatedStats.price
+						)}
 					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">Market Cap</div>
 					<div className="col-md-7 info">
-						{bigNumber.format(this.state.cap)}
+						{bigNumber.format(
+							this.props.CoinStatsStore.getUpdatedStats.cap
+						)}
 					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">1 hour change</div>
 					<div className="col-md-7 info">
-						{this.state.hourChange} %
+						{this.props.CoinStatsStore.getUpdatedStats.hourChange} %
 					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">24 hour change</div>
 					<div className="col-md-7 info">
-						{this.state.dayChange} %
+						{this.props.CoinStatsStore.getUpdatedStats.dayChange} %
 					</div>
 				</div>
 				<div className="row stats-item">
 					<div className="col-md-5">CMC Postion</div>
-					<div className="col-md-7 info">{this.state.rank}.</div>
+					<div className="col-md-7 info">
+						{this.props.CoinStatsStore.getUpdatedStats.rank}.
+					</div>
 				</div>
 				<div className="row stats-item chart">
 					<div className="col-md-5">7-days Chart</div>

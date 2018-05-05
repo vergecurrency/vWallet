@@ -1,13 +1,14 @@
 'use strict'
 
 // Import parts of electron to use
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let loadingWindow
 
 // Keep a reference for dev mode
 let dev = false
@@ -50,7 +51,15 @@ function createWindow() {
 	mainWindow.loadURL(indexPath)
 
 	// Don't show until we are ready and loaded
-	mainWindow.once('ready-to-show', () => {
+	/*mainWindow.once('ready-to-show', () => {
+		mainWindow.show()
+		// Open the DevTools automatically if developing
+		if (dev) {
+			mainWindow.webContents.openDevTools()
+		}
+	})*/
+
+	mainWindow.once('finalized-loading', () => {
 		mainWindow.show()
 		// Open the DevTools automatically if developing
 		if (dev) {
@@ -67,12 +76,69 @@ function createWindow() {
 	})
 }
 
-console.log(app.getPath('userData'))
+function createLoadingWindow() {
+	// Create the browser window.
+	loadingWindow = new BrowserWindow({
+		width: 825,
+		height: 576,
+		show: false,
+		frame: false,
+		icon: __dirname + '/verge.ico',
+		resizable: false,
+		fullscreenable: false,
+	})
+
+	// and load the index.html of the app.
+	let indexPath
+	if (dev && process.argv.indexOf('--noDevServer') === -1) {
+		indexPath = url.format({
+			protocol: 'http:',
+			host: 'localhost:8080',
+			pathname: 'loading.html',
+			slashes: true,
+		})
+	} else {
+		indexPath = url.format({
+			protocol: 'file:',
+			pathname: path.join(__dirname, 'dist', 'loading.html'),
+			slashes: true,
+		})
+	}
+	loadingWindow.loadURL(indexPath)
+
+	// Don't show until we are ready and loaded
+	loadingWindow.once('ready-to-show', () => {
+		loadingWindow.show()
+		// Open the DevTools automatically if developing
+		if (dev) {
+			loadingWindow.webContents.openDevTools()
+		}
+	})
+
+	ipcMain.once('finalized-loading', () => {
+		console.warn('triggered event :)')
+		loadingWindow.close()
+		loadingWindow = null
+
+		mainWindow.show()
+	})
+
+	// Emitted when the window is closed.
+	loadingWindow.on('closed', function() {
+		// Dereference the window object, usually you would store windows
+		// in an array if your app supports multi windows, this is the time
+		// when you should delete the corresponding element.
+		loadingWindow = null
+	})
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+	createLoadingWindow()
+	createWindow()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
