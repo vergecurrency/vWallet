@@ -48,7 +48,7 @@ const Marker = styled.span`
 	left: 423px;
 	height: 43px;
 	padding-top: 11px;
-	bottom: 266px;
+	bottom: 313px;
 	padding-left: 10px;
 	border-left: 1px solid #dcdcdc;
 	font-weight: 400;
@@ -87,59 +87,111 @@ const SendButton = styled.button`
 	line-height: 29.02px;
 `
 
-export default props => (
-	<Modal {...props} title="Send XVG">
-		<Title>Reciepent Address</Title>
-		<InputContainer>
-			<InputHandler
-				name="address"
-				id="passpharse"
-				/*style={{ width: '396px' }}*/
-				style={{ width: '460px' }}
-			/>
-			{/*<FolderButton />*/}
-		</InputContainer>
-		<SubTitle>
-			Please ONLY enter an XVG address. Funds will be lost otherwise.
-		</SubTitle>
-		<Title>Label</Title>
-		<InputHandler
-			placeholder="Example: Johns wallet address"
-			style={{ width: '460px' }}
-		/>
-		<SubTitle>
-			Enter a label for this address to add it in your addressbook.
-		</SubTitle>
-		<Title>Amount</Title>
-		<InputHandler placeholder="Enter amount" style={{ width: '460px' }} />
-		<Marker>XVG</Marker>
-		<SubTitle>Transaction fee, 0.1 XVG</SubTitle>
-		<hr />
-		<Container style={{ marginBottom: '20px' }}>
-			<Row>
-				<Col md="4">
-					<BalanceTitle>XVG in USD</BalanceTitle>
-					<Balance>$32,011.60</Balance>
-				</Col>
-				<Col md="8">
-					<BalanceTitle>Balance in XVG</BalanceTitle>
-					<Balance>280,213,000.901823 XVG</Balance>
-				</Col>
-			</Row>
-		</Container>
-		<SendButton onClick={props.toggle}>Send</SendButton>
+const FEE = 0.1
+const PRICE = 0.0872
+const BALANCE = 75124114.5167
 
-		<SubTitle
-			style={{
-				textAlign: 'center',
-				marginTop: '20px',
-				fontSize: '12px',
-				fontWeight: '400',
-				lineHeight: '19px',
-			}}
-		>
-			Doublecheck that the wallet address is correct. Verge Currency
-			cannot be held accountable for loss of XVG sent to wrong wallets.
-		</SubTitle>
-	</Modal>
-)
+export default class SendPanel extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			amount: 0,
+			address: '',
+			label: '',
+		}
+	}
+	render() {
+		const props = this.props
+		return (
+			<Modal {...props} title="Send XVG">
+				<Title>Reciepent Address</Title>
+				<InputContainer>
+					<InputHandler
+						value={this.state.address}
+						name="address"
+						id="passpharse"
+						onChange={e =>
+							this.setState({ address: e.target.value })
+						}
+						/*style={{ width: '396px' }}*/
+						style={{ width: '460px' }}
+					/>
+					{/*<FolderButton />*/}
+				</InputContainer>
+				<SubTitle>
+					Please ONLY enter an XVG address. Funds will be lost
+					otherwise.
+				</SubTitle>
+				<Title>Label</Title>
+				<InputHandler
+					placeholder="Example: Johns wallet address"
+					value={this.state.label}
+					onChange={e => this.setState({ label: e.target.value })}
+					style={{ width: '460px' }}
+				/>
+				<SubTitle>
+					Enter a label for this address to add it in your
+					addressbook.
+				</SubTitle>
+				<Title>Amount</Title>
+				<InputHandler
+					value={this.state.amount}
+					onChange={e => this.setState({ amount: e.target.value })}
+					placeholder="Enter amount"
+					style={{ width: '460px' }}
+				/>
+				<Marker>XVG</Marker>
+				<SubTitle>Transaction fee, 0.1 XVG</SubTitle>
+				<hr />
+				<Container style={{ marginBottom: '20px' }}>
+					<Row>
+						<Col md="5">
+							<BalanceTitle>XVG in USD</BalanceTitle>
+							<Balance>
+								${(BALANCE * PRICE).toLocaleString('en-US')}
+							</Balance>
+						</Col>
+						<Col md="7">
+							<BalanceTitle>Balance in XVG</BalanceTitle>
+							<Balance>
+								{BALANCE.toLocaleString('en-US')} XVG
+							</Balance>
+						</Col>
+					</Row>
+				</Container>
+				<SendButton onClick={props.toggle}>
+					Send{' '}
+					{this.state.amount
+						? `${(this.state.amount - FEE).toLocaleString(
+								'en-US'
+						  )} XVG ($${(this.state.amount * PRICE).toLocaleString(
+								'en-US'
+						  )})`
+						: ''}
+				</SendButton>
+
+				<SubTitle style={{ textAlign: 'center', color: '#476b84' }}>
+					Your wallet balance after the transaction:{' '}
+					<b>
+						{(BALANCE - this.state.amount).toLocaleString('en-US')}{' '}
+						XVG
+					</b>
+				</SubTitle>
+				<hr />
+				<SubTitle
+					style={{
+						textAlign: 'center',
+						marginTop: '20px',
+						fontSize: '12px',
+						fontWeight: '400',
+						lineHeight: '19px',
+					}}
+				>
+					Doublecheck that the wallet address is correct. Verge
+					Currency cannot be held accountable for loss of XVG sent to
+					wrong wallets.
+				</SubTitle>
+			</Modal>
+		)
+	}
+}
