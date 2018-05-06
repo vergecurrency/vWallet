@@ -7,15 +7,15 @@ import Footer from './Footer'
 import Statistics from './Statistics'
 
 export default class Home extends Component {
-	// TODO: FILL
-	render() {
-		return (
-			<div>
-				<TransactionList />
-				<Statistics />
-				<PriceUpdater />
-				<Footer />
-			</div>
-		)
-	}
+  // TODO: FILL
+  render() {
+    return (
+      <div>
+        <TransactionList />
+        <Statistics />
+        <PriceUpdater />
+        <Footer />
+      </div>
+    )
+  }
 }

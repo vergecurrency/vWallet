@@ -14,18 +14,18 @@ import AccountBar from '../components/AccountBar'
 @inject('SettingsStore')
 @observer
 export default class App extends Component {
-	render() {
-		const language = this.props.SettingsStore.getLocaleId
-		const dictionary = require(`../translations/${language}.json`)
-		T.setTexts(dictionary)
-		return (
-			<div className="main-layer">
-				<TitleBar disableMaximize={true} menu={[]} />
-				<Header />
-				<AccountBar />
-				<ContentContainer>{this.props.children}</ContentContainer>
-				{/*<Footer />*/}
-			</div>
-		)
-	}
+  render() {
+    const language = this.props.SettingsStore.getLocaleId
+    const dictionary = require(`../translations/${language}.json`)
+    T.setTexts(dictionary)
+    return (
+      <div className="main-layer">
+        <TitleBar disableMaximize={true} menu={[]} />
+        <Header />
+        <AccountBar />
+        <ContentContainer>{this.props.children}</ContentContainer>
+        {/*<Footer />*/}
+      </div>
+    )
+  }
 }
