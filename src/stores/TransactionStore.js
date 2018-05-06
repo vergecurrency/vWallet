@@ -2,21 +2,28 @@ import { observable, action, computed } from 'mobx'
 import { Client } from 'verge-node-typescript'
 
 class TransactionStore {
-	@observable transactions = []
+	@observable transactions = new Map()
 
 	@action
 	addTransaction = transaction => {
-		this.transactions.push(transaction)
+		this.transactions.set(transaction.txid, transaction)
 	}
 
 	@action
 	addTransactions = transactions => {
-		this.transactions = [...this.transactions, ...transactions]
+		transactions.forEach(transaction => {
+			this.transactions.set(transaction.txid, transaction)
+		})
 	}
 
 	@computed
 	get getTransactionCount() {
-		return this.transaction.lenght
+		return this.transaction.size
+	}
+
+	@computed
+	get getTransactionList() {
+		return Array.from(this.transactions.values())
 	}
 }
 

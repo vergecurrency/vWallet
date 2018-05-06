@@ -36,7 +36,7 @@ export default class TransactionList extends Component {
 					}}
 				>
 					<div className="container">
-						{this.props.TransactionStore.transactions
+						{this.props.TransactionStore.getTransactionList
 							.sort((a, b) => a.time <= b.time)
 							.map(transaction => (
 								<div className="row spacer" key={uuidv1()}>

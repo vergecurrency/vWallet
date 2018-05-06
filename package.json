@@ -5,7 +5,11 @@
 	"author": "Marvin Piekarek <marvin.piekarek5@gmail.com>",
 	"build": {
 		"appId": "org.verge.electronwallet",
-		"files": ["dist/", "main.js", "package.json"],
+		"files": [
+			"dist/",
+			"main.js",
+			"package.json"
+		],
 		"dmg": {
 			"contents": [
 				{
@@ -24,7 +28,10 @@
 			"target": "nsis"
 		},
 		"linux": {
-			"target": ["AppImage", "deb"]
+			"target": [
+				"AppImage",
+				"deb"
+			]
 		}
 	},
 	"repository": {
@@ -36,15 +43,12 @@
 	"scripts": {
 		"postinstall": "electron-builder install-app-deps",
 		"dist": "yarn run build && build --publish onTagOrDraft",
-		"prod":
-			"webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
-		"dev":
-			"webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+		"prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+		"dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
 		"build": "webpack --mode production --config=./webpack.build.config.js",
 		"package": "webpack --mode production --config webpack.build.config.js",
 		"postpackage": "electron-packager ./ --all --out=./builds --overwrite",
-		"prettify":
-			"prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
+		"prettify": "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.0",
@@ -138,6 +142,7 @@
 		"react": "^16.2.0",
 		"react-dom": "^16.2.0",
 		"react-highcharts": "^16.0.2",
+		"react-material-icon-svg": "^1.5.1",
 		"react-router": "^4.2.0",
 		"react-router-dom": "^4.2.2",
 		"reactstrap": "^5.0.0-beta.3",

@@ -8726,6 +8726,10 @@ react-lifecycles-compat@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.2.tgz#00a23160eec17a43b94dd74f95d44a1a2c3c5ec1"
 
+react-material-icon-svg@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/react-material-icon-svg/-/react-material-icon-svg-1.5.1.tgz#0469fc220ce14d53afc93ea8b7a8ba4381835741"
+
 react-popper@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.3.tgz#0f73333137c9fb0af6ec4074d2d0585a0a0461e1"

@@ -1,4 +1,5 @@
 import React from 'react'
+import T from 'i18n-react'
 import { Button, Input, Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
 import Modal from '../Modal'
