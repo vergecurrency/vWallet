@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ height, width, color }) => (
+export default ({ height, width, color, strokeWidth }) => (
 	/* <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL --> */
 	<svg
 		width={width ? width : '24'}
@@ -10,7 +10,10 @@ export default ({ height, width, color }) => (
 		stroke={color ? color : '#467698'}
 	>
 		<g fill="none" fillRule="evenodd">
-			<g transform="translate(1 1)" strokeWidth="2">
+			<g
+				transform="translate(1 1)"
+				strokeWidth={strokeWidth ? strokeWidth : '2'}
+			>
 				<circle strokeOpacity=".5" cx="18" cy="18" r="18" />
 				<path d="M36 18c0-9.94-8.06-18-18-18">
 					<animateTransform

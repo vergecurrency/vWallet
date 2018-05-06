@@ -28,4 +28,10 @@ const client = new Client({ user: 'kyon', pass: 'lolcat' })
 		store.addTransactions(transactions)
 	})
 
+setInterval(() => {
+	client.getTransactionList().then(transactions => {
+		store.addTransactions(transactions)
+	})
+}, 5000)
+
 export default store

@@ -48,6 +48,13 @@ class CoinStatsStore {
 	}
 
 	constructor() {
+		getCoinStats()
+			.then(info => {
+				console.log(info)
+				this.info = { ...this.info, ...info }
+			})
+			.catch(console.error)
+
 		setInterval(() => {
 			getCoinStats()
 				.then(info => {
@@ -55,7 +62,7 @@ class CoinStatsStore {
 					this.info = { ...this.info, ...info }
 				})
 				.catch(console.error)
-		}, 5000)
+		}, 30000)
 	}
 
 	@computed

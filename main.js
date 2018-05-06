@@ -62,9 +62,9 @@ function createWindow() {
 	mainWindow.once('finalized-loading', () => {
 		mainWindow.show()
 		// Open the DevTools automatically if developing
-		if (dev) {
+		/*if (dev) {
 			mainWindow.webContents.openDevTools()
-		}
+		}*/
 	})
 
 	// Emitted when the window is closed.
@@ -86,6 +86,7 @@ function createLoadingWindow() {
 		icon: __dirname + '/verge.ico',
 		resizable: false,
 		fullscreenable: false,
+		transparent: true,
 	})
 
 	// and load the index.html of the app.
@@ -110,9 +111,9 @@ function createLoadingWindow() {
 	loadingWindow.once('ready-to-show', () => {
 		loadingWindow.show()
 		// Open the DevTools automatically if developing
-		if (dev) {
+		/*if (dev) {
 			loadingWindow.webContents.openDevTools()
-		}
+		}*/
 	})
 
 	ipcMain.once('finalized-loading', () => {

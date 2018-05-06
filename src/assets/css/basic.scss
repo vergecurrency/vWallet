@@ -163,3 +163,10 @@ input:checked + .slider:before {
 .slider.round:before {
 	border-radius: 50%;
 }
+
+.splashy {
+	background-image: url('../images/splash@x2.jpg');
+	background-size: cover; /* <------ */
+	background-repeat: no-repeat;
+	background-position: center center;
+}

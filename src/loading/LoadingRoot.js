@@ -61,76 +61,76 @@ export default class LoadingRoot extends React.Component {
 	}
 
 	render() {
+		const mylove = this.props.CoinStatsStore.getUpdatedStats.price
 		return (
 			<Container
+				className="splashy"
 				fluid={true}
 				style={{ backgroundColor: '#121c29', height: '576px' }}
 			>
-				<span>{this.props.CoinStatsStore.getUpdatedStats.price}</span>
-				<Row style={{ maxWidth: '825px', objectFit: 'cover' }}>
-					<img
-						src={banner}
-						style={{
-							height: '450px',
-							width: '825px',
-						}}
-					/>{' '}
-				</Row>
-				<Row>
-					<Col
-						sm="3"
-						style={{
-							paddingTop: '20px',
-							paddingLeft: '30px',
-						}}
-					>
-						<Header>Official</Header>
-						<Title>
-							<Verge>Verge</Verge> Core Wallet
-						</Title>
-						<Header>version 0.0.4 (alpha)</Header>
-					</Col>
-					<Col
-						sm="6"
-						style={{
-							paddingTop: '20px',
-							paddingLeft: '20px',
-						}}
-					>
-						<Thanks>
-							Special thanks to Sunerok, CryptoRekt, Marpme,
-							Waveon3, MKinney, BearSylla, Hypermist, Pallas1,
-							FuzzBawls, BuZz, glodfinch, InfernoMan, AhmedBodi,
-							BitSpill, MentalCollatz, ekryski and the entire
-							#VERGE community!
-						</Thanks>
-						<Artwork>
-							Community artwork by{' '}
-							<Artist>Community Member @marpme_</Artist>
-						</Artwork>
-					</Col>
-					<Col
-						sm="3"
-						style={{
-							textAlign: 'right',
-							paddingTop: '20px',
-							paddingRight: '30px',
-						}}
-					>
-						{' '}
-						<div>
-							<LoadingIcon color="white" height="35" width="35" />
-						</div>
-						<img
-							src={vergeLogo}
+				<span style={{ position: 'absolute', left: '-1000px' }}>
+					{mylove}
+				</span>
+				<Row />
+				<div
+					style={{
+						marginLeft: '-15px',
+						paddingRight: '40px',
+						paddingLeft: '40px',
+						paddingTop: '32px',
+						marginTop: '426px',
+						width: '825px',
+						height: '150px',
+						backgroundColor: 'rgba(7,18,27,0.90)',
+					}}
+				>
+					<Row>
+						<Col sm="3" style={{}}>
+							<Header>Official</Header>
+							<Title>
+								<Verge>Verge</Verge> Core Wallet
+							</Title>
+							<Header>version 0.0.4 (alpha)</Header>
+						</Col>
+						<Col sm="6" style={{}}>
+							<Thanks>
+								Special thanks to Sunerok, CryptoRekt, Marpme,
+								Waveon3, MKinney, BearSylla, Hypermist, Pallas1,
+								FuzzBawls, BuZz, glodfinch, InfernoMan,
+								AhmedBodi, BitSpill, MentalCollatz, ekryski and
+								the entire #VERGE community!
+							</Thanks>
+							<Artwork>
+								Artwork by{' '}
+								<Artist>Community Member @marpme_</Artist>
+							</Artwork>
+						</Col>
+						<Col
+							sm="3"
 							style={{
-								height: 'auto',
-								width: '50%',
-								paddingTop: '10px',
+								textAlign: 'right',
 							}}
-						/>
-					</Col>
-				</Row>
+						>
+							{' '}
+							<div>
+								<LoadingIcon
+									color="white"
+									height="35"
+									width="35"
+									strokeWidth="2"
+								/>
+							</div>
+							<img
+								src={vergeLogo}
+								style={{
+									height: 'auto',
+									width: '50%',
+									paddingTop: '10px',
+								}}
+							/>
+						</Col>
+					</Row>
+				</div>
 			</Container>
 		)
 	}
