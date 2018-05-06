@@ -104,7 +104,7 @@ export default class SendPanel extends React.Component {
 		const props = this.props
 		return (
 			<Modal {...props} title="Send XVG">
-				<Title>Recipient Address</Title>
+				<Title>{T.translate('sendPanel.recipient')}</Title>
 				<InputContainer>
 					<InputHandler
 						value={this.state.address}
@@ -118,22 +118,16 @@ export default class SendPanel extends React.Component {
 					/>
 					{/*<FolderButton />*/}
 				</InputContainer>
-				<SubTitle>
-					Please ONLY enter an XVG address. Funds will be lost
-					otherwise.
-				</SubTitle>
-				<Title>Label</Title>
+				<SubTitle>{T.translate('sendPanel.fundwarning')}</SubTitle>
+				<Title>{T.translate('sendPanel.addressLabel')}</Title>
 				<InputHandler
 					placeholder="Example: Johns wallet address"
 					value={this.state.label}
 					onChange={e => this.setState({ label: e.target.value })}
 					style={{ width: '460px' }}
 				/>
-				<SubTitle>
-					Enter a label for this address to add it in your
-					addressbook.
-				</SubTitle>
-				<Title>Amount</Title>
+				<SubTitle>{T.translate('sendPanel.labelInfo')}</SubTitle>
+				<Title>{T.translate('sendPanel.amount')}</Title>
 				<InputHandler
 					value={this.state.amount}
 					onChange={e => this.setState({ amount: e.target.value })}
@@ -141,18 +135,22 @@ export default class SendPanel extends React.Component {
 					style={{ width: '460px' }}
 				/>
 				<Marker>XVG</Marker>
-				<SubTitle>Transaction fee, 0.1 XVG</SubTitle>
+				<SubTitle>{T.translate('sendPanel.amountInfo')}</SubTitle>
 				<hr />
 				<Container style={{ marginBottom: '20px' }}>
 					<Row>
 						<Col md="5">
-							<BalanceTitle>XVG in USD</BalanceTitle>
+							<BalanceTitle>
+								{T.translate('sendPanel.xvgUSD')}
+							</BalanceTitle>
 							<Balance>
 								${(BALANCE * PRICE).toLocaleString('en-US')}
 							</Balance>
 						</Col>
 						<Col md="7">
-							<BalanceTitle>Balance in XVG</BalanceTitle>
+							<BalanceTitle>
+								{T.translate('sendPanel.balanceXVG')}
+							</BalanceTitle>
 							<Balance>
 								{BALANCE.toLocaleString('en-US')} XVG
 							</Balance>
@@ -160,7 +158,7 @@ export default class SendPanel extends React.Component {
 					</Row>
 				</Container>
 				<SendButton onClick={props.toggle}>
-					Send{' '}
+					{T.translate('sendPanel.sendButton')}{' '}
 					{this.state.amount
 						? `${(this.state.amount - FEE).toLocaleString(
 								'en-US'
@@ -171,7 +169,7 @@ export default class SendPanel extends React.Component {
 				</SendButton>
 
 				<SubTitle style={{ textAlign: 'center', color: '#476b84' }}>
-					Your wallet balance after the transaction:{' '}
+					{T.translate('sendPanel.walletAfterTransaction')}{' '}
 					<b>
 						{(BALANCE - this.state.amount).toLocaleString('en-US')}{' '}
 						XVG
@@ -187,9 +185,7 @@ export default class SendPanel extends React.Component {
 						lineHeight: '19px',
 					}}
 				>
-					Doublecheck that the wallet address is correct. Verge
-					Currency cannot be held accountable for loss of XVG sent to
-					wrong wallets.
+					{T.translate('sendPanel.sendWarning')}
 				</SubTitle>
 			</Modal>
 		)

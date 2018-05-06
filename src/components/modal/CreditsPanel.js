@@ -3,6 +3,7 @@ import { Button, Input, Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
 import Modal from '../Modal'
 import github from '../../assets/images/github.png'
+import T from 'i18n-react'
 
 const Title = styled.p`
 	color: #476b84;
@@ -85,7 +86,7 @@ export default props => (
 	<Modal {...props} title="Credits">
 		<Row>
 			<Col md="6">
-				<TitleItem>Development</TitleItem>
+				<TitleItem>{T.translate('credits.development')}</TitleItem>
 			</Col>
 			<Col md="6">
 				<NameItem>Justin, @justinvendetta</NameItem>
@@ -95,7 +96,7 @@ export default props => (
 		<hr />
 		<Row>
 			<Col md="6">
-				<TitleItem>Design</TitleItem>
+				<TitleItem>{T.translate('credits.design')}</TitleItem>
 			</Col>
 			<Col md="6">
 				<NameItem>Hassan, @waveon3</NameItem>
@@ -104,7 +105,7 @@ export default props => (
 		<hr />
 		<Row>
 			<Col md="6">
-				<TitleItem>Translation</TitleItem>
+				<TitleItem>{T.translate('credits.translation')}</TitleItem>
 			</Col>
 			<Col md="6">
 				<NameItem>Marvin, @marpme_ (English/German)</NameItem>
@@ -113,7 +114,7 @@ export default props => (
 
 		<CenterContainer>
 			<ContributorButton>
-				<img src={github} /> See all Contributor
+				<img src={github} /> {T.translate('credits.contributorButton')}
 			</ContributorButton>
 		</CenterContainer>
 	</Modal>

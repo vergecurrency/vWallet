@@ -126,7 +126,9 @@ export default class Header extends Component {
 								color: '#467698',
 							}}
 						>
-							Locked
+							{false
+								? T.translate('header.unlocked')
+								: T.translate('header.locked')}
 						</div>
 					</div>
 					<div

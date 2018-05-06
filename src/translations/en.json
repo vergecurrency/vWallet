@@ -5,7 +5,19 @@
 	},
 	"transaction": {
 		"list": "Transaction List",
-		"confirmations": "confirmations"
+		"item": {
+			"receive": "You received",
+			"sent": "You sent",
+			"details": "details",
+			"close": "close",
+			"address": "Address",
+			"blockhash": "Blockhash",
+			"txid": "TXID",
+			"confirmations": "confirmations",
+			"amount": "Amount",
+			"time": "Time",
+			"timereceived": "Time received"
+		}
 	},
 	"settings": {
 		"title": "Settings Overview",
@@ -41,6 +53,56 @@
 		"menu": {
 			"wallet": "Wallet",
 			"settings": "Settings"
-		}
+		},
+		"unlocked": "unlocked",
+		"locked": "locked"
+	},
+	"unlock": {
+		"title": "Unlock your wallet",
+		"inputTitle": "Passphrase",
+		"info": "Make sure that nobody can see your input.",
+		"button": "Unlock"
+	},
+	"credits": {
+		"development": "Development",
+		"design": "Design",
+		"translation": "Translation",
+		"contributorButton": "See all Contributor"
+	},
+	"sendPanel": {
+		"recipient": "Recipient Address",
+		"fundwarning":
+			"Please ONLY enter an XVG address. Funds will be lost otherwise.",
+		"addressLabel": "Label",
+		"labelInfo":
+			"Enter a label for this address to add it in your addressbook.",
+		"amount": "Amount",
+		"amountInfo": "Transaction fee, 0.1 XVG",
+		"xvgUSD": "XVG in USD",
+		"balanceXVG": "Balance in XVG",
+		"sendButton": "Send",
+		"walletAfterTransaction": "Your wallet balance after the transaction:",
+		"sendWarning":
+			"Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets."
+	},
+	"accountbar": {
+		"xvgbalance": "XVG BALANCE",
+		"xvgusd": "XVG IN USD",
+		"xvgprice": "XVG PRICE"
+	},
+	"footer": {
+		"wallet": "Official Verge Wallet",
+		"explorer": "Go to Blockchain Explorer",
+		"donate": "Donate",
+		"credits": "Credits"
+	},
+	"statistics": {
+		"title": "Price Statistics",
+		"price": "Price",
+		"cap": "Market Cap",
+		"hourchange": "1 hour change",
+		"daychange": "24 hour change",
+		"cmc": "CMC Position",
+		"chart": "7-days Chart"
 	}
 }

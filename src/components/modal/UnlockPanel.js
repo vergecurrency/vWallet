@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Input, Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
 import Modal from '../Modal'
+import T from 'i18n-react'
 
 const Title = styled.p`
 	color: #476b84;
@@ -42,17 +43,15 @@ const UnlockButton = styled.button`
 `
 
 export default props => (
-	<Modal {...props} title="Unlock your wallet">
-		<Title>Passphrase</Title>
+	<Modal {...props} title={T.translate('unlock.title')}>
+		<Title>{T.translate('unlock.inputTitle')}</Title>
 		<InputHandler
 			type="password"
 			name="address"
 			id="passphrase"
-			/*style={{ width: '396px' }}*/
 			style={{ width: '460px' }}
 		/>
-		{/*<FolderButton />*/}
-		<SubTitle>Make sure no one can see your passphrase!</SubTitle>
-		<UnlockButton>Unlock</UnlockButton>
+		<SubTitle>{T.translate('unlock.info')}</SubTitle>
+		<UnlockButton>{T.translate('unlock.button')}</UnlockButton>
 	</Modal>
 )
