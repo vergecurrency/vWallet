@@ -18,7 +18,7 @@ class TransactionStore {
 
 	@computed
 	get getTransactionCount() {
-		return this.transaction.size
+		return this.transactions.size
 	}
 
 	@computed

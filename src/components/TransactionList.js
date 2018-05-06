@@ -12,7 +12,7 @@ export default class TransactionList extends Component {
 		return (
 			<div className="transaction-list">
 				<div className="trans-counter">
-					{this.props.TransactionStore.transactions.length}
+					{this.props.TransactionStore.getTransactionCount}
 				</div>
 				<div className="container">
 					<div className="row">
