@@ -55,7 +55,9 @@
 			"settings": "Settings"
 		},
 		"unlocked": "unlocked",
-		"locked": "locked"
+		"locked": "locked",
+		"on": "ON",
+		"off": "OFF"
 	},
 	"unlock": {
 		"title": "Unlock your wallet",

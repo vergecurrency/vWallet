@@ -23,6 +23,13 @@ const locales = [
 		symbol: '$',
 		locale: 'en-US',
 	},
+	{
+		name: 'Dansk',
+		localeId: 'da',
+		currency: 'DKK',
+		symbol: 'DKK',
+		locale: 'da-DK',
+	},
 ]
 
 @inject('SettingsStore')

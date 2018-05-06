@@ -194,7 +194,7 @@ export default class Header extends Component {
 						className="col-md-1"
 						style={{ paddingTop: '16px', marginRight: '60px' }}
 					>
-						<label className="switch" style={{ width: '100px' }}>
+						<label className="switch" style={{ width: '120px' }}>
 							<input
 								type="checkbox"
 								checked={this.state.stealthToggle}
@@ -208,13 +208,13 @@ export default class Header extends Component {
 										? 'left'
 										: 'right',
 									paddingTop: '8px',
-									paddingLeft: '5px',
-									paddingRight: '5px',
+									paddingLeft: '10px',
+									paddingRight: '10px',
 								}}
 							>
 								{this.state.stealthToggle
-									? 'Stealth ON'
-									: 'Stealth OFF'}
+									? 'Stealth ' + T.translate('header.on')
+									: 'Stealth ' + T.translate('header.off')}
 							</span>
 						</label>
 					</div>

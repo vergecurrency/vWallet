@@ -5,19 +5,12 @@ import T from 'i18n-react'
 import send from '../assets/images/send.png'
 import receive from '../assets/images/receive.png'
 import SendPanel from './modal/SendPanel'
-const formatter = new Intl.NumberFormat('en-US', {
-	style: 'currency',
-	currency: 'USD',
-	minimumFractionDigits: 2,
+import ElectronStore from 'electron-store'
+const electronStore = new ElectronStore({
+	encryptionKey: new Buffer('vergecurrency'),
 })
 
-const XVGformatter = new Intl.NumberFormat('en-US', {
-	style: 'currency',
-	currency: 'USD',
-	minimumFractionDigits: 5,
-})
-
-@inject('SettingsStore', 'AccountInformationStore')
+@inject('SettingsStore', 'AccountInformationStore', 'CoinStatsStore')
 @observer
 export default class AccountBar extends Component {
 	constructor(props) {
@@ -34,6 +27,30 @@ export default class AccountBar extends Component {
 	}
 
 	render() {
+		const formatter = new Intl.NumberFormat(electronStore.get('locale'), {
+			style: 'currency',
+			currency: electronStore.get('currency'),
+			minimumFractionDigits: 2,
+		})
+
+		const formatterPrice = new Intl.NumberFormat(
+			electronStore.get('locale'),
+			{
+				style: 'currency',
+				currency: electronStore.get('currency'),
+				minimumFractionDigits: 5,
+			}
+		)
+
+		const XVGformatter = new Intl.NumberFormat(
+			electronStore.get('locale'),
+			{
+				style: 'currency',
+				currency: electronStore.get('currency'),
+				minimumFractionDigits: 5,
+			}
+		)
+
 		return (
 			<div className="container-fluid account-bar">
 				<SendPanel
@@ -82,7 +99,9 @@ export default class AccountBar extends Component {
 								fontSize: '10px',
 							}}
 						>
-							{T.translate('accountbar.xvgusd')}
+							{T.translate('accountbar.xvgusd', {
+								currency: this.props.SettingsStore.getCurrency,
+							})}
 						</font>
 						<h4 style={{ color: '#fff' }}>
 							{formatter.format(
@@ -110,7 +129,9 @@ export default class AccountBar extends Component {
 							{T.translate('accountbar.xvgprice')}
 						</font>
 						<h4 style={{ color: '#fff' }}>
-							{XVGformatter.format(this.state.usd_exchange)}
+							{formatterPrice.format(
+								this.props.CoinStatsStore.getUpdatedStats.price
+							)}
 						</h4>
 					</div>
 					<div
