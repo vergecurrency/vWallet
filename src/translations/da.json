@@ -41,9 +41,9 @@
 			}
 		},
 		"region": {
-			"name": "Region/Sprog",
+			"name": "Region",
 			"explain":
-				"Vælg region/sprog, for at få vist din XVG beholding i din lokale valuta og decimal seperering."
+				"Vælg region, for at få vist din XVG beholding i din lokale valuta og decimal seperering."
 		}
 	},
 	"header": {

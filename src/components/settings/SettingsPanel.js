@@ -1,10 +1,56 @@
 import React, { Component } from 'react'
-import RegionSetting from './RegionSetting'
+import SettingsItems from './settingitems'
 import Keymap from './keymaps/Keymap'
 import T from 'i18n-react'
 import { inject, observer } from 'mobx-react'
+import styled from 'styled-components'
+import uuid from 'uuid'
 
-const settingOptions = [RegionSetting]
+import settingIcon from '../../assets/images/settings.png'
+import commandIcon from '../../assets/images/command.png'
+
+const settingOptions = [...SettingsItems]
+
+const SettingPanel = styled.div`
+	position: absolute;
+	background-color: #fff;
+	bottom: 330px;
+	left: 30px;
+	border-radius: 0.3em;
+`
+
+const KeymapPanel = styled.div`
+	position: absolute;
+	background-color: #fff;
+	bottom: 30px;
+	left: 30px;
+	border-radius: 0.3em;
+`
+
+const Title = styled.span`
+	color: #003b54;
+	font-size: 23px;
+	font-weight: 500;
+	line-height: 54.93px;
+`
+
+const TitleIcon = styled.img`
+	height: 24px;
+	width: 24px;
+	margin-right: 10px;
+	margin-top: -5px;
+`
+
+const KeymapIcon = styled.img`
+	height: 20px;
+	width: 20px;
+	margin-right: 10px;
+	margin-top: -5px;
+`
+
+const HeaderTitle = styled.div`
+	border-bottom: 1px solid #eeeeee;
+`
 
 @inject('SettingsStore')
 @observer
@@ -32,44 +78,31 @@ export default class SettingsPanel extends Component {
 
 	render() {
 		return (
-			<div className="container" style={{ paddingTop: '75px' }}>
-				<h3 style={{ color: 'white' }}>
-					{T.translate('settings.title')}
-				</h3>
-				<div className="row">
-					<div className="container-fluid">
-						<div className="row">
-							<div className="col-md-4" />
-							<div className="col-md-2" />
-							<div className="col-md-6">
-								<h5 style={{ color: 'white' }}>
-									{T.translate('settings.explaination')}
-								</h5>
-							</div>
+			<div>
+				<SettingPanel className="container">
+					<HeaderTitle>
+						<TitleIcon src={settingIcon} />
+						<Title>{T.translate('settings.title')}</Title>
+					</HeaderTitle>
+					<div className="row">
+						<div className="container-fluid">
+							{settingOptions.map(Item => <Item />)}
 						</div>
-						{settingOptions.map(Item => <Item />)}
 					</div>
-				</div>
-				<hr />
-				<h3 style={{ color: 'white' }}>
-					{T.translate('settings.keymap')}
-				</h3>
-				<div className="row">
-					<div className="container-fluid">
-						<div className="row">
-							<div className="col-md-4" />
-							<div className="col-md-2" />
-							<div className="col-md-6">
-								<h5 style={{ color: 'white' }}>
-									{T.translate('settings.usage')}
-								</h5>
-							</div>
+				</SettingPanel>
+				<KeymapPanel className="container">
+					<HeaderTitle>
+						<KeymapIcon src={commandIcon} />
+						<Title>{T.translate('settings.keymap')}</Title>
+					</HeaderTitle>
+					<div className="row">
+						<div className="container-fluid">
+							{this.getKeyMaps().map(keyItem => (
+								<Keymap key={uuid()} {...keyItem} />
+							))}
 						</div>
-						{this.getKeyMaps().map(keyItem => (
-							<Keymap {...keyItem} />
-						))}
 					</div>
-				</div>
+				</KeymapPanel>
 			</div>
 		)
 	}

@@ -41,9 +41,14 @@
 			}
 		},
 		"region": {
-			"name": "Region/Language",
+			"name": "Region",
 			"explain":
-				"This switches locales not only languages. For example does it switch currencies formats from USD to EUR"
+				"This switches language to the chosen one. Choose wisely."
+		},
+		"currency": {
+			"name": "Currency",
+			"explain":
+				"This switches the currency your wallet is calculated for. For example: it switches currencies formats from USD to EUR"
 		}
 	},
 	"header": {
@@ -80,7 +85,7 @@
 			"Enter a label for this address to add it in your addressbook.",
 		"amount": "Amount",
 		"amountInfo": "Transaction fee, 0.1 XVG",
-		"xvgUSD": "XVG in USD",
+		"xvgUSD": "XVG in {currency}",
 		"balanceXVG": "Balance in XVG",
 		"sendButton": "Send",
 		"walletAfterTransaction": "Your wallet balance after the transaction:",
@@ -89,7 +94,7 @@
 	},
 	"accountbar": {
 		"xvgbalance": "XVG BALANCE",
-		"xvgusd": "XVG IN USD",
+		"xvgusd": "XVG IN {currency}",
 		"xvgprice": "XVG PRICE"
 	},
 	"footer": {

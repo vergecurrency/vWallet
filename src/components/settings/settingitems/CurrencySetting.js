@@ -7,30 +7,29 @@ import {
 	DropdownItem,
 } from 'reactstrap'
 import T from 'i18n-react'
+import styled from 'styled-components'
 
 const locales = [
 	{
-		name: 'German',
-		localeId: 'de',
 		currency: 'EUR',
-		symbol: '€',
 		locale: 'de-DE',
 	},
 	{
-		name: 'English',
-		localeId: 'en',
 		currency: 'USD',
-		symbol: '$',
 		locale: 'en-US',
 	},
 	{
-		name: 'Dansk',
-		localeId: 'da',
 		currency: 'DKK',
-		symbol: 'DKK',
 		locale: 'da-DK',
 	},
 ]
+
+const Row = styled.div`
+	display: flex;
+	align-content: center;
+	align-items: center;
+	height: 75px;
+`
 
 @inject('SettingsStore')
 @observer
@@ -51,15 +50,16 @@ export default class RegionSetting extends Component {
 
 	render() {
 		return (
-			<div className="row" style={{ height: '75px' }}>
+			<Row className="row">
 				<div className="col-md-4">
 					<font
 						style={{
-							color: 'white',
-							fontFamily: 'AvenirNextLTW01Bold',
+							color: '#476b84',
+							fontSize: 18,
+							fontWeight: 500,
 						}}
 					>
-						{T.translate('settings.region.name')}
+						{T.translate('settings.currency.name')}
 					</font>
 				</div>
 				<div className="col-md-2">
@@ -71,12 +71,13 @@ export default class RegionSetting extends Component {
 							caret
 							style={{
 								backgroundColor: 'transparent',
-								borderColor: '#fff',
-								boxShadow: 'none',
+								border: '1 solid #dcdcdc',
+								boxShadow: 'inset 0 1 4 rgba(0, 0, 0, 0.09)',
 								margin: '0 auto',
+								color: '#5b5a5a',
 							}}
 						>
-							{this.props.SettingsStore.getLocale}
+							{this.props.SettingsStore.getCurrency}
 						</DropdownToggle>
 						<DropdownMenu>
 							{locales.map(locale => (
@@ -84,26 +85,8 @@ export default class RegionSetting extends Component {
 									onClick={() => {
 										this.props.SettingsStore.setSettingOption(
 											{
-												key: 'name',
-												value: locale.name,
-											}
-										)
-										this.props.SettingsStore.setSettingOption(
-											{
 												key: 'currency',
 												value: locale.currency,
-											}
-										)
-										this.props.SettingsStore.setSettingOption(
-											{
-												key: 'symbol',
-												value: locale.symbol,
-											}
-										)
-										this.props.SettingsStore.setSettingOption(
-											{
-												key: 'localeId',
-												value: locale.localeId,
 											}
 										)
 										this.props.SettingsStore.setSettingOption(
@@ -114,7 +97,16 @@ export default class RegionSetting extends Component {
 										)
 									}}
 								>
-									{locale.name}
+									{locale.currency}{' '}
+									<em>
+										({new Intl.NumberFormat(locale.locale, {
+											style: 'currency',
+											currency: locale.currency,
+											minimumFractionDigits: 2,
+											// the default value for minimumFractionDigits depends on the currency
+											// and is usually already 2
+										}).format(1234567.089)})
+									</em>
 								</DropdownItem>
 							))}
 						</DropdownMenu>
@@ -123,14 +115,16 @@ export default class RegionSetting extends Component {
 				<div className="col-md-6">
 					<font
 						style={{
-							color: 'lightgray',
+							color: '#647e90',
+							fontSize: 15,
+							fontStyle: 'italic',
 							fontFamily: 'AvenirNextLTW01Italic',
 						}}
 					>
-						{T.translate('settings.region.explain')}
+						{T.translate('settings.currency.explain')}
 					</font>
 				</div>
-			</div>
+			</Row>
 		)
 	}
 }

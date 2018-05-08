@@ -11,8 +11,6 @@ import App from './containers/App'
 import HomePage from './containers/HomePage'
 import SettingsPage from './containers/SettingsPage'
 import LoadingRoot from './loading/LoadingRoot'
-import MainRoute from './mainRoute'
-import Welcome from './welcomeguide/Welcome'
 
 import { Provider } from 'mobx-react'
 import TransactionStore from './stores/TransactionStore'
@@ -38,28 +36,19 @@ const WrapWithApp = Site => {
 	)
 }
 
-export default class Routes extends React.Component {
+export default class MainRoute extends React.Component {
 	render() {
 		const props = this.props
 		return (
-			<Router history={props.history}>
-				<Provider
-					TransactionStore={TransactionStore}
-					AccountInformationStore={AccountInformationStore}
-					SettingsStore={SettingsStore}
-					CoinStatsStore={CoinStatsStore}
-				>
-					{!window.location.href.includes('loading.html') ? (
-						true == true ? (
-							<Welcome />
-						) : (
-							<MainRoute />
-						)
-					) : (
-						<LoadingRoot />
-					)}
-				</Provider>
-			</Router>
+			<Switch>
+				<Route exact path="/" component={WrapWithApp(HomePage)} />
+				<Route
+					exact
+					path="/settings"
+					component={WrapWithApp(SettingsPage)}
+				/>
+				<Route component={WrapWithApp(RedirectHome)} />
+			</Switch>
 		)
 	}
 }
