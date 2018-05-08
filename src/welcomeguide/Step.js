@@ -25,6 +25,14 @@ const Title = styled.p`
 	color: #00b8dc;
 `
 
+const SmallTitle = styled.p`
+	height: 61px;
+	color: #ffffff;
+	font-size: 60px;
+	font-weight: 400;
+	margin-bottom: 40px;
+`
+
 const SubTitle = styled.p`
 	color: #fcf1eb;
 	font-size: 43px;
@@ -32,12 +40,16 @@ const SubTitle = styled.p`
 	margin-bottom: 45px;
 `
 
-export default ({ title, subtitle, ...props }) => {
+export default ({ title, subtitle, small, ...props }) => {
 	return (
 		<div>
 			<TitleBar disableMaximize={true} menu={[]} />
 			<Background>
-				<Title>{title}</Title>
+				{!small ? (
+					<Title>{title}</Title>
+				) : (
+					<SmallTitle>{title}</SmallTitle>
+				)}
 				<SubTitle>{subtitle}</SubTitle>
 				{props.children}
 			</Background>

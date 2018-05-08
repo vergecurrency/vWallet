@@ -2,6 +2,7 @@ import React from 'react'
 import { TitleBar } from 'electron-react-titlebar'
 import styled from 'styled-components'
 import Step from './Step'
+import { Link } from 'react-router-dom'
 
 const NewButton = styled.button`
 	border-radius: 4px;
@@ -34,8 +35,12 @@ export default props => {
 	return (
 		<Step title={'Hello!'} subtitle={'Lets set up your XVG wallet.'}>
 			<div>
-				<NewButton>Create new wallet</NewButton>
-				<RestoreButton>Restore your wallet</RestoreButton>
+				<Link to="/wallet/create">
+					<NewButton>Create new wallet</NewButton>
+				</Link>
+				<Link to="/wallet/restore">
+					<RestoreButton>Restore your wallet</RestoreButton>
+				</Link>
 			</div>
 		</Step>
 	)
