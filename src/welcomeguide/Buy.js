@@ -3,6 +3,7 @@ import { TitleBar } from "electron-react-titlebar";
 import styled from "styled-components";
 import Step from "./Step";
 import { Link } from "react-router-dom";
+import { shell } from "electron";
 
 const NewButton = styled.button`
   border-radius: 4px;
@@ -31,16 +32,35 @@ const RestoreButton = styled.button`
   line-height: 33.78px;
 `;
 
+const LinkInfo = styled.div`
+  color: #456884;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 33.78px;
+  padding-right: 402px;
+`;
+
 export default props => {
   return (
-    <Step title={"Hello!"} subtitle={"Lets set up your XVG wallet."}>
+    <Step
+      title={"Buy and deposit XVG"}
+      subtitle={"See our `Get Started` guide on how to get coins."}
+      history={props.history}
+      small
+    >
       <div>
-        <Link to="/wallet/create">
-          <NewButton>Create new wallet</NewButton>
+        <NewButton
+          onClick={() =>
+            shell.openExternal("https://vergecurrency.com/get-started/")
+          }
+        >
+          Open the Guide
+        </NewButton>
+
+        <Link to="/finalize">
+          <RestoreButton>Continue</RestoreButton>
         </Link>
-        <Link to="/wallet/restore">
-          <RestoreButton>Restore your wallet</RestoreButton>
-        </Link>
+        <LinkInfo>Opens a new link in your browser</LinkInfo>
       </div>
     </Step>
   );

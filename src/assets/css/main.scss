@@ -2,194 +2,210 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-@import 'fonts';
-@import 'highchart';
-@import 'basic';
-@import 'appbar';
+@import "fonts";
+@import "highchart";
+@import "basic";
+@import "appbar";
 
 body {
-	background-color: #152f36;
-	color: #fff;
-	//height: 700px;
+  background-color: #152f36;
+  color: #fff;
+  //height: 700px;
 
-	font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif !important;
+  font-family: "AvenirNextLTW01Regular", Helvetica, sans-serif !important;
 }
 
 .logo {
-	content: url('../images/verge-logo-white.png');
+  content: url("../images/verge-logo-white.png");
 }
 
 .big-button {
-	padding: 5% 5%;
-	border: 2px solid #fff;
-	min-width: 150px;
-	border-radius: 5px;
-	color: #fff;
+  padding: 5% 5%;
+  border: 2px solid #fff;
+  min-width: 150px;
+  border-radius: 5px;
+  color: #fff;
 }
 
 .transaction-list {
-	position: relative;
-	bottom: 50px;
-	left: 40px;
-	width: 670px;
-	height: 450px;
-	border-radius: 7px;
-	background-color: #ffffff;
-	color: #003b54 !important;
+  position: relative;
+  bottom: 50px;
+  left: 40px;
+  width: 670px;
+  height: 450px;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #003b54 !important;
 }
 
 .trans-title {
-	font-size: 30px;
-	height: 45px;
-	padding-bottom: 59px;
+  font-size: 30px;
+  height: 45px;
+  padding-bottom: 59px;
 
-	&::before {
-		content: url('../images/layers.png');
-		padding-right: 15px;
-		padding-top: 20px;
-	}
+  &::before {
+    content: url("../images/layers.png");
+    padding-right: 15px;
+    padding-top: 20px;
+  }
 }
 
 .stats-item {
-	line-height: 3em;
-	border-bottom: #f2f2f2 solid 1px;
-	color: #476b84;
-	.info {
-		font-weight: 700;
-	}
+  line-height: 3em;
+  border-bottom: #f2f2f2 solid 1px;
+  color: #476b84;
+  .info {
+    font-weight: 700;
+  }
 
-	&.chart {
-		border-bottom: none;
-	}
+  &.chart {
+    border-bottom: none;
+  }
 }
 
 .trans-counter {
-	position: relative;
-	left: -12px;
-	bottom: 12px;
-	height: 25px;
-	width: 25px;
-	border-radius: 20px;
-	box-shadow: 0 0 29px rgba(0, 3, 10, 0.14);
-	background-color: #1dc9f3;
-	text-align: center;
-	color: #fff;
-	font-size: 12px;
-	font-weight: 400;
-	vertical-align: middle;
-	line-height: 25px;
+  position: relative;
+  left: -12px;
+  bottom: 12px;
+  height: 25px;
+  width: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 29px rgba(0, 3, 10, 0.14);
+  background-color: #1dc9f3;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  vertical-align: middle;
+  line-height: 25px;
 }
 
 #app-menu-bar::before {
-	margin-top: 5px;
-	margin-left: 15px;
-	content: 'VERGE Wallet 0.0.3 (alpha)';
-	color: #3f5e78;
+  margin-top: 5px;
+  margin-left: 15px;
+  content: "VERGE Wallet 0.0.3 (alpha)";
+  color: #3f5e78;
 }
 
 .modal-content {
-	background-color: transparent !important;
-	border: none !important;
-	color: white !important;
-	opacity: 1 !important;
+  background-color: transparent !important;
+  border: none !important;
+  color: white !important;
+  opacity: 1 !important;
 }
 
 .close {
-	text-shadow: transparent;
+  text-shadow: transparent;
 }
 
 #app,
 .account-bar {
-	max-height: 200px;
-	min-height: 200px;
-	padding-top: 35px;
-	background-color: #00b8dc;
-	background-image: linear-gradient(
-		-86deg,
-		#1db6dc 0%,
-		#1db6dc 20%,
-		#25c5ed 46%,
-		#0fa2c6 75%,
-		#0fa2c6 100%
-	);
+  max-height: 200px;
+  min-height: 200px;
+  padding-top: 35px;
+  background-color: #00b8dc;
+  background-image: linear-gradient(
+    -86deg,
+    #1db6dc 0%,
+    #1db6dc 20%,
+    #25c5ed 46%,
+    #0fa2c6 75%,
+    #0fa2c6 100%
+  );
 }
 
 .content-container {
-	height: 475px;
-	border: 1px solid #d3d9dd;
-	background-color: #e7ebee;
+  height: 475px;
+  border: 1px solid #d3d9dd;
+  background-color: #e7ebee;
 }
 
 .topbar {
-	background-color: #07121b;
+  background-color: #07121b;
 }
 
 #root {
-	height: 100%;
+  height: 100%;
 }
 
 #root > div {
-	height: 100%;
+  height: 100%;
 }
 
 .button-header {
-	padding-top: 20px;
-	background-color: transparent;
-	width: 100%;
-	padding-right: 5%;
+  padding-top: 20px;
+  background-color: transparent;
+  width: 100%;
+  padding-right: 5%;
 }
 
 .spacer {
-	padding: 10px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	&:nth-child(even) {
-		background-color: #f9f9f9;
-	}
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  &:nth-child(even) {
+    background-color: #f9f9f9;
+  }
 }
 
 .statistic {
-	position: absolute;
-	top: 243px;
-	left: 755px;
-	height: 450px;
-	width: 400px !important;
-	background-color: #fff;
-	border-radius: 7px;
+  position: absolute;
+  top: 243px;
+  left: 755px;
+  height: 450px;
+  width: 400px !important;
+  background-color: #fff;
+  border-radius: 7px;
 }
 
 .footer {
-	font-size: 13px;
-	font-weight: 500;
-	background-color: transparent;
-	color: #a7b6c1;
-	position: absolute;
-	bottom: 25px;
-	left: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: transparent;
+  color: #a7b6c1;
+  position: absolute;
+  bottom: 25px;
+  left: 30px;
 }
 
 .footer-block {
-	margin: 10px 0;
+  margin: 10px 0;
 }
 
 .switch {
-	position: relative;
-	display: inline-block;
-	width: 60px;
-	height: 34px;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
 }
 
 .switch input {
-	display: none;
+  display: none;
 }
 
 .trans-details {
-	background-color: transparent;
-	color: #999999;
-	font-size: 15px;
-	line-height: 1.65em;
+  background-color: transparent;
+  color: #999999;
+  font-size: 15px;
+  line-height: 1.65em;
 
-	a {
-		color: #999999 !important;
-		text-decoration: underline #999999;
-	}
+  a {
+    color: #999999 !important;
+    text-decoration: underline #999999;
+  }
+}
+
+.st0 {
+  fill: none;
+  stroke: #67b5f6;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.st2 {
+  fill: none;
+  stroke: #506f89;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
