@@ -7,11 +7,15 @@ import arrowdown from "../assets/images/arrowdown.png";
 import { renderReporter, propTypes } from "mobx-react";
 import { shell } from "electron";
 import { isStringTextContainingNode } from "typescript";
-
+import styled from "styled-components";
 const XVGformatter = new Intl.NumberFormat("en-US", {
   style: "decimal",
   minimumFractionDigits: 5
 });
+
+const TextContainer = styled.div`
+  color: ${props => (props.theme.light ? "#999999;" : "#7193ae;")};
+`;
 
 export default class Transaction extends Component {
   constructor(props) {
@@ -36,33 +40,25 @@ export default class Transaction extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-1">
-            <div
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#999999"
-              }}
-            >
+            <TextContainer>
               {moment
                 .unix(timereceived)
                 .format("MMM")
                 .toUpperCase()}
-            </div>
-            <div
+            </TextContainer>
+            <TextContainer
               style={{
                 fontWeight: "300",
                 fontSize: "22px",
-                lineHeight: "1.25",
-                color: "#cacaca"
+                lineHeight: "1.25"
               }}
             >
               {moment.unix(timereceived).format("DD")}
-            </div>
+            </TextContainer>
           </div>
-          <div
+          <TextContainer
             className="col-md-2"
             style={{
-              color: "white",
               fontWeight: "bold",
               marginTop: "8px"
             }}
@@ -72,11 +68,10 @@ export default class Transaction extends Component {
             ) : (
               <img src={outgoing} />
             )}
-          </div>
+          </TextContainer>
           <div
             className="col-md-7"
             style={{
-              color: "white",
               fontWeight: "bold",
               color: category.includes("receive") ? "#00917a" : "#dc2b3d",
               textAlign: "right",
@@ -88,9 +83,8 @@ export default class Transaction extends Component {
               {category.includes("receive") ? "+" : ""}
               {amount.toFixed(2).toLocaleString("en-US")} XVG
             </div>
-            <div
+            <TextContainer
               style={{
-                color: "#999999",
                 fontSize: "12px",
                 fontWeight: "400",
                 letterSpacing: "1px"
@@ -101,7 +95,7 @@ export default class Transaction extends Component {
                   ? T.translate("transaction.item.receive")
                   : T.translate("transaction.item.sent")}
               </font>
-            </div>
+            </TextContainer>
           </div>
           {blockhash ? (
             <div
@@ -119,21 +113,21 @@ export default class Transaction extends Component {
                   }}
                 />
               </div>
-              <font style={{ fontSize: "10px", color: "#999999" }}>
+              <TextContainer style={{ fontSize: "10px" }}>
                 {this.state.hide
                   ? T.translate("transaction.item.details")
                   : T.translate("transaction.item.close")}
-              </font>
+              </TextContainer>
             </div>
           ) : (
             <div
               className="col-md-2"
-              style={{ textAlign: "center", marginTop: "10px" }}
+              style={{ textAlign: "center", marginTop: "15px" }}
             >
               {" "}
-              <font style={{ fontSize: "10px", color: "#999999" }}>
+              <TextContainer style={{ fontSize: "10px" }}>
                 Out of sync
-              </font>
+              </TextContainer>
             </div>
           )}
         </div>

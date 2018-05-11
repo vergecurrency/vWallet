@@ -19,7 +19,7 @@ import AccountInformationStore from "./stores/AccountInformationStore";
 import SettingsStore from "./stores/SettingsStore";
 import CoinStatsStore from "./stores/CoinStatsStore";
 import { Client } from "verge-node-typescript";
-import ThemeProvider from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 class RedirectHome extends Component {
   render() {
@@ -41,24 +41,26 @@ export default class Routes extends React.Component {
   render() {
     const props = this.props;
     return (
-      <Router history={createHashHistory()}>
-        <Provider
-          TransactionStore={TransactionStore}
-          AccountInformationStore={AccountInformationStore}
-          SettingsStore={SettingsStore}
-          CoinStatsStore={CoinStatsStore}
-        >
-          {!window.location.href.includes("loading.html") ? (
-            electronStore.get("setupOpen", true) ? (
-              <Tour />
+      <ThemeProvider theme={theme}>
+        <Router history={createHashHistory()}>
+          <Provider
+            TransactionStore={TransactionStore}
+            AccountInformationStore={AccountInformationStore}
+            SettingsStore={SettingsStore}
+            CoinStatsStore={CoinStatsStore}
+          >
+            {!window.location.href.includes("loading.html") ? (
+              electronStore.get("setupOpen", true) ? (
+                <Tour />
+              ) : (
+                <MainRoute />
+              )
             ) : (
-              <MainRoute />
-            )
-          ) : (
-            <LoadingRoot />
-          )}
-        </Provider>
-      </Router>
+              <LoadingRoot />
+            )}
+          </Provider>
+        </Router>
+      </ThemeProvider>
     );
   }
 }

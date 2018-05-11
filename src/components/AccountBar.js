@@ -9,6 +9,26 @@ import ElectronStore from "electron-store";
 const electronStore = new ElectronStore({
   encryptionKey: new Buffer("vergecurrency")
 });
+import styled from "styled-components";
+
+const AccountBarContainer = styled.div`
+  max-height: 200px;
+  min-height: 200px;
+  padding-top: 35px;
+  ${props =>
+    props.theme.light
+      ? `
+   background-color: #00b8dc;
+   background-image: linear-gradient(
+    -86deg,
+    #1db6dc 0%,
+    #1db6dc 20%,
+    #25c5ed 46%,
+    #0fa2c6 75%,
+    #0fa2c6 100%
+  );`
+      : `background-color: #0d1f2d;`};
+`;
 
 @inject("SettingsStore", "AccountInformationStore", "CoinStatsStore")
 @observer
@@ -55,7 +75,7 @@ export default class AccountBar extends Component {
     );
 
     return (
-      <div className="container-fluid account-bar">
+      <AccountBarContainer className="container-fluid">
         <SendPanel open={this.state.sendOpen} toggle={this.toggleSend} />
         <div className="row">
           <div
@@ -182,7 +202,7 @@ export default class AccountBar extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </AccountBarContainer>
     );
   }
 }

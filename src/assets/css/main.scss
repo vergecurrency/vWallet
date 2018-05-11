@@ -39,10 +39,6 @@ body {
 }
 
 .trans-title {
-  font-size: 30px;
-  height: 45px;
-  padding-bottom: 59px;
-
   &::before {
     content: url("../images/layers.png");
     padding-right: 15px;
