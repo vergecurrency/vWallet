@@ -10,6 +10,7 @@ import Welcome from "./Welcome";
 import PasswordCreate from "./wallet/PasswordCreate";
 import PasswordConfirm from "./wallet/PasswordConfirm";
 import Buy from "./Buy";
+
 export default props => {
   return (
     <Switch>
