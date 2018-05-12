@@ -1,10 +1,10 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React, { Component } from 'react'
 import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
 } from 'react-router-dom'
 import { createHashHistory } from 'history'
 import App from './containers/App'
@@ -21,34 +21,34 @@ import { Client } from 'verge-node-typescript'
 import ThemeProvider from 'styled-components'
 
 class RedirectHome extends Component {
-	render() {
-		return <Redirect to="/" />
-	}
+  render() {
+    return <Redirect to="/" />
+  }
 }
 
 const theme = {}
 
 const WrapWithApp = Site => {
-	return () => (
-		<App>
-			<Site />
-		</App>
-	)
+  return () => (
+    <App>
+      <Site />
+    </App>
+  )
 }
 
 export default class MainRoute extends React.Component {
-	render() {
-		const props = this.props
-		return (
-			<Switch>
-				<Route exact path="/" component={WrapWithApp(HomePage)} />
-				<Route
-					exact
-					path="/settings"
-					component={WrapWithApp(SettingsPage)}
-				/>
-				<Route component={WrapWithApp(RedirectHome)} />
-			</Switch>
-		)
-	}
+  render() {
+    const props = this.props
+    return (
+      <Switch>
+        <Route exact path="/" component={WrapWithApp(HomePage)} />
+        <Route
+          exact
+          path="/settings"
+          component={WrapWithApp(SettingsPage)}
+        />
+        <Route component={WrapWithApp(RedirectHome)} />
+      </Switch>
+    )
+  }
 }

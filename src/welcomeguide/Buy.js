@@ -4,10 +4,6 @@ import styled from "styled-components";
 import Step from "./Step";
 import { Link } from "react-router-dom";
 import { shell } from "electron";
-import ElectronStore from "electron-store";
-const electronStore = new ElectronStore({
-  encryptionKey: new Buffer("vergecurrency")
-});
 
 const NewButton = styled.button`
   border-radius: 4px;
@@ -61,10 +57,9 @@ export default props => {
           Open the Guide
         </NewButton>
 
-        <RestoreButton onClick={() => electronStore.set("setupOpen", false)}>
-          Continue
-        </RestoreButton>
-
+        <Link to="/finalize">
+          <RestoreButton>Continue</RestoreButton>
+        </Link>
         <LinkInfo>Opens a new link in your browser</LinkInfo>
       </div>
     </Step>
