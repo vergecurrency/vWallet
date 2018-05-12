@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const SvgComponent = props => (
   <svg
@@ -8,7 +8,7 @@ const SvgComponent = props => (
     x="0px"
     y="0px"
     viewBox="0 0 24 24"
-    style={{ enableBackground: "new 0 0 24 24" }}
+    style={{ enableBackground: 'new 0 0 24 24' }}
     xmlSpace="preserve"
     {...props}
   >
@@ -18,6 +18,6 @@ const SvgComponent = props => (
     />
     <polyline className="st0" points="22,4 12,14 9,11 " />
   </svg>
-);
+)
 
-export default SvgComponent;
+export default SvgComponent

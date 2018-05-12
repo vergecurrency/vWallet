@@ -1,8 +1,8 @@
-import React from "react";
-import { TitleBar } from "electron-react-titlebar";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import logo from "../assets/images/verge-logo-white.png";
+import React from 'react'
+import { TitleBar } from 'electron-react-titlebar'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import logo from '../assets/images/verge-logo-white.png'
 
 const Background = styled.div`
   background-color: #07121b;
@@ -17,7 +17,7 @@ const Background = styled.div`
   align-content: center;
   align-items: center;
   display: grid;
-`;
+`
 
 const Title = styled.p`
   color: #fcf1eb;
@@ -25,7 +25,7 @@ const Title = styled.p`
   font-weight: 400;
   /* Text style for "Hello" */
   color: #00b8dc;
-`;
+`
 
 const SmallTitle = styled.p`
   height: 61px;
@@ -33,28 +33,28 @@ const SmallTitle = styled.p`
   font-size: 60px;
   font-weight: 400;
   margin-bottom: 40px;
-`;
+`
 
 const SubTitle = styled.p`
   color: #fcf1eb;
   font-size: 43px;
   font-weight: 500;
   margin-bottom: 45px;
-`;
+`
 
 const LogoFix = styled.div`
   position: fixed;
   bottom: 40px;
   left: 60px;
   color: #fff;
-`;
+`
 
 const BackLink = styled.div`
   position: fixed;
   bottom: 40px;
   right: 60px;
   color: #fff;
-`;
+`
 
 export default ({ title, subtitle, small, component, history, ...props }) => {
   return (
@@ -69,10 +69,10 @@ export default ({ title, subtitle, small, component, history, ...props }) => {
         </LogoFix>
         {history ? (
           <BackLink>
-            <a onClick={() => history.goBack()}>{"< Back"}</a>
+            <a onClick={() => history.goBack()}>{'< Back'}</a>
           </BackLink>
         ) : null}
       </Background>
     </div>
-  );
-};
+  )
+}

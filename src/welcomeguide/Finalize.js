@@ -1,35 +1,35 @@
-import React from "react";
-import { TitleBar } from "electron-react-titlebar";
-import styled from "styled-components";
-import Step from "./Step";
-import { Link, Redirect } from "react-router-dom";
-import { shell } from "electron";
-import ElectronStore from "electron-store";
+import React from 'react'
+import { TitleBar } from 'electron-react-titlebar'
+import styled from 'styled-components'
+import Step from './Step'
+import { Link, Redirect } from 'react-router-dom'
+import { shell } from 'electron'
+import ElectronStore from 'electron-store'
 const electronStore = new ElectronStore({
-  encryptionKey: new Buffer("vergecurrency")
-});
+  encryptionKey: new Buffer('vergecurrency'),
+})
 
-import Chart from "../assets/images/intronanimations/chart.gif";
-import CheckMark from "../assets/images/intronanimations/checkmark.gif";
-import Customize from "../assets/images/intronanimations/customize.gif";
-import Pencil from "../assets/images/intronanimations/pencil.gif";
-import Rocket from "../assets/images/intronanimations/rocket.gif";
-import AnimatedTarget from "./AnimationTarget";
-import { createFalse } from "typescript";
+import Chart from '../assets/images/intronanimations/chart.gif'
+import CheckMark from '../assets/images/intronanimations/checkmark.gif'
+import Customize from '../assets/images/intronanimations/customize.gif'
+import Pencil from '../assets/images/intronanimations/pencil.gif'
+import Rocket from '../assets/images/intronanimations/rocket.gif'
+import AnimatedTarget from './AnimationTarget'
+import { createFalse } from 'typescript'
 
 export default class Finalize extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { id: 0, END: 4 };
-    this.interval = null;
+    super(props)
+    this.state = { id: 0, END: 4 }
+    this.interval = null
   }
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState({ id: this.state.id + 1 });
+      this.setState({ id: this.state.id + 1 })
       if (this.state.id > this.state.END) {
-        electronStore.set("setupOpen", false);
+        electronStore.set('setupOpen', false)
       }
-    }, 2000);
+    }, 2000)
   }
 
   render() {
@@ -52,6 +52,6 @@ export default class Finalize extends React.Component {
         ) : null}
         {this.state.id === 6 ? <Redirect to="/" /> : null}
       </Step>
-    );
+    )
   }
 }

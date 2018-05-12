@@ -1,8 +1,8 @@
-import React from "react";
-import { TitleBar } from "electron-react-titlebar";
-import styled from "styled-components";
-import Step from "./Step";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { TitleBar } from 'electron-react-titlebar'
+import styled from 'styled-components'
+import Step from './Step'
+import { Link } from 'react-router-dom'
 
 const NewButton = styled.button`
   border-radius: 4px;
@@ -16,7 +16,7 @@ const NewButton = styled.button`
   font-weight: 400;
   line-height: 33.78px;
   margin-right: 50px;
-`;
+`
 
 const RestoreButton = styled.button`
   border-radius: 4px;
@@ -29,11 +29,11 @@ const RestoreButton = styled.button`
   font-size: 27px;
   font-weight: 400;
   line-height: 33.78px;
-`;
+`
 
 export default props => {
   return (
-    <Step title={"Hello!"} subtitle={"Lets set up your XVG wallet."}>
+    <Step title={'Hello!'} subtitle={'Lets set up your XVG wallet.'}>
       <div>
         <Link to="/wallet/create">
           <NewButton>Create new wallet</NewButton>
@@ -43,5 +43,5 @@ export default props => {
         </Link>
       </div>
     </Step>
-  );
-};
+  )
+}

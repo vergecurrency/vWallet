@@ -5,18 +5,18 @@ const electronStore = new ElectronStore({
 })
 
 class SetupStore {
-    @observable setupOpen = !electronStore.get('setupOpen', true)
+  @observable setupOpen = !electronStore.get('setupOpen', true)
 
-    @action
-    setSetup = bool => {
-      electronStore.set('setupOpen', bool)
-      this.setupOpen = bool
-    }
+  @action
+  setSetup = bool => {
+    electronStore.set('setupOpen', bool)
+    this.setupOpen = bool
+  }
 
-    @computed
-    get getSetupStatus() {
-      return this.setupOpen
-    }
+  @computed
+  get getSetupStatus() {
+    return this.setupOpen
+  }
 }
 
 const store = new SetupStore()

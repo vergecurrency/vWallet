@@ -1,10 +1,10 @@
 // @ts-check
-import React, { Component } from "react";
-import uuidv1 from "uuid/v1";
-import Transaction from "./Transaction";
-import { inject, observer } from "mobx-react";
-import T from "i18n-react";
-import styled from "styled-components";
+import React, { Component } from 'react'
+import uuidv1 from 'uuid/v1'
+import Transaction from './Transaction'
+import { inject, observer } from 'mobx-react'
+import T from 'i18n-react'
+import styled from 'styled-components'
 
 const TransactionListContainer = styled.div`
   position: relative;
@@ -16,36 +16,36 @@ const TransactionListContainer = styled.div`
   color: #003b54 !important;
   ${props =>
     props.theme.light
-      ? "background-color: #ffffff;"
-      : "background-color: #152b3d;"};
-`;
+      ? 'background-color: #ffffff;'
+      : 'background-color: #152b3d;'};
+`
 
 const ItemContainer = styled.div`
   padding: 10px;
   border-bottom: 1px solid ${props =>
-    props.theme.light ? "rgba(0, 0, 0, 0.1);" : "rgba(238, 238, 238, 0.03);"}
+    props.theme.light ? 'rgba(0, 0, 0, 0.1);' : 'rgba(238, 238, 238, 0.03);'}
   :nth-child(even) {
     ${props =>
       props.theme.light
-        ? "background-color: #f9f9f9;"
-        : "background-color: rgba(238, 238, 238, 0.01);"};
+        ? 'background-color: #f9f9f9;'
+        : 'background-color: rgba(238, 238, 238, 0.01);'};
   }
-`;
+`
 
 const TransactionTitle = styled.div`
   font-size: 30px;
   height: 45px;
   padding-bottom: 59px;
-  ${props => (props.theme.light ? "" : "color: #fff;")};
-`;
+  ${props => (props.theme.light ? '' : 'color: #fff;')};
+`
 
 const Seperator = styled.hr`
   ${props =>
-    props.theme.light ? "" : "background-color: rgba(238, 238, 238, 0.05);"};
+    props.theme.light ? '' : 'background-color: rgba(238, 238, 238, 0.05);'};
   margin: 0px 0px;
-`;
+`
 
-@inject("TransactionStore")
+@inject('TransactionStore')
 @observer
 export default class TransactionList extends Component {
   render() {
@@ -59,9 +59,9 @@ export default class TransactionList extends Component {
             <div className="col-md-12">
               <TransactionTitle
                 className="trans-title"
-                style={{ paddingLeft: "10px" }}
+                style={{ paddingLeft: '10px' }}
               >
-                {T.translate("transaction.list")}:
+                {T.translate('transaction.list')}:
               </TransactionTitle>
             </div>
           </div>
@@ -70,9 +70,9 @@ export default class TransactionList extends Component {
         <div
           className="scrollbar scrollbar-primary transaction-list-top"
           style={{
-            overflowY: "auto",
-            maxHeight: "340px",
-            minHeight: "340px"
+            overflowY: 'auto',
+            maxHeight: '340px',
+            minHeight: '340px',
           }}
         >
           <div className="container">
@@ -86,6 +86,6 @@ export default class TransactionList extends Component {
           </div>
         </div>
       </TransactionListContainer>
-    );
+    )
   }
 }

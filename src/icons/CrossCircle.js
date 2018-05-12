@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default props => (
   <svg
@@ -8,7 +8,7 @@ export default props => (
     x="0px"
     y="0px"
     viewBox="0 0 24 24"
-    style={{ enableBackground: "new 0 0 24 24" }}
+    style={{ enableBackground: 'new 0 0 24 24' }}
     xmlSpace="preserve"
     {...props}
   >
@@ -16,4 +16,4 @@ export default props => (
     <line className="st2" x1={15} y1={9} x2={9} y2={15} />
     <line className="st2" x1={9} y1={9} x2={15} y2={15} />
   </svg>
-);
+)

@@ -1,4 +1,4 @@
-import CheckCircle from "./CheckCircle";
-import CrossCircle from "./CrossCircle";
+import CheckCircle from './CheckCircle'
+import CrossCircle from './CrossCircle'
 
-export default { CheckCircle, CrossCircle };
+export default { CheckCircle, CrossCircle }
