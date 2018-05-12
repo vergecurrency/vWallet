@@ -26,9 +26,9 @@ const ItemContainer = styled.div`
     props.theme.light ? 'rgba(0, 0, 0, 0.1);' : 'rgba(238, 238, 238, 0.03);'}
   :nth-child(even) {
     ${props =>
-      props.theme.light
-        ? 'background-color: #f9f9f9;'
-        : 'background-color: rgba(238, 238, 238, 0.01);'};
+    props.theme.light
+      ? 'background-color: #f9f9f9;'
+      : 'background-color: rgba(238, 238, 238, 0.01);'};
   }
 `
 

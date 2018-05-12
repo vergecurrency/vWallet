@@ -27,7 +27,7 @@ const AccountBarContainer = styled.div`
     #0fa2c6 75%,
     #0fa2c6 100%
   );`
-      : `background-color: #0d1f2d;`};
+      : 'background-color: #0d1f2d;'};
 `
 
 @inject('SettingsStore', 'AccountInformationStore', 'CoinStatsStore')
