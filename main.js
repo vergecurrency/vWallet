@@ -4,6 +4,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+const menubar = require('menubar')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,10 +15,36 @@ let loadingWindow
 let dev = false
 if (
   process.defaultApp ||
-    /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
-    /[\\/]electron[\\/]/.test(process.execPath)
+  /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
+  /[\\/]electron[\\/]/.test(process.execPath)
 ) {
   dev = true
+}
+
+function createTrayIcon() {
+  let indexPath
+  if (dev && process.argv.indexOf('--noDevServer') === -1) {
+    indexPath = url.format({
+      protocol: 'http:',
+      host: 'localhost:8080',
+      pathname: 'status.html',
+      slashes: true
+    })
+  } else {
+    indexPath = url.format({
+      protocol: 'file:',
+      pathname: path.join(__dirname, 'dist', 'status.html'),
+      slashes: true
+    })
+  }
+  var mb = menubar({
+    index: indexPath,
+    tooltip: 'VERGE Wallet'
+  })
+
+  mb.on('ready', function ready() {
+    console.log('app is ready')
+  })
 }
 
 function createWindow() {
@@ -29,7 +56,7 @@ function createWindow() {
     frame: false,
     icon: __dirname + '/verge.ico',
     resizable: false,
-    fullscreenable: false,
+    fullscreenable: false
   })
 
   // and load the index.html of the app.
@@ -39,13 +66,13 @@ function createWindow() {
       protocol: 'http:',
       host: 'localhost:8080',
       pathname: 'index.html',
-      slashes: true,
+      slashes: true
     })
   } else {
     indexPath = url.format({
       protocol: 'file:',
       pathname: path.join(__dirname, 'dist', 'index.html'),
-      slashes: true,
+      slashes: true
     })
   }
   mainWindow.loadURL(indexPath)
@@ -86,7 +113,7 @@ function createLoadingWindow() {
     icon: __dirname + '/verge.ico',
     resizable: false,
     fullscreenable: false,
-    transparent: true,
+    transparent: true
   })
 
   // and load the index.html of the app.
@@ -96,13 +123,13 @@ function createLoadingWindow() {
       protocol: 'http:',
       host: 'localhost:8080',
       pathname: 'loading.html',
-      slashes: true,
+      slashes: true
     })
   } else {
     indexPath = url.format({
       protocol: 'file:',
       pathname: path.join(__dirname, 'dist', 'loading.html'),
-      slashes: true,
+      slashes: true
     })
   }
   loadingWindow.loadURL(indexPath)
@@ -139,6 +166,7 @@ function createLoadingWindow() {
 app.on('ready', () => {
   createLoadingWindow()
   createWindow()
+  // createTrayIcon()
 })
 
 // Quit when all windows are closed.
@@ -156,5 +184,6 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createLoadingWindow()
     createWindow()
+    createTrayIcon()
   }
 })

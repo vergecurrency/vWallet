@@ -27,31 +27,18 @@ document.addEventListener('drop', event => event.preventDefault())
 
 const theme = {}
 
-const WrapWithApp = Site => {
-  return () => (
-    <App>
-      <Site />
-    </App>
-  )
-}
-
-export default class Routes extends React.Component {
-  render() {
-    const props = this.props
-    return (
-      <ThemeProvider theme={theme}>
-        <Router history={createHashHistory()}>
-          <Provider
-            TransactionStore={TransactionStore}
-            AccountInformationStore={AccountInformationStore}
-            SettingsStore={SettingsStore}
-            CoinStatsStore={CoinStatsStore}
-            SetupStore={SetupStore}
-          >
-            <ReRouter />
-          </Provider>
-        </Router>
-      </ThemeProvider>
-    )
-  }
-}
+export default props => (
+  <ThemeProvider theme={theme}>
+    <Router history={createHashHistory()}>
+      <Provider
+        TransactionStore={TransactionStore}
+        AccountInformationStore={AccountInformationStore}
+        SettingsStore={SettingsStore}
+        CoinStatsStore={CoinStatsStore}
+        SetupStore={SetupStore}
+      >
+        <ReRouter {...props} />
+      </Provider>
+    </Router>
+  </ThemeProvider>
+)

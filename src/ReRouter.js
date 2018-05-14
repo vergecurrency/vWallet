@@ -4,18 +4,24 @@ import LoadingRoot from './loading/LoadingRoot'
 import MainRoute from './mainRoute'
 import Tour from './welcomeguide/Tour'
 
-@observer
 @inject('SetupStore')
+@observer
 export default class ReRouter extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
-    return !window.location.href.includes('loading.html') ? (
-      this.props.SetupStore.getSetupStatus ? (
-        <Tour />
+    if (window.location.href.includes('loading.html')) {
+      return <LoadingRoot />
+    } else if (window.location.href.includes('status.html')) {
+      return <div>Hallo Welt!</div>
+    } else {
+      return !this.props.SetupStore.getSetupStatus ? (
+        <Tour {...this.props} />
       ) : (
         <MainRoute />
       )
-    ) : (
-      <LoadingRoot />
-    )
+    }
   }
 }
