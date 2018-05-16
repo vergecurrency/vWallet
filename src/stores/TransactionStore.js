@@ -12,7 +12,21 @@ class TransactionStore {
   @action
   addTransactions = transactions => {
     transactions.forEach(transaction => {
-      this.transactions.set(transaction.txid, transaction)
+      const oldTransaction = this.transactions.get(transaction.txid)
+      this.transactions.set(transaction.txid, {
+        hide: true,
+        ...oldTransaction,
+        ...transaction,
+      })
+    })
+  }
+
+  @action
+  setVisibility(txid, hide) {
+    const oldTransaction = this.transactions.get(txid)
+    this.transactions.set(txid, {
+      ...oldTransaction,
+      hide,
     })
   }
 
@@ -23,12 +37,11 @@ class TransactionStore {
 
   @computed
   get getTransactionList() {
-    return Array.from(this.transactions.values())
+    return this.transactions
   }
 }
 
 const store = new TransactionStore()
-
 const client = new Client({ user: 'kyon', pass: 'lolcat' })
 
 client.getTransactionList().then(transactions => {
@@ -39,6 +52,6 @@ setInterval(() => {
   client.getTransactionList().then(transactions => {
     store.addTransactions(transactions)
   })
-}, 5000)
+}, 1000)
 
 export default store

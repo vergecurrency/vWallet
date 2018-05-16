@@ -5,6 +5,7 @@ import Transaction from './Transaction'
 import { inject, observer } from 'mobx-react'
 import T from 'i18n-react'
 import styled from 'styled-components'
+import { Z_DEFAULT_COMPRESSION, Z_DEFAULT_STRATEGY } from 'zlib'
 
 const TransactionListContainer = styled.div`
   position: relative;
@@ -26,9 +27,9 @@ const ItemContainer = styled.div`
     props.theme.light ? 'rgba(0, 0, 0, 0.1);' : 'rgba(238, 238, 238, 0.03);'}
   :nth-child(even) {
     ${props =>
-    props.theme.light
-      ? 'background-color: #f9f9f9;'
-      : 'background-color: rgba(238, 238, 238, 0.01);'};
+      props.theme.light
+        ? 'background-color: #f9f9f9;'
+        : 'background-color: rgba(238, 238, 238, 0.01);'};
   }
 `
 
@@ -76,8 +77,8 @@ export default class TransactionList extends Component {
           }}
         >
           <div className="container">
-            {this.props.TransactionStore.getTransactionList
-              .sort((a, b) => a.time <= b.time)
+            {Array.from(this.props.TransactionStore.getTransactionList.values())
+              .sort((a, b) => b.time - a.time)
               .map(transaction => (
                 <ItemContainer className="row" key={uuidv1()}>
                   <Transaction {...transaction} />

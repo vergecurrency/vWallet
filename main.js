@@ -28,18 +28,18 @@ function createTrayIcon() {
       protocol: 'http:',
       host: 'localhost:8080',
       pathname: 'status.html',
-      slashes: true
+      slashes: true,
     })
   } else {
     indexPath = url.format({
       protocol: 'file:',
       pathname: path.join(__dirname, 'dist', 'status.html'),
-      slashes: true
+      slashes: true,
     })
   }
   var mb = menubar({
     index: indexPath,
-    tooltip: 'VERGE Wallet'
+    tooltip: 'VERGE Wallet',
   })
 
   mb.on('ready', function ready() {
@@ -56,7 +56,7 @@ function createWindow() {
     frame: false,
     icon: __dirname + '/verge.ico',
     resizable: false,
-    fullscreenable: false
+    fullscreenable: false,
   })
 
   // and load the index.html of the app.
@@ -66,13 +66,13 @@ function createWindow() {
       protocol: 'http:',
       host: 'localhost:8080',
       pathname: 'index.html',
-      slashes: true
+      slashes: true,
     })
   } else {
     indexPath = url.format({
       protocol: 'file:',
       pathname: path.join(__dirname, 'dist', 'index.html'),
-      slashes: true
+      slashes: true,
     })
   }
   mainWindow.loadURL(indexPath)
@@ -113,7 +113,7 @@ function createLoadingWindow() {
     icon: __dirname + '/verge.ico',
     resizable: false,
     fullscreenable: false,
-    transparent: true
+    transparent: true,
   })
 
   // and load the index.html of the app.
@@ -123,13 +123,13 @@ function createLoadingWindow() {
       protocol: 'http:',
       host: 'localhost:8080',
       pathname: 'loading.html',
-      slashes: true
+      slashes: true,
     })
   } else {
     indexPath = url.format({
       protocol: 'file:',
       pathname: path.join(__dirname, 'dist', 'loading.html'),
-      slashes: true
+      slashes: true,
     })
   }
   loadingWindow.loadURL(indexPath)

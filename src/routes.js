@@ -19,26 +19,27 @@ import SetupStore from './stores/SetupStore'
 import { Client } from 'verge-node-typescript'
 import { ThemeProvider } from 'styled-components'
 import ReRouter from './ReRouter'
+import VergeProvider from './VergeProvider'
 
 /* eslint-disable-next-line no-undef */
 document.addEventListener('dragover', event => event.preventDefault())
 /* eslint-disable-next-line no-undef */
 document.addEventListener('drop', event => event.preventDefault())
 
-const theme = {}
-
-export default props => (
-  <ThemeProvider theme={theme}>
-    <Router history={createHashHistory()}>
-      <Provider
-        TransactionStore={TransactionStore}
-        AccountInformationStore={AccountInformationStore}
-        SettingsStore={SettingsStore}
-        CoinStatsStore={CoinStatsStore}
-        SetupStore={SetupStore}
-      >
+const Routes = props => (
+  <Router history={createHashHistory()}>
+    <Provider
+      TransactionStore={TransactionStore}
+      AccountInformationStore={AccountInformationStore}
+      SettingsStore={SettingsStore}
+      CoinStatsStore={CoinStatsStore}
+      SetupStore={SetupStore}
+    >
+      <VergeProvider>
         <ReRouter {...props} />
-      </Provider>
-    </Router>
-  </ThemeProvider>
+      </VergeProvider>
+    </Provider>
+  </Router>
 )
+
+export default Routes

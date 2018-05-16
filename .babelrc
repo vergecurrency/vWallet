@@ -1,19 +1,19 @@
 {
-	"presets": [
-		[
-			"env",
-			{
-				"targets": { "node": 8 },
-				"useBuiltIns": true
-			}
-		],
-		"stage-0",
-		"react"
-	],
-	"ignore": ["node_modules"],
-	"plugins": [
-		"transform-decorators-legacy",
-		"transform-class-properties",
-		"transform-es2015-classes"
-	]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": { "node": 8 },
+        "useBuiltIns": true
+      }
+    ],
+    "stage-0",
+    "react"
+  ],
+  "ignore": ["node_modules"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-es2015-classes"
+  ]
 }

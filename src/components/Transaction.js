@@ -4,7 +4,7 @@ import T from 'i18n-react'
 import incoming from '../assets/images/incoming.png'
 import outgoing from '../assets/images/outgoing.png'
 import arrowdown from '../assets/images/arrowdown.png'
-import { renderReporter, propTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { shell } from 'electron'
 import { isStringTextContainingNode } from 'typescript'
 import styled from 'styled-components'
@@ -16,11 +16,11 @@ const XVGformatter = new Intl.NumberFormat('en-US', {
 const TextContainer = styled.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
 `
-
+@inject('TransactionStore')
+@observer
 export default class Transaction extends Component {
   constructor(props) {
     super(props)
-    this.state = { hide: true }
   }
 
   render() {
@@ -34,6 +34,7 @@ export default class Transaction extends Component {
       time,
       timereceived,
       txid,
+      hide,
     } = this.props
 
     return (
@@ -102,19 +103,19 @@ export default class Transaction extends Component {
               className="col-md-2"
               style={{ textAlign: 'center', cursor: 'pointer' }}
               onClick={() => {
-                this.setState({ hide: !this.state.hide })
+                this.props.TransactionStore.setVisibility(txid, !hide)
               }}
             >
               <div>
                 <img
                   src={arrowdown}
                   style={{
-                    transform: `rotate(${this.state.hide ? 0 : 180}deg)`,
+                    transform: `rotate(${hide ? 0 : 180}deg)`,
                   }}
                 />
               </div>
               <TextContainer style={{ fontSize: '10px' }}>
-                {this.state.hide
+                {hide
                   ? T.translate('transaction.item.details')
                   : T.translate('transaction.item.close')}
               </TextContainer>
@@ -131,7 +132,7 @@ export default class Transaction extends Component {
             </div>
           )}
         </div>
-        {!this.state.hide ? (
+        {!hide ? (
           <div className="trans-details">
             <div className="row">
               <div className="col-md-2" style={{ fontWeight: 'bold' }}>

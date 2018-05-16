@@ -13,9 +13,11 @@ const AnimatedImage = styled.img`
   height: auto;
 `
 
-export default ({ image, text }) => (
+const AnimationTarget = ({ image, text }) => (
   <div>
     <AnimatedImage src={image} />
     <Title>{text}</Title>
   </div>
 )
+
+export default AnimationTarget

@@ -22,15 +22,15 @@ module.exports = {
       'mobx',
       'mobx-react',
       'react-router',
-      'react-router-dom'
-    ]
+      'react-router-dom',
+    ],
   },
   output: {
     path: OUTPUT_DIR,
     publicPath: './',
     filename: '[name].[hash:8].js',
     sourceMapFilename: '[name].[hash:8].map',
-    chunkFilename: '[id].[hash:8].js'
+    chunkFilename: '[id].[hash:8].js',
   },
   module: {
     rules: [
@@ -38,51 +38,51 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         query: {
-          babelrc: true
-        }
+          babelrc: true,
+        },
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader' // creates style nodes from JS strings
+            loader: 'style-loader', // creates style nodes from JS strings
           },
           {
-            loader: 'css-loader' // translates CSS into CommonJS
+            loader: 'css-loader', // translates CSS into CommonJS
           },
           {
-            loader: 'sass-loader' // compiles Sass to CSS
-          }
-        ]
+            loader: 'sass-loader', // compiles Sass to CSS
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
-        })
+          use: 'css-loader',
+        }),
       },
       {
         test: /\.jsx?$/,
-        use: [{ loader: 'babel-loader' }]
+        use: [{ loader: 'babel-loader' }],
       },
       {
         test: /\.(jpe?g|png|gif)$/,
         use: [
           {
-            loader: 'file-loader?name=img/[name]__[hash:base64:5].[ext]'
-          }
-        ]
+            loader: 'file-loader?name=img/[name]__[hash:base64:5].[ext]',
+          },
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: [
           {
-            loader: 'file-loader?name=font/[name]__[hash:base64:5].[ext]'
-          }
-        ]
-      }
-    ]
+            loader: 'file-loader?name=font/[name]__[hash:base64:5].[ext]',
+          },
+        ],
+      },
+    ],
   },
   target: 'electron-renderer',
   optimization: {
@@ -99,33 +99,33 @@ module.exports = {
         default: {
           minChunks: 1,
           priority: -20,
-          reuseExistingChunk: true
+          reuseExistingChunk: true,
         },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        }
-      }
-    }
+          priority: -10,
+        },
+      },
+    },
   },
   plugins: [
     new HtmlWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'loading.html'
+      filename: 'loading.html',
     }),
     new HtmlWebpackPlugin({
-      filename: 'status.html'
+      filename: 'status.html',
     }),
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    new webpack.optimize.AggressiveMergingPlugin() //Merge chunks
+    new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks
   ],
   stats: {
     colors: true,
     children: false,
     chunks: true,
-    modules: false
-  }
+    modules: false,
+  },
 }

@@ -1,42 +1,45 @@
 import { observable, action, computed } from 'mobx'
-const ElectronStore = require('electron-store')
+import ElectronStore from 'electron-store'
 const electronStore = new ElectronStore({
   encryptionKey: new Buffer('vergecurrency'),
 })
 
 class SettingsStore {
-  @observable
-  settings = {
-    name: electronStore.get('name', 'English'),
-    currency: electronStore.get('currency', 'USD'),
-    locale: electronStore.get('locale', 'en-US'),
-    localeId: electronStore.get('localeId', 'en'),
-  }
+  @observable name = electronStore.get('name', 'English')
+  @observable currency = electronStore.get('currency', 'USD')
+  @observable locale = electronStore.get('locale', 'en-US')
+  @observable localeId = electronStore.get('localeId', 'en')
+  @observable darkTheme = electronStore.get('darkTheme', false)
 
   @action
-  setSettingOption = option => {
-    electronStore.set(option.key, option.value)
-    this.settings[option.key] = option.value
+  setSettingOption({ key, value }) {
+    electronStore.set(key, value)
+    this[key] = value
+  }
+
+  @computed
+  get getDarkTheme() {
+    return this.darkTheme
   }
 
   @computed
   get getName() {
-    return this.settings.name
+    return this.name
   }
 
   @computed
   get getCurrency() {
-    return this.settings.currency
+    return this.currency
   }
 
   @computed
   get getLocaleId() {
-    return this.settings.localeId
+    return this.localeId
   }
 
   @computed
   get getLocale() {
-    return this.settings.locale
+    return this.locale
   }
 }
 
