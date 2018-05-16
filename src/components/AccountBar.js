@@ -36,7 +36,6 @@ export default class AccountBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      usd_exchange: 0.0865,
       sendOpen: false,
     }
     this.toggleSend = this.toggleSend.bind(this)
@@ -126,7 +125,7 @@ export default class AccountBar extends Component {
             <h4 style={{ color: '#fff' }}>
               {formatter.format(
                 this.props.AccountInformationStore.getBalance *
-                  this.state.usd_exchange
+                  this.props.CoinStatsStore.priceWithCurrency
               )}
             </h4>
           </div>
@@ -150,7 +149,7 @@ export default class AccountBar extends Component {
             </font>
             <h4 style={{ color: '#fff' }}>
               {formatterPrice.format(
-                this.props.CoinStatsStore.getUpdatedStats.price
+                this.props.CoinStatsStore.priceWithCurrency
               )}
             </h4>
           </div>

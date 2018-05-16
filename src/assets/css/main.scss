@@ -2,21 +2,22 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-@import "fonts";
-@import "highchart";
-@import "basic";
-@import "appbar";
+@import 'fonts';
+@import 'highchart';
+@import 'basic';
+@import 'appbar';
+@import 'normalize';
 
 body {
   background-color: #152f36;
   color: #fff;
   //height: 700px;
 
-  font-family: "AvenirNextLTW01Regular", Helvetica, sans-serif !important;
+  font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif !important;
 }
 
 .logo {
-  content: url("../images/verge-logo-white.png");
+  content: url('../images/verge-logo-white.png');
 }
 
 .big-button {
@@ -40,7 +41,7 @@ body {
 
 .trans-title {
   &::before {
-    content: url("../images/layers.png");
+    content: url('../images/layers.png');
     padding-right: 15px;
     padding-top: 20px;
   }
@@ -79,7 +80,7 @@ body {
 #app-menu-bar::before {
   margin-top: 5px;
   margin-left: 15px;
-  content: "VERGE Wallet 0.0.3 (alpha)";
+  content: 'VERGE Wallet 0.0.3 (alpha)';
   color: #3f5e78;
 }
 
@@ -204,4 +205,27 @@ body {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+// removing unneccessary text selection
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+input,
+button,
+textarea,
+:focus {
+  outline: none; // You should add some other style for :focus to help UX/a11y
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }

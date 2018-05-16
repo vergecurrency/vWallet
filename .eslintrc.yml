@@ -4,6 +4,8 @@ env:
 extends: 
  - "eslint:recommended"
  - "plugin:react/recommended"
+plugins:
+  - "babel"
 parserOptions:
   sourceType: module
   ecmaFeatures: 

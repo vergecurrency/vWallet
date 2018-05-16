@@ -90,8 +90,6 @@ const SendButton = styled.button`
 `
 
 const FEE = 0.1
-const PRICE = 0.0872
-const BALANCE = 75124114.5167
 
 class SendPanel extends React.Component {
   constructor(props) {
@@ -102,6 +100,19 @@ class SendPanel extends React.Component {
       label: '',
     }
   }
+
+  getLocaleId() {
+    return this.props.SettingsStore.getLocale
+  }
+
+  getBalance() {
+    return this.props.AccountInformationStore.getBalance
+  }
+
+  getPrice() {
+    return this.props.CoinStatsStore.priceWithCurrency
+  }
+
   render() {
     const props = this.props
     return (
@@ -132,6 +143,7 @@ class SendPanel extends React.Component {
           value={this.state.amount}
           onChange={e => this.setState({ amount: e.target.value })}
           placeholder="Enter amount"
+          type="number"
           style={{ width: '460px' }}
         />
         <Marker>XVG</Marker>
@@ -141,26 +153,39 @@ class SendPanel extends React.Component {
           <Row>
             <Col md="5">
               <BalanceTitle>{T.translate('sendPanel.xvgUSD')}</BalanceTitle>
-              <Balance>${(BALANCE * PRICE).toLocaleString('en-US')}</Balance>
+              <Balance>
+                ${(this.getBalance() * this.getPrice()).toLocaleString(
+                  this.getLocaleId()
+                )}
+              </Balance>
             </Col>
             <Col md="7">
               <BalanceTitle>{T.translate('sendPanel.balanceXVG')}</BalanceTitle>
-              <Balance>{BALANCE.toLocaleString('en-US')} XVG</Balance>
+              <Balance>
+                {this.getBalance().toLocaleString(this.getLocaleId())} XVG
+              </Balance>
             </Col>
           </Row>
         </Container>
         <SendButton onClick={props.toggle}>
           {T.translate('sendPanel.sendButton')}{' '}
           {this.state.amount
-            ? `${(this.state.amount - FEE).toLocaleString('en-US')} XVG ($${(
-                this.state.amount * PRICE
-              ).toLocaleString('en-US')})`
+            ? `${(this.state.amount - FEE).toLocaleString(
+                this.getLocaleId()
+              )} XVG ($${(this.state.amount * this.getPrice()).toLocaleString(
+                this.getLocaleId()
+              )})`
             : ''}
         </SendButton>
 
         <SubTitle style={{ textAlign: 'center', color: '#476b84' }}>
-          {T.translate('sendPanel.walletAfterTransaction')}{' '}
-          <b>{(BALANCE - this.state.amount).toLocaleString('en-US')} XVG</b>
+          {T.translate('sendPanel.walletAfterTransaction')}
+          <b>
+            {(this.getBalance() - this.state.amount).toLocaleString(
+              this.getLocaleId()
+            )}{' '}
+            XVG
+          </b>
         </SubTitle>
         <hr />
         <SubTitle

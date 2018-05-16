@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { observer, inject } from 'mobx-react'
 import CreditsPanel from './modal/CreditsPanel'
 import T from 'i18n-react'
 import styled from 'styled-components'
@@ -12,7 +13,7 @@ const FooterVersion = styled.div`
   ${props => (props.theme.light ? '' : 'color: #7193ae;')};
 `
 
-export default class Footer extends Component {
+class Footer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,6 +28,8 @@ export default class Footer extends Component {
   }
 
   render() {
+    const { SettingsStore } = this.props
+
     return (
       <div className="container footer">
         <CreditsPanel
@@ -35,7 +38,7 @@ export default class Footer extends Component {
         />
         <div className="row">
           <FooterVersion className="col-md-8">
-            {T.translate('footer.wallet')} v.0.0.3 (alpha)
+            {T.translate('footer.wallet')} v{SettingsStore.version} (alpha)
           </FooterVersion>
           <FooterText className="col-md-2">
             {T.translate('footer.explorer')}
@@ -51,3 +54,5 @@ export default class Footer extends Component {
     )
   }
 }
+
+export default inject('SettingsStore')(observer(Footer))

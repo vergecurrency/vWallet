@@ -1,11 +1,8 @@
-// @ts-check
 import React, { Component } from 'react'
-import uuidv1 from 'uuid/v1'
 import Transaction from './Transaction'
 import { inject, observer } from 'mobx-react'
 import T from 'i18n-react'
 import styled from 'styled-components'
-import { Z_DEFAULT_COMPRESSION, Z_DEFAULT_STRATEGY } from 'zlib'
 
 const TransactionListContainer = styled.div`
   position: relative;
@@ -72,15 +69,15 @@ export default class TransactionList extends Component {
           className="scrollbar scrollbar-primary transaction-list-top"
           style={{
             overflowY: 'auto',
-            maxHeight: '340px',
-            minHeight: '340px',
+            maxHeight: '353px',
+            minHeight: '353px',
           }}
         >
           <div className="container">
             {Array.from(this.props.TransactionStore.getTransactionList.values())
               .sort((a, b) => b.time - a.time)
               .map(transaction => (
-                <ItemContainer className="row" key={uuidv1()}>
+                <ItemContainer className="row" key={transaction.txid}>
                   <Transaction {...transaction} />
                 </ItemContainer>
               ))}

@@ -1,23 +1,15 @@
 /* eslint flowtype-errors/show-errors: 0 */
-import React, { Component } from 'react'
-import { Router, Switch, Route, Redirect } from 'react-router-dom'
+import React from 'react'
+import { Router } from 'react-router-dom'
 import { createHashHistory } from 'history'
-import App from './containers/App'
-import HomePage from './containers/HomePage'
-import SettingsPage from './containers/SettingsPage'
-import ElectronStore from 'electron-store'
-const electronStore = new ElectronStore({
-  encryptionKey: new Buffer('vergecurrency'),
-})
 
-import { Provider, observer, inject } from 'mobx-react'
+import { Provider } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
 import TransactionStore from './stores/TransactionStore'
 import AccountInformationStore from './stores/AccountInformationStore'
 import SettingsStore from './stores/SettingsStore'
 import CoinStatsStore from './stores/CoinStatsStore'
 import SetupStore from './stores/SetupStore'
-import { Client } from 'verge-node-typescript'
-import { ThemeProvider } from 'styled-components'
 import ReRouter from './ReRouter'
 import VergeProvider from './VergeProvider'
 
@@ -36,7 +28,10 @@ const Routes = props => (
       SetupStore={SetupStore}
     >
       <VergeProvider>
-        <ReRouter {...props} />
+        <div>
+          <ReRouter {...props} />
+          <DevTools />
+        </div>
       </VergeProvider>
     </Provider>
   </Router>

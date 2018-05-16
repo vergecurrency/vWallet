@@ -193,7 +193,7 @@ class Header extends Component {
               <input
                 type="checkbox"
                 checked={this.props.SettingsStore.getDarkTheme}
-                onClick={this.updateStealth}
+                onChange={this.updateStealth}
               />
               <span
                 className="slider round"

@@ -16,9 +16,8 @@ const XVGformatter = new Intl.NumberFormat('en-US', {
 const TextContainer = styled.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
 `
-@inject('TransactionStore')
-@observer
-export default class Transaction extends Component {
+
+class Transaction extends Component {
   constructor(props) {
     super(props)
   }
@@ -212,3 +211,5 @@ export default class Transaction extends Component {
     )
   }
 }
+
+export default inject('TransactionStore')(observer(Transaction))

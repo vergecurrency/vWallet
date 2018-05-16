@@ -1,13 +1,6 @@
-// @flow
-import React, { Component } from 'react'
+import React from 'react'
 import SettingsPanel from '../components/settings/SettingsPanel'
 
-type Props = {}
+const SettingsPage = () => <SettingsPanel />
 
-export default class HomePage extends Component<Props> {
-  props: Props
-
-  render() {
-    return <SettingsPanel />
-  }
-}
+export default SettingsPage
