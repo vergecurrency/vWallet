@@ -1,6 +1,6 @@
 {
   "name": "verge-wallet",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Verge the privacy coin of the future.",
   "author": "Marvin Piekarek <marvin.piekarek5@gmail.com>",
   "build": {
