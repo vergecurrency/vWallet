@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
-import moment from 'moment'
-import T from 'i18n-react'
-import incoming from '../assets/images/incoming.png'
-import outgoing from '../assets/images/outgoing.png'
-import arrowdown from '../assets/images/arrowdown.png'
 import { inject, observer } from 'mobx-react'
+
+import T from 'i18n-react'
+import arrowdown from '../assets/images/arrowdown.png'
+import incoming from '../assets/images/incoming.png'
+import moment from 'moment'
+import outgoing from '../assets/images/outgoing.png'
 import { shell } from 'electron'
-import { isStringTextContainingNode } from 'typescript'
 import styled from 'styled-components'
-const XVGformatter = new Intl.NumberFormat('en-US', {
-  style: 'decimal',
-  minimumFractionDigits: 5,
-})
 
 const TextContainer = styled.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
+`
+
+const NewSign = styled.div`
+  border: 1px solid #7193ae;
+  border-radius: 1.4em;
+  text-align: center;
+  margin-top: 10px;
+  height: auto;
+  width: 60px;
 `
 
 class Transaction extends Component {
@@ -22,11 +27,37 @@ class Transaction extends Component {
     super(props)
   }
 
+  getType() {
+    if (this.props.amount != 0) {
+      return this.props.category.includes('receive')
+        ? T.translate('transaction.item.receive')
+        : T.translate('transaction.item.sent')
+    } else if (
+      (!this.props.amount || this.props.amount == 0) &&
+      this.props.fee < 0
+    ) {
+      return T.translate('transaction.item.fee')
+    }
+  }
+
+  isNew() {
+    return this.props.timereceived + 90 * 60 - moment().unix() > 0
+  }
+
   render() {
+    const XVGformatter = new Intl.NumberFormat(
+      this.props.SettingsStore.getLocale,
+      {
+        style: 'decimal',
+        minimumFractionDigits: 5,
+      }
+    )
+
     const {
       account,
       address,
       amount,
+      fee = 0,
       blockhash,
       category,
       confirmations,
@@ -57,7 +88,7 @@ class Transaction extends Component {
             </TextContainer>
           </div>
           <TextContainer
-            className="col-md-2"
+            className="col-md-1"
             style={{
               fontWeight: 'bold',
               marginTop: '8px',
@@ -69,8 +100,13 @@ class Transaction extends Component {
               <img src={outgoing} />
             )}
           </TextContainer>
+          {this.isNew() ? (
+            <TextContainer className="col-md-1">
+              <NewSign>new</NewSign>
+            </TextContainer>
+          ) : null}
           <div
-            className="col-md-7"
+            className={this.isNew() ? 'col-md-7' : 'col-md-8'}
             style={{
               fontWeight: 'bold',
               color: category.includes('receive') ? '#00917a' : '#dc2b3d',
@@ -81,7 +117,7 @@ class Transaction extends Component {
           >
             <div>
               {category.includes('receive') ? '+' : ''}
-              {amount.toFixed(2).toLocaleString('en-US')} XVG
+              {(amount + fee).toFixed(2).toLocaleString('en-US')} XVG
             </div>
             <TextContainer
               style={{
@@ -90,11 +126,7 @@ class Transaction extends Component {
                 letterSpacing: '1px',
               }}
             >
-              <font>
-                {category.includes('receive')
-                  ? T.translate('transaction.item.receive')
-                  : T.translate('transaction.item.sent')}
-              </font>
+              <font>{this.getType()}</font>
             </TextContainer>
           </div>
           {blockhash ? (
@@ -102,7 +134,12 @@ class Transaction extends Component {
               className="col-md-2"
               style={{ textAlign: 'center', cursor: 'pointer' }}
               onClick={() => {
-                this.props.TransactionStore.setVisibility(txid, !hide)
+                this.props.TransactionStore.setVisibility(
+                  txid,
+                  category,
+                  address,
+                  !hide
+                )
               }}
             >
               <div>
@@ -212,4 +249,6 @@ class Transaction extends Component {
   }
 }
 
-export default inject('TransactionStore')(observer(Transaction))
+export default inject('TransactionStore', 'SettingsStore')(
+  observer(Transaction)
+)

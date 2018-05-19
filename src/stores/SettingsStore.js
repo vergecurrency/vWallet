@@ -20,7 +20,7 @@ class SettingsStore {
     this[key] = value
   }
 
-  version() {
+  get appVersion() {
     return this.version
   }
 

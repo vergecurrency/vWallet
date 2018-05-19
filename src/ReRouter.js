@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { observer, inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
+
 import LoadingRoot from './loading/LoadingRoot'
 import MainRoute from './mainRoute'
 import Tour from './welcomeguide/Tour'

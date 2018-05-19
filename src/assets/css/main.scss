@@ -77,13 +77,6 @@ body {
   line-height: 25px;
 }
 
-#app-menu-bar::before {
-  margin-top: 5px;
-  margin-left: 15px;
-  content: 'VERGE Wallet 0.0.3 (alpha)';
-  color: #3f5e78;
-}
-
 .modal-content {
   background-color: transparent !important;
   border: none !important;
@@ -228,4 +221,20 @@ input[type='number']::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.arrow-down {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arrow-up {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }

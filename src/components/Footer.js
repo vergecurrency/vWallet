@@ -38,7 +38,7 @@ class Footer extends Component {
         />
         <div className="row">
           <FooterVersion className="col-md-8">
-            {T.translate('footer.wallet')} v{SettingsStore.version} (alpha)
+            {T.translate('footer.wallet')} v{SettingsStore.appVersion} (alpha)
           </FooterVersion>
           <FooterText className="col-md-2">
             {T.translate('footer.explorer')}
