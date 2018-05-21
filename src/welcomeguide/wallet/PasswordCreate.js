@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import Step from "../Step";
-import { Link } from "react-router-dom";
-import CheckCircle from "../../icons/CheckCircle";
-import CrossCircle from "../../icons/CrossCircle";
-import crypto from "crypto";
+import React, { Component } from 'react'
+
+import CheckCircle from '../../icons/CheckCircle'
+import CrossCircle from '../../icons/CrossCircle'
+import { Link } from 'react-router-dom'
+import Step from '../Step'
+import crypto from 'crypto'
+import styled from 'styled-components'
 
 const NewButton = styled.button`
   width: 192px;
@@ -17,7 +18,7 @@ const NewButton = styled.button`
   font-size: 27px;
   font-weight: 400;
   line-height: 33.78px;
-`;
+`
 
 const DisabledButton = styled.button`
   width: 192px;
@@ -30,7 +31,7 @@ const DisabledButton = styled.button`
   font-size: 27px;
   font-weight: 400;
   line-height: 33.78px;
-`;
+`
 
 const PasswordField = styled.input`
   width: 600px;
@@ -38,7 +39,7 @@ const PasswordField = styled.input`
   border-radius: 4px;
   background-color: #ffffff;
   color: #9ba8ab;
-  font-family: "Avenir Next";
+  font-family: 'Avenir Next';
   font-size: 28px;
   font-style: italic;
   line-height: 78px;
@@ -46,13 +47,13 @@ const PasswordField = styled.input`
   padding-top: 30px;
   padding-bottom: 30px;
   margin-right: 30px;
-`;
+`
 
 const PasswordHelper = styled.div`
   display: flex;
   margin-left: 190px;
   margin-top: 30px;
-`;
+`
 
 const Tip = styled.span`
   color: #506f89;
@@ -60,39 +61,38 @@ const Tip = styled.span`
   font-style: italic;
   margin-left: 11px;
   margin-right: 30px;
-`;
+`
 
-const checkLength = pass => pass.length >= 8;
+const checkLength = pass => pass.length >= 8
 
-const checkUpperLowerCase = pass => /[a-z]+/.test(pass) && /[A-Z]+/.test(pass);
+const checkUpperLowerCase = pass => /[a-z]+/.test(pass) && /[A-Z]+/.test(pass)
 
 const checkForSpecial = pass =>
-  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pass);
+  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pass)
 
 const checkedOrNot = (func, pass) =>
   func(pass) ? (
     <CheckCircle width="24px" height="24px" />
   ) : (
     <CrossCircle width="24px" height="24px" />
-  );
+  )
 
 export default class PasswordCreate extends Component {
-  state = { password: "" };
+  state = { password: '' }
 
   updatePassword(e) {
-    this.setState({ password: e.target.value });
+    this.setState({ password: e.target.value })
   }
 
   render() {
-    console.log(this.props);
     const fullfillsRequirements =
       checkLength(this.state.password) &&
       checkUpperLowerCase(this.state.password) &&
-      checkForSpecial(this.state.password);
+      checkForSpecial(this.state.password)
     return (
       <Step
-        title={"Create a password."}
-        subtitle={"Choose a password to secure your wallet."}
+        title={'Create a password.'}
+        subtitle={'Choose a password to secure your wallet.'}
         small
         history={this.props.history}
       >
@@ -106,13 +106,13 @@ export default class PasswordCreate extends Component {
           {fullfillsRequirements ? (
             <Link
               to={{
-                pathname: "/wallet/create/confirm",
+                pathname: '/wallet/create/confirm',
                 state: {
                   password: crypto
-                    .createHash("sha256")
+                    .createHash('sha256')
                     .update(this.state.password)
-                    .digest("base64")
-                }
+                    .digest('base64'),
+                },
               }}
             >
               <NewButton>Contiune</NewButton>
@@ -130,6 +130,6 @@ export default class PasswordCreate extends Component {
           <Tip>Special character (!.,-#€%&+#)</Tip>
         </PasswordHelper>
       </Step>
-    );
+    )
   }
 }

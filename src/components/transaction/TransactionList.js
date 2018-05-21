@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 
 import ArrowDown from '../../icons/ArrowDown'
 import ArrowUp from '../../icons/ArrowUp'
+import Loading from '../../icons/Loading'
 import T from 'i18n-react'
 import Transaction from './Transaction'
 import layers from '../../assets/images/layers.png'
@@ -74,8 +75,12 @@ const SpendSummary = styled.div`
   display: inline-flex;
   padding: 5px 10px;
   margin-right: 15px;
-  background-color: #091825;
-  ${props => (props.theme.light ? '' : 'color: #fff;')};
+  background-color: ${props =>
+    props.theme.light ? 'rgb(222, 222, 222)' : '#091825'};
+  color: ${props => (props.theme.light ? '#003b54' : '#fff')};
+  .arrow-down {
+    stroke: ${props => (props.theme.light ? '#003b54' : '#fff')};
+  }
 `
 
 const ReceivedSummary = styled.div`
@@ -86,7 +91,7 @@ const ReceivedSummary = styled.div`
   display: inline-flex;
   padding: 5px 10px;
   background-color: #009178;
-  ${props => (props.theme.light ? '' : 'color: #fff;')};
+  color: #fff;
 `
 
 const Seperator = styled.hr`
@@ -95,9 +100,7 @@ const Seperator = styled.hr`
   margin: 0px 0px;
 `
 
-@inject('TransactionStore', 'SettingsStore')
-@observer
-export default class TransactionList extends Component {
+class TransactionList extends Component {
   getMonthlyOuputFormatted(XVGSummaryFormatter) {
     return XVGSummaryFormatter.format(this.props.TransactionStore.monthlyOutput)
   }
@@ -156,26 +159,40 @@ export default class TransactionList extends Component {
         <div
           className="scrollbar scrollbar-primary transaction-list-top"
           style={{
+            ...(this.props.TransactionStore.loaded
+              ? {}
+              : {
+                  textAlign: 'center',
+                  display: 'block',
+                  paddingTop: '25%',
+                }),
             overflowY: 'auto',
             maxHeight: '353px',
             minHeight: '353px',
           }}
         >
-          <div className="container">
-            {Array.from(this.props.TransactionStore.getTransactionList.values())
-              .sort((a, b) => b.time - a.time)
-              .slice(0, 9)
-              .map(transaction => (
-                <ItemContainer
-                  className="row"
-                  key={`${transaction.txid}#${transaction.category}`}
-                >
-                  <Transaction {...transaction} />
-                </ItemContainer>
-              ))}
-          </div>
+          {this.props.TransactionStore.loaded ? (
+            <div className="container">
+              {this.props.TransactionStore.lastTenTransaction.map(
+                transaction => (
+                  <ItemContainer
+                    className="row"
+                    key={`${transaction.txid}#${transaction.category}`}
+                  >
+                    <Transaction {...transaction} />
+                  </ItemContainer>
+                )
+              )}
+            </div>
+          ) : (
+            <Loading text="Loading ..." />
+          )}
         </div>
       </TransactionListContainer>
     )
   }
 }
+
+export default inject('TransactionStore', 'SettingsStore')(
+  observer(TransactionList)
+)

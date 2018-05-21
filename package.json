@@ -154,6 +154,7 @@
     "mobx-react": "^5.0.0",
     "moment": "^2.22.1",
     "react": "^16.2.0",
+    "react-animations": "^1.0.0",
     "react-dom": "^16.2.0",
     "react-highcharts": "^16.0.2",
     "react-material-icon-svg": "^1.5.1",

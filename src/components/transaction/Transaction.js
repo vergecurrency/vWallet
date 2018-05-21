@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { fadeIn, fadeInDown } from 'react-animations'
 import { inject, observer } from 'mobx-react'
+import styled, { keyframes } from 'styled-components'
 
 import T from 'i18n-react'
 import arrowdown from '../../assets/images/arrowdown.png'
@@ -7,7 +9,6 @@ import incoming from '../../assets/images/incoming.png'
 import moment from 'moment'
 import outgoing from '../../assets/images/outgoing.png'
 import { shell } from 'electron'
-import styled from 'styled-components'
 
 const TextContainer = styled.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
@@ -21,9 +22,15 @@ const NewSign = styled.div`
   height: auto;
   width: 60px;
 `
+const fadeInAnimation = keyframes`${fadeIn}`
 
 const ContainerClicky = styled.div`
   cursor: pointer;
+  animation: 1s ${fadeInAnimation};
+`
+
+const TransactionDetails = styled.div`
+  animation: 1s ${fadeInAnimation};
 `
 
 class Transaction extends Component {
@@ -72,7 +79,10 @@ class Transaction extends Component {
     } = this.props
 
     return (
-      <ContainerClicky className="container" onClick={console.log}>
+      <ContainerClicky
+        className="container"
+        onClick={() => console.log(this.props)}
+      >
         <div className="row">
           <div className="col-md-1">
             <TextContainer>
@@ -121,7 +131,10 @@ class Transaction extends Component {
           >
             <div>
               {category.includes('receive') ? '+' : ''}
-              {(amount + fee).toFixed(2).toLocaleString('en-US')} XVG
+              {(amount + fee)
+                .toFixed(2)
+                .toLocaleString(this.props.SettingsStore.getLocale)}{' '}
+              XVG
             </div>
             <TextContainer
               style={{
@@ -173,7 +186,7 @@ class Transaction extends Component {
           )}
         </div>
         {!hide ? (
-          <div className="trans-details">
+          <TransactionDetails className="trans-details">
             <div className="row">
               <div className="col-md-2" style={{ fontWeight: 'bold' }}>
                 {T.translate('transaction.item.address')}:
@@ -227,7 +240,12 @@ class Transaction extends Component {
               </div>
             </div>
             {/* Sub division of the table */}
-            <div className="row" style={{ marginTop: '5px' }}>
+            <div
+              className="row"
+              style={{
+                marginTop: '5px',
+              }}
+            >
               <div className="col-md-6">
                 {T.translate('transaction.item.confirmations')}: {confirmations}
               </div>
@@ -246,7 +264,7 @@ class Transaction extends Component {
                 {moment.unix(timereceived).format('MM/DD/YYYY hh:mm a')}
               </div>
             </div>
-          </div>
+          </TransactionDetails>
         ) : null}
       </ContainerClicky>
     )

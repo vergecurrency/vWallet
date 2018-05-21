@@ -14,9 +14,9 @@
       "address": "Address",
       "blockhash": "Blockhash",
       "txid": "TXID",
-      "confirmations": "confirmations",
+      "confirmations": "Confirmations",
       "amount": "Amount",
-      "time": "Time",
+      "time": "Time sent",
       "timereceived": "Time received"
     }
   },

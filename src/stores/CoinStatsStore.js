@@ -1,6 +1,8 @@
-import { observable, computed, decorate } from 'mobx'
-import tr from 'tor-request'
+import { computed, decorate, observable } from 'mobx'
+
 import ElectronStore from 'electron-store'
+import tr from 'tor-request'
+
 const electronStore = new ElectronStore({
   encryptionKey: new Buffer('vergecurrency'),
 })
@@ -16,10 +18,13 @@ class CoinStatsStore {
     dayChange: '',
   }
 
+  @observable loadingFinished = false
+
   constructor() {
     this.getCoinStats()
       .then(info => {
         this.info = { ...this.info, ...info }
+        this.loadingFinished = true
       })
       .catch(console.error)
 
@@ -27,6 +32,7 @@ class CoinStatsStore {
       this.getCoinStats()
         .then(info => {
           this.info = { ...this.info, ...info }
+          this.loadingFinished = true
         })
         .catch(console.error)
     }, 30000)
@@ -57,6 +63,10 @@ class CoinStatsStore {
         }
       )
     )
+  }
+
+  get loaded() {
+    return this.loadingFinished
   }
 
   get getUpdatedStats() {

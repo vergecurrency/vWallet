@@ -9,6 +9,7 @@ const hash = transaction =>
 
 class TransactionStore {
   @observable transactions = new Map()
+  @observable loadingFinished = false
 
   @action
   addTransactions = transactions => {
@@ -20,6 +21,7 @@ class TransactionStore {
         ...transaction,
       })
     })
+    this.loadingFinished = true
   }
 
   @action
@@ -31,6 +33,7 @@ class TransactionStore {
       ...oldTransaction,
       hide,
     })
+    this.loadingFinished = true
   }
 
   @computed
@@ -39,8 +42,20 @@ class TransactionStore {
   }
 
   @computed
+  get loaded() {
+    return this.loadingFinished
+  }
+
+  @computed
   get getTransactionList() {
     return this.transactions
+  }
+
+  @computed
+  get lastTenTransaction() {
+    return Array.from(this.transactions.values())
+      .sort((a, b) => b.time - a.time)
+      .slice(0, 9)
   }
 
   @computed
@@ -74,7 +89,7 @@ client.getTransactionList(100).then(transactions => {
 })
 
 setInterval(() => {
-  client.getTransactionList(1000).then(transactions => {
+  client.getTransactionList(100).then(transactions => {
     store.addTransactions(transactions)
   })
 }, 5000)

@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+
 import ReactDOM from 'react-dom'
 // import ReactHighstock from 'react-highcharts/ReactHighstock.src'
 import ReactHighcharts from 'react-highcharts'
-import tr from 'tor-request'
 import moment from 'moment'
+import { observe } from 'mobx'
+import tr from 'tor-request'
 
 tr.setTorAddress('localhost', 9089)
 
-export default class PriceUpdater extends Component {
+class PriceUpdater extends Component {
   state = {
     history: null,
   }
@@ -109,8 +112,12 @@ export default class PriceUpdater extends Component {
           bottom: '0px',
         }}
       >
-        <ReactHighcharts config={config} />
+        {this.props.CoinStatsStore.loaded ? (
+          <ReactHighcharts config={config} />
+        ) : null}
       </div>
     )
   }
 }
+
+export default inject('CoinStatsStore')(observer(PriceUpdater))

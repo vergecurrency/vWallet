@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import styled, { keyframes } from 'styled-components'
 
-import PriceUpdater from './PriceUpdater'
+import Loading from '../icons/Loading'
 import T from 'i18n-react'
+import { fadeIn } from 'react-animations'
 import price from '../assets/images/price.png'
 import priceLight from '../assets/images/price-light.png'
-import styled from 'styled-components'
 import tr from 'tor-request'
 
 tr.setTorAddress('localhost', 9089)
@@ -23,10 +24,11 @@ const StatisticContainer = styled.div`
     props.theme.light ? '' : 'color: #fff!important;'}
   border-radius: 7px;
 `
-
+const fadeInAnimation = keyframes`${fadeIn}`
 const StatItem = styled.div`
   line-height: 3em;
   padding-left: 12px;
+  animation: 1s ${fadeInAnimation};
   border-bottom: ${props =>
       props.theme.light ? '#f2f2f2' : 'rgba(242,242,242, 0.05)'}
     solid 1px;
@@ -39,6 +41,7 @@ const StatItem = styled.div`
 const StatChartItem = styled.div`
   line-height: 3em;
   padding-left: 12px;
+  animation: 1s ${fadeInAnimation};
   border-bottom: ${props =>
       props.theme.light ? '#f2f2f2' : 'rgba(242,242,242, 0.05)'}
     solid 1px;
@@ -67,9 +70,12 @@ const TransactionTitle = styled.div`
   }
 `
 
-@inject('SettingsStore', 'CoinStatsStore')
-@observer
-export default class Statistics extends Component {
+const LoadingContainer = styled.div`
+  text-align: center;
+  padding-top: 35%;
+`
+
+class Statistics extends Component {
   render() {
     const formatter = new Intl.NumberFormat(
       this.props.SettingsStore.getLocale,
@@ -104,43 +110,62 @@ export default class Statistics extends Component {
             </TransactionTitle>
           </div>
         </TopContainer>
-        <StatItem className="row">
-          <div className="col-md-5">
-            XVG/{this.props.SettingsStore.getCurrency}{' '}
-            {T.translate('statistics.price')}
+        {this.props.CoinStatsStore.loaded ? (
+          <div>
+            {' '}
+            <StatItem className="row">
+              <div className="col-md-5">
+                XVG/{this.props.SettingsStore.getCurrency}{' '}
+                {T.translate('statistics.price')}
+              </div>
+              <div className="col-md-7 info">
+                {formatter.format(
+                  this.props.CoinStatsStore.getUpdatedStats.price
+                )}
+              </div>
+            </StatItem>
+            <StatItem className="row">
+              <div className="col-md-5">{T.translate('statistics.cap')}</div>
+              <div className="col-md-7 info">
+                {bigNumber.format(
+                  this.props.CoinStatsStore.getUpdatedStats.cap
+                )}
+              </div>
+            </StatItem>
+            <StatItem className="row">
+              <div className="col-md-5">
+                {T.translate('statistics.hourchange')}
+              </div>
+              <div className="col-md-7 info">
+                {this.props.CoinStatsStore.getUpdatedStats.hourChange} %
+              </div>
+            </StatItem>
+            <StatItem className="row">
+              <div className="col-md-5">
+                {T.translate('statistics.daychange')}
+              </div>
+              <div className="col-md-7 info">
+                {this.props.CoinStatsStore.getUpdatedStats.dayChange} %
+              </div>
+            </StatItem>
+            <StatItem className="row">
+              <div className="col-md-5">{T.translate('statistics.cmc')}</div>
+              <div className="col-md-7 info">
+                {this.props.CoinStatsStore.getUpdatedStats.rank}.
+              </div>
+            </StatItem>
+            <StatChartItem className="row">
+              <div className="col-md-5">{T.translate('statistics.chart')}</div>
+            </StatChartItem>
           </div>
-          <div className="col-md-7 info">
-            {formatter.format(this.props.CoinStatsStore.getUpdatedStats.price)}
-          </div>
-        </StatItem>
-        <StatItem className="row">
-          <div className="col-md-5">{T.translate('statistics.cap')}</div>
-          <div className="col-md-7 info">
-            {bigNumber.format(this.props.CoinStatsStore.getUpdatedStats.cap)}
-          </div>
-        </StatItem>
-        <StatItem className="row">
-          <div className="col-md-5">{T.translate('statistics.hourchange')}</div>
-          <div className="col-md-7 info">
-            {this.props.CoinStatsStore.getUpdatedStats.hourChange} %
-          </div>
-        </StatItem>
-        <StatItem className="row">
-          <div className="col-md-5">{T.translate('statistics.daychange')}</div>
-          <div className="col-md-7 info">
-            {this.props.CoinStatsStore.getUpdatedStats.dayChange} %
-          </div>
-        </StatItem>
-        <StatItem className="row">
-          <div className="col-md-5">{T.translate('statistics.cmc')}</div>
-          <div className="col-md-7 info">
-            {this.props.CoinStatsStore.getUpdatedStats.rank}.
-          </div>
-        </StatItem>
-        <StatChartItem className="row">
-          <div className="col-md-5">{T.translate('statistics.chart')}</div>
-        </StatChartItem>
+        ) : (
+          <LoadingContainer>
+            <Loading text="loading statistics..." />
+          </LoadingContainer>
+        )}
       </StatisticContainer>
     )
   }
 }
+
+export default inject('SettingsStore', 'CoinStatsStore')(observer(Statistics))

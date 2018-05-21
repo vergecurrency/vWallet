@@ -1,11 +1,12 @@
-import React from 'react'
-import { Container, Row, Col } from 'reactstrap'
-import banner from '../assets/images/banner.png'
-import styled from 'styled-components'
-import LoadingIcon from '../components/LoadingIcon'
-import vergeLogo from '../assets/images/verge-logo-white.png'
+import { Col, Container, Row } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
+
+import LoadingIcon from '../components/LoadingIcon'
+import React from 'react'
+import banner from '../assets/images/banner.png'
 import { ipcRenderer } from 'electron'
+import styled from 'styled-components'
+import vergeLogo from '../assets/images/verge-logo-white.png'
 
 const Verge = styled.span`
   color: #5dacc5;
@@ -56,7 +57,6 @@ export default class LoadingRoot extends React.Component {
       ipcRenderer.send('finalized-loading')
     } else {
       console.error('wrong')
-      // console.log(this.props.CoinStatsStore.getUpdatedStats)
     }
   }
 
