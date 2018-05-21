@@ -1,13 +1,12 @@
 // @flow
 import React, { Component } from 'react'
-import TransactionList from './TransactionList'
-import AccountBar from './AccountBar'
-import PriceUpdater from './PriceUpdater'
+
 import Footer from './Footer'
+import PriceUpdater from './PriceUpdater'
 import Statistics from './Statistics'
+import TransactionList from './transaction/TransactionList'
 
 export default class Home extends Component {
-  // TODO: FILL
   render() {
     return (
       <div>

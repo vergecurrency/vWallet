@@ -40,11 +40,6 @@ body {
 }
 
 .trans-title {
-  &::before {
-    content: url('../images/layers.png');
-    padding-right: 15px;
-    padding-top: 20px;
-  }
 }
 
 .stats-item {

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
-import ArrowDown from '../icons/ArrowDown'
-import ArrowUp from '../icons/ArrowUp'
+import ArrowDown from '../../icons/ArrowDown'
+import ArrowUp from '../../icons/ArrowUp'
 import T from 'i18n-react'
 import Transaction from './Transaction'
+import layers from '../../assets/images/layers.png'
+import layersLight from '../../assets/images/layers-light.png'
 import moment from 'moment'
 import styled from 'styled-components'
 
@@ -38,7 +40,13 @@ const TransactionTitle = styled.div`
   font-size: 30px;
   height: 45px;
   padding-bottom: 59px;
+  padding-left: 30px !important;
   ${props => (props.theme.light ? '' : 'color: #fff;')};
+  :before {
+    content: url(${props => (props.theme.light ? layers : layersLight)});
+    padding-right: 15px;
+    padding-top: 20px;
+  }
 `
 
 const MonthlySummary = styled.div`
@@ -46,6 +54,7 @@ const MonthlySummary = styled.div`
   height: 45px;
   padding-bottom: 59px;
   text-align: right;
+  padding-right: 30px !important;
   ${props => (props.theme.light ? '' : 'color: #fff;')};
 `
 
@@ -117,10 +126,7 @@ export default class TransactionList extends Component {
         </div>
         <div className="container">
           <div className="row">
-            <TransactionTitle
-              className="col-md-6 trans-title"
-              style={{ paddingLeft: '10px' }}
-            >
+            <TransactionTitle className="col-md-6">
               {T.translate('transaction.list')}:
             </TransactionTitle>
             <MonthlySummary className="col-md-6">

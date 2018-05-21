@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import T from 'i18n-react'
-import tr from 'tor-request'
+
 import PriceUpdater from './PriceUpdater'
+import T from 'i18n-react'
+import price from '../assets/images/price.png'
+import priceLight from '../assets/images/price-light.png'
 import styled from 'styled-components'
+import tr from 'tor-request'
+
 tr.setTorAddress('localhost', 9089)
 
 const StatisticContainer = styled.div`
@@ -16,14 +20,15 @@ const StatisticContainer = styled.div`
     props.theme.light
       ? 'background-color: #fff;'
       : 'background-color: #152b3d;'} ${props =>
-  props.theme.light ? '' : 'color: #fff!important;'}
+    props.theme.light ? '' : 'color: #fff!important;'}
   border-radius: 7px;
 `
 
 const StatItem = styled.div`
   line-height: 3em;
+  padding-left: 12px;
   border-bottom: ${props =>
-    props.theme.light ? '#f2f2f2' : 'rgba(242,242,242, 0.05)'}
+      props.theme.light ? '#f2f2f2' : 'rgba(242,242,242, 0.05)'}
     solid 1px;
   ${props =>
     props.theme.light ? 'color: #476b84;' : 'color: #7193ae;'} .info {
@@ -33,8 +38,9 @@ const StatItem = styled.div`
 
 const StatChartItem = styled.div`
   line-height: 3em;
+  padding-left: 12px;
   border-bottom: ${props =>
-    props.theme.light ? '#f2f2f2' : 'rgba(242,242,242, 0.05)'}
+      props.theme.light ? '#f2f2f2' : 'rgba(242,242,242, 0.05)'}
     solid 1px;
   ${props =>
     props.theme.light ? 'color: #476b84;' : 'color: #7193ae;'} .info {
@@ -45,7 +51,7 @@ const StatChartItem = styled.div`
 
 const TopContainer = styled.div`
   border-bottom: ${props =>
-    props.theme.light ? '#f2f2f2' : 'rgba(238,238,238, 0.05)'}
+      props.theme.light ? '#f2f2f2' : 'rgba(238,238,238, 0.05)'}
     solid 1px;
 `
 
@@ -54,6 +60,11 @@ const TransactionTitle = styled.div`
   height: 45px;
   padding-bottom: 59px;
   ${props => (props.theme.light ? '' : 'color: #fff;')};
+  :before {
+    content: url(${props => (props.theme.light ? price : priceLight)});
+    padding-right: 15px;
+    padding-top: 20px;
+  }
 `
 
 @inject('SettingsStore', 'CoinStatsStore')
@@ -88,7 +99,7 @@ export default class Statistics extends Component {
             className="col-md-12"
             style={{ marginTop: '25px', marginLeft: '15px' }}
           >
-            <TransactionTitle className="trans-title">
+            <TransactionTitle>
               {T.translate('statistics.title')}
             </TransactionTitle>
           </div>

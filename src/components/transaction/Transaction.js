@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
 import T from 'i18n-react'
-import arrowdown from '../assets/images/arrowdown.png'
-import incoming from '../assets/images/incoming.png'
+import arrowdown from '../../assets/images/arrowdown.png'
+import incoming from '../../assets/images/incoming.png'
 import moment from 'moment'
-import outgoing from '../assets/images/outgoing.png'
+import outgoing from '../../assets/images/outgoing.png'
 import { shell } from 'electron'
 import styled from 'styled-components'
 
@@ -20,6 +20,10 @@ const NewSign = styled.div`
   margin-top: 10px;
   height: auto;
   width: 60px;
+`
+
+const ContainerClicky = styled.div`
+  cursor: pointer;
 `
 
 class Transaction extends Component {
@@ -68,7 +72,7 @@ class Transaction extends Component {
     } = this.props
 
     return (
-      <div className="container">
+      <ContainerClicky className="container" onClick={console.log}>
         <div className="row">
           <div className="col-md-1">
             <TextContainer>
@@ -244,7 +248,7 @@ class Transaction extends Component {
             </div>
           </div>
         ) : null}
-      </div>
+      </ContainerClicky>
     )
   }
 }
