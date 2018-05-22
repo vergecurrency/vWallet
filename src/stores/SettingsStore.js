@@ -1,4 +1,5 @@
-import { observable, action, computed } from 'mobx'
+import { action, computed, observable } from 'mobx'
+
 import ElectronStore from 'electron-store'
 const electronStore = new ElectronStore({
   encryptionKey: new Buffer('vergecurrency'),

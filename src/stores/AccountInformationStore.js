@@ -1,5 +1,8 @@
-import { observable, computed } from 'mobx'
+import { computed, decorate, observable } from 'mobx'
+
 import { Client } from 'verge-node-typescript'
+import log from 'electron-log'
+
 const vergeClient = new Client({ user: 'kyon', pass: 'lolcat' })
 
 const getAccountInfo = () =>
@@ -11,25 +14,22 @@ const getAccountInfo = () =>
         return { ...info, highestBlock }
       })
     )
-    .catch(console.error)
+    .catch(log.error)
 
 class AccountInformationStore {
-  @observable
-  info = {
-    balance: 0,
-  }
-
   constructor() {
+    this.info = {
+      balance: 0,
+    }
     setInterval(() => {
       getAccountInfo()
         .then(info => {
           this.info = { ...this.info, ...info }
         })
-        .catch(console.error)
+        .catch(log.error)
     }, 5000)
   }
 
-  @computed
   get getUpdatedInfo() {
     return this.info
   }
@@ -38,6 +38,12 @@ class AccountInformationStore {
     return this.info.balance
   }
 }
+
+decorate(AccountInformationStore, {
+  info: observable.struct,
+  getUpdatedInfo: computed,
+  getBalance: computed,
+})
 
 const store = new AccountInformationStore()
 export default store

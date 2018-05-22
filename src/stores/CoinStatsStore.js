@@ -1,6 +1,7 @@
 import { computed, decorate, observable } from 'mobx'
 
 import ElectronStore from 'electron-store'
+import log from 'electron-log'
 import tr from 'tor-request'
 
 const electronStore = new ElectronStore({
@@ -9,24 +10,23 @@ const electronStore = new ElectronStore({
 tr.setTorAddress('localhost', 9089)
 
 class CoinStatsStore {
-  info = {
-    price: '',
-    price_btc: '',
-    rank: '',
-    cap: '',
-    hourChange: '',
-    dayChange: '',
-  }
-
   @observable loadingFinished = false
 
   constructor() {
+    this.info = {
+      price: '',
+      price_btc: '',
+      rank: '',
+      cap: '',
+      hourChange: '',
+      dayChange: '',
+    }
     this.getCoinStats()
       .then(info => {
         this.info = { ...this.info, ...info }
         this.loadingFinished = true
       })
-      .catch(console.error)
+      .catch(log.error)
 
     setInterval(() => {
       this.getCoinStats()
@@ -34,7 +34,7 @@ class CoinStatsStore {
           this.info = { ...this.info, ...info }
           this.loadingFinished = true
         })
-        .catch(console.error)
+        .catch(log.error)
     }, 30000)
   }
 

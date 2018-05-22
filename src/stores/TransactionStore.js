@@ -12,7 +12,7 @@ class TransactionStore {
   @observable loadingFinished = false
 
   @action
-  addTransactions = transactions => {
+  addTransactions = (transactions = []) => {
     transactions.forEach(transaction => {
       const oldTransaction = this.transactions.get(hash(transaction))
       this.transactions.set(hash(transaction), {
