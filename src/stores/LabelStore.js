@@ -3,7 +3,7 @@ import { action, computed, decorate, observable } from 'mobx'
 import ElectronStore from 'electron-store'
 
 const electronStore = new ElectronStore({
-  encryptionKey: new Buffer('vergecurrency'),
+  encryptionKey: Buffer.from('vergecurrency'),
 })
 
 class LabelStore {

@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx'
 const ElectronStore = require('electron-store')
 const electronStore = new ElectronStore({
-  encryptionKey: new Buffer('vergecurrency'),
+  encryptionKey: Buffer.from('vergecurrency'),
 })
 
 class SetupStore {

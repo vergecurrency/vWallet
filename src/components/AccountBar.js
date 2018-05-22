@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { Client } from 'verge-node-typescript'
 import { inject, observer } from 'mobx-react'
-import T from 'i18n-react'
-import send from '../assets/images/send.png'
-import receive from '../assets/images/receive.png'
-import SendPanel from './modal/SendPanel'
+
+import { Client } from 'verge-node-typescript'
 import ElectronStore from 'electron-store'
-const electronStore = new ElectronStore({
-  encryptionKey: new Buffer('vergecurrency'),
-})
+import SendPanel from './modal/SendPanel'
+import T from 'i18n-react'
+import receive from '../assets/images/receive.png'
+import send from '../assets/images/send.png'
 import styled from 'styled-components'
+
+const electronStore = new ElectronStore({
+  encryptionKey: Buffer.from('vergecurrency'),
+})
 
 const AccountBarContainer = styled.div`
   max-height: 200px;

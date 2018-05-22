@@ -5,7 +5,7 @@ import log from 'electron-log'
 import tr from 'tor-request'
 
 const electronStore = new ElectronStore({
-  encryptionKey: new Buffer('vergecurrency'),
+  encryptionKey: Buffer.from('vergecurrency'),
 })
 tr.setTorAddress('localhost', 9089)
 

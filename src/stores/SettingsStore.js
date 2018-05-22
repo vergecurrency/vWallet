@@ -1,8 +1,9 @@
 import { action, computed, observable } from 'mobx'
 
 import ElectronStore from 'electron-store'
+
 const electronStore = new ElectronStore({
-  encryptionKey: new Buffer('vergecurrency'),
+  encryptionKey: Buffer.from('vergecurrency'),
 })
 
 const CURRENT_VERSION = require('electron').remote.app.getVersion()
