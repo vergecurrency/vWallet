@@ -59,14 +59,15 @@ const TopContainer = styled.div`
 `
 
 const TransactionTitle = styled.div`
-  font-size: 30px;
+  display: flex;
+  align-content: center;
+  font-size: 26px;
   height: 45px;
   padding-bottom: 59px;
   ${props => (props.theme.light ? '' : 'color: #fff;')};
   :before {
     content: url(${props => (props.theme.light ? price : priceLight)});
     padding-right: 15px;
-    padding-top: 20px;
   }
 `
 

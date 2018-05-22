@@ -38,15 +38,19 @@ const ItemContainer = styled.div`
 `
 
 const TransactionTitle = styled.div`
-  font-size: 30px;
+  display: flex;
+  align-content: center;
+  font-size: 26px;
   height: 45px;
   padding-bottom: 59px;
   padding-left: 30px !important;
   ${props => (props.theme.light ? '' : 'color: #fff;')};
   :before {
     content: url(${props => (props.theme.light ? layers : layersLight)});
-    padding-right: 15px;
-    padding-top: 20px;
+    width: 26px;
+    height: 26px;
+    margin-right: 15px;
+    margin-top: 5px;
   }
 `
 
@@ -130,7 +134,7 @@ class TransactionList extends Component {
         <div className="container">
           <div className="row">
             <TransactionTitle className="col-md-6">
-              {T.translate('transaction.list')}:
+              {T.translate('transaction.list')}
             </TransactionTitle>
             <MonthlySummary className="col-md-6">
               <UpperSummary>

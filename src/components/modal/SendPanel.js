@@ -1,9 +1,10 @@
+import { Col, Container, Row } from 'reactstrap'
+import { inject, observer } from 'mobx-react'
+
+import Modal from '../Modal'
 import React from 'react'
 import T from 'i18n-react'
-import { Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
-import Modal from '../Modal'
-import { inject, observer } from 'mobx-react'
 
 const Title = styled.p`
   color: #476b84;
@@ -11,15 +12,6 @@ const Title = styled.p`
   font-weight: 400;
   line-height: 20px;
 `
-
-/* const FolderButton = styled.button`
-  margin-left: 20px;
-  width: 44px;
-  height: 45px;
-  border-radius: 3px;
-  border: 1px solid #dcdcdc;
-  background-color: #f6f6f6;
-`*/
 
 const SubTitle = styled.p`
   color: #909090;
@@ -64,7 +56,6 @@ const BalanceTitle = styled.div`
   font-weight: 400;
   line-height: 10.53px;
   text-transform: uppercase;
-  /* Text style for "X, VG IN U" */
   letter-spacing: 2.12px;
 `
 
