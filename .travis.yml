@@ -10,7 +10,7 @@ matrix:
       language: generic
 
 node_js:
-  - 8
+  - "8"
 
 install:
   - yarn
@@ -31,7 +31,3 @@ script:
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
-
-env:
-  global:
-    secure: c1A0lFgQwTzZUTAAgv25OSt/ImFa59NB95Cb5iTUf90fDEGCFDoci5v5m7melfnUNVISkMPT88p1mricx32Gh0EpoK0oUTQV0kAWtYiMsgokNhF9dwv9ep+hqJy1sTyfpsdmlTrYHqnruKT85os+1TCRxInb/JzOFbsIbaCXywfVy6Zu2h/0Knu1mMpCpJIxY87Z4+ZDr0eRT5KrbES7CtEVCLGyktYYM9hBlnYjWZIzolVmF0HlWzr6PujDyrm6k45Uos7gCjDDP/vwNHECc0PgrBaJxtXdjZ3gLF9+iYGfmClUWqABafB+m/Q4wEeyOV5bVMxFQQEbSTQ4ICpocFtzo9H2/SmekxY+Pxwlg5tvmEl0J9QI8VWYEeSVMKxAO+gu+xeizXIzWPKQ9HXujIEJOOk7MdMjkeGlh8amT8tQk8mn/aCKQbLP8Tl5wzZQU7uehSqkVF7/nqzAlUGD8DCsm/xBVuDIsAB+IML3yJkGV11N83pKaDuic4HJ3T6l2PlXfHEJ8cj40IImhPUPLWhMUea6yRAZ92raEK2cj+gasMIa0/eMnLNk1q/tuQyQPrFnB8PcvyeNEZFtqakTd4tBUMc5KfeaLWUXIfRGCMPn0fwnH/T6AWRbrcG8We/GuWEULFfaTcI1PRf/4t5gNtXL0XhOiw9kdLRnjwta6G4=
