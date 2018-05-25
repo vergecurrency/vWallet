@@ -3,9 +3,12 @@ import { fadeIn, fadeInDown } from 'react-animations'
 import { inject, observer } from 'mobx-react'
 import styled, { keyframes } from 'styled-components'
 
+import ArrowDown from '../../icons/ArrowDown'
+import ArrowUp from '../../icons/ArrowUp'
 import T from 'i18n-react'
 import arrowdown from '../../assets/images/arrowdown.png'
 import incoming from '../../assets/images/incoming.png'
+import { isNull } from 'util'
 import moment from 'moment'
 import outgoing from '../../assets/images/outgoing.png'
 import { shell } from 'electron'
@@ -14,13 +17,36 @@ const TextContainer = styled.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
 `
 
+const TransactionIcon = styled.div`
+  display: inline-flex;
+  padding: 7px;
+  border-radius: 52%;
+  height: 32px;
+  width: 32px;
+  background-color: ${props => (!props.up ? '#00917a' : '#dc2b3d')};
+  .arrow-down,
+  .arrow-up {
+    stroke-width: 3px;
+  }
+`
+
+const CenterDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 const NewSign = styled.div`
   border: 1px solid #7193ae;
   border-radius: 1.4em;
   text-align: center;
-  margin-top: 10px;
+  text-transform: uppercase;
+  font-size: 0.7em;
   height: auto;
-  width: 60px;
+  width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 const fadeInAnimation = keyframes`${fadeIn}`
 
@@ -31,6 +57,15 @@ const ContainerClicky = styled.div`
 
 const TransactionDetails = styled.div`
   animation: 1s ${fadeInAnimation};
+  padding-left: 8px;
+`
+
+const RoundedTransaction = styled.div`
+  border-radius: 0.5em;
+  padding: 6px 10px;
+  &:hover {
+    background-color: hsla(207, 48%, 95%, 0.8);
+  }
 `
 
 class Transaction extends Component {
@@ -81,10 +116,25 @@ class Transaction extends Component {
     return (
       <ContainerClicky
         className="container"
-        onClick={() => console.log(this.props)}
+        onClick={() => {
+          this.props.TransactionStore.setVisibility(
+            txid,
+            category,
+            address,
+            !hide
+          )
+        }}
       >
-        <div className="row">
-          <div className="col-md-1">
+        <RoundedTransaction className="row">
+          <div
+            className="col-md-1"
+            style={{
+              textAlign: 'center',
+              fontWeight: '500',
+              fontSize: '13px',
+              paddingTop: '5px',
+            }}
+          >
             <TextContainer>
               {moment
                 .unix(timereceived)
@@ -95,32 +145,33 @@ class Transaction extends Component {
               style={{
                 fontWeight: '300',
                 fontSize: '22px',
-                lineHeight: '1.25',
+                lineHeight: '1.0',
+                color: '#cacaca',
               }}
             >
               {moment.unix(timereceived).format('DD')}
             </TextContainer>
           </div>
-          <TextContainer
-            className="col-md-1"
-            style={{
-              fontWeight: 'bold',
-              marginTop: '8px',
-            }}
-          >
+          <CenterDiv className="col-md-1">
             {category.includes('receive') ? (
-              <img src={incoming} />
+              <TransactionIcon>
+                <ArrowUp width={18} height={18} />
+              </TransactionIcon>
             ) : (
-              <img src={outgoing} />
+              <TransactionIcon up>
+                <ArrowDown width={18} height={18} />
+              </TransactionIcon>
             )}
-          </TextContainer>
+          </CenterDiv>
           {this.isNew() ? (
             <TextContainer className="col-md-1">
               <NewSign>new</NewSign>
             </TextContainer>
-          ) : null}
+          ) : (
+            isNull
+          )}
           <div
-            className={this.isNew() ? 'col-md-7' : 'col-md-8'}
+            className={this.isNew() ? 'col-md-8' : 'col-md-9'}
             style={{
               fontWeight: 'bold',
               color: category.includes('receive') ? '#00917a' : '#dc2b3d',
@@ -130,16 +181,31 @@ class Transaction extends Component {
             }}
           >
             <div>
-              {category.includes('receive') ? '+' : ''}
-              {(amount + fee)
-                .toFixed(2)
-                .toLocaleString(this.props.SettingsStore.getLocale)}{' '}
-              XVG
+              <font
+                style={{
+                  verticalAlign: 'super',
+                  fontSize: '10px',
+                  fontWeight: 500,
+                }}
+              >
+                XVG
+              </font>
+              <font
+                style={{
+                  fontSize: '20px',
+                  fontWeight: 400,
+                }}
+              >
+                {Math.abs(amount + fee)
+                  .toFixed(2)
+                  .toLocaleString(this.props.SettingsStore.getLocale)}{' '}
+                {category.includes('receive') ? '+' : '-'}
+              </font>
             </div>
             <TextContainer
               style={{
                 fontSize: '12px',
-                fontWeight: '400',
+                fontWeight: '500',
                 letterSpacing: '1px',
               }}
             >
@@ -148,30 +214,20 @@ class Transaction extends Component {
           </div>
           {blockhash ? (
             <div
-              className="col-md-2"
-              style={{ textAlign: 'center', cursor: 'pointer' }}
-              onClick={() => {
-                this.props.TransactionStore.setVisibility(
-                  txid,
-                  category,
-                  address,
-                  !hide
-                )
+              className="col-md-1"
+              style={{
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <div>
-                <img
-                  src={arrowdown}
-                  style={{
-                    transform: `rotate(${hide ? 0 : 180}deg)`,
-                  }}
-                />
-              </div>
-              <TextContainer style={{ fontSize: '10px' }}>
-                {hide
-                  ? T.translate('transaction.item.details')
-                  : T.translate('transaction.item.close')}
-              </TextContainer>
+              <img
+                src={arrowdown}
+                style={{
+                  transform: `rotate(${hide ? 0 : 180}deg)`,
+                }}
+              />
             </div>
           ) : (
             <div
@@ -184,7 +240,7 @@ class Transaction extends Component {
               </TextContainer>
             </div>
           )}
-        </div>
+        </RoundedTransaction>
         {!hide ? (
           <TransactionDetails className="trans-details">
             <div className="row">

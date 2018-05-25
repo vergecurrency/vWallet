@@ -10,6 +10,7 @@ const hash = transaction =>
 class TransactionStore {
   @observable transactions = new Map()
   @observable loadingFinished = false
+  @observable search = ''
 
   @action
   addTransactions = (transactions = []) => {
@@ -36,6 +37,11 @@ class TransactionStore {
     this.loadingFinished = true
   }
 
+  @action
+  setSearch(e) {
+    this.search = e.target.value
+  }
+
   @computed
   get getTransactionCount() {
     return this.transactions.size
@@ -52,10 +58,32 @@ class TransactionStore {
   }
 
   @computed
+  get searchValue() {
+    return this.search
+  }
+
+  @computed
   get lastTenTransaction() {
-    return Array.from(this.transactions.values())
-      .sort((a, b) => b.time - a.time)
-      .slice(0, 9)
+    const transactions = Array.from(this.transactions.values())
+
+    if (this.search) {
+      return transactions
+        .filter(transaction =>
+          [
+            transaction.address,
+            transaction.amount,
+            transaction.account,
+            transaction.category,
+          ]
+            .join('-')
+            .toLocaleLowerCase()
+            .includes(this.search.toLocaleLowerCase())
+        )
+        .sort((a, b) => b.time - a.time)
+        .slice(0, 9)
+    }
+
+    return transactions.sort((a, b) => b.time - a.time).slice(0, 9)
   }
 
   @computed

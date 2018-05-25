@@ -17,6 +17,7 @@ const StatisticContainer = styled.div`
   left: 755px;
   height: 450px;
   width: 400px !important;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
   ${props =>
     props.theme.light
       ? 'background-color: #fff;'
@@ -64,7 +65,7 @@ const TransactionTitle = styled.div`
   font-size: 26px;
   height: 45px;
   padding-bottom: 59px;
-  ${props => (props.theme.light ? '' : 'color: #fff;')};
+  ${props => (props.theme.light ? 'color: #003b54;' : 'color: #fff;')};
   :before {
     content: url(${props => (props.theme.light ? price : priceLight)});
     padding-right: 15px;

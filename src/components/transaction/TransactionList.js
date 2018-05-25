@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 import ArrowDown from '../../icons/ArrowDown'
 import ArrowUp from '../../icons/ArrowUp'
 import Loading from '../../icons/Loading'
+import SearchBar from './SearchBar'
 import T from 'i18n-react'
 import Transaction from './Transaction'
 import layers from '../../assets/images/layers.png'
@@ -19,6 +20,7 @@ const TransactionListContainer = styled.div`
   height: 450px;
   border-radius: 7px;
   color: #003b54 !important;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
   ${props =>
     props.theme.light
       ? 'background-color: #ffffff;'
@@ -26,15 +28,15 @@ const TransactionListContainer = styled.div`
 `
 
 const ItemContainer = styled.div`
-  padding: 10px;
-  border-bottom: 1px solid ${props =>
-    props.theme.light ? 'rgba(0, 0, 0, 0.1);' : 'rgba(238, 238, 238, 0.03);'}
-  :nth-child(even) {
+  padding: 6px 10px;
+  /*border-bottom: 1px solid ${props =>
+    props.theme.light ? 'rgba(0, 0, 0, 0.1);' : 'rgba(238, 238, 238, 0.03);'}*/
+  /*:nth-child(even) {
     ${props =>
       props.theme.light
         ? 'background-color: #f9f9f9;'
         : 'background-color: rgba(238, 238, 238, 0.01);'};
-  }
+  }*/
 `
 
 const TransactionTitle = styled.div`
@@ -177,6 +179,7 @@ class TransactionList extends Component {
         >
           {this.props.TransactionStore.loaded ? (
             <div className="container">
+              <SearchBar />
               {this.props.TransactionStore.lastTenTransaction.map(
                 transaction => (
                   <ItemContainer
