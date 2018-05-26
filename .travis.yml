@@ -7,11 +7,14 @@ matrix:
   - os: linux
     services: docker
     language: generic
+
 node_js:
 - '8'
+
 install:
 - yarn
 script:
+- yarn test-ci
 - yarn dist
 before_cache:
 - rm -rf $HOME/.cache/electron-builder/wine

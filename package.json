@@ -53,6 +53,7 @@
     "postinstall": "electron-builder install-app-deps",
     "dist": "yarn run build && build --publish onTagOrDraft",
     "test": "jest --watch",
+    "test-ci": "jest",
     "prod":
       "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
     "dev":
