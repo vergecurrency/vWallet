@@ -4,6 +4,12 @@
 
 _This wallet has no connection to the original **electrum** wallet, it is exclusively designed and developed for VERGE currency. Still it's open source._
 
+[![VergeCurrency](https://raw.githubusercontent.com/vergecurrency/vergecurrency.com/master/static/img/verge-github-badge.png)](https://github.com/vergecurrency/vergecurrency.com)
+
+#### Testing/Coverage Development: 
+
+ _soon to be implemented_
+
 #### Development Status:
 
 [![Build Status](https://travis-ci.org/vergecurrency/vWallet.svg?branch=develop)](https://travis-ci.org/vergecurrency/vWallet)
