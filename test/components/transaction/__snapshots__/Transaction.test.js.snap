@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction changes the class when hovered 1`] = `
+<div
+  className="container sc-EHOje kqqlKE"
+  onClick={[Function]}
+>
+  <div
+    className="row sc-gzVnrw czxydJ"
+  >
+    <div
+      className="col-md-1"
+      style={
+        Object {
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "paddingTop": "5px",
+          "textAlign": "center",
+        }
+      }
+    >
+      <div
+        className="sc-bwzfXH bFTjyN"
+      >
+        JAN
+      </div>
+      <div
+        className="sc-bwzfXH bFTjyN"
+        style={
+          Object {
+            "color": "#cacaca",
+            "fontSize": "22px",
+            "fontWeight": "300",
+            "lineHeight": "1.0",
+          }
+        }
+      >
+        01
+      </div>
+    </div>
+    <div
+      className="col-md-1 sc-bxivhb imfAaG"
+    >
+      <div
+        className="sc-htpNat gVAJuF"
+      >
+        <svg
+          height={18}
+          id="Lag_1"
+          style={
+            Object {
+              "enableBackground": "new 0 0 24 24",
+            }
+          }
+          version={1.1}
+          viewBox="0 0 24 24"
+          width={18}
+          x="0px"
+          xmlSpace="preserve"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          y="0px"
+        >
+          <line
+            className="arrow-down"
+            x1={12}
+            x2={12}
+            y1={5}
+            y2={19}
+          />
+          <polyline
+            className="arrow-down"
+            points="19,12 12,19 5,12 "
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      className="col-md-9"
+      style={
+        Object {
+          "color": "#dc2b3d",
+          "fontSize": "22px",
+          "fontWeight": "bold",
+          "letterSpacing": "1px",
+          "textAlign": "right",
+        }
+      }
+    >
+      <div>
+        <font
+          style={
+            Object {
+              "fontSize": "10px",
+              "fontWeight": 500,
+              "verticalAlign": "super",
+            }
+          }
+        >
+          XVG
+        </font>
+        <font
+          style={
+            Object {
+              "fontSize": "20px",
+              "fontWeight": 400,
+            }
+          }
+        >
+          123.12
+           
+          -
+        </font>
+      </div>
+      <div
+        className="sc-bwzfXH bFTjyN"
+        style={
+          Object {
+            "fontSize": "12px",
+            "fontWeight": "500",
+            "letterSpacing": "1px",
+          }
+        }
+      >
+        <font>
+          transaction.item.sent
+        </font>
+      </div>
+    </div>
+    <div
+      className="col-md-2"
+      style={
+        Object {
+          "marginTop": "15px",
+          "textAlign": "center",
+        }
+      }
+    >
+       
+      <div
+        className="sc-bwzfXH bFTjyN"
+        style={
+          Object {
+            "fontSize": "10px",
+          }
+        }
+      >
+        Out of sync
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -30,11 +30,18 @@
       "target": "nsis"
     },
     "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
+      "target": ["AppImage", "deb"]
     }
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/**.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "coverageDirectory": "./coverage"
   },
   "repository": {
     "type": "git",
@@ -45,12 +52,16 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "dist": "yarn run build && build --publish onTagOrDraft",
-    "prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
-    "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+    "test": "jest --watch",
+    "prod":
+      "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+    "dev":
+      "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "webpack --mode production --config=./webpack.build.config.js",
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --overwrite",
-    "prettify": "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js",
+    "prettify":
+      "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --tab-width 2 --write src/**/*.js",
     "eslintfixdry": "eslint --fix-dry-run src/**/*.js"
   },
   "devDependencies": {
@@ -59,7 +70,7 @@
     "awesome-typescript-loader": "^5.0.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.3",
-    "babel-jest": "^22.1.0",
+    "babel-jest": "^23.0.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
@@ -98,7 +109,7 @@
     "eslint-plugin-compat": "^2.2.0",
     "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^21.7.0",
+    "eslint-plugin-jest": "^21.15.2",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.8.2",
@@ -111,7 +122,7 @@
     "flow-typed": "^2.3.0",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^22.1.4",
+    "jest": "^23.0.0",
     "jquery": "^3.3.1",
     "minimist": "^1.2.0",
     "mobx-react-devtools": "^5.0.1",
@@ -120,8 +131,9 @@
     "prettier": "^1.12.1",
     "prettierrc": "^0.0.0-5",
     "react-hot-loader": "^4.1.1",
-    "react-test-renderer": "^16.2.0",
+    "react-test-renderer": "^16.4.0",
     "redux-logger": "^3.0.6",
+    "regenerator-runtime": "^0.11.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.1",
     "sinon": "^4.2.2",
@@ -166,6 +178,6 @@
     "styled-components": "^3.2.6",
     "tor-request": "^2.1.1",
     "uuid": "^3.2.1",
-    "verge-node-typescript": "^0.0.6"
+    "verge-node-typescript": "^0.0.7"
   }
 }

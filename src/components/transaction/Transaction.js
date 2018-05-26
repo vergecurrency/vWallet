@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import { fadeIn, fadeInDown } from 'react-animations'
 import { inject, observer } from 'mobx-react'
 import styled, { keyframes } from 'styled-components'
 
 import ArrowDown from '../../icons/ArrowDown'
+import ArrowPop from '../../icons/ArrowPop'
 import ArrowUp from '../../icons/ArrowUp'
+import PropTypes from 'prop-types'
 import T from 'i18n-react'
-import arrowdown from '../../assets/images/arrowdown.png'
-import incoming from '../../assets/images/incoming.png'
+import { fadeIn } from 'react-animations'
 import { isNull } from 'util'
 import moment from 'moment'
-import outgoing from '../../assets/images/outgoing.png'
 import { shell } from 'electron'
 
 const TextContainer = styled.div`
@@ -67,21 +66,13 @@ const RoundedTransaction = styled.div`
     background-color: hsla(207, 48%, 95%, 0.8);
   }
 `
-
 class Transaction extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  getType() {
-    if (this.props.amount != 0) {
-      return this.props.category.includes('receive')
+  getType(amount, category, fee) {
+    if (amount != 0) {
+      return category.includes('receive')
         ? T.translate('transaction.item.receive')
         : T.translate('transaction.item.sent')
-    } else if (
-      (!this.props.amount || this.props.amount == 0) &&
-      this.props.fee < 0
-    ) {
+    } else if ((!amount || amount == 0) && fee < 0) {
       return T.translate('transaction.item.fee')
     }
   }
@@ -100,29 +91,25 @@ class Transaction extends Component {
     )
 
     const {
-      account,
-      address,
-      amount,
+      address = '',
+      amount = 0,
       fee = 0,
-      blockhash,
-      category,
-      confirmations,
-      time,
-      timereceived,
-      txid,
-      hide,
+      blockhash = '',
+      category = '',
+      confirmations = 0,
+      time = 0,
+      timereceived = 0,
+      txid = '',
+      hide = false,
+      TransactionStore,
+      SettingsStore,
     } = this.props
 
     return (
       <ContainerClicky
         className="container"
         onClick={() => {
-          this.props.TransactionStore.setVisibility(
-            txid,
-            category,
-            address,
-            !hide
-          )
+          TransactionStore.setVisibility(txid, category, address, !hide)
         }}
       >
         <RoundedTransaction className="row">
@@ -198,7 +185,7 @@ class Transaction extends Component {
               >
                 {Math.abs(amount + fee)
                   .toFixed(2)
-                  .toLocaleString(this.props.SettingsStore.getLocale)}{' '}
+                  .toLocaleString(SettingsStore.getLocale)}{' '}
                 {category.includes('receive') ? '+' : '-'}
               </font>
             </div>
@@ -209,7 +196,7 @@ class Transaction extends Component {
                 letterSpacing: '1px',
               }}
             >
-              <font>{this.getType()}</font>
+              <font>{this.getType(amount, category, fee)}</font>
             </TextContainer>
           </div>
           {blockhash ? (
@@ -222,12 +209,7 @@ class Transaction extends Component {
                 justifyContent: 'center',
               }}
             >
-              <img
-                src={arrowdown}
-                style={{
-                  transform: `rotate(${hide ? 0 : 180}deg)`,
-                }}
-              />
+              <ArrowPop height={36} checked={hide} />
             </div>
           ) : (
             <div
@@ -325,6 +307,22 @@ class Transaction extends Component {
       </ContainerClicky>
     )
   }
+}
+
+Transaction.propTypes = {
+  amount: PropTypes.number.isRequired,
+  account: PropTypes.string,
+  address: PropTypes.string,
+  fee: PropTypes.string,
+  blockhash: PropTypes.string,
+  category: PropTypes.string,
+  confirmations: PropTypes.number,
+  time: PropTypes.number,
+  timereceived: PropTypes.number,
+  txid: PropTypes.string,
+  hide: PropTypes.bool.isRequired,
+  TransactionStore: PropTypes.object.isRequired,
+  SettingsStore: PropTypes.object.isRequired,
 }
 
 export default inject('TransactionStore', 'SettingsStore')(
