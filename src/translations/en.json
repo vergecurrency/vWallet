@@ -6,8 +6,8 @@
   "transaction": {
     "list": "Transaction List",
     "item": {
-      "receive": "You received",
-      "sent": "You sent",
+      "receive": "Received",
+      "sent": "Sent",
       "fee": "Paid fees",
       "details": "details",
       "close": "close",

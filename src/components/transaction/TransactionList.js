@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 import ArrowDown from '../../icons/ArrowDown'
 import ArrowUp from '../../icons/ArrowUp'
 import Loading from '../../icons/Loading'
+import Pile from '../../icons/Pile'
 import SearchBar from './SearchBar'
 import T from 'i18n-react'
 import Transaction from './Transaction'
@@ -29,32 +30,29 @@ const TransactionListContainer = styled.div`
 
 const ItemContainer = styled.div`
   padding: 6px 10px;
-  /*border-bottom: 1px solid ${props =>
-    props.theme.light ? 'rgba(0, 0, 0, 0.1);' : 'rgba(238, 238, 238, 0.03);'}*/
-  /*:nth-child(even) {
-    ${props =>
-      props.theme.light
-        ? 'background-color: #f9f9f9;'
-        : 'background-color: rgba(238, 238, 238, 0.01);'};
-  }*/
 `
 
 const TransactionTitle = styled.div`
   display: flex;
   align-content: center;
+  align-items: center;
+  justify-items: center;
   font-size: 26px;
   height: 45px;
-  padding-bottom: 59px;
+  padding-bottom: 8px;
   padding-left: 30px !important;
   ${props => (props.theme.light ? '' : 'color: #fff;')};
-  :before {
+  > svg {
+    ${props => (props.theme.light ? '' : 'fill: #fff;')};
+  }
+`
+/*:before {
     content: url(${props => (props.theme.light ? layers : layersLight)});
     width: 26px;
     height: 26px;
     margin-right: 15px;
     margin-top: 5px;
-  }
-`
+  }*/
 
 const MonthlySummary = styled.div`
   bottom: 15px;
@@ -136,6 +134,11 @@ class TransactionList extends Component {
         <div className="container">
           <div className="row">
             <TransactionTitle className="col-md-6">
+              <Pile
+                width={30}
+                height={30}
+                style={{ fill: '#003b54', marginRight: '10px' }}
+              />{' '}
               {T.translate('transaction.list')}
             </TransactionTitle>
             <MonthlySummary className="col-md-6">
