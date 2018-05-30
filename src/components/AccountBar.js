@@ -4,8 +4,11 @@ import { inject, observer } from "mobx-react";
 import { Client } from "verge-node-typescript";
 import CurrencySymbol from "./CurrencySymbol";
 import ElectronStore from "electron-store";
+import MoneyIn from "../icons/MoneyIn";
+import MoneyOut from "../icons/MoneyOut";
 import SendPanel from "./modal/SendPanel";
 import T from "i18n-react";
+import { Tooltip } from "reactstrap";
 import receive from "../assets/images/receive.png";
 import send from "../assets/images/send.png";
 import styled from "styled-components";
@@ -33,19 +36,34 @@ const AccountBarContainer = styled.div`
       : "background-color: #0d1f2d;"};
 `;
 
-@inject("SettingsStore", "AccountInformationStore", "CoinStatsStore")
-@observer
-export default class AccountBar extends Component {
+class AccountBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sendOpen: false
+      sendOpen: false,
+      tooltipSendOpen: false,
+      tooltipReceiveOpen: false
     };
+
     this.toggleSend = this.toggleSend.bind(this);
+    this.toggleSendTooltip = this.toggleSendTooltip.bind(this);
+    this.toggleReceiveTooltip = this.toggleReceiveTooltip.bind(this);
   }
 
   toggleSend() {
     this.setState({ sendOpen: !this.state.sendOpen });
+  }
+
+  toggleSendTooltip() {
+    this.setState({
+      tooltipSendOpen: !this.state.tooltipSendOpen
+    });
+  }
+
+  toggleReceiveTooltip() {
+    this.setState({
+      tooltipReceiveOpen: !this.state.tooltipReceiveOpen
+    });
   }
 
   render() {
@@ -161,21 +179,43 @@ export default class AccountBar extends Component {
             style={{
               textAlign: "center",
               display: "flex",
-              justifyContent: "center"
+              justifyContent: "center",
+              ...(this.props.AccountInformationStore.unlocked
+                ? {}
+                : { opacity: 0.5 })
             }}
           >
+            {!this.props.AccountInformationStore.unlocked ? (
+              <Tooltip
+                placement="top"
+                isOpen={this.state.tooltipSendOpen}
+                target="sending"
+                toggle={this.toggleSendTooltip}
+              >
+                Unlock your wallet!
+              </Tooltip>
+            ) : null}
             <div
               className="big-button send"
-              style={{ alignSelf: "center" }}
-              onClick={this.toggleSend}
+              id="sending"
+              style={{
+                alignSelf: "center",
+                display: "flex-inline",
+                alignItems: "center",
+                justifyItems: "center",
+                display: "inline-flex",
+                justifyContent: "center"
+              }}
+              onClick={
+                this.props.AccountInformationStore.unlocked
+                  ? this.toggleSend
+                  : () => {}
+              }
             >
-              <img
-                src={send}
-                style={{
-                  height: "15px",
-                  width: "15px",
-                  marginRight: "15px"
-                }}
+              <MoneyOut
+                width={16}
+                height={16}
+                style={{ fill: "#fff", marginRight: "10px" }}
               />
               {T.translate("account-bar.send")}
             </div>
@@ -185,20 +225,44 @@ export default class AccountBar extends Component {
             style={{
               textAlign: "center",
               display: "flex",
-              justifyContent: "center"
+              justifyContent: "center",
+              ...(this.props.AccountInformationStore.unlocked
+                ? {}
+                : { opacity: 0.5 })
             }}
           >
+            {!this.props.AccountInformationStore.unlocked ? (
+              <Tooltip
+                placement="top"
+                isOpen={this.state.tooltipReceiveOpen}
+                target="receiving"
+                toggle={this.toggleReceiveTooltip}
+              >
+                Unlock your wallet!
+              </Tooltip>
+            ) : null}
             <div
+              id="receiving"
               className="big-button receive"
-              style={{ alignSelf: "center", marginRight: "40px" }}
+              style={{
+                display: "flex-inline",
+                justifyItems: "center",
+                alignItems: "center",
+                alignSelf: "center",
+                marginRight: "40px",
+                display: "inline-flex",
+                justifyContent: "center"
+              }}
+              onClick={
+                this.props.AccountInformationStore.unlocked
+                  ? this.toggleSend
+                  : () => {}
+              }
             >
-              <img
-                src={receive}
-                style={{
-                  height: "15px",
-                  width: "15px",
-                  marginRight: "15px"
-                }}
+              <MoneyIn
+                width={16}
+                height={16}
+                style={{ fill: "#fff", marginRight: "10px" }}
               />
               {T.translate("account-bar.receive")}
             </div>
@@ -208,3 +272,9 @@ export default class AccountBar extends Component {
     );
   }
 }
+
+export default inject(
+  "SettingsStore",
+  "AccountInformationStore",
+  "CoinStatsStore"
+)(observer(AccountBar));

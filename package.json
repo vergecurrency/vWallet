@@ -180,6 +180,7 @@
     "react-highcharts": "^16.0.2",
     "react-material-icon-svg": "^1.5.1",
     "react-moment": "^0.7.0",
+    "react-popover": "^0.5.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-beta.3",
@@ -188,6 +189,6 @@
     "styled-components": "^3.2.6",
     "tor-request": "^2.1.1",
     "uuid": "^3.2.1",
-    "verge-node-typescript": "^0.0.9"
+    "verge-node-typescript": "^0.0.12"
   }
 }

@@ -13,7 +13,16 @@ const getAccountInfo = () =>
         const highestBlock = Math.max(
           ...peers.map(peer => peer.startingheight)
         );
-        return { ...info, highestBlock };
+        return vergeClient
+          .unlockWallet("a")
+          .then(() => ({ ...info, highestBlock, unlocked: true }))
+          .catch(e => {
+            return {
+              ...info,
+              highestBlock,
+              unlocked: e.includes("already unlocked")
+            };
+          });
       })
     )
     .catch(log.error);
@@ -29,11 +38,19 @@ class AccountInformationStore {
           this.info = { ...this.info, ...info };
         })
         .catch(log.error);
-    }, 5000);
+    }, 500);
   }
 
   sendTransaction(vergeAddress, amount) {
     return vergeClient.sendToAddress(vergeAddress, amount);
+  }
+
+  unlockWallet(password) {
+    return vergeClient.unlockWallet(password);
+  }
+
+  lockWallet() {
+    return vergeClient.walletLock();
   }
 
   get getUpdatedInfo() {
@@ -43,12 +60,17 @@ class AccountInformationStore {
   get getBalance() {
     return this.info.balance;
   }
+
+  get unlocked() {
+    return this.info.unlocked;
+  }
 }
 
 decorate(AccountInformationStore, {
   info: observable.struct,
   getUpdatedInfo: computed,
-  getBalance: computed
+  getBalance: computed,
+  unlocked: computed
 });
 
 const store = new AccountInformationStore();
