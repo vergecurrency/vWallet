@@ -1,25 +1,25 @@
-import { Col, Container, Row } from 'reactstrap'
-import { inject, observer } from 'mobx-react'
+import { Col, Container, Row } from "reactstrap";
+import { inject, observer } from "mobx-react";
 
-import Modal from '../Modal'
-import React from 'react'
-import T from 'i18n-react'
-import styled from 'styled-components'
+import Modal from "../Modal";
+import React from "react";
+import T from "i18n-react";
+import styled from "styled-components";
 
 const Title = styled.p`
   color: #476b84;
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
-`
+`;
 
 const SubTitle = styled.p`
   color: #909090;
-  font-family: 'Avenir Next';
+  font-family: "Avenir Next";
   font-size: 12px;
   font-weight: 400;
   line-height: 30px;
-`
+`;
 
 const InputHandler = styled.input`
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.09);
@@ -30,11 +30,11 @@ const InputHandler = styled.input`
   font-style: italic;
   height: 45px;
   padding: 15px;
-`
+`;
 
 const InputContainer = styled.div`
   display: inline-flex;
-`
+`;
 
 const Marker = styled.span`
   color: #000;
@@ -47,7 +47,7 @@ const Marker = styled.span`
   border-left: 1px solid #dcdcdc;
   font-weight: 400;
   color: #5e5e5e;
-`
+`;
 
 const BalanceTitle = styled.div`
   text-shadow: 0 0 73px rgba(255, 255, 255, 0.1);
@@ -57,7 +57,7 @@ const BalanceTitle = styled.div`
   line-height: 10.53px;
   text-transform: uppercase;
   letter-spacing: 2.12px;
-`
+`;
 
 const Balance = styled.div`
   text-shadow: 0 0 73px rgba(255, 255, 255, 0.1);
@@ -65,7 +65,7 @@ const Balance = styled.div`
   font-size: 20px;
   font-weight: 400;
   line-height: 20.54px;
-`
+`;
 
 const SendButton = styled.button`
   width: 460px;
@@ -78,72 +78,103 @@ const SendButton = styled.button`
   font-size: 18px;
   font-weight: 400;
   line-height: 29.02px;
-`
+`;
 
-const FEE = 0.1
+const FEE = 0.1;
 
 class SendPanel extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       amount: 0,
-      address: '',
-      label: '',
-    }
+      address: "",
+      label: "",
+      status: "open" // open, sending, done, error
+    };
   }
 
   getLocaleId() {
-    return this.props.SettingsStore.getLocale
+    return this.props.SettingsStore.getLocale;
   }
 
   getBalance() {
-    return this.props.AccountInformationStore.getBalance
+    return this.props.AccountInformationStore.getBalance;
   }
 
   getPrice() {
-    return this.props.CoinStatsStore.priceWithCurrency
+    return this.props.CoinStatsStore.priceWithCurrency;
+  }
+
+  sendTransaction() {
+    const { address, amount } = this.state;
+    const { AccountInformationStore } = this.props;
+
+    if (!address || !amount || !AccountInformationStore) return;
+
+    this.setState({ status: "sending" });
+    setTimeout(() => {
+      AccountInformationStore.sendTransaction(address, parseFloat(amount, 10))
+        .then(() => {
+          setTimeout(() => {
+            this.setState({ status: "done" });
+            setTimeout(() => {
+              this.props.toggle();
+              this.setState({
+                amount: 0,
+                address: "",
+                label: "",
+                status: "open"
+              });
+            }, 1000);
+          }, 500);
+        })
+        .catch(() => {
+          this.setState({ status: "error" });
+        });
+    }, 1000);
   }
 
   render() {
-    const props = this.props
+    const props = this.props;
     return (
       <Modal {...props} title="Send XVG">
-        <Title>{T.translate('sendPanel.recipient')}</Title>
+        <Title>{T.translate("sendPanel.recipient")}</Title>
         <InputContainer>
           <InputHandler
             value={this.state.address}
             name="address"
             id="passpharse"
+            placeholder="Verge Address"
             onChange={e => this.setState({ address: e.target.value })}
             /*style={{ width: '396px' }}*/
-            style={{ width: '460px' }}
+            style={{ width: "460px" }}
           />
           {/*<FolderButton />*/}
         </InputContainer>
-        <SubTitle>{T.translate('sendPanel.fundwarning')}</SubTitle>
-        <Title>{T.translate('sendPanel.addressLabel')}</Title>
+        <SubTitle>{T.translate("sendPanel.fundwarning")}</SubTitle>
+        <Title>{T.translate("sendPanel.addressLabel")}</Title>
         <InputHandler
           placeholder="Example: Johns wallet address"
           value={this.state.label}
           onChange={e => this.setState({ label: e.target.value })}
-          style={{ width: '460px' }}
+          style={{ width: "460px" }}
         />
-        <SubTitle>{T.translate('sendPanel.labelInfo')}</SubTitle>
-        <Title>{T.translate('sendPanel.amount')}</Title>
+        <SubTitle>{T.translate("sendPanel.labelInfo")}</SubTitle>
+        <Title>{T.translate("sendPanel.amount")}</Title>
         <InputHandler
           value={this.state.amount}
           onChange={e => this.setState({ amount: e.target.value })}
           placeholder="Enter amount"
           type="number"
-          style={{ width: '460px' }}
+          style={{ width: "460px" }}
         />
         <Marker>XVG</Marker>
-        <SubTitle>{T.translate('sendPanel.amountInfo')}</SubTitle>
+        <SubTitle>{T.translate("sendPanel.amountInfo")}</SubTitle>
         <hr />
-        <Container style={{ marginBottom: '20px' }}>
+        <Container style={{ marginBottom: "20px" }}>
           <Row>
             <Col md="5">
-              <BalanceTitle>{T.translate('sendPanel.xvgUSD')}</BalanceTitle>
+              <BalanceTitle>{T.translate("sendPanel.xvgUSD")}</BalanceTitle>
               <Balance>
                 ${(this.getBalance() * this.getPrice()).toLocaleString(
                   this.getLocaleId()
@@ -151,52 +182,57 @@ class SendPanel extends React.Component {
               </Balance>
             </Col>
             <Col md="7">
-              <BalanceTitle>{T.translate('sendPanel.balanceXVG')}</BalanceTitle>
+              <BalanceTitle>{T.translate("sendPanel.balanceXVG")}</BalanceTitle>
               <Balance>
                 {this.getBalance().toLocaleString(this.getLocaleId())} XVG
               </Balance>
             </Col>
           </Row>
         </Container>
-        <SendButton onClick={props.toggle}>
-          {T.translate('sendPanel.sendButton')}{' '}
-          {this.state.amount
-            ? `${(this.state.amount - FEE).toLocaleString(
-                this.getLocaleId()
-              )} XVG ($${(this.state.amount * this.getPrice()).toLocaleString(
-                this.getLocaleId()
-              )})`
-            : ''}
+        <SendButton onClick={() => this.sendTransaction()}>
+          {this.state.status === "open" &&
+            `${T.translate("sendPanel.sendButton")}${" "}
+          ${
+            this.state.amount
+              ? `${(this.state.amount - FEE).toLocaleString(
+                  this.getLocaleId()
+                )} XVG ($${(this.state.amount * this.getPrice()).toLocaleString(
+                  this.getLocaleId()
+                )})`
+              : ""
+          }`}
+          {this.state.status === "sending" && "Sending your transaction ..."}
+          {this.state.status === "done" && "Transaction sent!"}
         </SendButton>
 
-        <SubTitle style={{ textAlign: 'center', color: '#476b84' }}>
-          {T.translate('sendPanel.walletAfterTransaction')}
+        <SubTitle style={{ textAlign: "center", color: "#476b84" }}>
+          {T.translate("sendPanel.walletAfterTransaction")}
           <b>
             {(this.getBalance() - this.state.amount).toLocaleString(
               this.getLocaleId()
-            )}{' '}
+            )}{" "}
             XVG
           </b>
         </SubTitle>
         <hr />
         <SubTitle
           style={{
-            textAlign: 'center',
-            marginTop: '20px',
-            fontSize: '12px',
-            fontWeight: '400',
-            lineHeight: '19px',
+            textAlign: "center",
+            marginTop: "20px",
+            fontSize: "12px",
+            fontWeight: "400",
+            lineHeight: "19px"
           }}
         >
-          {T.translate('sendPanel.sendWarning')}
+          {T.translate("sendPanel.sendWarning")}
         </SubTitle>
       </Modal>
-    )
+    );
   }
 }
 
 export default inject(
-  'SettingsStore',
-  'CoinStatsStore',
-  'AccountInformationStore'
-)(observer(SendPanel))
+  "SettingsStore",
+  "CoinStatsStore",
+  "AccountInformationStore"
+)(observer(SendPanel));

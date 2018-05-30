@@ -43,6 +43,9 @@
     ],
     "coverageDirectory": "./coverage"
   },
+  "lint-staged": {
+    "*.{js,json,scss,md}": ["prettier --write", "git add"]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marpme/verge-wallet.git"
@@ -50,6 +53,7 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
+    "precommit": "pretty-quick --staged",
     "postinstall": "electron-builder install-app-deps",
     "dist": "yarn run build && build --publish onTagOrDraft",
     "test": "jest --watch",
@@ -122,15 +126,18 @@
     "flow-runtime": "^0.16.0",
     "flow-typed": "^2.3.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.0.0",
     "jquery": "^3.3.1",
+    "lint-staged": "^7.1.2",
     "minimist": "^1.2.0",
     "mobx-react-devtools": "^5.0.1",
     "node-sass": "^4.8.3",
     "npm-logical-tree": "^1.2.1",
     "prettier": "^1.12.1",
     "prettierrc": "^0.0.0-5",
+    "pretty-quick": "^1.6.0",
     "react-hot-loader": "^4.1.1",
     "react-test-renderer": "^16.4.0",
     "redux-logger": "^3.0.6",
@@ -176,9 +183,11 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-beta.3",
+    "rechart": "^0.0.1",
+    "recharts": "^1.0.0-beta.10",
     "styled-components": "^3.2.6",
     "tor-request": "^2.1.1",
     "uuid": "^3.2.1",
-    "verge-node-typescript": "^0.0.7"
+    "verge-node-typescript": "^0.0.9"
   }
 }
