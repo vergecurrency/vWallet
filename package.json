@@ -43,9 +43,6 @@
     ],
     "coverageDirectory": "./coverage"
   },
-  "lint-staged": {
-    "*.{js,scss}": ["prettier --config .prettierrc.js --write", "git add"]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marpme/verge-wallet.git"
@@ -53,7 +50,7 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "precommit": "pretty-quick --staged",
+    "precommit": "yarn run prettier",
     "postinstall": "electron-builder install-app-deps",
     "dist": "yarn run build && build --publish onTagOrDraft",
     "test": "jest --watch",
