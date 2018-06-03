@@ -48,15 +48,13 @@ const Artist = styled.span`
   color: #a5adb6;
 `
 
-@inject('CoinStatsStore')
-@observer
-export default class LoadingRoot extends React.Component {
+class LoadingRoot extends React.Component {
   componentDidUpdate() {
-    console.warn('We got updated!')
+    // console.warn('We got updated!')
     if (this.props.CoinStatsStore.getUpdatedStats.price) {
       ipcRenderer.send('finalized-loading')
     } else {
-      console.error('wrong')
+      // console.error('wrong')
     }
   }
 
@@ -131,3 +129,5 @@ export default class LoadingRoot extends React.Component {
     )
   }
 }
+
+inject('CoinStatsStore')(observer(LoadingRoot))

@@ -1,68 +1,62 @@
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle
-} from "reactstrap";
-import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
 
-import BurgerMenu from "./BurgerMenu";
-import LoadingIcon from "../LoadingIcon";
-import Lock from "react-material-icon-svg/dist/LockIcon";
-import Logout from "../../icons/Logout";
-import Notification from "../../icons/Notification";
-import NotificationLayer from "./NotificationLayer.js";
-import T from "i18n-react";
-import UnLock from "react-material-icon-svg/dist/CheckIcon";
-import UnlockPanel from "../modal/UnlockPanel";
-import WifiIcon from "react-material-icon-svg/dist/WifiIcon";
-import WifiOffIcon from "react-material-icon-svg/dist/WifiOffIcon";
+import BurgerMenu from './BurgerMenu'
+import LoadingIcon from '../LoadingIcon'
+import Lock from 'react-material-icon-svg/dist/LockIcon'
+import Logout from '../../icons/Logout'
+import Notification from '../../icons/Notification'
+import NotificationLayer from './NotificationLayer.js'
+import T from 'i18n-react'
+import UnlockPanel from '../modal/UnlockPanel'
+import WifiIcon from 'react-material-icon-svg/dist/WifiIcon'
+import WifiOffIcon from 'react-material-icon-svg/dist/WifiOffIcon'
 
 class Header extends Component {
   constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.toggleUnlock = this.toggleUnlock.bind(this);
-    this.updateStealth = this.updateStealth.bind(this);
-    this.toggleNotification = this.toggleNotification.bind(this);
+    super(props)
+    this.toggle = this.toggle.bind(this)
+    this.toggleUnlock = this.toggleUnlock.bind(this)
+    this.updateStealth = this.updateStealth.bind(this)
+    this.toggleNotification = this.toggleNotification.bind(this)
     this.state = {
       dropdownOpen: false,
       modal: false,
-      dropdownOpenNotifiaction: false
-    };
+      dropdownOpenNotifiaction: false,
+    }
   }
 
   toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+      dropdownOpen: !this.state.dropdownOpen,
+    })
   }
 
   toggleUnlock() {
     this.setState({
-      modal: !this.state.modal
-    });
+      modal: !this.state.modal,
+    })
   }
 
   getConnectionInfo() {
     return this.props.AccountInformationStore.info &&
       this.props.AccountInformationStore.info.connections
       ? this.props.AccountInformationStore.info.connections
-      : 0;
+      : 0
   }
 
   updateStealth() {
     this.props.SettingsStore.setSettingOption({
-      key: "darkTheme",
-      value: !this.props.SettingsStore.getDarkTheme
-    });
+      key: 'darkTheme',
+      value: !this.props.SettingsStore.getDarkTheme,
+    })
   }
 
   toggleNotification() {
     this.setState({
-      dropdownOpenNotifiaction: !this.state.dropdownOpenNotifiaction
-    });
+      dropdownOpenNotifiaction: !this.state.dropdownOpenNotifiaction,
+    })
   }
 
   getBlockSyncInfo() {
@@ -72,12 +66,12 @@ class Header extends Component {
           this.props.AccountInformationStore.info.blocks /
             this.props.AccountInformationStore.info.highestBlock *
             100
-        ).toFixed(2)} % ${T.translate("header.synced")}`
-      : T.translate("header.notsyncing");
+        ).toFixed(2)} % ${T.translate('header.synced')}`
+      : T.translate('header.notsyncing')
   }
 
   isUnlocked() {
-    return this.props.AccountInformationStore.unlocked;
+    return this.props.AccountInformationStore.unlocked
   }
 
   render() {
@@ -88,27 +82,27 @@ class Header extends Component {
           toggle={this.toggleUnlock.bind(this)}
         />
         <div className="row">
-          <div className="col-md-1" style={{ marginLeft: "20px" }}>
+          <div className="col-md-1" style={{ marginLeft: '20px' }}>
             <BurgerMenu
               dropdownOpen={this.state.dropdownOpen}
               toggle={this.toggle.bind(this)}
             />
           </div>
-          <div className="col-md-1 text-center" style={{ left: "-40px" }}>
+          <div className="col-md-1 text-center" style={{ left: '-40px' }}>
             <div
               style={{
-                display: "inline-block",
-                margin: "0 auto",
-                paddingTop: "10px",
-                verticalAlign: "middle"
+                display: 'inline-block',
+                margin: '0 auto',
+                paddingTop: '10px',
+                verticalAlign: 'middle',
               }}
             >
               <img
                 className="logo center-block"
                 style={{
-                  display: "block",
-                  margin: "0 auto",
-                  height: "40px"
+                  display: 'block',
+                  margin: '0 auto',
+                  height: '40px',
                 }}
                 alt="verge logo"
               />
@@ -118,9 +112,9 @@ class Header extends Component {
           <div
             className="col-md-1"
             style={{
-              textAlign: "center",
-              display: "block",
-              margin: "auto"
+              textAlign: 'center',
+              display: 'block',
+              margin: 'auto',
             }}
           >
             <Dropdown
@@ -133,12 +127,12 @@ class Header extends Component {
                 data-toggle="dropdown"
                 aria-expanded={this.state.dropdownOpenNotifiaction}
                 style={{
-                  paddingTop: "14px",
-                  display: "block",
-                  margin: "auto"
+                  paddingTop: '14px',
+                  display: 'block',
+                  margin: 'auto',
                 }}
               >
-                <Notification style={{ fill: "#467698" }} />
+                <Notification style={{ fill: '#467698' }} />
               </DropdownToggle>
               <DropdownMenu className="mydrop">
                 <NotificationLayer />
@@ -147,9 +141,9 @@ class Header extends Component {
 
             <div
               style={{
-                fontSize: "8px",
-                paddingBottom: "10px",
-                color: "#467698"
+                fontSize: '8px',
+                paddingBottom: '10px',
+                color: '#467698',
               }}
             >
               Notification
@@ -163,59 +157,59 @@ class Header extends Component {
             }
             className="col-md-1"
             style={{
-              textAlign: "center",
-              display: "block",
-              margin: "auto",
-              float: "right"
+              textAlign: 'center',
+              display: 'block',
+              margin: 'auto',
+              float: 'right',
             }}
           >
             <span
               style={{
-                paddingTop: "10px",
-                display: "block",
-                margin: "auto"
+                paddingTop: '10px',
+                display: 'block',
+                margin: 'auto',
               }}
             >
               {this.isUnlocked() ? (
-                <Logout style={{ fill: "#467698" }} />
+                <Logout style={{ fill: '#467698' }} />
               ) : (
-                <Lock style={{ fill: "#467698" }} />
+                <Lock style={{ fill: '#467698' }} />
               )}
             </span>
             <div
               style={{
-                fontSize: "8px",
-                paddingBottom: "10px",
-                color: "#467698"
+                fontSize: '8px',
+                paddingBottom: '10px',
+                color: '#467698',
               }}
             >
               {this.isUnlocked()
-                ? T.translate("header.unlocked")
-                : T.translate("header.locked")}
+                ? T.translate('header.unlocked')
+                : T.translate('header.locked')}
             </div>
           </div>
           <div
             className="col-md-1"
             style={{
-              textAlign: "center",
-              display: "block",
-              margin: "auto"
+              textAlign: 'center',
+              display: 'block',
+              margin: 'auto',
             }}
           >
             <span
               style={{
-                paddingTop: "10px",
-                display: "block",
-                margin: "auto"
+                paddingTop: '10px',
+                display: 'block',
+                margin: 'auto',
               }}
             >
               <LoadingIcon />
             </span>
             <div
               style={{
-                fontSize: "8px",
-                paddingBottom: "10px",
-                color: "#467698"
+                fontSize: '8px',
+                paddingBottom: '10px',
+                color: '#467698',
               }}
             >
               {this.getBlockSyncInfo()}
@@ -224,32 +218,32 @@ class Header extends Component {
           <div
             className="col-md-1"
             style={{
-              textAlign: "center",
-              display: "block",
-              margin: "auto"
+              textAlign: 'center',
+              display: 'block',
+              margin: 'auto',
             }}
           >
             <div
               style={{
-                paddingTop: "10px",
-                display: "block",
-                margin: "auto"
+                paddingTop: '10px',
+                display: 'block',
+                margin: 'auto',
               }}
             >
               {this.getConnectionInfo() <= 0 ? (
-                <WifiOffIcon style={{ fill: "#467698" }} />
+                <WifiOffIcon style={{ fill: '#467698' }} />
               ) : (
-                <WifiIcon style={{ fill: "#467698" }} />
+                <WifiIcon style={{ fill: '#467698' }} />
               )}
             </div>
             <div
               style={{
-                fontSize: "8px",
-                paddingBottom: "10px",
-                color: "#467698"
+                fontSize: '8px',
+                paddingBottom: '10px',
+                color: '#467698',
               }}
             >
-              {this.getConnectionInfo()} {T.translate("header.connection")}
+              {this.getConnectionInfo()} {T.translate('header.connection')}
             </div>
           </div>
           {/*<div
@@ -282,10 +276,10 @@ class Header extends Component {
                 </div>*/}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default inject("AccountInformationStore", "SettingsStore")(
+export default inject('AccountInformationStore', 'SettingsStore')(
   observer(Header)
-);
+)

@@ -1,74 +1,66 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, decorate, observable } from 'mobx'
 
-import { Client } from "verge-node-typescript";
-import crypto from "crypto";
-import moment from "moment";
+import { Client } from 'verge-node-typescript'
+import crypto from 'crypto'
+import moment from 'moment'
 
 const hash = transaction =>
   `${transaction.txid}#${transaction.category}#${transaction.address}#${
     transaction.timereceived
-  }`;
+  }`
 
-const client = new Client({ user: "kyon", pass: "lolcat" });
+const client = new Client({ user: 'kyon', pass: 'lolcat' })
 
 class TransactionStore {
-  @observable transactions = new Map();
-  @observable loadingFinished = false;
-  @observable search = "";
+  transactions = new Map()
+  loadingFinished = false
+  search = ''
 
-  @action
   addTransactions = (transactions = []) => {
     transactions.forEach(transaction => {
-      const oldTransaction = this.transactions.get(hash(transaction));
+      const oldTransaction = this.transactions.get(hash(transaction))
       this.transactions.set(hash(transaction), {
         hide: true,
         ...oldTransaction,
-        ...transaction
-      });
-    });
-    this.loadingFinished = true;
-  };
+        ...transaction,
+      })
+    })
+    this.loadingFinished = true
+  }
 
-  @action
   setVisibility(txid, category, address, timereceived, hide) {
     const oldTransaction = this.transactions.get(
       hash({ txid, category, address, timereceived })
-    );
+    )
     this.transactions.set(hash({ txid, category, address, timereceived }), {
       ...oldTransaction,
-      hide
-    });
-    this.loadingFinished = true;
+      hide,
+    })
+    this.loadingFinished = true
   }
 
-  @action
   setSearch(e) {
-    this.search = e.target.value;
+    this.search = e.target.value
   }
 
-  @computed
   get getTransactionCount() {
-    return this.transactions.size;
+    return this.transactions.size
   }
 
-  @computed
   get loaded() {
-    return this.loadingFinished;
+    return this.loadingFinished
   }
 
-  @computed
   get getTransactionList() {
-    return this.transactions;
+    return this.transactions
   }
 
-  @computed
   get searchValue() {
-    return this.search;
+    return this.search
   }
 
-  @computed
   get lastTenTransaction() {
-    const transactions = Array.from(this.transactions.values());
+    const transactions = Array.from(this.transactions.values())
 
     if (this.search) {
       return transactions
@@ -77,52 +69,66 @@ class TransactionStore {
             transaction.address,
             transaction.amount,
             transaction.account,
-            transaction.category
+            transaction.category,
           ]
-            .join("-")
+            .join('-')
             .toLocaleLowerCase()
             .includes(this.search.toLocaleLowerCase())
         )
         .sort((a, b) => b.time - a.time)
-        .slice(0, 9);
+        .slice(0, 9)
     }
 
-    return transactions.sort((a, b) => b.time - a.time).slice(0, 9);
+    return transactions.sort((a, b) => b.time - a.time).slice(0, 9)
   }
 
-  @computed
   get monthlyOutput() {
     return Array.from(this.transactions.values())
       .filter(
         ({ timereceived, category }) =>
-          moment.unix(timereceived).isSame(new Date(), "month") &&
-          category.includes("send")
+          moment.unix(timereceived).isSame(new Date(), 'month') &&
+          category.includes('send')
       )
-      .reduce((sum, { amount, fee }) => sum + amount + fee, 0.0);
+      .reduce((sum, { amount, fee }) => sum + amount + fee, 0.0)
   }
 
-  @computed
   get monthlyIncome() {
     return Array.from(this.transactions.values())
       .filter(
         ({ timereceived, category }) =>
-          moment.unix(timereceived).isSame(new Date(), "month") &&
-          category.includes("receive")
+          moment.unix(timereceived).isSame(new Date(), 'month') &&
+          category.includes('receive')
       )
-      .reduce((sum, { amount, fee }) => sum + amount, 0.0);
+      .reduce((sum, { amount, fee }) => sum + amount, 0.0)
   }
 }
 
-const store = new TransactionStore();
+decorate(TransactionStore, {
+  transactions: observable,
+  loadingFinished: observable,
+  search: observable,
+  addTransactions: action,
+  setVisibility: action,
+  setSearch: action,
+  getTransactionCount: computed,
+  loaded: computed,
+  getTransactionList: computed,
+  searchValue: computed,
+  lastTenTransaction: computed,
+  monthlyOutput: computed,
+  monthlyIncome: computed,
+})
+
+const store = new TransactionStore()
 
 client.getTransactionList(100).then(transactions => {
-  store.addTransactions(transactions);
-});
+  store.addTransactions(transactions)
+})
 
 setInterval(() => {
   client.getTransactionList(100).then(transactions => {
-    store.addTransactions(transactions);
-  });
-}, 5000);
+    store.addTransactions(transactions)
+  })
+}, 5000)
 
-export default store;
+export default store

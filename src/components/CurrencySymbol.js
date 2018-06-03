@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const CurrencySymbol = ({ fontSize, color }) => (
   <svg
@@ -18,11 +18,11 @@ const CurrencySymbol = ({ fontSize, color }) => (
       <path d="M20.2 49.5l2 5.9h53.5l2.5-5.9z" />
     </g>
   </svg>
-);
+)
 
 CurrencySymbol.propTypes = {
   fontSize: PropTypes.number,
-  color: PropTypes.string
-};
+  color: PropTypes.string,
+}
 
-export default CurrencySymbol;
+export default CurrencySymbol

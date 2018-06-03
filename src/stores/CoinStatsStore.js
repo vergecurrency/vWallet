@@ -10,7 +10,7 @@ const electronStore = new ElectronStore({
 tr.setTorAddress('localhost', 9089)
 
 class CoinStatsStore {
-  @observable loadingFinished = false
+  loadingFinished = false
 
   constructor() {
     this.info = {
@@ -82,6 +82,7 @@ decorate(CoinStatsStore, {
   info: observable.struct,
   getUpdatedStats: computed,
   priceWithCurrency: computed,
+  loadingFinished: observable,
 })
 
 const store = new CoinStatsStore()
