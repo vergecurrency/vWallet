@@ -1,5 +1,7 @@
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { inject, observer } from 'mobx-react'
 
 import BurgerMenu from './BurgerMenu'
@@ -63,8 +65,8 @@ class Header extends Component {
     return this.props.AccountInformationStore.info &&
       this.props.AccountInformationStore.info.blocks
       ? `${Number(
-          this.props.AccountInformationStore.info.blocks /
-            this.props.AccountInformationStore.info.highestBlock *
+          (this.props.AccountInformationStore.info.blocks /
+            this.props.AccountInformationStore.info.highestBlock) *
             100
         ).toFixed(2)} % ${T.translate('header.synced')}`
       : T.translate('header.notsyncing')
@@ -246,38 +248,15 @@ class Header extends Component {
               {this.getConnectionInfo()} {T.translate('header.connection')}
             </div>
           </div>
-          {/*<div
-            className="col-md-1"
-            style={{ paddingTop: '16px', marginRight: '60px' }}
-          >
-            <label className="switch" style={{ width: '120px' }}>
-              <input
-                type="checkbox"
-                checked={this.props.SettingsStore.getDarkTheme}
-                onChange={this.updateStealth}
-              />
-              <span
-                className="slider round"
-                style={{
-                  fontSize: 12,
-                  textAlign: this.props.SettingsStore.getDarkTheme
-                    ? 'left'
-                    : 'right',
-                  paddingTop: '8px',
-                  paddingLeft: '10px',
-                  paddingRight: '10px',
-                }}
-              >
-                {this.props.SettingsStore.getDarkTheme
-                  ? 'Stealth ' + T.translate('header.on')
-                  : 'Stealth ' + T.translate('header.off')}
-              </span>
-            </label>
-                </div>*/}
         </div>
       </div>
     )
   }
+}
+
+Header.propTypes = {
+  AccountInformationStore: PropTypes.object.isRequired,
+  SettingsStore: PropTypes.object.isRequired,
 }
 
 export default inject('AccountInformationStore', 'SettingsStore')(

@@ -1,32 +1,39 @@
 const webpack = require('webpack')
 const path = require('path')
-const fs = require('fs')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { spawn } = require('child_process')
 
 // Config directories
 const SRC_DIR = path.resolve(__dirname, 'src')
 const OUTPUT_DIR = path.resolve(__dirname, 'dist')
-const NODE_MODULES = path.resolve(__dirname, 'node_modules')
+
 // Any directories you will be adding code/files into, need to be added to this array so webpack will pick them up
-const defaultInclude = [SRC_DIR]
+// const defaultInclude = [SRC_DIR]
 
 module.exports = {
   mode: 'development',
-  entry: SRC_DIR + '/index.js',
+  entry: SRC_DIR + '/index.tsx',
   output: {
     path: OUTPUT_DIR,
     publicPath: '/',
     filename: 'bundle.js',
   },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx', '.json'],
+    modules: [path.join(__dirname, 'app'), 'node_modules'],
+  },
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        loaders: ['awesome-typescript-loader'],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
-        query: {
-          babelrc: true,
-        },
+        loaders: ['babel-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -45,10 +52,6 @@ module.exports = {
             loader: 'sass-loader', // compiles Sass to CSS
           },
         ],
-      },
-      {
-        test: /\.jsx?$/,
-        use: [{ loader: 'babel-loader' }],
       },
       {
         test: /\.(jpe?g|png|gif)$/,
