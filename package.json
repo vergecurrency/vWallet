@@ -171,6 +171,7 @@
     "global": "^4.3.2",
     "highcharts": "^6.1.0",
     "history": "^4.7.2",
+    "html-loader": "^0.5.5",
     "i18n-react": "^0.6.4",
     "menubar": "^5.2.3",
     "mobx": "^4.2.0",

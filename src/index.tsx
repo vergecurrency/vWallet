@@ -2,7 +2,6 @@ import './assets/css/main.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import * as React from 'react'
-import * as history from 'history'
 
 import { AppContainer } from 'react-hot-loader'
 import Root from './containers/Root'
@@ -16,7 +15,7 @@ document.body.appendChild(root)
 
 render(
   <AppContainer>
-    <Root history={history} />
+    <Root />
   </AppContainer>,
   document.getElementById('root')
 )
@@ -26,7 +25,7 @@ if (module && module.hot) {
     const NextRoot = require('./containers/Root') // eslint-disable-line global-require
     render(
       <AppContainer>
-        <NextRoot history={history} />
+        <NextRoot />
       </AppContainer>,
       document.getElementById('root')
     )

@@ -18,7 +18,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    
+
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
@@ -27,13 +27,17 @@
     "outDir": "dist"
   },
   "files": [
-    "src/index.ts"
+    "src/index.ts",
+    "src/index.d.ts"
   ],
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.js",
     "src/**/*.jsx",
+    "src/**/*.png",
+    "src/**/*.svg",
+    "src/**/*.scss",
     "node_modules/@types/**/*.d.ts"
   ],
   "exclude": [

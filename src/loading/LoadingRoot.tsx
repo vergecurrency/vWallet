@@ -1,12 +1,12 @@
+import * as React from 'react'
+import * as vergeLogo from '../assets/images/verge-logo-white.png'
+
 import { Col, Container, Row } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
 
 import LoadingIcon from '../components/LoadingIcon'
-import React from 'react'
-import banner from '../assets/images/banner.png'
 import { ipcRenderer } from 'electron'
 import styled from 'styled-components'
-import vergeLogo from '../assets/images/verge-logo-white.png'
 
 const Verge = styled.span`
   color: #5dacc5;
@@ -48,7 +48,7 @@ const Artist = styled.span`
   color: #a5adb6;
 `
 
-class LoadingRoot extends React.Component {
+class LoadingRoot extends React.Component<any> {
   componentDidUpdate() {
     // console.warn('We got updated!')
     if (this.props.CoinStatsStore.getUpdatedStats.price) {
@@ -130,4 +130,4 @@ class LoadingRoot extends React.Component {
   }
 }
 
-inject('CoinStatsStore')(observer(LoadingRoot))
+export default inject('CoinStatsStore')(observer(LoadingRoot))

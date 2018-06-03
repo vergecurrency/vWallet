@@ -4,15 +4,15 @@ const electronStore = new ElectronStore({
   encryptionKey: Buffer.from('vergecurrency'),
 })
 
-class SetupStore {
-  setupOpen = !electronStore.get('setupOpen', true)
+export class SetupStore {
+  setupOpen: boolean = !electronStore.get('setupOpen', true)
 
-  setSetup = bool => {
+  setSetup = (bool: boolean) => {
     electronStore.set('setupOpen', bool)
     this.setupOpen = bool
   }
 
-  get getSetupStatus() {
+  get getSetupStatus(): boolean {
     return this.setupOpen
   }
 }

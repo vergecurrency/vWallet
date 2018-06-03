@@ -1,24 +1,21 @@
-/* eslint flowtype-errors/show-errors: 0 */
-import React from 'react'
+import * as React from 'react'
+
+import AccountInformationStore from './stores/AccountInformationStore'
+import CoinStatsStore from './stores/CoinStatsStore'
+import DevTools from 'mobx-react-devtools'
+import { Provider } from 'mobx-react'
+import ReRouter from './ReRouter'
 import { Router } from 'react-router-dom'
+import SettingsStore from './stores/SettingsStore'
+import SetupStore from './stores/SetupStore'
+import TransactionStore from './stores/TransactionStore'
+import VergeProvider from './VergeProvider'
 import { createHashHistory } from 'history'
 
-import { Provider } from 'mobx-react'
-import DevTools from 'mobx-react-devtools'
-import TransactionStore from './stores/TransactionStore'
-import AccountInformationStore from './stores/AccountInformationStore'
-import SettingsStore from './stores/SettingsStore'
-import CoinStatsStore from './stores/CoinStatsStore'
-import SetupStore from './stores/SetupStore'
-import ReRouter from './ReRouter'
-import VergeProvider from './VergeProvider'
-
-/* eslint-disable-next-line no-undef */
 document.addEventListener('dragover', event => event.preventDefault())
-/* eslint-disable-next-line no-undef */
 document.addEventListener('drop', event => event.preventDefault())
 
-const Routes = props => (
+const Routes = (props: any) => (
   <Router history={createHashHistory()}>
     <Provider
       TransactionStore={TransactionStore}
