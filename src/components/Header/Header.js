@@ -1,3 +1,9 @@
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle
+} from "reactstrap";
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
@@ -6,7 +12,7 @@ import LoadingIcon from "../LoadingIcon";
 import Lock from "react-material-icon-svg/dist/LockIcon";
 import Logout from "../../icons/Logout";
 import Notification from "../../icons/Notification";
-import Popover from "react-popover";
+import NotificationLayer from "./NotificationLayer.js";
 import T from "i18n-react";
 import UnLock from "react-material-icon-svg/dist/CheckIcon";
 import UnlockPanel from "../modal/UnlockPanel";
@@ -19,9 +25,11 @@ class Header extends Component {
     this.toggle = this.toggle.bind(this);
     this.toggleUnlock = this.toggleUnlock.bind(this);
     this.updateStealth = this.updateStealth.bind(this);
+    this.toggleNotification = this.toggleNotification.bind(this);
     this.state = {
       dropdownOpen: false,
-      modal: false
+      modal: false,
+      dropdownOpenNotifiaction: false
     };
   }
 
@@ -48,6 +56,12 @@ class Header extends Component {
     this.props.SettingsStore.setSettingOption({
       key: "darkTheme",
       value: !this.props.SettingsStore.getDarkTheme
+    });
+  }
+
+  toggleNotification() {
+    this.setState({
+      dropdownOpenNotifiaction: !this.state.dropdownOpenNotifiaction
     });
   }
 
@@ -100,7 +114,7 @@ class Header extends Component {
               />
             </div>
           </div>
-          <div className="col-md-4" />
+          <div className="col-md-5" />
           <div
             className="col-md-1"
             style={{
@@ -109,17 +123,28 @@ class Header extends Component {
               margin: "auto"
             }}
           >
-            <span
-              style={{
-                paddingTop: "14px",
-                display: "block",
-                margin: "auto"
-              }}
+            <Dropdown
+              isOpen={this.state.dropdownOpenNotifiaction}
+              toggle={this.toggleNotification}
             >
-              <Popover appendTarget="#root" isOpen={true} body={<p>hello</p>}>
+              <DropdownToggle
+                tag="span"
+                onClick={this.toggleNotification}
+                data-toggle="dropdown"
+                aria-expanded={this.state.dropdownOpenNotifiaction}
+                style={{
+                  paddingTop: "14px",
+                  display: "block",
+                  margin: "auto"
+                }}
+              >
                 <Notification style={{ fill: "#467698" }} />
-              </Popover>
-            </span>
+              </DropdownToggle>
+              <DropdownMenu className="mydrop">
+                <NotificationLayer />
+              </DropdownMenu>
+            </Dropdown>
+
             <div
               style={{
                 fontSize: "8px",
@@ -227,11 +252,11 @@ class Header extends Component {
               {this.getConnectionInfo()} {T.translate("header.connection")}
             </div>
           </div>
-          <div
+          {/*<div
             className="col-md-1"
-            style={{ paddingTop: "16px", marginRight: "60px" }}
+            style={{ paddingTop: '16px', marginRight: '60px' }}
           >
-            <label className="switch" style={{ width: "120px" }}>
+            <label className="switch" style={{ width: '120px' }}>
               <input
                 type="checkbox"
                 checked={this.props.SettingsStore.getDarkTheme}
@@ -242,19 +267,19 @@ class Header extends Component {
                 style={{
                   fontSize: 12,
                   textAlign: this.props.SettingsStore.getDarkTheme
-                    ? "left"
-                    : "right",
-                  paddingTop: "8px",
-                  paddingLeft: "10px",
-                  paddingRight: "10px"
+                    ? 'left'
+                    : 'right',
+                  paddingTop: '8px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
                 }}
               >
                 {this.props.SettingsStore.getDarkTheme
-                  ? "Stealth " + T.translate("header.on")
-                  : "Stealth " + T.translate("header.off")}
+                  ? 'Stealth ' + T.translate('header.on')
+                  : 'Stealth ' + T.translate('header.off')}
               </span>
             </label>
-          </div>
+                </div>*/}
         </div>
       </div>
     );

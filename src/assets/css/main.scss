@@ -2,22 +2,22 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-@import 'fonts';
-@import 'highchart';
-@import 'basic';
-@import 'appbar';
-@import 'normalize';
+@import "fonts";
+@import "highchart";
+@import "basic";
+@import "appbar";
+@import "normalize";
 
 body {
   background-color: #152f36;
   color: #fff;
   //height: 700px;
 
-  font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif !important;
+  font-family: "AvenirNextLTW01Regular", Helvetica, sans-serif !important;
 }
 
 .logo {
-  content: url('../images/verge-logo-white.png');
+  content: url("../images/verge-logo-white.png");
 }
 
 .big-button {
@@ -207,8 +207,8 @@ textarea,
   outline: none; // You should add some other style for :focus to help UX/a11y
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -229,4 +229,8 @@ input[type='number']::-webkit-outer-spin-button {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.mydrop {
+  min-width: 25em !important;
 }
