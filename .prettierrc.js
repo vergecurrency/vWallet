@@ -3,6 +3,7 @@ module.exports = {
   parser: 'flow',
   tabWidth: 2,
   singleQuote: true,
-  trailingComma: 'es5',
-  semi: false,
-}
+  trailingComma: 'all',
+  semi: true,
+  parser: 'typescript',
+};

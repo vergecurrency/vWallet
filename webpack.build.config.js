@@ -1,21 +1,20 @@
-const webpack = require('webpack')
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+const webpack = require('webpack');
+const path = require('path');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { spawn } = require('child_process');
 
 // Config directories
-const SRC_DIR = path.resolve(__dirname, 'src')
-const OUTPUT_DIR = path.resolve(__dirname, 'dist')
+const SRC_DIR = path.resolve(__dirname, 'src');
+const OUTPUT_DIR = path.resolve(__dirname, 'dist');
 
 // Any directories you will be adding code/files into, need to be added to this array so webpack will pick them up
-const defaultInclude = [SRC_DIR]
+// const defaultInclude = [SRC_DIR]
 
 module.exports = {
   mode: 'production',
   entry: {
-    client: SRC_DIR + '/index.js',
+    client: SRC_DIR + '/index.tsx',
     vendors: [
       'react',
       'react-dom',
@@ -32,14 +31,25 @@ module.exports = {
     sourceMapFilename: '[name].[hash:8].map',
     chunkFilename: '[id].[hash:8].js',
   },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx', '.json', '.png', '.svg'],
+    modules: [path.join(__dirname, 'app'), 'node_modules'],
+  },
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        loaders: ['awesome-typescript-loader'],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
-        query: {
-          babelrc: true,
-        },
+        loaders: ['babel-loader'],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
       },
       {
         test: /\.scss$/,
@@ -54,17 +64,6 @@ module.exports = {
             loader: 'sass-loader', // compiles Sass to CSS
           },
         ],
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        }),
-      },
-      {
-        test: /\.jsx?$/,
-        use: [{ loader: 'babel-loader' }],
       },
       {
         test: /\.(jpe?g|png|gif)$/,
@@ -116,16 +115,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'status.html',
     }),
-    new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
-    new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks
   ],
+  devtool: 'source-map',
   stats: {
     colors: true,
     children: false,
     chunks: true,
     modules: false,
   },
-}
+};
