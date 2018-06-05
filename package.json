@@ -56,7 +56,7 @@
   "scripts": {
     "precommit": "yarn run prettier",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "yarn run build && build",
+    "dist": "yarn clean && yarn run build && build",
     "test": "jest --watch",
     "test-ci": "jest",
     "prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
@@ -65,7 +65,8 @@
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --overwrite",
     "prettify": "prettier --config .prettierrc.js --write src/**/*.js",
-    "eslintfixdry": "eslint --fix-dry-run src/**/*.js"
+    "eslintfixdry": "eslint --fix-dry-run src/**/*.js",
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "@types/electron-store": "^1.3.0",
@@ -171,6 +172,7 @@
     "electron-log": "^2.2.14",
     "electron-react-titlebar": "^0.8.1",
     "electron-store": "^1.3.0",
+    "electron-updater": "^2.21.10",
     "global": "^4.3.2",
     "highcharts": "^6.1.0",
     "history": "^4.7.2",

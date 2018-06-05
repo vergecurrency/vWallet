@@ -6,6 +6,10 @@ const path = require('path');
 const url = require('url');
 const menubar = require('menubar');
 const childProcess = require('child_process');
+const { autoUpdater } = require('electron-updater');
+
+autoUpdater.logger = require('electron-log');
+autoUpdater.logger.transports.file.level = 'info';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -22,10 +26,10 @@ if (
   dev = true;
 }
 
-console.log(process.resourcesPath + '/verge.app');
+console.log(process.resourcesPath + '/Verge.app/Contents/MacOS/Verge');
 let createProc = () => {
-  let sp = childProcess.exec(
-    process.resourcesPath + '/verge.app',
+  let sp = childProcess.spawn(
+    process.resourcesPath + '/Verge.app/Contents/MacOS/Verge',
     [
       '-deamon',
       '-rpcuser kyon',
@@ -33,9 +37,6 @@ let createProc = () => {
       '-rpcallowip "127.0.0.1"',
       '-printtoconsole',
     ],
-    (std, err) => {
-      console.log(std, ' ', err);
-    },
   );
   sp.unref();
   sp.on('error', err => {
@@ -52,8 +53,8 @@ let createProc = () => {
   });
 };
 
-// if (!dev) createProc();
-createProc();
+if (!dev) createProc();
+
 function createTrayIcon() {
   let indexPath;
   if (dev && process.argv.indexOf('--noDevServer') === -1) {
@@ -197,8 +198,17 @@ function createLoadingWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  createLoadingWindow();
-  createWindow();
+  autoUpdater
+    .checkForUpdatesAndNotify()
+    .then(value => {
+      console.log('UPDATE: ', value && value.updateInfo.stagingPercentage);
+      return false;
+    })
+    .then(() => {
+      createLoadingWindow();
+      createWindow();
+    })
+    .catch(console.error);
   // createTrayIcon()
 });
 
