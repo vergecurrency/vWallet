@@ -54,7 +54,7 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "precommit": "yarn run prettier",
+    "precommit": "yarn run prettify",
     "postinstall": "electron-builder install-app-deps",
     "dist": "yarn clean && yarn run build && build",
     "test": "jest --watch",
@@ -64,7 +64,7 @@
     "build": "webpack --mode production --config=./webpack.build.config.js",
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --overwrite",
-    "prettify": "prettier --config .prettierrc.js --write src/**/*.js",
+    "prettify": "prettier --config .prettierrc.js --write src/**/*",
     "eslintfixdry": "eslint --fix-dry-run src/**/*.js",
     "clean": "rimraf dist"
   },

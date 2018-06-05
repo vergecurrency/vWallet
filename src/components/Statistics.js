@@ -87,7 +87,7 @@ class Statistics extends Component {
         minimumFractionDigits: 6,
         // the default value for minimumFractionDigits depends on the currency
         // and is usually already 2
-      }
+      },
     )
 
     const bigNumber = new Intl.NumberFormat(
@@ -98,7 +98,7 @@ class Statistics extends Component {
         minimumFractionDigits: 2,
         // the default value for minimumFractionDigits depends on the currency
         // and is usually already 2
-      }
+      },
     )
     return (
       <StatisticContainer className="container">
@@ -122,7 +122,7 @@ class Statistics extends Component {
               </div>
               <div className="col-md-7 info">
                 {formatter.format(
-                  this.props.CoinStatsStore.getUpdatedStats.price
+                  this.props.CoinStatsStore.getUpdatedStats.price,
                 )}
               </div>
             </StatItem>
@@ -130,7 +130,7 @@ class Statistics extends Component {
               <div className="col-md-5">{T.translate('statistics.cap')}</div>
               <div className="col-md-7 info">
                 {bigNumber.format(
-                  this.props.CoinStatsStore.getUpdatedStats.cap
+                  this.props.CoinStatsStore.getUpdatedStats.cap,
                 )}
               </div>
             </StatItem>

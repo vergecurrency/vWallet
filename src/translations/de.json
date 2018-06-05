@@ -1,46 +1,46 @@
 {
-	"account-bar": {
-		"receive": "Empfangen",
-		"send": "Senden"
-	},
-	"transaction": {
-		"list": "Transaktions Liste",
-		"confirmations": "Bestätigungen"
-	},
-	"settings": {
-		"title": "Einstellungen",
-		"explaination": "Erklärung",
-		"keymap": "Schnelltasten",
-		"usage": "Nutzung",
-		"shortkey": {
-			"quicksend": {
-				"name": "schnelles Senden",
-				"usage": "Öffnet die Transaktions Form um XVG senden zu können."
-			},
-			"hideinformation": {
-				"name": "Verstecken/Zeigen von persönlichen Daten",
-				"usage":
-					"Versteckt all persönliche Informationen, wie zum Beispiel Transaktionen, Guthaben etc und ersetzt diese mit Platzhalter."
-			},
-			"lockwallet": {
-				"name": "Wallet sperren",
-				"usage":
-					"Diese Operation sperrt dein Wallet und vermeidet die Verwendung von einigen Funktionen bis Sie nochmal ihr Passwort eingeben."
-			}
-		},
-		"region": {
-			"name": "Region/Sprache",
-			"explain":
-				"Dies wechselt die Region nicht nur die Sprache. Darunter fällt unteranderem auch die Währung."
-		}
-	},
-	"header": {
-		"connection": "Verbindung(en)",
-		"synced": "synced",
-		"notsyncing": "not syncing",
-		"menu": {
-			"wallet": "Wallet",
-			"settings": "Einstellungen"
-		}
-	}
+  "account-bar": {
+    "receive": "Empfangen",
+    "send": "Senden"
+  },
+  "transaction": {
+    "list": "Transaktions Liste",
+    "confirmations": "Bestätigungen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "explaination": "Erklärung",
+    "keymap": "Schnelltasten",
+    "usage": "Nutzung",
+    "shortkey": {
+      "quicksend": {
+        "name": "schnelles Senden",
+        "usage": "Öffnet die Transaktions Form um XVG senden zu können."
+      },
+      "hideinformation": {
+        "name": "Verstecken/Zeigen von persönlichen Daten",
+        "usage":
+          "Versteckt all persönliche Informationen, wie zum Beispiel Transaktionen, Guthaben etc und ersetzt diese mit Platzhalter."
+      },
+      "lockwallet": {
+        "name": "Wallet sperren",
+        "usage":
+          "Diese Operation sperrt dein Wallet und vermeidet die Verwendung von einigen Funktionen bis Sie nochmal ihr Passwort eingeben."
+      }
+    },
+    "region": {
+      "name": "Region/Sprache",
+      "explain":
+        "Dies wechselt die Region nicht nur die Sprache. Darunter fällt unteranderem auch die Währung."
+    }
+  },
+  "header": {
+    "connection": "Verbindung(en)",
+    "synced": "synced",
+    "notsyncing": "not syncing",
+    "menu": {
+      "wallet": "Wallet",
+      "settings": "Einstellungen"
+    }
+  }
 }

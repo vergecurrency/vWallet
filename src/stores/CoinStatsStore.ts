@@ -1,26 +1,26 @@
-import { computed, decorate, observable } from 'mobx';
+import { computed, decorate, observable } from 'mobx'
 
-import electronLog from 'electron-log';
-import torRequest from 'tor-request';
+import electronLog from 'electron-log'
+import torRequest from 'tor-request'
 
-const electronStore = require('electron-store');
+const electronStore = require('electron-store')
 
 const store = new electronStore({
   encryptionKey: Buffer.from('vergecurrency'),
-});
-torRequest.setTorAddress('localhost', 9089);
+})
+torRequest.setTorAddress('localhost', 9089)
 
 interface CoinStats {
-  price: number;
-  price_btc: number;
-  rank: number;
-  cap: number;
-  hourChange: number;
-  dayChange: number;
+  price: number
+  price_btc: number
+  rank: number
+  cap: number
+  hourChange: number
+  dayChange: number
 }
 
 class CoinStatsStore {
-  loadingFinished: boolean = false;
+  loadingFinished: boolean = false
 
   info: CoinStats = {
     price: 0,
@@ -29,24 +29,24 @@ class CoinStatsStore {
     cap: 0,
     hourChange: 0,
     dayChange: 0,
-  };
+  }
 
   constructor() {
     this.getCoinStats()
       .then(info => {
-        this.info = { ...this.info, ...info };
-        this.loadingFinished = true;
+        this.info = { ...this.info, ...info }
+        this.loadingFinished = true
       })
-      .catch(electronLog.error);
+      .catch(electronLog.error)
 
     setInterval(() => {
       this.getCoinStats()
         .then(info => {
-          this.info = { ...this.info, ...info };
-          this.loadingFinished = true;
+          this.info = { ...this.info, ...info }
+          this.loadingFinished = true
         })
-        .catch(electronLog.error);
-    }, 30000);
+        .catch(electronLog.error)
+    }, 30000)
   }
 
   getCoinStats(): Promise<CoinStats | null> {
@@ -58,8 +58,8 @@ class CoinStatsStore {
         )}`,
         (err, res, body) => {
           if (!err && res.statusCode === 200) {
-            const [resJson] = JSON.parse(body);
-            const currency = store.get('currency', 'USD');
+            const [resJson] = JSON.parse(body)
+            const currency = store.get('currency', 'USD')
             return resolve(<CoinStats>{
               price: Number(`${resJson[`price_${currency.toLowerCase()}`]}`),
               price_btc: Number(resJson.price_btc),
@@ -67,25 +67,25 @@ class CoinStatsStore {
               cap: Number(resJson[`market_cap_${currency.toLowerCase()}`]),
               hourChange: Number(resJson.percent_change_1h),
               dayChange: Number(resJson.percent_change_24h),
-            });
+            })
           }
 
-          return reject(err);
+          return reject(err)
         },
       ),
-    );
+    )
   }
 
   get loaded() {
-    return this.loadingFinished;
+    return this.loadingFinished
   }
 
   get getUpdatedStats() {
-    return this.info;
+    return this.info
   }
 
   get priceWithCurrency() {
-    return this.info.price || 0;
+    return this.info.price || 0
   }
 }
 
@@ -94,7 +94,7 @@ decorate(CoinStatsStore, {
   getUpdatedStats: computed,
   priceWithCurrency: computed,
   loadingFinished: observable,
-});
+})
 
-const coinStore = new CoinStatsStore();
-export default coinStore;
+const coinStore = new CoinStatsStore()
+export default coinStore

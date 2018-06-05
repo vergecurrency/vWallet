@@ -64,13 +64,13 @@ class PriceUpdater extends Component {
           this.setState({
             history: result['7200'].reduce(
               (hist, data) => [...hist, [data[0], data[4]]],
-              []
+              [],
             ),
           })
         } else {
           console.error(err)
         }
-      }
+      },
     )
   }
 

@@ -73,7 +73,7 @@ class AccountBar extends Component {
         style: 'currency',
         currency: electronStore.get('currency', 'USD'),
         minimumFractionDigits: 2,
-      }
+      },
     )
 
     const formatterPrice = new Intl.NumberFormat(
@@ -82,7 +82,7 @@ class AccountBar extends Component {
         style: 'currency',
         currency: electronStore.get('currency', 'USD'),
         minimumFractionDigits: 5,
-      }
+      },
     )
 
     const XVGformatter = new Intl.NumberFormat(
@@ -91,7 +91,7 @@ class AccountBar extends Component {
         style: 'decimal',
         minimumFractionDigits: 2,
         maximumFractionDigits: 3,
-      }
+      },
     )
 
     return (
@@ -118,7 +118,7 @@ class AccountBar extends Component {
             </font>
             <h4 style={{ color: '#fff' }}>
               {XVGformatter.format(
-                this.props.AccountInformationStore.getBalance
+                this.props.AccountInformationStore.getBalance,
               )}{' '}
               XVG {/*<CurrencySymbol fontSize={18} color={'#fff'} />*/}
             </h4>
@@ -146,7 +146,7 @@ class AccountBar extends Component {
             <h4 style={{ color: '#fff' }}>
               {formatter.format(
                 this.props.AccountInformationStore.getBalance *
-                  this.props.CoinStatsStore.priceWithCurrency
+                  this.props.CoinStatsStore.priceWithCurrency,
               )}
             </h4>
           </div>
@@ -170,7 +170,7 @@ class AccountBar extends Component {
             </font>
             <h4 style={{ color: '#fff' }}>
               {formatterPrice.format(
-                this.props.CoinStatsStore.priceWithCurrency
+                this.props.CoinStatsStore.priceWithCurrency,
               )}
             </h4>
           </div>
@@ -276,5 +276,5 @@ class AccountBar extends Component {
 export default inject(
   'SettingsStore',
   'AccountInformationStore',
-  'CoinStatsStore'
+  'CoinStatsStore',
 )(observer(AccountBar))

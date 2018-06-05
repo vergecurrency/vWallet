@@ -24,13 +24,13 @@ class Charting extends Component {
           this.setState({
             history: result['7200'].reduce(
               (hist, data) => [...hist, { name: data[0], value: data[4] }],
-              []
+              [],
             ),
           })
         } else {
           console.error(err)
         }
-      }
+      },
     )
   }
 
