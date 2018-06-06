@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const PriceTag = props => (
   <svg viewBox="0 0 488.1 488.1" {...props}>

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Notification = props => (
   <svg viewBox="0 0 477.867 477.867" width={20} height={20} {...props}>

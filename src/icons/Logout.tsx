@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Logout = props => (
   <svg width={20} height={20} viewBox="0 0 471.2 471.2" {...props}>

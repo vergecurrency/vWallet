@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const CheckBadge = props => (
   <svg viewBox="0 0 25.772 25.772" {...props}>

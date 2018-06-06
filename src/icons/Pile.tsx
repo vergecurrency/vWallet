@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Pile = props => (
   <svg viewBox="0 0 308.99 308.99" {...props}>

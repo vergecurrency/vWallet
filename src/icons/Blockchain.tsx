@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const BlockChain = props => (
   <svg viewBox="0 0 480.001 480.001" {...props}>

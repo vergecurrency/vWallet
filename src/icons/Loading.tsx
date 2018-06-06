@@ -1,5 +1,7 @@
-import React from 'react'
+import * as React from 'react'
+
 import styled from 'styled-components'
+
 const SVGLoading = styled.svg`
   stroke: ${props => (props.theme.light ? '#003b54' : '#fff')};
 `

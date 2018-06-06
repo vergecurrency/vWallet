@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Timer = props => (
   <svg viewBox="0 0 60 60" {...props}>

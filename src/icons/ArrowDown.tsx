@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-const ArrowUp = props => (
+const ArrowDown = props => (
   <svg
     version={1.1}
     id="Lag_1"
@@ -12,9 +12,9 @@ const ArrowUp = props => (
     xmlSpace="preserve"
     {...props}
   >
-    <line className="arrow-up" x1={12} y1={19} x2={12} y2={5} />
-    <polyline className="arrow-up" points="5,12 12,5 19,12 " />
+    <line className="arrow-down" x1={12} y1={5} x2={12} y2={19} />
+    <polyline className="arrow-down" points="19,12 12,19 5,12 " />
   </svg>
 )
 
-export default ArrowUp
+export default ArrowDown

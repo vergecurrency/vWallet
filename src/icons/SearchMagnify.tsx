@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const SearchMagnify = props => (
   <svg viewBox="0 0 1000 1000" {...props}>

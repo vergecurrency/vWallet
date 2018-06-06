@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Achievement = props => (
   <svg viewBox="0 0 297 297" width={20} height={20} {...props}>

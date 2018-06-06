@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const MoneyIn = props => (
   <svg viewBox="0 0 477.88 477.88" {...props}>

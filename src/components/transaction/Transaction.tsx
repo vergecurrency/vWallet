@@ -1,24 +1,24 @@
-import * as React from 'react';
-import * as T from 'i18n-react';
-import * as moment from 'moment';
-import * as styled from 'styled-components';
+import * as React from 'react'
+import * as T from 'i18n-react'
+import * as moment from 'moment'
+import * as styled from 'styled-components'
 
-import { inject, observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react'
 
-import ArrowDown from '../../icons/ArrowDown';
-import ArrowPop from '../../icons/ArrowPop';
-import ArrowUp from '../../icons/ArrowUp';
-import Blockchain from '../../icons/Blockchain';
-import CheckBadge from '../../icons/CheckBadge';
-import { SettingsStore } from '../../stores/SettingsStore';
-import Timer from '../../icons/Timer';
-import { TransactionStore } from '../../stores/TransactionStore';
-import { fadeIn } from 'react-animations';
-import { isNull } from 'util';
+import ArrowDown from '../../icons/ArrowDown'
+import ArrowPop from '../../icons/ArrowPop'
+import ArrowUp from '../../icons/ArrowUp'
+import Blockchain from '../../icons/Blockchain'
+import CheckBadge from '../../icons/CheckBadge'
+import { SettingsStore } from '../../stores/SettingsStore'
+import Timer from '../../icons/Timer'
+import { TransactionStore } from '../../stores/TransactionStore'
+import { fadeIn } from 'react-animations'
+import { isNull } from 'util'
 
 const TextContainer = styled.default.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
-`;
+`
 
 const TransactionIcon = styled.default.div`
   display: inline-flex;
@@ -31,40 +31,40 @@ const TransactionIcon = styled.default.div`
   .arrow-up {
     stroke-width: 3px;
   }
-`;
+`
 
 const CenterDiv = styled.default.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 const fadeInAnimation = styled.keyframes`
   ${fadeIn};
-`;
+`
 
 const ContainerClicky = styled.default.div`
   cursor: pointer;
   animation: 1s ${fadeInAnimation};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
   border-radius: 5px 5px;
-`;
+`
 
 const TransactionDetails = styled.default.div`
   animation: 1s ${fadeInAnimation};
   padding-left: 8px;
   margin: 10px 0px;
-`;
+`
 
 const TransactionDetailsHeader = styled.default.div`
   font-weight: 800;
   font-size: 14px;
   font-style: bold;
-`;
+`
 const TransactionDetailsFooter = styled.default.div`
   font-weight: 800;
   font-size: 12px;
-`;
+`
 
 const TransactionDetailsMoney = styled.default.div`
   margin-top: 2px;
@@ -72,7 +72,7 @@ const TransactionDetailsMoney = styled.default.div`
   font-weight: 800;
   font-size: 18px;
   color: #000;
-`;
+`
 
 const SubTransactionDetails = styled.default.div`
   margin-top: 5px;
@@ -83,7 +83,7 @@ const SubTransactionDetails = styled.default.div`
   margin-left: -23px;
   margin-right: -15px;
   text-align: left;
-`;
+`
 
 const SubTransactionFurtherDetails = styled.default.div`
   margin-top: 5px;
@@ -99,18 +99,18 @@ const SubTransactionFurtherDetails = styled.default.div`
   margin-bottom: -10px;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
-`;
+`
 
 const TransactionDetailProp = styled.default.div`
   padding: 0px !important;
   display: inline-flex;
   align-items: center;
-`;
+`
 
 const ExternalLinks = styled.default.a`
   margin-right: 5px;
   margin-left: 5px;
-`;
+`
 
 const RoundedTransaction = styled.default.div`
   border-top-left-radius: 5px;
@@ -122,22 +122,22 @@ const RoundedTransaction = styled.default.div`
   &:hover {
     background-color: hsla(207, 48%, 95%, 0.8);
   }
-`;
+`
 
 interface Props {
-  amount: number;
-  account: string;
-  address: string;
-  fee: string;
-  blockhash: string;
-  category: 'receive' | 'send';
-  confirmations: number;
-  time: number;
-  timereceived: number;
-  txid: string;
-  hide: boolean;
-  TransactionStore: TransactionStore;
-  SettingsStore: SettingsStore;
+  amount: number
+  account: string
+  address: string
+  fee: string
+  blockhash: string
+  category: 'receive' | 'send'
+  confirmations: number
+  time: number
+  timereceived: number
+  txid: string
+  hide: boolean
+  TransactionStore: TransactionStore
+  SettingsStore: SettingsStore
 }
 
 class Transaction extends React.Component<Props> {
@@ -145,18 +145,18 @@ class Transaction extends React.Component<Props> {
     if (amount !== 0) {
       return category.includes('receive')
         ? T.default.translate('transaction.item.receive')
-        : T.default.translate('transaction.item.sent');
+        : T.default.translate('transaction.item.sent')
     }
 
     if ((!amount || amount === 0) && fee < 0) {
-      return T.default.translate('transaction.item.fee');
+      return T.default.translate('transaction.item.fee')
     }
 
-    return T.default.translate('transaction.item.unknown');
+    return T.default.translate('transaction.item.unknown')
   }
 
   isNew() {
-    return this.props.timereceived + 90 * 60 - moment().unix() > 0;
+    return this.props.timereceived + 90 * 60 - moment().unix() > 0
   }
 
   render() {
@@ -167,7 +167,7 @@ class Transaction extends React.Component<Props> {
         minimumFractionDigits: 2,
         maximumFractionDigits: 4,
       },
-    );
+    )
 
     const {
       address = '',
@@ -179,7 +179,7 @@ class Transaction extends React.Component<Props> {
       txid = '',
       hide = false,
       TransactionStore,
-    }: Props = this.props;
+    }: Props = this.props
 
     return (
       <ContainerClicky
@@ -191,7 +191,7 @@ class Transaction extends React.Component<Props> {
             address,
             timereceived,
             !hide,
-          );
+          )
         }}
       >
         <RoundedTransaction className="row">
@@ -332,10 +332,10 @@ class Transaction extends React.Component<Props> {
           </TransactionDetails>
         ) : null}
       </ContainerClicky>
-    );
+    )
   }
 }
 
 export default inject('TransactionStore', 'SettingsStore')(
   observer(Transaction),
-);
+)
