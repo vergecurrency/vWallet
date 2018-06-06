@@ -19,7 +19,7 @@ interface CoinStats {
   dayChange: number
 }
 
-class CoinStatsStore {
+export class CoinStatsStore {
   loadingFinished: boolean = false
 
   info: CoinStats = {

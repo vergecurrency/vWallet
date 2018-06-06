@@ -1,7 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-export default ({ height, width, color, strokeWidth }) => (
-  /* <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL --> */
+const LoadingIcon = ({ height, width, color, strokeWidth }) => (
   <svg
     width={width ? width : '24'}
     height={height ? height : '24'}
@@ -29,3 +28,5 @@ export default ({ height, width, color, strokeWidth }) => (
     </g>
   </svg>
 )
+
+export default LoadingIcon

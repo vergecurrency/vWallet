@@ -1,17 +1,15 @@
-import React from 'react'
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Input,
-  Container,
-  Row,
-  Col,
-} from 'reactstrap'
+import * as React from 'react'
 
-export default ({ open, toggle, title, children }) => (
+import { Modal, ModalBody, ModalHeader } from 'reactstrap'
+
+interface ModalProps {
+  open: boolean
+  toggle: (event: Event) => void
+  title: string
+  children: Node | Node[]
+}
+
+export default ({ open, toggle, title, children }: ModalProps) => (
   <Modal
     isOpen={open}
     toggle={toggle}

@@ -1,5 +1,6 @@
 // @flow
-import React, { Component } from 'react'
+import * as React from 'react'
+
 import Home from '../components/Home'
 
 const HomePage = () => <Home />
