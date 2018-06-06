@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import * as React from 'react'
 
-const CurrencySymbol = ({ fontSize, color }) => (
+const CurrencySymbol = ({
+  fontSize,
+  color,
+}: {
+  fontSize: number
+  color: string
+}) => (
   <svg
     viewBox="0 0 100 100"
     width={fontSize}
@@ -19,10 +24,5 @@ const CurrencySymbol = ({ fontSize, color }) => (
     </g>
   </svg>
 )
-
-CurrencySymbol.propTypes = {
-  fontSize: PropTypes.number,
-  color: PropTypes.string,
-}
 
 export default CurrencySymbol

@@ -1,13 +1,23 @@
-import { Area, AreaChart, CartesianGrid, YAxis } from 'recharts'
-import React, { Component } from 'react'
+import * as React from 'react'
+import * as moment from 'moment'
+
+import { Area, AreaChart } from 'recharts'
 import { inject, observer } from 'mobx-react'
 
-import moment from 'moment'
+import { CoinStatsStore } from '../stores/CoinStatsStore'
 import tr from 'tor-request'
 
 tr.setTorAddress('localhost', 9089)
 
-class Charting extends Component {
+interface ChartingProps {
+  CoinStatsStore: CoinStatsStore
+}
+
+interface ChartingState {
+  history: History | null
+}
+
+class Charting extends React.Component<ChartingProps, ChartingState> {
   state = {
     history: null,
   }

@@ -1,6 +1,9 @@
-import React, { Component } from 'react'
-import { observer, inject } from 'mobx-react'
+import * as React from 'react'
+
+import { inject, observer } from 'mobx-react'
+
 import CreditsPanel from './modal/CreditsPanel'
+import { SettingsStore } from '../stores/SettingsStore'
 import T from 'i18n-react'
 import styled from 'styled-components'
 
@@ -13,7 +16,15 @@ const FooterVersion = styled.div`
   ${props => (props.theme.light ? '' : 'color: #7193ae;')};
 `
 
-class Footer extends Component {
+interface FooterProps {
+  SettingsStore?: SettingsStore
+}
+
+interface FooterState {
+  credits: boolean
+}
+
+class Footer extends React.Component<FooterProps, FooterState> {
   constructor(props) {
     super(props)
     this.state = {
@@ -38,7 +49,7 @@ class Footer extends Component {
         />
         <div className="row">
           <FooterVersion className="col-md-8">
-            {T.translate('footer.wallet')} v{SettingsStore.appVersion} (alpha)
+            {T.translate('footer.wallet')} v{SettingsStore!.appVersion} (alpha)
           </FooterVersion>
           <FooterText className="col-md-2">
             {T.translate('footer.explorer')}

@@ -31,7 +31,7 @@ interface Info extends WalletInfo {
   unlocked?: boolean
 }
 
-class AccountInformationStore {
+export class AccountInformationStore {
   info: Info
 
   constructor() {

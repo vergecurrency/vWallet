@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
+import * as React from 'react'
+
 import { inject, observer } from 'mobx-react'
 
-import { Client } from 'verge-node-typescript'
-import CurrencySymbol from './CurrencySymbol'
-import ElectronStore from 'electron-store'
+import { AccountInformationStore } from '../stores/AccountInformationStore'
+import { CoinStatsStore } from '../stores/CoinStatsStore'
 import MoneyIn from '../icons/MoneyIn'
 import MoneyOut from '../icons/MoneyOut'
 import SendPanel from './modal/SendPanel'
+import { SettingsStore } from '../stores/SettingsStore'
 import T from 'i18n-react'
 import { Tooltip } from 'reactstrap'
-import receive from '../assets/images/receive.png'
-import send from '../assets/images/send.png'
 import styled from 'styled-components'
 
-const electronStore = new ElectronStore({
+const store = require('electron-store')
+const electronStore = new store({
   encryptionKey: Buffer.from('vergecurrency'),
 })
 
@@ -36,7 +36,19 @@ const AccountBarContainer = styled.div`
       : 'background-color: #0d1f2d;'};
 `
 
-class AccountBar extends Component {
+interface AccountBarProps {
+  SettingsStore?: SettingsStore
+  AccountInformationStore?: AccountInformationStore
+  CoinStatsStore?: CoinStatsStore
+}
+
+interface AccountBarState {
+  sendOpen: boolean
+  tooltipSendOpen: boolean
+  tooltipReceiveOpen: boolean
+}
+
+class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
   constructor(props) {
     super(props)
     this.state = {
@@ -107,7 +119,7 @@ class AccountBar extends Component {
               paddingLeft: '5%',
             }}
           >
-            <font
+            <span
               style={{
                 color: '#fff',
                 letterSpacing: '3px',
@@ -115,10 +127,10 @@ class AccountBar extends Component {
               }}
             >
               {T.translate('accountbar.xvgbalance')}
-            </font>
+            </span>
             <h4 style={{ color: '#fff' }}>
               {XVGformatter.format(
-                this.props.AccountInformationStore.getBalance,
+                this.props.AccountInformationStore!.getBalance,
               )}{' '}
               XVG {/*<CurrencySymbol fontSize={18} color={'#fff'} />*/}
             </h4>
@@ -132,7 +144,7 @@ class AccountBar extends Component {
               paddingLeft: '5%',
             }}
           >
-            <font
+            <span
               style={{
                 color: '#fff',
                 letterSpacing: '3px',
@@ -140,13 +152,13 @@ class AccountBar extends Component {
               }}
             >
               {T.translate('accountbar.xvgusd', {
-                currency: this.props.SettingsStore.getCurrency,
+                currency: this.props.SettingsStore!.getCurrency,
               })}
-            </font>
+            </span>
             <h4 style={{ color: '#fff' }}>
               {formatter.format(
-                this.props.AccountInformationStore.getBalance *
-                  this.props.CoinStatsStore.priceWithCurrency,
+                this.props.AccountInformationStore!.getBalance *
+                  this.props.CoinStatsStore!.priceWithCurrency,
               )}
             </h4>
           </div>
@@ -159,7 +171,7 @@ class AccountBar extends Component {
               paddingLeft: '5%',
             }}
           >
-            <font
+            <span
               style={{
                 color: '#fff',
                 letterSpacing: '3px',
@@ -167,10 +179,10 @@ class AccountBar extends Component {
               }}
             >
               {T.translate('accountbar.xvgprice')}
-            </font>
+            </span>
             <h4 style={{ color: '#fff' }}>
               {formatterPrice.format(
-                this.props.CoinStatsStore.priceWithCurrency,
+                this.props.CoinStatsStore!.priceWithCurrency,
               )}
             </h4>
           </div>
@@ -180,12 +192,12 @@ class AccountBar extends Component {
               textAlign: 'center',
               display: 'flex',
               justifyContent: 'center',
-              ...(this.props.AccountInformationStore.unlocked
+              ...(this.props.AccountInformationStore!.unlocked
                 ? {}
                 : { opacity: 0.5 }),
             }}
           >
-            {!this.props.AccountInformationStore.unlocked ? (
+            {!this.props.AccountInformationStore!.unlocked ? (
               <Tooltip
                 placement="top"
                 isOpen={this.state.tooltipSendOpen}
@@ -200,14 +212,13 @@ class AccountBar extends Component {
               id="sending"
               style={{
                 alignSelf: 'center',
-                display: 'flex-inline',
                 alignItems: 'center',
                 justifyItems: 'center',
                 display: 'inline-flex',
                 justifyContent: 'center',
               }}
               onClick={
-                this.props.AccountInformationStore.unlocked
+                this.props.AccountInformationStore!.unlocked
                   ? this.toggleSend
                   : () => {}
               }
@@ -226,12 +237,12 @@ class AccountBar extends Component {
               textAlign: 'center',
               display: 'flex',
               justifyContent: 'center',
-              ...(this.props.AccountInformationStore.unlocked
+              ...(this.props.AccountInformationStore!.unlocked
                 ? {}
                 : { opacity: 0.5 }),
             }}
           >
-            {!this.props.AccountInformationStore.unlocked ? (
+            {!this.props.AccountInformationStore!.unlocked ? (
               <Tooltip
                 placement="top"
                 isOpen={this.state.tooltipReceiveOpen}
@@ -245,16 +256,15 @@ class AccountBar extends Component {
               id="receiving"
               className="big-button receive"
               style={{
-                display: 'flex-inline',
+                display: 'inline-flex',
                 justifyItems: 'center',
                 alignItems: 'center',
                 alignSelf: 'center',
                 marginRight: '40px',
-                display: 'inline-flex',
                 justifyContent: 'center',
               }}
               onClick={
-                this.props.AccountInformationStore.unlocked
+                this.props.AccountInformationStore!.unlocked
                   ? this.toggleSend
                   : () => {}
               }
