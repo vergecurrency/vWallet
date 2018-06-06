@@ -10,8 +10,8 @@ import Header from '../components/Header/Header'
 import T from 'i18n-react'
 import { TitleBar } from 'electron-react-titlebar'
 
-const App = ({ SettingsStore, children }) => {
-  const language = SettingsStore.getLocaleId
+const App = props => {
+  const language = props.SettingsStore.getLocaleId
   const dictionary = require(`../translations/${language}.json`)
   T.setTexts(dictionary)
   return (
@@ -19,7 +19,7 @@ const App = ({ SettingsStore, children }) => {
       <TitleBar disableMaximize={true} menu={[]} />
       <Header />
       <AccountBar />
-      <ContentContainer>{children}</ContentContainer>
+      <ContentContainer>{props.children}</ContentContainer>
     </div>
   )
 }
