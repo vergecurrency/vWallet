@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
+
+import { SettingsStore } from '../../stores/SettingsStore'
 import T from 'i18n-react'
 
-export default class StealthSwitch extends PureComponent {
-  static propTypes = {
-    SettingsStore: PropTypes.object.isRequired,
-    updateStealth: PropTypes.func.isRequired,
-  }
+interface StealthSwitchProps {
+  SettingsStore?: SettingsStore
+  updateStealth: (e) => void
+}
 
+export default class StealthSwitch extends React.Component<StealthSwitchProps> {
   render() {
     return (
       <div
@@ -17,14 +18,14 @@ export default class StealthSwitch extends PureComponent {
         <label className="switch" style={{ width: '120px' }}>
           <input
             type="checkbox"
-            checked={this.props.SettingsStore.getDarkTheme}
-            onChange={this.updateStealth}
+            checked={this.props.SettingsStore!.getDarkTheme}
+            onChange={this.props.updateStealth}
           />
           <span
             className="slider round"
             style={{
               fontSize: 12,
-              textAlign: this.props.SettingsStore.getDarkTheme
+              textAlign: this.props.SettingsStore!.getDarkTheme
                 ? 'left'
                 : 'right',
               paddingTop: '8px',
@@ -32,7 +33,7 @@ export default class StealthSwitch extends PureComponent {
               paddingRight: '10px',
             }}
           >
-            {this.props.SettingsStore.getDarkTheme
+            {this.props.SettingsStore!.getDarkTheme
               ? 'Stealth ' + T.translate('header.on')
               : 'Stealth ' + T.translate('header.off')}
           </span>

@@ -1,21 +1,33 @@
-import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
 
+import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import BurgerMenu from './BurgerMenu'
 import LoadingIcon from '../LoadingIcon'
 import Lock from 'react-material-icon-svg/dist/LockIcon'
 import Logout from '../../icons/Logout'
 import Notification from '../../icons/Notification'
 import NotificationLayer from './NotificationLayer.js'
+import { SettingsStore } from '../../stores/SettingsStore'
 import T from 'i18n-react'
 import UnlockPanel from '../modal/UnlockPanel'
 import WifiIcon from 'react-material-icon-svg/dist/WifiIcon'
 import WifiOffIcon from 'react-material-icon-svg/dist/WifiOffIcon'
 
-class Header extends Component {
+interface HeaderState {
+  dropdownOpen: boolean
+  modal: boolean
+  dropdownOpenNotifiaction: boolean
+}
+
+interface HeaderProps {
+  AccountInformationStore?: AccountInformationStore
+  SettingsStore?: SettingsStore
+}
+
+class Header extends React.Component<HeaderProps, HeaderState> {
   constructor(props) {
     super(props)
     this.toggle = this.toggle.bind(this)
@@ -42,16 +54,16 @@ class Header extends Component {
   }
 
   getConnectionInfo() {
-    return this.props.AccountInformationStore.info &&
-      this.props.AccountInformationStore.info.connections
-      ? this.props.AccountInformationStore.info.connections
+    return this.props.AccountInformationStore!.info &&
+      this.props.AccountInformationStore!.info.connections
+      ? this.props.AccountInformationStore!.info.connections
       : 0
   }
 
   updateStealth() {
-    this.props.SettingsStore.setSettingOption({
+    this.props.SettingsStore!.setSettingOption({
       key: 'darkTheme',
-      value: !this.props.SettingsStore.getDarkTheme,
+      value: !this.props.SettingsStore!.getDarkTheme,
     })
   }
 
@@ -62,18 +74,18 @@ class Header extends Component {
   }
 
   getBlockSyncInfo() {
-    return this.props.AccountInformationStore.info &&
-      this.props.AccountInformationStore.info.blocks
+    return this.props.AccountInformationStore!.info &&
+      this.props.AccountInformationStore!.info.blocks
       ? `${Number(
-          (this.props.AccountInformationStore.info.blocks /
-            this.props.AccountInformationStore.info.highestBlock) *
-            100
+          (this.props.AccountInformationStore!.info.blocks /
+            this.props.AccountInformationStore!.info.highestBlock) *
+            100,
         ).toFixed(2)} % ${T.translate('header.synced')}`
       : T.translate('header.notsyncing')
   }
 
   isUnlocked() {
-    return this.props.AccountInformationStore.unlocked
+    return this.props.AccountInformationStore!.unlocked
   }
 
   render() {
@@ -154,7 +166,7 @@ class Header extends Component {
           <div
             onClick={() =>
               this.isUnlocked()
-                ? this.props.AccountInformationStore.lockWallet()
+                ? this.props.AccountInformationStore!.lockWallet()
                 : this.toggleUnlock()
             }
             className="col-md-1"
@@ -254,11 +266,6 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
-  AccountInformationStore: PropTypes.object.isRequired,
-  SettingsStore: PropTypes.object.isRequired,
-}
-
 export default inject('AccountInformationStore', 'SettingsStore')(
-  observer(Header)
+  observer(Header),
 )

@@ -1,6 +1,16 @@
 import * as React from 'react'
 
-const LoadingIcon = ({ height, width, color, strokeWidth }) => (
+const LoadingIcon = ({
+  height,
+  width,
+  color,
+  strokeWidth,
+}: {
+  height?: number
+  width?: number
+  color?: string
+  strokeWidth?: number
+}) => (
   <svg
     width={width ? width : '24'}
     height={height ? height : '24'}
