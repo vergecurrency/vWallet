@@ -13,9 +13,10 @@ node_js:
 
 install:
   - yarn
+  
 script:
-  - yarn test-ci
   - yarn dist
+  
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
