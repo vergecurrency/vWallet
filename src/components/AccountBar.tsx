@@ -8,16 +8,12 @@ import MoneyIn from '../icons/MoneyIn'
 import MoneyOut from '../icons/MoneyOut'
 import SendPanel from './modal/SendPanel'
 import { SettingsStore } from '../stores/SettingsStore'
-import T from 'i18n-react'
 import { Tooltip } from 'reactstrap'
-import styled from 'styled-components'
+import VergeCacheStore from '../stores/VergeCacheStore'
+import i18nReact from 'i18n-react'
+import styledComponents from 'styled-components'
 
-const store = require('electron-store')
-const electronStore = new store({
-  encryptionKey: Buffer.from('vergecurrency'),
-})
-
-const AccountBarContainer = styled.div`
+const AccountBarContainer = styledComponents.div`
   max-height: 200px;
   min-height: 200px;
   padding-top: 35px;
@@ -80,25 +76,25 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
 
   render() {
     const formatter = new Intl.NumberFormat(
-      electronStore.get('locale', 'en-US'),
+      VergeCacheStore.get('locale', 'en-US'),
       {
         style: 'currency',
-        currency: electronStore.get('currency', 'USD'),
+        currency: VergeCacheStore.get('currency', 'USD'),
         minimumFractionDigits: 2,
       },
     )
 
     const formatterPrice = new Intl.NumberFormat(
-      electronStore.get('locale', 'en-US'),
+      VergeCacheStore.get('locale', 'en-US'),
       {
         style: 'currency',
-        currency: electronStore.get('currency', 'USD'),
+        currency: VergeCacheStore.get('currency', 'USD'),
         minimumFractionDigits: 5,
       },
     )
 
     const XVGformatter = new Intl.NumberFormat(
-      electronStore.get('locale', 'en-US'),
+      VergeCacheStore.get('locale', 'en-US'),
       {
         style: 'decimal',
         minimumFractionDigits: 2,
@@ -126,7 +122,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 fontSize: '10px',
               }}
             >
-              {T.translate('accountbar.xvgbalance')}
+              {i18nReact.translate('accountbar.xvgbalance')}
             </span>
             <h4 style={{ color: '#fff' }}>
               {XVGformatter.format(
@@ -151,7 +147,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 fontSize: '10px',
               }}
             >
-              {T.translate('accountbar.xvgusd', {
+              {i18nReact.translate('accountbar.xvgusd', {
                 currency: this.props.SettingsStore!.getCurrency,
               })}
             </span>
@@ -178,7 +174,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 fontSize: '10px',
               }}
             >
-              {T.translate('accountbar.xvgprice')}
+              {i18nReact.translate('accountbar.xvgprice')}
             </span>
             <h4 style={{ color: '#fff' }}>
               {formatterPrice.format(
@@ -228,7 +224,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 height={16}
                 style={{ fill: '#fff', marginRight: '10px' }}
               />
-              {T.translate('account-bar.send')}
+              {i18nReact.translate('account-bar.send')}
             </div>
           </div>
           <div
@@ -274,7 +270,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 height={16}
                 style={{ fill: '#fff', marginRight: '10px' }}
               />
-              {T.translate('account-bar.receive')}
+              {i18nReact.translate('account-bar.receive')}
             </div>
           </div>
         </div>

@@ -1,10 +1,6 @@
 import { action, computed, decorate, observable } from 'mobx'
 
-const electronStore = require('electron-store')
-
-const store = new electronStore({
-  encryptionKey: Buffer.from('vergecurrency'),
-})
+import VergeCacheStore from './VergeCacheStore'
 
 interface Label {
   color: string
@@ -23,14 +19,17 @@ export class LabelStore {
    *
    * { "ABCDEFGHIJ-ADDRESS": [mom,monthly,saving] }
    */
-  labeledAddresses: AddressLabels[] = store.get('labeledAddresses', [])
+  labeledAddresses: AddressLabels[] = VergeCacheStore.get(
+    'labeledAddresses',
+    [],
+  )
 
   /**
    * All lables with their different colors and names.
    *
    * { "labelId": { color, name, description } }
    */
-  labels: Label[] = store.get('labels', [])
+  labels: Label[] = VergeCacheStore.get('labels', [])
 
   addLabelsForAddress(address: string, labels: Label) {
     this.labeledAddresses = { ...this.labeledAddresses, [address]: labels }
