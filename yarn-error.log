@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/marvinpiekarek/.nvm/versions/node/v8.9.1/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js add --dev @types/tor-request
+  /Users/marvinpiekarek/.nvm/versions/node/v8.9.1/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js publish
 
 PATH: 
   /usr/local/opt/tomcat@8/bin:/usr/local/opt/qt@5.5/bin:/Users/marvinpiekarek/.nvm/versions/node/v8.9.1/bin:/Users/marvinpiekarek/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/MacGPG2/bin:/usr/local/share/dotnet
@@ -14,17 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2ftor-request: Not found
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:65656:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:134675:22)
+  Error: canceled
+      at Interface.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:131036:13)
+      at emitNone (events.js:106:13)
+      at Interface.emit (events.js:208:7)
+      at Interface._ttyWrite (readline.js:775:16)
+      at ReadStream.onkeypress (readline.js:160:10)
       at emitTwo (events.js:126:13)
-      at Request.emit (events.js:214:7)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:135658:10)
-      at emitOne (events.js:116:13)
-      at Request.emit (events.js:211:7)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:135578:12)
-      at Object.onceWrapper (events.js:313:30)
-      at emitNone (events.js:111:20)
+      at ReadStream.emit (events.js:214:7)
+      at emitKeys (internal/readline.js:420:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1011:36)
 
 npm manifest: 
   {
@@ -39,8 +39,7 @@ npm manifest:
         "main.js",
         "package.json",
         "build/icon.icns",
-        "build/icon.ico",
-        "build/VERGEd"
+        "build/icon.ico"
       ],
       "dmg": {
         "contents": [
@@ -85,7 +84,8 @@ npm manifest:
     "scripts": {
       "precommit": "yarn run prettify",
       "postinstall": "electron-builder install-app-deps",
-      "dist": "yarn clean && yarn run build && build",
+      "dist": "yarn clean && yarn run build && electron-build",
+      "publish": "yarn clean && yarn run build && electron-build -p always",
       "test": "jest --watch",
       "test-ci": "jest",
       "prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",

@@ -1,8 +1,7 @@
 import * as React from 'react'
 
-import { Col, Container, Row } from 'reactstrap'
-
 import Achievement from '../../icons/Achievement'
+import { Col } from 'reactstrap'
 import Moment from 'react-moment'
 import PriceChart from '../../icons/PriceChart'
 import PriceTag from '../../icons/PriceTag'

@@ -32,7 +32,7 @@ interface Info extends WalletInfo {
 }
 
 export class AccountInformationStore {
-  info: Info
+  info: Info = <Info>{}
 
   constructor() {
     setInterval(() => {
@@ -61,11 +61,11 @@ export class AccountInformationStore {
   }
 
   get getBalance() {
-    return this.info.balance
+    return this.info.balance || 0
   }
 
   get unlocked() {
-    return this.info.unlocked
+    return this.info.unlocked || false
   }
 }
 

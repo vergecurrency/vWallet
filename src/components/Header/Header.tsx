@@ -9,7 +9,7 @@ import LoadingIcon from '../LoadingIcon'
 import Lock from 'react-material-icon-svg/dist/LockIcon'
 import Logout from '../../icons/Logout'
 import Notification from '../../icons/Notification'
-import NotificationLayer from './NotificationLayer.js'
+import NotificationLayer from './NotificationLayer'
 import { SettingsStore } from '../../stores/SettingsStore'
 import T from 'i18n-react'
 import UnlockPanel from '../modal/UnlockPanel'
@@ -26,6 +26,27 @@ interface HeaderProps {
   AccountInformationStore?: AccountInformationStore
   SettingsStore?: SettingsStore
 }
+
+const exampleNotifications: INotification[] = [
+  {
+    type: 'personal',
+    title: 'Achievement!',
+    inner: 'You have reached 10 transactions',
+    timeOfOccurance: 1527777829,
+  },
+  {
+    type: 'price',
+    title: 'Mooooooning!',
+    inner: 'Price has reached $0.20',
+    timeOfOccurance: 1527778829,
+  },
+  {
+    type: 'cap',
+    title: 'Market Cap!',
+    inner: 'We reached a Market cap of 1bln.',
+    timeOfOccurance: 1527773829,
+  },
+]
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   constructor(props) {
@@ -149,7 +170,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 <Notification style={{ fill: '#467698' }} />
               </DropdownToggle>
               <DropdownMenu className="mydrop">
-                <NotificationLayer />
+                <NotificationLayer notifications={exampleNotifications} />
               </DropdownMenu>
             </Dropdown>
 

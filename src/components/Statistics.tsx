@@ -10,7 +10,7 @@ import T from 'i18n-react'
 import { fadeIn } from 'react-animations'
 import price from '../assets/images/price.png'
 import priceLight from '../assets/images/price-light.png'
-import tr from 'tor-request'
+const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9089)
 

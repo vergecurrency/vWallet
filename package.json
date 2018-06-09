@@ -10,8 +10,7 @@
       "main.js",
       "package.json",
       "build/icon.icns",
-      "build/icon.ico",
-      "build/VERGEd"
+      "build/icon.ico"
     ],
     "dmg": {
       "contents": [
@@ -40,23 +39,33 @@
   "jest": {
     "verbose": true,
     "collectCoverage": true,
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "collectCoverageFrom": [
-      "src/**/**.{js,jsx}",
+      "src/**/**.{js,ts,tsx}",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
-    "coverageDirectory": "./coverage"
+    "coverageDirectory": "./coverage",
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/test/.*\\.(ts|tsx|js)$"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/marpme/verge-wallet.git"
+    "url": "https://github.com/marpme/Blub.git"
   },
   "license": "MIT",
   "main": "main.js",
   "scripts": {
     "precommit": "yarn run prettify",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "yarn clean && yarn run build && build",
+    "dist": "yarn clean && yarn run build && electron-builder",
+    "publishDist": "yarn clean && yarn run build && electron-builder -p always",
     "test": "jest --watch",
     "test-ci": "jest",
     "prod": "webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
@@ -130,6 +139,7 @@
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.0.0",
+    "jest-styled-components": "^5.0.1",
     "jquery": "^3.3.1",
     "lint-staged": "^7.1.2",
     "minimist": "^1.2.0",
@@ -152,6 +162,7 @@
     "stylefmt": "^6.0.0",
     "stylelint": "^8.4.0",
     "stylelint-config-standard": "^18.0.0",
+    "ts-jest": "^22.4.6",
     "ts-loader": "^4.3.1",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",

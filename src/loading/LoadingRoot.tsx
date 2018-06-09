@@ -109,9 +109,9 @@ class LoadingRoot extends React.Component<any> {
               <div>
                 <LoadingIcon
                   color="white"
-                  height="35"
-                  width="35"
-                  strokeWidth="2"
+                  height={35}
+                  width={35}
+                  strokeWidth={2}
                 />
               </div>
               <img

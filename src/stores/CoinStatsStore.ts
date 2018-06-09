@@ -1,13 +1,14 @@
 import { computed, decorate, observable } from 'mobx'
 
 import electronLog from 'electron-log'
-import torRequest from 'tor-request'
+const torRequest = require('tor-request')
 
 const electronStore = require('electron-store')
 
 const store = new electronStore({
   encryptionKey: Buffer.from('vergecurrency'),
 })
+
 torRequest.setTorAddress('localhost', 9089)
 
 interface CoinStats {

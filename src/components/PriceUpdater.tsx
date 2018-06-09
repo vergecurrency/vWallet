@@ -4,8 +4,8 @@ import * as moment from 'moment'
 import { inject, observer } from 'mobx-react'
 
 import { CoinStatsStore } from '../stores/CoinStatsStore'
-import ReactHighcharts from 'react-highcharts'
-import tr from 'tor-request'
+import * as ReactHighcharts from 'react-highcharts'
+const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9089)
 
@@ -41,9 +41,6 @@ class PriceUpdater extends React.Component<PriceUpdaterProps> {
   }
 
   render() {
-    if (this.state.history == null) {
-      return <span />
-    }
     const config = {
       rangeSelector: {
         selected: 1,
@@ -80,7 +77,9 @@ class PriceUpdater extends React.Component<PriceUpdaterProps> {
       >
         {this.props.CoinStatsStore!.loaded ? (
           <ReactHighcharts config={config} />
-        ) : null}
+        ) : (
+          <span />
+        )}
       </div>
     )
   }
