@@ -26,6 +26,13 @@
         }
       ]
     },
+    "mac": {
+      "category": "your.vergecurrency.wallet.finance",
+      "target": [
+        "zip",
+        "dmg"
+      ]
+    },
     "win": {
       "target": "nsis"
     },
@@ -108,7 +115,7 @@
     "cross-spawn": "^6.0.4",
     "css-loader": "^0.28.11",
     "detect-port": "^1.2.2",
-    "electron": "^1.8.4",
+    "electron": "^2.0.2",
     "electron-builder": "^20.10.0",
     "electron-devtools-installer": "^2.2.3",
     "electron-packager": "^12.0.1",
@@ -177,6 +184,7 @@
   },
   "dependencies": {
     "@types/react-dom": "^16.0.5",
+    "@types/uuid": "^3.4.3",
     "@types/webpack-env": "^1.13.6",
     "bootstrap": "^4.1.0",
     "csstype": "^2.5.3",

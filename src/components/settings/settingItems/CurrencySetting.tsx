@@ -1,37 +1,47 @@
-import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+
 import {
   Dropdown,
-  DropdownToggle,
-  DropdownMenu,
   DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
 } from 'reactstrap'
-import T from 'i18n-react'
-import styled from 'styled-components'
+import { inject, observer } from 'mobx-react'
+
+import { SettingsStore } from '../../../stores/SettingsStore'
+import i18nReact from 'i18n-react'
+import styledComponents from 'styled-components'
 
 const locales = [
   {
-    name: 'German',
-    localeId: 'de',
+    currency: 'EUR',
+    locale: 'de-DE',
   },
   {
-    name: 'English',
-    localeId: 'en',
+    currency: 'USD',
+    locale: 'en-US',
   },
   {
-    name: 'Dansk',
-    localeId: 'da',
+    currency: 'DKK',
+    locale: 'da-DK',
   },
 ]
 
-const Row = styled.div`
+const Row = styledComponents.div`
   display: flex;
   align-content: center;
   align-items: center;
   height: 75px;
 `
 
-class RegionSetting extends Component {
+interface CurrencySettingState {
+  dropdownOpen: boolean
+}
+
+export class CurrencySetting extends React.Component<
+  { SettingsStore?: SettingsStore },
+  CurrencySettingState
+> {
   constructor(props) {
     super(props)
     this.toggle = this.toggle.bind(this)
@@ -50,15 +60,15 @@ class RegionSetting extends Component {
     return (
       <Row className="row">
         <div className="col-md-4">
-          <font
+          <span
             style={{
               color: '#476b84',
               fontSize: 18,
               fontWeight: 500,
             }}
           >
-            {T.translate('settings.region.name')}
-          </font>
+            {i18nReact.translate('settings.currency.name')}
+          </span>
         </div>
         <div className="col-md-2">
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -72,30 +82,39 @@ class RegionSetting extends Component {
                 color: '#5b5a5a',
               }}
             >
-              {this.props.SettingsStore.getName}
+              {this.props.SettingsStore!.getCurrency}
             </DropdownToggle>
             <DropdownMenu>
               {locales.map(locale => (
                 <DropdownItem
                   onClick={() => {
-                    this.props.SettingsStore.setSettingOption({
-                      key: 'name',
-                      value: locale.name,
+                    this.props.SettingsStore!.setSettingOption({
+                      key: 'currency',
+                      value: locale.currency,
                     })
-                    this.props.SettingsStore.setSettingOption({
-                      key: 'localeId',
-                      value: locale.localeId,
+                    this.props.SettingsStore!.setSettingOption({
+                      key: 'locale',
+                      value: locale.locale,
                     })
                   }}
                 >
-                  {locale.name}
+                  {locale.currency}{' '}
+                  <em>
+                    ({new Intl.NumberFormat(locale.locale, {
+                      style: 'currency',
+                      currency: locale.currency,
+                      minimumFractionDigits: 2,
+                      // the default value for minimumFractionDigits depends on the currency
+                      // and is usually already 2
+                    }).format(1234567.089)})
+                  </em>
                 </DropdownItem>
               ))}
             </DropdownMenu>
           </Dropdown>{' '}
         </div>
         <div className="col-md-6">
-          <font
+          <span
             style={{
               color: '#647e90',
               fontSize: 15,
@@ -103,12 +122,12 @@ class RegionSetting extends Component {
               fontFamily: 'AvenirNextLTW01Italic',
             }}
           >
-            {T.translate('settings.region.explain')}
-          </font>
+            {i18nReact.translate('settings.currency.explain')}
+          </span>
         </div>
       </Row>
     )
   }
 }
 
-inject('SettingsStore')(observer(RegionSetting))
+export default inject('SettingsStore')(observer(CurrencySetting))

@@ -6,6 +6,7 @@ import SearchBar from '../../../src/components/transaction/SearchBar'
 import TransactionStore from '../../../src/stores/TransactionStore'
 
 test('SearchBar changes the class when hovered', () => {
+  const renderer = new ReactShallowRenderer()
   expect(
     renderer.create(<SearchBar TransactionStore={TransactionStore} />),
   ).toMatchSnapshot()

@@ -4,35 +4,37 @@ import * as vergeLogo from '../assets/images/verge-logo-white.png'
 import { Col, Container, Row } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
 
+import { CoinStatsStore } from '../stores/CoinStatsStore'
 import LoadingIcon from '../components/LoadingIcon'
+import { SettingsStore } from '../stores/SettingsStore'
 import { ipcRenderer } from 'electron'
-import styled from 'styled-components'
+import styledComponents from 'styled-components'
 
-const Verge = styled.span`
+const Verge = styledComponents.span`
   color: #5dacc5;
   font-weight: 500px;
   font-size: 18px;
 `
-const Title = styled.div`
+const Title = styledComponents.div`
   color: #d5dfe8;
   font-weight: 500px;
   font-size: 18px;
 `
 
-const Header = styled.span`
+const Header = styledComponents.span`
   font-weight: 400px;
   font-size: 12px;
   color: #9ba3ac;
 `
 
-const Thanks = styled.div`
+const Thanks = styledComponents.div`
   font-weight: 400px;
   font-size: 10px;
   line-height: 1.5em;
   color: #9ba3ac;
 `
 
-const Artwork = styled.div`
+const Artwork = styledComponents.div`
   margin-top: 10px;
   font-weight: 400px;
   font-size: 12px;
@@ -40,7 +42,7 @@ const Artwork = styled.div`
   color: #9ba3ac;
 `
 
-const Artist = styled.span`
+const Artist = styledComponents.span`
   font-weight: 600px;
   font-style: bold;
   font-size: 12px;
@@ -48,10 +50,13 @@ const Artist = styled.span`
   color: #a5adb6;
 `
 
-class LoadingRoot extends React.Component<any> {
+class LoadingRoot extends React.Component<{
+  CoinStatsStore?: CoinStatsStore
+  SettingsStore?: SettingsStore
+}> {
   componentDidUpdate() {
     // console.warn('We got updated!')
-    if (this.props.CoinStatsStore.getUpdatedStats.price) {
+    if (this.props.CoinStatsStore!.getUpdatedStats.price) {
       ipcRenderer.send('finalized-loading')
     } else {
       // console.error('wrong')
@@ -59,7 +64,7 @@ class LoadingRoot extends React.Component<any> {
   }
 
   render() {
-    const mylove = this.props.CoinStatsStore.getUpdatedStats.price
+    const mylove = this.props.CoinStatsStore!.getUpdatedStats.price
     return (
       <Container
         className="splashy"
@@ -86,7 +91,7 @@ class LoadingRoot extends React.Component<any> {
               <Title>
                 <Verge>Verge</Verge> Core Wallet
               </Title>
-              <Header>version 0.0.4 (alpha)</Header>
+              <Header>version v{this.props.SettingsStore!.appVersion}</Header>
             </Col>
             <Col sm="6" style={{}}>
               <Thanks>
@@ -130,4 +135,4 @@ class LoadingRoot extends React.Component<any> {
   }
 }
 
-export default inject('CoinStatsStore')(observer(LoadingRoot))
+export default inject('CoinStatsStore', 'SettingsStore')(observer(LoadingRoot))

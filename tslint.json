@@ -2,6 +2,6 @@
   "extends": "tslint-config-airbnb",
   "rules": {
     "ter-arrow-parens": [false],
-    "semicolon": [true, "never"],
+    "semicolon": [true, "never"]
   }
 }

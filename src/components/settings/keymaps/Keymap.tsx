@@ -1,14 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
+import * as React from 'react'
 
-const Row = styled.div`
+import styledComponents from 'styled-components'
+
+const Row = styledComponents.div`
 	display: flex;
 	align-content: center;
 	align-items: center;
 	height: 75px;
 `
 
-const Name = styled.div`
+const Name = styledComponents.div`
 	color: #476b84;
 	font-size: 18px;
 	font-weight: 400;
@@ -16,7 +17,7 @@ const Name = styled.div`
 	font-family: 'AvenirNextLTW01Regular';
 `
 
-const Key = styled.div`
+const Key = styledComponents.div`
 	font-family: 'AvenirNextLTW01Regular';
 	color: #647e90;
 	font-size: 18px;
@@ -24,7 +25,7 @@ const Key = styled.div`
 	text-transform: uppercase;
 `
 
-const Description = styled.div`
+const Description = styledComponents.div`
 	color: #647e90;
 	font-size: 15px;
 	font-style: italic;
@@ -33,9 +34,9 @@ const Description = styled.div`
 `
 
 export default ({ name, keyName, usage }) => (
-	<Row className="row">
-		<Name className="col-md-4">{name}</Name>
-		<Key className="col-md-2">{keyName}</Key>
-		<Description className="col-md-6">{usage}</Description>
-	</Row>
+  <Row className="row">
+    <Name className="col-md-4">{name}</Name>
+    <Key className="col-md-2">{keyName}</Key>
+    <Description className="col-md-6">{usage}</Description>
+  </Row>
 )

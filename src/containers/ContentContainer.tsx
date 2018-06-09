@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import styled from 'styled-components'
+import styledComponents from 'styled-components'
 
-const ContentContainer = styled.div`
-  height: 475px;
+const ContentContainer = styledComponents.div`
+  height: 477px;
   ${props =>
     props.theme.light
       ? 'background-color: #e7ebee;'

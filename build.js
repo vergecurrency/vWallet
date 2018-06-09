@@ -28,6 +28,10 @@ builder
           },
         ],
       },
+      mac: {
+        category: 'your.vergecurrency.wallet.finance',
+        target: ['zip', 'dmg'],
+      },
     },
   })
   .then(console.log)
