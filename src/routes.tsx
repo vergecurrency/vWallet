@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import AccountInformationStore from './stores/AccountInformationStore'
 import CoinStatsStore from './stores/CoinStatsStore'
-import DevTools from 'mobx-react-devtools'
 import { Provider } from 'mobx-react'
 import ReRouter from './ReRouter'
 import { Router } from 'react-router-dom'
@@ -27,7 +26,6 @@ const Routes = (props: any) => (
       <VergeProvider>
         <div>
           <ReRouter {...props} />
-          <DevTools />
         </div>
       </VergeProvider>
     </Provider>

@@ -188,6 +188,19 @@
     "@types/history" "*"
     "@types/react" "*"
 
+"@types/react-toastify@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-toastify/-/react-toastify-4.0.0.tgz#9b76450f3d003a7df82429f410fa14f9a9556498"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-transition-group" "*"
+
+"@types/react-transition-group@*":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-2.0.11.tgz#feb274676a39383fffaa0dff710958d2251abefb"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.3.16":
   version "16.3.16"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.16.tgz#78fc44a90b45701f50c8a7008f733680ba51fc86"
@@ -2392,6 +2405,10 @@ class-utils@^0.3.5:
 classnames@2.2.5, classnames@^2.2.3:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
+classnames@^2.2.5:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
 clean-css@4.1.x:
   version "4.1.11"
@@ -9881,6 +9898,14 @@ react-test-renderer@^16.4.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
     react-is "^16.4.0"
+
+react-toastify@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-4.1.0.tgz#0d14d3cf36523ade27a2edd5323a9db373dce4c5"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+    react-transition-group "^2.2.1"
 
 react-transform-catch-errors@^1.0.2:
   version "1.0.2"

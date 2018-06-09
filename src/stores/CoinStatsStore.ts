@@ -1,13 +1,9 @@
 import { computed, decorate, observable } from 'mobx'
 
+import VergeCacheStore from '../stores/VergeCacheStore'
 import electronLog from 'electron-log'
+
 const torRequest = require('tor-request')
-
-const electronStore = require('electron-store')
-
-const store = new electronStore({
-  encryptionKey: Buffer.from('vergecurrency'),
-})
 
 torRequest.setTorAddress('localhost', 9089)
 
@@ -53,14 +49,14 @@ export class CoinStatsStore {
   getCoinStats(): Promise<CoinStats | null> {
     return new Promise((resolve, reject) =>
       torRequest.request(
-        `https://api.coinmarketcap.com/v1/ticker/verge/?convert=${store.get(
+        `https://api.coinmarketcap.com/v1/ticker/verge/?convert=${VergeCacheStore.get(
           'currency',
           'USD',
         )}`,
         (err, res, body) => {
           if (!err && res.statusCode === 200) {
             const [resJson] = JSON.parse(body)
-            const currency = store.get('currency', 'USD')
+            const currency = VergeCacheStore.get('currency', 'USD')
             return resolve(<CoinStats>{
               price: Number(`${resJson[`price_${currency.toLowerCase()}`]}`),
               price_btc: Number(resJson.price_btc),

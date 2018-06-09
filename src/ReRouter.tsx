@@ -13,9 +13,8 @@ class ReRouter extends React.Component<{ SetupStore: SetupStore }> {
 
     if (window.location.href.includes('loading.html')) {
       return <LoadingRoot />
-    } else {
-      return SetupStore.getSetupStatus ? <Tour {...rest} /> : <MainRoute />
     }
+    return SetupStore.getSetupStatus ? <Tour {...rest} /> : <MainRoute />
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "verge-wallet",
-  "version": "0.0.13",
+  "version": "0.1.1",
   "description": "Verge the privacy coin of the future.",
   "author": "Marvin Piekarek <marvin.piekarek5@gmail.com>",
   "build": {
@@ -64,7 +64,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/marpme/Blub.git"
+    "url": "https://github.com/vergecurrency/vWallet.git"
   },
   "license": "MIT",
   "main": "main.js",
@@ -184,6 +184,7 @@
   },
   "dependencies": {
     "@types/react-dom": "^16.0.5",
+    "@types/react-toastify": "^4.0.0",
     "@types/uuid": "^3.4.3",
     "@types/webpack-env": "^1.13.6",
     "bootstrap": "^4.1.0",
@@ -210,6 +211,7 @@
     "react-popover": "^0.5.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-toastify": "^4.1.0",
     "reactstrap": "^5.0.0-beta.3",
     "rechart": "^0.0.1",
     "recharts": "^1.0.0-beta.10",

@@ -1,23 +1,19 @@
 import { action, computed, decorate, observable } from 'mobx'
 
-const electronStore = require('electron-store')
-
-const store = new electronStore({
-  encryptionKey: Buffer.from('vergecurrency'),
-})
+import VergeCacheStore from './VergeCacheStore'
 
 const CURRENT_VERSION = require('electron').remote.app.getVersion()
 
 export class SettingsStore {
-  name: string = store.get('name', 'English')
-  currency: string = store.get('currency', 'USD')
-  locale: string = store.get('locale', 'en-US')
-  localeId: string = store.get('localeId', 'en')
-  darkTheme: boolean = store.get('darkTheme', false)
+  name: string = VergeCacheStore.get('name', 'English')
+  currency: string = VergeCacheStore.get('currency', 'USD')
+  locale: string = VergeCacheStore.get('locale', 'en-US')
+  localeId: string = VergeCacheStore.get('localeId', 'en')
+  darkTheme: boolean = VergeCacheStore.get('darkTheme', false)
   version: string = CURRENT_VERSION
 
   setSettingOption({ key, value }: { key: string; value: any }) {
-    store.set(key, value)
+    VergeCacheStore.set(key, value)
     this[key] = value
   }
 

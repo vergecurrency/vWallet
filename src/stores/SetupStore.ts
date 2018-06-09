@@ -1,16 +1,12 @@
-const electronStore = require('electron-store')
-
 import { action, computed, decorate, observable } from 'mobx'
 
-const store = new electronStore({
-  encryptionKey: Buffer.from('vergecurrency'),
-})
+import VergeCacheStore from './VergeCacheStore'
 
 export class SetupStore {
-  setupOpen: boolean = !store.get('setupOpen', true)
+  setupOpen: boolean = !VergeCacheStore.get('setupOpen', true)
 
   setSetup = (bool: boolean) => {
-    store.set('setupOpen', bool)
+    VergeCacheStore.set('setupOpen', bool)
     this.setupOpen = bool
   }
 
