@@ -16,11 +16,7 @@ install:
   
 script:
   - yarn dist
-<<<<<<< HEAD
   
-=======
-
->>>>>>> origin/master
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
