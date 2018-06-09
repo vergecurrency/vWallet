@@ -64,7 +64,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/marpme/Blub.git"
+    "url": "https://github.com/vergecurrency/vWallet.git"
   },
   "license": "MIT",
   "main": "main.js",
