@@ -1,19 +1,16 @@
 import { computed, decorate, observable } from 'mobx'
 
-import { Client } from 'verge-node-typescript'
 import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
 import electronLog from 'electron-log'
 
-const vergeClient = new Client({ user: 'kyon', pass: 'lolcat' })
+import VergeClient from './VergeClient'
 
 const getAccountInfo = () =>
-  vergeClient
-    .getInfo()
+  VergeClient.getInfo()
     .then(info =>
-      vergeClient.getPeerInfo().then(peers => {
+      VergeClient.getPeerInfo().then(peers => {
         const highestBlock = Math.max(...peers.map(peer => peer.startingheight))
-        return vergeClient
-          .unlockWallet('a')
+        return VergeClient.unlockWallet('a')
           .then(() => ({ ...info, highestBlock, unlocked: true }))
           .catch(e => {
             return {
@@ -41,19 +38,19 @@ export class AccountInformationStore {
           this.info = { ...this.info, ...info }
         })
         .catch(electronLog.error)
-    }, 1000)
+    }, 5000)
   }
 
   sendTransaction(vergeAddress, amount) {
-    return vergeClient.sendToAddress(vergeAddress, amount)
+    return VergeClient.sendToAddress(vergeAddress, amount)
   }
 
   unlockWallet(password) {
-    return vergeClient.unlockWallet(password)
+    return VergeClient.unlockWallet(password)
   }
 
   lockWallet() {
-    return vergeClient.walletLock()
+    return VergeClient.walletLock()
   }
 
   get getUpdatedInfo() {

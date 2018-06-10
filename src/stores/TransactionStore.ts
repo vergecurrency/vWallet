@@ -2,15 +2,13 @@ import * as moment from 'moment'
 
 import { action, computed, decorate, observable } from 'mobx'
 
-import { Client } from 'verge-node-typescript'
+import VergeClient from './VergeClient'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
 
 const hash = (transaction: TransactionView) =>
   `${transaction.txid}#${transaction.category}#${transaction.address}#${
     transaction.timereceived
   }`
-
-const client = new Client({ user: 'kyon', pass: 'lolcat' })
 
 interface TransactionView extends Transaction {
   hide?: boolean
@@ -150,12 +148,12 @@ decorate(TransactionStore, {
 
 const store = new TransactionStore()
 
-client.getTransactionList(100).then(transactions => {
+VergeClient.getTransactionList(100).then(transactions => {
   store.addTransactions(transactions)
 })
 
 setInterval(() => {
-  client.getTransactionList(100).then(transactions => {
+  VergeClient.getTransactionList(100).then(transactions => {
     store.addTransactions(transactions)
   })
 }, 10000)

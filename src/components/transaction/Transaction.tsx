@@ -182,19 +182,19 @@ class Transaction extends React.Component<Props> {
     }: Props = this.props
 
     return (
-      <ContainerClicky
-        className="container"
-        onClick={() => {
-          TransactionStore.setVisibility(
-            txid,
-            category,
-            address,
-            timereceived,
-            !hide,
-          )
-        }}
-      >
-        <RoundedTransaction className="row">
+      <ContainerClicky className="container">
+        <RoundedTransaction
+          className="row"
+          onClick={() => {
+            TransactionStore.setVisibility(
+              txid,
+              category,
+              address,
+              timereceived,
+              !hide,
+            )
+          }}
+        >
           <div
             className="col-md-1"
             style={{
@@ -282,6 +282,7 @@ class Transaction extends React.Component<Props> {
             <ArrowPop height={36} hide={hide} />
           </div>
         </RoundedTransaction>
+
         {!hide ? (
           <TransactionDetails className="trans-details">
             <TransactionDetailsHeader className="Row">
@@ -302,7 +303,9 @@ class Transaction extends React.Component<Props> {
                   width={15}
                   style={{ fill: 'rgba(100,100,100, 0.5)', marginRight: '7px' }}
                 />{' '}
-                {confirmations} confirmations
+                {confirmations > 0
+                  ? `${confirmations} confirmation(s)`
+                  : 'Confirmation: out of sync'}
               </TransactionDetailProp>
               <TransactionDetailProp className="col-md-6">
                 <Timer
