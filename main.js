@@ -3,8 +3,9 @@ const path = require('path')
 const url = require('url')
 const childProcess = require('child_process')
 const { autoUpdater } = require('electron-updater')
+const log = require('electron-log')
 
-autoUpdater.logger = require('electron-log')
+autoUpdater.logger = log
 autoUpdater.logger.transports.file.level = 'info'
 
 let mainWindow
@@ -24,34 +25,40 @@ const generator = () =>
     .toString(36)
     .slice(-8)
 
-const auth = { pass: generator(), user: generator() }
+const auth = { pass: generator(), user: generator(), loadingProgress: 0 }
 global.sharedObj = auth
-let processes = []
+let vergeProcess
 let createProc = processPath => {
-  processes = [
-    childProcess.spawn(
-      processPath,
-      [`-rpcuser=${auth.user}`, `-rpcpassword=${auth.pass}`, '-printtoconsole'],
-      {
-        stdio: [process.stdin, process.stdout, process.stderr],
-      },
-    ),
-  ]
-  processes[0].unref()
-  processes[0].on('error', err => {
-    console.log('failed to start process', err)
-  })
-  processes[0].on('exit', (code, signal) => {
-    console.log(`child process exited with code ${code}`)
-  })
-
-  processes[0].on('message', message => {
-    console.log(`Message: ${message}`)
+  vergeProcess = childProcess.spawn(
+    processPath,
+    [`-rpcuser=${auth.user}`, `-rpcpassword=${auth.pass}`, '-printtoconsole'],
+    {
+      stdio: ['pipe', 'pipe', process.stderr],
+    },
+  )
+  const readable = vergeProcess.stdout
+  //vergeProcess.unref()
+  readable.on('readable', () => {
+    let chunk
+    while (null !== (chunk = readable.read())) {
+      const loadRegex = /\d+/
+      const chunkString = chunk.toString()
+      if (chunkString.includes('Loading block index')) {
+        const [number] = chunkString.match(loadRegex)
+        auth.loadingProgress = number
+      }
+      log.log('loading progress: ', auth.loadingProgress, '%')
+    }
   })
 }
 
-if (process.env.NODE_ENV === 'dev') createProc('./build/VERGEd')
-else createProc(process.resourcesPath + '/Verge.app/Contents/MacOS/VERGEd')
+if (process.env.NODE_ENV === 'dev') {
+  log.info('Creating the verge deamon - dev')
+  // createProc('./build/VERGEd')
+} else {
+  log.info('Creating the verge deamon - prod')
+  createProc(process.resourcesPath + '/Verge.app/Contents/MacOS/VERGEd')
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -86,7 +93,7 @@ function createWindow() {
   })
 
   mainWindow.on('closed', function() {
-    processes[0].kill('SIGINT')
+    vergeProcess.kill('SIGINT')
     mainWindow = null
   })
 }
@@ -136,22 +143,25 @@ function createLoadingWindow() {
   })
 }
 
-app.on('ready', () => {
+app.on('ready', function() {
   autoUpdater
     .checkForUpdatesAndNotify()
     .then(value => {
-      console.log('UPDATE: ', value && value.updateInfo.stagingPercentage)
-      return false
+      log.info(
+        `Checking update - Info: ${(value &&
+          value.updateInfo.stagingPercentage) ||
+          -1}%`,
+      )
     })
     .then(() => {
       createLoadingWindow()
       createWindow()
     })
-    .catch(console.error)
+    .catch(log.error)
 })
 
 app.on('window-all-closed', () => {
-  processes[0].kill('SIGINT')
+  vergeProcess.kill('SIGINT')
   app.quit()
 })
 
@@ -159,6 +169,5 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createLoadingWindow()
     createWindow()
-    createTrayIcon()
   }
 })

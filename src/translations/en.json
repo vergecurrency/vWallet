@@ -3,6 +3,9 @@
     "receive": "Receive",
     "send": "Send"
   },
+  "receive": {
+    "title": "Receive Transaction"
+  },
   "transaction": {
     "list": "Transaction List",
     "item": {

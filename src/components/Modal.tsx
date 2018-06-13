@@ -4,25 +4,28 @@ import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 
 interface ModalProps {
   open: boolean
-  toggle: (event: Event) => void
+  toggle: (() => void) & (() => void)
   title: string
-  children: Node | Node[]
+  children: JSX.Element[] | JSX.Element
+  style: any
 }
 
-export default ({ open, toggle, title, children }: ModalProps) => (
+export default ({ open, toggle, title, children, style }: ModalProps) => (
   <Modal
     isOpen={open}
     toggle={toggle}
     centered={true}
-    style={{ width: '547px', height: '688px' }}
+    style={{ width: '547px', height: '688px', ...style }}
   >
     <ModalHeader
       style={{
-        color: '#003b54',
+        color: '#fff',
         fontSize: 20,
         fontWeight: 400,
         lineHeight: 78,
-        background: '#fff',
+        background: '#00b8dc',
+        textAlign: 'center',
+        padding: 'none',
       }}
       toggle={toggle}
     >

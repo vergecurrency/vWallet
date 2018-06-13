@@ -12,6 +12,7 @@ import { Tooltip } from 'reactstrap'
 import VergeCacheStore from '../stores/VergeCacheStore'
 import i18nReact from 'i18n-react'
 import styledComponents from 'styled-components'
+import ReceivePanel from './modal/ReceivePanel'
 
 const AccountBarContainer = styledComponents.div`
   max-height: 200px;
@@ -42,6 +43,7 @@ interface AccountBarState {
   sendOpen: boolean
   tooltipSendOpen: boolean
   tooltipReceiveOpen: boolean
+  receiveOpen: boolean
 }
 
 class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
@@ -51,15 +53,21 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
       sendOpen: false,
       tooltipSendOpen: false,
       tooltipReceiveOpen: false,
+      receiveOpen: false,
     }
 
     this.toggleSend = this.toggleSend.bind(this)
+    this.toggleReceive = this.toggleReceive.bind(this)
     this.toggleSendTooltip = this.toggleSendTooltip.bind(this)
     this.toggleReceiveTooltip = this.toggleReceiveTooltip.bind(this)
   }
 
   toggleSend() {
     this.setState({ sendOpen: !this.state.sendOpen })
+  }
+
+  toggleReceive() {
+    this.setState({ receiveOpen: !this.state.receiveOpen })
   }
 
   toggleSendTooltip() {
@@ -105,6 +113,10 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
     return (
       <AccountBarContainer className="container-fluid">
         <SendPanel open={this.state.sendOpen} toggle={this.toggleSend} />
+        <ReceivePanel
+          open={this.state.receiveOpen}
+          toggle={this.toggleReceive}
+        />
         <div className="row">
           <div
             className="col-md-3"
@@ -261,7 +273,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
               }}
               onClick={
                 this.props.AccountInformationStore!.unlocked
-                  ? this.toggleSend
+                  ? this.toggleReceive
                   : () => {}
               }
             >

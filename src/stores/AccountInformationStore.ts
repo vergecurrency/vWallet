@@ -2,7 +2,7 @@ import { computed, decorate, observable } from 'mobx'
 
 import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
 import electronLog from 'electron-log'
-
+const { remote } = require('electron')
 import VergeClient from './VergeClient'
 
 const getAccountInfo = () =>
@@ -26,6 +26,7 @@ const getAccountInfo = () =>
 interface Info extends WalletInfo {
   highestBlock: number
   unlocked?: boolean
+  loadingProgress: number
 }
 
 export class AccountInformationStore {
@@ -35,10 +36,19 @@ export class AccountInformationStore {
     setInterval(() => {
       getAccountInfo()
         .then(info => {
-          this.info = { ...this.info, ...info }
+          this.info = {
+            ...this.info,
+            ...info,
+            loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
+          }
         })
-        .catch(electronLog.error)
-    }, 5000)
+        .catch(() => {
+          this.info = {
+            ...this.info,
+            loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
+          }
+        })
+    }, 1000)
   }
 
   sendTransaction(vergeAddress, amount) {
@@ -63,6 +73,10 @@ export class AccountInformationStore {
 
   get unlocked() {
     return this.info.unlocked || false
+  }
+
+  receiveNewAddress(): Promise<String> {
+    return VergeClient.getNewAddress()
   }
 }
 

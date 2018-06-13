@@ -2,12 +2,23 @@ import { Client } from 'verge-node-typescript'
 
 const { remote } = require('electron')
 
-console.log(remote.getGlobal('sharedObj').user)
-console.log(remote.getGlobal('sharedObj').pass)
+const MODE = remote.getGlobal('process').env
+  ? remote.getGlobal('process').env.NODE_ENV
+  : 'prod'
 
-const client: Client = new Client({
-  user: remote.getGlobal('sharedObj').user,
-  pass: remote.getGlobal('sharedObj').pass,
-})
+let client: Client
+
+if (MODE === 'dev') {
+  client = new Client({
+    user: 'kyon',
+    pass: 'lolcat',
+  })
+  remote.getGlobal('sharedObj').state = '100'
+} else {
+  client = new Client({
+    user: remote.getGlobal('sharedObj').user,
+    pass: remote.getGlobal('sharedObj').pass,
+  })
+}
 
 export default client

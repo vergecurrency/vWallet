@@ -207,6 +207,12 @@
   dependencies:
     csstype "^2.2.0"
 
+"@types/reactstrap@^5.0.27":
+  version "5.0.27"
+  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-5.0.27.tgz#0973e83ac5db1ef70aedec73b8e2c2f51f97373d"
+  dependencies:
+    "@types/react" "*"
+
 "@types/uuid@^3.4.3":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.3.tgz#121ace265f5569ce40f4f6d0ff78a338c732a754"
@@ -9634,6 +9640,17 @@ q@^1.1.2, q@~1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
 
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
+
+qrcode.react@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-0.8.0.tgz#413b31cc3b62910e39513f7bead945e01c4c34fb"
+  dependencies:
+    prop-types "^15.6.0"
+    qr.js "0.0.0"
+
 qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
@@ -12495,9 +12512,9 @@ vendors@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
 
-verge-node-typescript@^0.0.13:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/verge-node-typescript/-/verge-node-typescript-0.0.13.tgz#2c441e7698933bdabbc376ccb07bb2e1b26f251b"
+verge-node-typescript@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/verge-node-typescript/-/verge-node-typescript-0.0.15.tgz#d641e2fac48fa13215261e2a38dc767c019a5858"
   dependencies:
     "@types/node" "^9.6.5"
     global "^4.3.2"

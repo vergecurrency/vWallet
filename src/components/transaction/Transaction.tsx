@@ -156,7 +156,7 @@ class Transaction extends React.Component<Props> {
   }
 
   isNew() {
-    return this.props.timereceived + 90 * 60 - moment().unix() > 0
+    return this.props.time + 90 * 60 - moment().unix() > 0
   }
 
   render() {
@@ -176,6 +176,7 @@ class Transaction extends React.Component<Props> {
       category = '',
       confirmations = 0,
       timereceived = 0,
+      time = 0,
       txid = '',
       hide = false,
       TransactionStore,
@@ -206,7 +207,7 @@ class Transaction extends React.Component<Props> {
           >
             <TextContainer>
               {moment
-                .unix(timereceived)
+                .unix(time)
                 .format('MMM')
                 .toUpperCase()}
             </TextContainer>
@@ -218,7 +219,7 @@ class Transaction extends React.Component<Props> {
                 color: '#cacaca',
               }}
             >
-              {moment.unix(timereceived).format('DD')}
+              {moment.unix(time).format('DD')}
             </TextContainer>
           </div>
           <CenterDiv className="col-md-1">
@@ -287,7 +288,7 @@ class Transaction extends React.Component<Props> {
           <TransactionDetails className="trans-details">
             <TransactionDetailsHeader className="Row">
               {this.getType(amount, category, fee)} transaction{' · '}
-              {moment.unix(timereceived).fromNow()}
+              {moment.unix(time).fromNow()}
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="Row">
               XVG {xvgFormatter.format(Math.abs(amount))}{' '}
@@ -316,7 +317,7 @@ class Transaction extends React.Component<Props> {
                     marginRight: '7px',
                   }}
                 />{' '}
-                {moment.unix(timereceived).format('MMMM Do YYYY, h:mm:ss a')}
+                {moment.unix(time).format('MMMM Do YYYY, h:mm:ss a')}
               </TransactionDetailProp>
             </SubTransactionDetails>
             <SubTransactionFurtherDetails className="Row">

@@ -2,22 +2,26 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-@import "fonts";
-@import "highchart";
-@import "basic";
-@import "appbar";
-@import "normalize";
+@import 'fonts';
+@import 'highchart';
+@import 'basic';
+@import 'appbar';
+@import 'normalize';
+@import 'fa/fontawesome';
+@import 'fa/fa-brands';
+@import 'fa/fa-regular';
+@import 'fa/fa-solid';
 
 body {
   background-color: #152f36;
   color: #fff;
   //height: 700px;
 
-  font-family: "AvenirNextLTW01Regular", Helvetica, sans-serif !important;
+  font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif !important;
 }
 
 .logo {
-  content: url("../images/verge-logo-white.png");
+  content: url('../images/verge-logo-white.png');
 }
 
 .big-button {
@@ -143,7 +147,7 @@ body {
   font-size: 13px;
   font-weight: 500;
   background-color: transparent;
-  color: #a7b6c1;
+  color: #151617;
   position: absolute;
   bottom: 25px;
   left: 30px;
@@ -207,8 +211,8 @@ textarea,
   outline: none; // You should add some other style for :focus to help UX/a11y
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -233,4 +237,50 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mydrop {
   min-width: 25em !important;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center !important;
+  justify-items: center !important;
+  align-items: center !important;
+  align-content: center !important;
+}
+
+button.close {
+  // margin: 0px !important;
+
+  > span {
+    text-shadow: none;
+  }
+}
+
+.buttonInside {
+  input {
+    padding: 7px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+    width: 195%;
+  }
+
+  button#showPassword {
+    position: relative;
+    outline: none;
+    border: none;
+    top: -33px;
+    left: 360px;
+    text-align: center;
+    font-weight: bold;
+    padding: 2px;
+    background: transparent;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+}
+
+.clicky {
+  cursor: pointer;
 }

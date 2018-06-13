@@ -5,7 +5,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Row,
 } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
 

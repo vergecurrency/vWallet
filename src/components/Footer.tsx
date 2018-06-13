@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 
 import CreditsPanel from './modal/CreditsPanel'
 import { SettingsStore } from '../stores/SettingsStore'
+const { shell } = require('electron')
 import T from 'i18n-react'
 import styled from 'styled-components'
 
@@ -34,8 +35,18 @@ class Footer extends React.Component<FooterProps, FooterState> {
     this.toggle = this.toggle.bind(this)
   }
 
-  toggle(item) {
+  toggle(item: 'credits') {
     return () => this.setState({ [item]: !this.state[item] })
+  }
+
+  openLatestRelease() {
+    shell.openExternal(
+      'https://github.com/vergecurrency/vWallet/releases/latest',
+    )
+  }
+
+  openBlockExplorer() {
+    shell.openExternal('https://verge-blockchain.info/')
   }
 
   render() {
@@ -48,16 +59,25 @@ class Footer extends React.Component<FooterProps, FooterState> {
           open={this.state.credits}
         />
         <div className="row">
-          <FooterVersion className="col-md-8">
+          <FooterVersion
+            className="col-md-8 clicky"
+            onClick={this.openLatestRelease.bind(this)}
+          >
             {T.translate('footer.wallet')} v{SettingsStore!.appVersion} (alpha)
           </FooterVersion>
-          <FooterText className="col-md-2">
+          <FooterText
+            className="col-md-2 clicky"
+            onClick={this.openBlockExplorer.bind(this)}
+          >
             {T.translate('footer.explorer')}
           </FooterText>
-          <FooterText className="col-md-1">
+          <FooterText className="col-md-1 clicky">
             {T.translate('footer.donate')}
           </FooterText>
-          <FooterText className="col-md-1" onClick={this.toggle('credits')}>
+          <FooterText
+            className="col-md-1 clicky"
+            onClick={this.toggle('credits')}
+          >
             {T.translate('footer.credits')}
           </FooterText>
         </div>
