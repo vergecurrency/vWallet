@@ -2,7 +2,8 @@ import { action, computed, decorate, observable } from 'mobx'
 
 import VergeCacheStore from './VergeCacheStore'
 
-const CURRENT_VERSION = require('electron').remote.app.getVersion()
+import { remote } from 'electron'
+const CURRENT_VERSION = remote.app.getVersion()
 
 export class SettingsStore {
   name: string = VergeCacheStore.get('name', 'English')

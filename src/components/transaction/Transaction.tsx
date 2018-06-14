@@ -128,7 +128,7 @@ interface Props {
   amount: number
   account: string
   address: string
-  fee: string
+  fee: number
   blockhash: string
   category: 'receive' | 'send'
   confirmations: number
@@ -252,7 +252,7 @@ class Transaction extends React.Component<Props> {
                 }}
               >
                 {category.includes('receive') ? '+' : '-'}
-                {Math.abs(amount)
+                {Math.abs(amount + fee)
                   .toFixed(3)
                   .toLocaleString()}{' '}
                 XVG
@@ -291,7 +291,7 @@ class Transaction extends React.Component<Props> {
               {moment.unix(time).fromNow()}
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="Row">
-              XVG {xvgFormatter.format(Math.abs(amount))}{' '}
+              XVG {xvgFormatter.format(Math.abs(amount + fee))}{' '}
               {category.includes('receive') ? '+' : '-'}
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="Row">

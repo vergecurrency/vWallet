@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react'
 
 import CreditsPanel from './modal/CreditsPanel'
 import { SettingsStore } from '../stores/SettingsStore'
-const { shell } = require('electron')
+import { shell } from 'electron'
 import T from 'i18n-react'
 import styled from 'styled-components'
 

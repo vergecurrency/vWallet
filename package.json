@@ -10,7 +10,8 @@
       "main.js",
       "package.json",
       "build/icon.icns",
-      "build/icon.ico"
+      "build/icon.ico",
+      "build/VERGEd"
     ],
     "dmg": {
       "contents": [
@@ -29,8 +30,7 @@
     "mac": {
       "category": "your.vergecurrency.wallet.finance",
       "target": [
-        "zip",
-        "dmg"
+        "zip"
       ]
     },
     "win": {

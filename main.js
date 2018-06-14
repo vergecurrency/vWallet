@@ -5,8 +5,8 @@ const childProcess = require('child_process')
 const { autoUpdater } = require('electron-updater')
 const log = require('electron-log')
 
-autoUpdater.logger = log
-autoUpdater.logger.transports.file.level = 'info'
+//autoUpdater.logger = log
+//autoUpdater.logger.transports.file.level = 'info'
 
 let mainWindow
 let loadingWindow
@@ -26,8 +26,11 @@ const generator = () =>
     .slice(-8)
 
 const auth = { pass: generator(), user: generator(), loadingProgress: 0 }
+
 global.sharedObj = auth
+
 let vergeProcess
+
 let createProc = processPath => {
   vergeProcess = childProcess.spawn(
     processPath,
@@ -36,6 +39,7 @@ let createProc = processPath => {
       stdio: ['pipe', 'pipe', process.stderr],
     },
   )
+
   const readable = vergeProcess.stdout
   //vergeProcess.unref()
   readable.on('readable', () => {
@@ -57,7 +61,7 @@ if (process.env.NODE_ENV === 'dev') {
   // createProc('./build/VERGEd')
 } else {
   log.info('Creating the verge deamon - prod')
-  createProc(process.resourcesPath + '/Verge.app/Contents/MacOS/VERGEd')
+  createProc(process.resourcesPath + '/VERGEd')
 }
 
 function createWindow() {
@@ -92,8 +96,16 @@ function createWindow() {
     mainWindow.show()
   })
 
-  mainWindow.on('closed', function() {
-    vergeProcess.kill('SIGINT')
+  mainWindow.on('closed', () => {
+    if (!vergeProcess.killed) {
+      log.log('Killing verge process')
+      vergeProcess.kill(9)
+    }
+
+    if (!vergeProcess.killed) {
+      log.error('Not able to kill the verge process ...')
+    }
+
     mainWindow = null
   })
 }
@@ -157,7 +169,11 @@ app.on('ready', function() {
       createLoadingWindow()
       createWindow()
     })
-    .catch(log.error)
+    .catch(e => {
+      // log.error(e)
+      createLoadingWindow()
+      createWindow()
+    })
 })
 
 app.on('window-all-closed', () => {
@@ -170,4 +186,8 @@ app.on('activate', () => {
     createLoadingWindow()
     createWindow()
   }
+})
+
+process.on('exit', function() {
+  vergeProcess.kill('SIGINT')
 })

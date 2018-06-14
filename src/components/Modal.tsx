@@ -4,10 +4,10 @@ import { Modal, ModalBody, ModalHeader } from 'reactstrap'
 
 interface ModalProps {
   open: boolean
-  toggle: (() => void) & (() => void)
+  toggle: (() => void) & ((e: Event) => void)
   title: string
   children: JSX.Element[] | JSX.Element
-  style: any
+  style?: any
 }
 
 export default ({ open, toggle, title, children, style }: ModalProps) => (
