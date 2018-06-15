@@ -9,7 +9,7 @@ const MODE = remote.getGlobal('process').env
 let client: Client
 
 if (MODE === 'dev') {
-  const { rpcusername: user, rpcpassword: pass } = require('../dev-config')
+  const { rpcusername: user, rpcpassword: pass } = require('../dev-config.json')
 
   client = new Client({
     user,

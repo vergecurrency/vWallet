@@ -15,6 +15,7 @@ install:
   - yarn
   
 script:
+  - mv ./src/dev-config.json.example ./src/dev-config.json
   - yarn dist
   
 before_cache:
