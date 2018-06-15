@@ -97,12 +97,12 @@ function createWindow() {
   })
 
   mainWindow.on('closed', () => {
-    if (!vergeProcess.killed) {
+    if (!vergeProcess.killed && process.env.NODE_ENV !== 'dev') {
       log.log('Killing verge process')
       vergeProcess.kill(9)
     }
 
-    if (!vergeProcess.killed) {
+    if (!vergeProcess.killed && process.env.NODE_ENV !== 'dev') {
       log.error('Not able to kill the verge process ...')
     }
 
@@ -177,7 +177,9 @@ app.on('ready', function() {
 })
 
 app.on('window-all-closed', () => {
-  vergeProcess.kill('SIGINT')
+  if (process.env.NODE_ENV !== 'dev') {
+    vergeProcess.kill('SIGINT')
+  }
   app.quit()
 })
 
@@ -189,5 +191,7 @@ app.on('activate', () => {
 })
 
 process.on('exit', function() {
-  vergeProcess.kill('SIGINT')
+  if (process.env.NODE_ENV !== 'dev') {
+    vergeProcess.kill('SIGINT')
+  }
 })

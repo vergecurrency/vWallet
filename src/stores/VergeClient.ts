@@ -9,9 +9,11 @@ const MODE = remote.getGlobal('process').env
 let client: Client
 
 if (MODE === 'dev') {
+  const { rpcusername: user, rpcpassword: pass } = require('../dev-config')
+
   client = new Client({
-    user: 'kyon',
-    pass: 'lolcat',
+    user,
+    pass,
   })
   remote.getGlobal('sharedObj').state = '100'
 } else {

@@ -4,3 +4,5 @@ node_modules/
 dist/
 builds/
 coverage/
+
+src/dev-config.json
