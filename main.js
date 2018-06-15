@@ -34,12 +34,17 @@ let vergeProcess
 let createProc = processPath => {
   vergeProcess = childProcess.spawn(
     processPath,
-    [`-rpcuser=${auth.user}`, `-rpcpassword=${auth.pass}`, '-printtoconsole'],
+    [
+      '-daemon',
+      `-rpcuser=${auth.user}`,
+      `-rpcpassword=${auth.pass}`,
+      '-printtoconsole',
+    ],
     {
-      stdio: ['pipe', 'pipe', process.stderr],
+      stdio: ['inherit', 'pipe', 'inherit'],
     },
   )
-
+  log.info('VERGE Process running @ ', vergeProcess.pid + 1, ' pid')
   const readable = vergeProcess.stdout
   //vergeProcess.unref()
   readable.on('readable', () => {
@@ -58,7 +63,7 @@ let createProc = processPath => {
 
 if (process.env.NODE_ENV === 'dev') {
   log.info('Creating the verge deamon - dev')
-  // createProc('./build/VERGEd')
+  createProc('./build/VERGEd')
 } else {
   log.info('Creating the verge deamon - prod')
   createProc(process.resourcesPath + '/VERGEd')
@@ -97,15 +102,8 @@ function createWindow() {
   })
 
   mainWindow.on('closed', () => {
-    if (!vergeProcess.killed && process.env.NODE_ENV !== 'dev') {
-      log.log('Killing verge process')
-      vergeProcess.kill(9)
-    }
-
-    if (!vergeProcess.killed && process.env.NODE_ENV !== 'dev') {
-      log.error('Not able to kill the verge process ...')
-    }
-
+    log.log('Killing verge process')
+    process.kill(vergeProcess.pid + 1, 'SIGINT')
     mainWindow = null
   })
 }
@@ -177,9 +175,6 @@ app.on('ready', function() {
 })
 
 app.on('window-all-closed', () => {
-  if (process.env.NODE_ENV !== 'dev') {
-    vergeProcess.kill('SIGINT')
-  }
   app.quit()
 })
 
@@ -187,11 +182,5 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createLoadingWindow()
     createWindow()
-  }
-})
-
-process.on('exit', function() {
-  if (process.env.NODE_ENV !== 'dev') {
-    vergeProcess.kill('SIGINT')
   }
 })
