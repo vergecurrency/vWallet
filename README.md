@@ -46,7 +46,7 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 
 MacOS: `~/Library/Application Support/VERGE`
 Windows: `%appdata%/VERGE`
-Linux: `~/VERGE`
+Linux: `~/.VERGE`
 
 ```conf
 rpcuser=mylocaluser # your connection password
