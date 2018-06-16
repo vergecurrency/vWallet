@@ -1,4 +1,4 @@
-import { computed, decorate, observable } from 'mobx'
+import { computed, decorate, observable, action } from 'mobx'
 
 import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
 import electronLog from 'electron-log'
@@ -41,14 +41,17 @@ export class AccountInformationStore {
             ...info,
             loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
           }
+          localStorage.info = JSON.stringify(this.info)
+          electronLog.log('Updated wallet information successfully.')
         })
         .catch(() => {
           this.info = {
             ...this.info,
             loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
           }
+          electronLog.warn('Couldn`t fetch wallet information')
         })
-    }, 1000)
+    }, 10000)
   }
 
   sendTransaction(vergeAddress, amount) {
@@ -61,6 +64,10 @@ export class AccountInformationStore {
 
   lockWallet() {
     return VergeClient.walletLock()
+  }
+
+  addOldInfo(info: Info) {
+    this.info = info
   }
 
   get getUpdatedInfo() {
@@ -88,10 +95,16 @@ export class AccountInformationStore {
 
 decorate(AccountInformationStore, {
   info: observable.struct,
+  addOldInfo: action,
   getUpdatedInfo: computed,
   getBalance: computed,
   unlocked: computed,
 })
 
 const store = new AccountInformationStore()
+
+try {
+  store.addOldInfo(JSON.parse(localStorage.info) || {})
+} catch (e) {}
+
 export default store

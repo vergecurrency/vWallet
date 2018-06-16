@@ -114,14 +114,20 @@ class DebugPanel extends React.Component<{
             })
             return (
               <InfoBlock>
-                <InfoHeader>
-                  <InfoHeaderIcon>
-                    {this.mapCategoryToIcon(type)}
-                  </InfoHeaderIcon>
-                  <InfoHeaderTitle>
-                    {i18nReact.translate(`debug.types.${type}`)}:
-                  </InfoHeaderTitle>
-                </InfoHeader>
+                <Row>
+                  <InfoHeader>
+                    <Col md={3}>
+                      <InfoHeaderIcon>
+                        {this.mapCategoryToIcon(type)}
+                      </InfoHeaderIcon>
+                    </Col>
+                    <Col>
+                      <InfoHeaderTitle>
+                        {i18nReact.translate(`debug.types.${type}`)}:
+                      </InfoHeaderTitle>
+                    </Col>
+                  </InfoHeader>
+                </Row>
                 {infos}
               </InfoBlock>
             )

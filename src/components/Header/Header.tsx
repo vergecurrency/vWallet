@@ -99,9 +99,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       this.props.AccountInformationStore!.info &&
       !this.props.AccountInformationStore!.info.blocks
     ) {
-      return `loading ... ${
-        this.props.AccountInformationStore!.info.loadingProgress
-      }%`
+      return this.props.AccountInformationStore!.info.loadingProgress
+        ? `loading ... ${
+            this.props.AccountInformationStore!.info.loadingProgress
+          }%`
+        : `loading ...`
     }
 
     return this.props.AccountInformationStore!.info &&

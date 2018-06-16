@@ -4,6 +4,7 @@ import { action, computed, decorate, observable } from 'mobx'
 
 import VergeClient from './VergeClient'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
+import electronLog from 'electron-log'
 
 const hash = (transaction: TransactionView) =>
   `${transaction.txid}#${transaction.category}#${transaction.address}#${
@@ -65,6 +66,15 @@ export class TransactionStore {
 
   setSearch(e) {
     this.search = e.target.value
+  }
+
+  setTransactions(transactionMap: Map<string, TransactionView>) {
+    electronLog.log(`Successfully loaded ${transactionMap.size} transactions`)
+    this.transactions = transactionMap
+
+    if (this.transactions.size > 0) {
+      this.loadingFinished = true
+    }
   }
 
   get getTransactionCount() {
@@ -137,6 +147,7 @@ decorate(TransactionStore, {
   addTransactions: action,
   setVisibility: action,
   setSearch: action,
+  setTransactions: action,
   getTransactionCount: computed,
   loaded: computed,
   getTransactionList: computed,
@@ -147,15 +158,28 @@ decorate(TransactionStore, {
 })
 
 const store = new TransactionStore()
-
-VergeClient.getTransactionList(1000).then(transactions => {
-  store.addTransactions(transactions)
-})
+try {
+  store.setTransactions(
+    (new Map(JSON.parse(localStorage.myMap)) as Map<string, TransactionView>) ||
+      (new Map() as Map<string, TransactionView>),
+  )
+} catch (e) {}
 
 setInterval(() => {
-  VergeClient.getTransactionList(1000).then(transactions => {
-    store.addTransactions(transactions)
-  })
+  VergeClient.getTransactionList(1000)
+    .then(transactions => {
+      store.addTransactions(transactions)
+      electronLog.log('Fetched new transactions')
+    })
+    .catch(() => {
+      electronLog.warn('Failed fetching new transactions')
+    })
 }, 10000)
 
+setInterval(() => {
+  localStorage.transactions = JSON.stringify(
+    Array.from(store.getTransactionList),
+  )
+  electronLog.log('Saved newly transactions into localstorage')
+}, 10000)
 export default store
