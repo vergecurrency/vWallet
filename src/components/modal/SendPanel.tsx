@@ -105,6 +105,7 @@ interface SendPanelState {
   amount: number
   address: string
   label: string
+  error: string | null
   status: SendState
 }
 
@@ -114,6 +115,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
     address: this.props.address || '',
     label: '',
     status: SendState.OPEN,
+    error: null,
   }
 
   getLocaleId() {
@@ -134,7 +136,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
 
     if (!address || !amount || !AccountInformationStore) return
 
-    this.setState({ status: SendState.SENDING })
+    this.setState({ status: SendState.SENDING, error: null })
     setTimeout(() => {
       AccountInformationStore.sendTransaction(address, amount)
         .then(() => {
@@ -151,8 +153,17 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
             }, 1000)
           }, 500)
         })
-        .catch(() => {
-          this.setState({ status: SendState.ERROR })
+        .catch(e => {
+          this.setState({
+            status: SendState.ERROR,
+            error: JSON.parse(e).error.message,
+          })
+          setTimeout(() => {
+            this.setState({
+              status: SendState.OPEN,
+              error: null,
+            })
+          }, 2500)
         })
     }, 1000)
   }
@@ -186,7 +197,12 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
         <Title>{i18nReact.translate('sendPanel.amount')}</Title>
         <InputHandler
           value={this.state.amount}
-          onChange={e => this.setState({ amount: parseFloat(e.target.value) })}
+          onChange={e => {
+            const input = parseFloat(e.target.value) || 0
+            input <= this.getBalance() && input >= 0
+              ? this.setState({ amount: parseFloat(e.target.value) })
+              : null
+          }}
           placeholder="Enter amount"
           type="number"
           style={{ width: '460px' }}
@@ -230,6 +246,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
           }`}
           {this.state.status === SendState.SENDING &&
             'Sending your transaction ...'}
+          {this.state.status === SendState.ERROR && this.state.error}
           {this.state.status === SendState.DONE && 'Transaction sent!'}
         </SendButton>
 

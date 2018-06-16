@@ -5,16 +5,24 @@ import { inject, observer } from 'mobx-react'
 import CreditsPanel from './modal/CreditsPanel'
 import { SettingsStore } from '../stores/SettingsStore'
 import { shell } from 'electron'
-import T from 'i18n-react'
-import styled from 'styled-components'
+import i18nReact from 'i18n-react'
+import styledComponents from 'styled-components'
+import Info from '../icons/Info'
+import DebugPanel from './modal/DebugPanel'
 
-const FooterText = styled.div`
+const FooterText = styledComponents.div`
   textalign: 'center';
   ${props => (props.theme.light ? '' : 'color: #7193ae;')};
 `
 
-const FooterVersion = styled.div`
+const FooterVersion = styledComponents.div`
   ${props => (props.theme.light ? '' : 'color: #7193ae;')};
+`
+
+const FooterDebug = styledComponents.div`
+  ${props => (props.theme.light ? '' : 'color: #7193ae;')};
+  display: flex;
+  align-items: center;
 `
 
 interface FooterProps {
@@ -23,6 +31,7 @@ interface FooterProps {
 
 interface FooterState {
   credits: boolean
+  debugWindow: boolean
 }
 
 class Footer extends React.Component<FooterProps, FooterState> {
@@ -30,12 +39,17 @@ class Footer extends React.Component<FooterProps, FooterState> {
     super(props)
     this.state = {
       credits: false,
+      debugWindow: false,
     }
 
     this.toggle = this.toggle.bind(this)
   }
 
-  toggle(item: 'credits') {
+  toggle(item: 'credits' = 'credits') {
+    return () => this.setState({ [item]: !this.state[item] })
+  }
+
+  toggleWindow(item: 'debugWindow' = 'debugWindow') {
     return () => this.setState({ [item]: !this.state[item] })
   }
 
@@ -58,27 +72,43 @@ class Footer extends React.Component<FooterProps, FooterState> {
           toggle={this.toggle('credits')}
           open={this.state.credits}
         />
+        <DebugPanel
+          toggle={this.toggleWindow('debugWindow')}
+          open={this.state.debugWindow}
+        />
         <div className="row">
           <FooterVersion
-            className="col-md-8 clicky"
+            className="col-md-2"
             onClick={this.openLatestRelease.bind(this)}
           >
-            {T.translate('footer.wallet')} v{SettingsStore!.appVersion} (alpha)
+            <span className="clicky">
+              {i18nReact.translate('footer.wallet')} v{
+                SettingsStore!.appVersion
+              }
+            </span>
           </FooterVersion>
+          <FooterDebug className="col-md-6">
+            <Info
+              width={12}
+              height={12}
+              className="clicky"
+              onClick={this.toggleWindow('debugWindow')}
+            />
+          </FooterDebug>
           <FooterText
             className="col-md-2 clicky"
             onClick={this.openBlockExplorer.bind(this)}
           >
-            {T.translate('footer.explorer')}
+            {i18nReact.translate('footer.explorer')}
           </FooterText>
           <FooterText className="col-md-1 clicky">
-            {T.translate('footer.donate')}
+            {i18nReact.translate('footer.donate')}
           </FooterText>
           <FooterText
             className="col-md-1 clicky"
             onClick={this.toggle('credits')}
           >
-            {T.translate('footer.credits')}
+            {i18nReact.translate('footer.credits')}
           </FooterText>
         </div>
       </div>

@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "es6",
     "jsx": "react",
-    "lib": [
-      "dom",
-      "es6",
-      "dom.iterable",
-      "scripthost"
-    ],
+    "lib": ["dom", "es6", "dom.iterable", "scripthost"],
     "types": [],
 
     "alwaysStrict": true,
@@ -26,10 +26,7 @@
 
     "outDir": "dist"
   },
-  "files": [
-    "src/index.ts",
-    "src/index.d.ts"
-  ],
+  "files": ["src/index.ts", "src/index.d.ts"],
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
@@ -40,7 +37,5 @@
     "src/**/*.scss",
     "node_modules/@types/**/*.d.ts"
   ],
-  "exclude": [
-    "dist"
-  ]
+  "exclude": ["dist"]
 }

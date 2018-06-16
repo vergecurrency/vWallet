@@ -6,6 +6,34 @@
   "receive": {
     "title": "Receive Transaction"
   },
+  "debug": {
+    "types": {
+      "General": "General",
+      "Network": "Network",
+      "Scripts": "Hashes/Mining",
+      "Pool": "Pool"
+    },
+    "title": "Debug Information",
+    "version": "Version",
+    "protocolversion": "Protocol Version",
+    "walletversion": "Daemon version",
+    "balance": "Balance",
+    "blocks": "Blocks",
+    "moneysupply": "Money supply",
+    "connections": "Connection(s)",
+    "ip": "IP address",
+    "pow_algo": "Current algorithm",
+    "difficulty": "Current difficulty",
+    "difficulty_x17": "X17 difficulty",
+    "difficulty_scrypt": "Scrypt difficulty",
+    "difficulty_groestl": "Groestl difficulty",
+    "difficulty_lyra2re": "Lyra2re difficulty",
+    "difficulty_blake": "Blake difficulty",
+    "keypoololdest": "Oldest keypool",
+    "keypoolsize": "Size keypool",
+    "paytxfee": "Transaction fee",
+    "highestBlock": "Highest block (peers)"
+  },
   "transaction": {
     "list": "Transaction List",
     "item": {

@@ -63,7 +63,7 @@ let createProc = processPath => {
 
 if (process.env.NODE_ENV === 'dev') {
   log.info('Creating the verge deamon - dev')
-  createProc('./build/VERGEd')
+  // createProc('./build/VERGEd')
 } else {
   log.info('Creating the verge deamon - prod')
   createProc(process.resourcesPath + '/VERGEd')
@@ -102,8 +102,10 @@ function createWindow() {
   })
 
   mainWindow.on('closed', () => {
-    log.log('Killing verge process')
-    process.kill(vergeProcess.pid + 1, 'SIGINT')
+    if (process.env.NODE_ENV === 'dev') {
+      log.log('Killing verge process')
+      process.kill(vergeProcess.pid + 1, 'SIGINT')
+    }
     mainWindow = null
   })
 }

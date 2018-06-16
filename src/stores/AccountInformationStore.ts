@@ -75,6 +75,12 @@ export class AccountInformationStore {
     return this.info.unlocked || false
   }
 
+  get debugPanelInformation() {
+    const keys = Object.keys(this.info)
+    const values = keys.map(key => ({ key, value: this.info[key] }))
+    return values
+  }
+
   receiveNewAddress(): Promise<String> {
     return VergeClient.getNewAddress()
   }

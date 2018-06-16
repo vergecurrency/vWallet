@@ -148,12 +148,12 @@ decorate(TransactionStore, {
 
 const store = new TransactionStore()
 
-VergeClient.getTransactionList(100).then(transactions => {
+VergeClient.getTransactionList(1000).then(transactions => {
   store.addTransactions(transactions)
 })
 
 setInterval(() => {
-  VergeClient.getTransactionList(100).then(transactions => {
+  VergeClient.getTransactionList(1000).then(transactions => {
     store.addTransactions(transactions)
   })
 }, 10000)
