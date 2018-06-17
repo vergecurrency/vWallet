@@ -27,6 +27,7 @@ interface Info extends WalletInfo {
   highestBlock: number
   unlocked?: boolean
   loadingProgress: number
+  isunlocked: boolean
 }
 
 export class AccountInformationStore {
@@ -79,7 +80,7 @@ export class AccountInformationStore {
   }
 
   get unlocked() {
-    return this.info.unlocked || false
+    return this.info.isunlocked || this.info.unlocked || false
   }
 
   get debugPanelInformation() {
@@ -100,7 +101,6 @@ decorate(AccountInformationStore, {
   getBalance: computed,
   unlocked: computed,
 })
-
 const store = new AccountInformationStore()
 
 try {

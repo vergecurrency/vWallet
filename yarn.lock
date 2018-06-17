@@ -7655,6 +7655,10 @@ loglevelnext@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/loglevelnext/-/loglevelnext-1.0.4.tgz#0d991d9998180991dac8bd81e73a596a8720a645"
 
+logrocket@^0.6.16:
+  version "0.6.16"
+  resolved "https://registry.yarnpkg.com/logrocket/-/logrocket-0.6.16.tgz#09ac05426b096016e19395a0c0b0acf97a647418"
+
 lolex@^2.2.0, lolex@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/lolex/-/lolex-2.3.2.tgz#85f9450425103bf9e7a60668ea25dc43274ca807"
@@ -12546,9 +12550,9 @@ vendors@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
 
-verge-node-typescript@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/verge-node-typescript/-/verge-node-typescript-0.0.15.tgz#d641e2fac48fa13215261e2a38dc767c019a5858"
+verge-node-typescript@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/verge-node-typescript/-/verge-node-typescript-0.0.16.tgz#c36ceaadd0cddff2e2519c1d178f38f3ca91168c"
   dependencies:
     "@types/node" "^9.6.5"
     global "^4.3.2"
