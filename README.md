@@ -71,7 +71,7 @@ v8.11.0
 
 5.  Afterwards you can install `yarn` by using npm: `npm i -g yarn`. This will install yarn globally by using npm.
 
-6.  After installing the requirements, you can now clone the repository by executing this command in your preferred folder work folder: `git clone https://github.com/vergecurrcy/vWallet.git`
+6.  After installing the requirements, you can now clone the repository by executing this command in your preferred folder work folder: `git clone https://github.com/vergecurrency/vWallet.git`
 
 7.  Afterwards you enter the directory: `cd vWallet`
 
