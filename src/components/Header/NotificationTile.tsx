@@ -50,12 +50,15 @@ const getColor = (type: string) => {
 }
 
 const getIcon = type => {
-  if (type === 'price')
+  if (type === 'price') {
     return <PriceTag width={20} height={20} style={{ fill: '#fff' }} />
-  if (type === 'cap')
+  }
+  if (type === 'cap') {
     return <PriceChart width={20} height={20} style={{ fill: '#fff' }} />
-  if (type === 'personal')
+  }
+  if (type === 'personal') {
     return <Achievement width={20} height={20} style={{ fill: '#fff' }} />
+  }
   return null
 }
 const NotificationLayer = ({

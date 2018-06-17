@@ -36,7 +36,7 @@ class ReceivePanel extends React.Component<{
   }
 
   render() {
-    const title: string = i18nReact.translate('receive.title') as string
+    const title: string = i18nReact.translate('receivePanel.title') as string
     return (
       <Modal
         {...this.props}
@@ -51,18 +51,20 @@ class ReceivePanel extends React.Component<{
                 size={128}
                 bgColor={'#ffffff'}
                 fgColor={'#152f36'}
-                level={'L'}
+                level={'M'}
               />
             </Col>
             <Col md={9}>
               <Container>
                 <Row>
-                  <Info>Address:</Info>
+                  <Info>{i18nReact.translate('receive.address')}</Info>
                 </Row>
                 <Row>
                   <div className="buttonInside">
                     <input
-                      placeholder="Press to generate"
+                      placeholder={
+                        i18nReact.translate('receive.generate') as string
+                      }
                       onChange={() => {}}
                       value={this.state.address}
                     />

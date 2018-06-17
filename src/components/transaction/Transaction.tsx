@@ -14,7 +14,6 @@ import { SettingsStore } from '../../stores/SettingsStore'
 import Timer from '../../icons/Timer'
 import { TransactionStore } from '../../stores/TransactionStore'
 import { fadeIn } from 'react-animations'
-import { isNull } from 'util'
 
 const TextContainer = styled.default.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
@@ -233,9 +232,8 @@ class Transaction extends React.Component<Props> {
               </TransactionIcon>
             )}
           </CenterDiv>
-          {this.isNew() ? <TextContainer className="col-md-1" /> : isNull}
           <div
-            className={this.isNew() ? 'col-md-8' : 'col-md-9'}
+            className={'col-md-9'}
             style={{
               fontWeight: 'bold',
               color: category.includes('receive') ? '#00917a' : '#dc2b3d',

@@ -4,7 +4,9 @@
     "send": "Send"
   },
   "receive": {
-    "title": "Receive Transaction"
+    "title": "Receive Verge",
+    "generate": "Press to generate",
+    "address": "Generate Address:"
   },
   "debug": {
     "types": {
@@ -36,6 +38,9 @@
   },
   "transaction": {
     "list": "Transaction List",
+    "summary": "Summary for",
+    "loading": "Loading ...",
+    "searchplaceholder": "Search for address or amount",
     "item": {
       "receive": "Received",
       "sent": "Sent",
@@ -93,13 +98,15 @@
     "unlocked": "unlocked",
     "locked": "locked",
     "on": "ON",
-    "off": "OFF"
+    "off": "OFF",
+    "loading": "Loading ..."
   },
   "unlock": {
     "title": "Unlock your wallet",
     "inputTitle": "Passphrase",
     "info": "Make sure that nobody can see your input.",
-    "button": "Unlock"
+    "button": "Unlock",
+    "wrongpass": " The password you entered was incorrect."
   },
   "credits": {
     "development": "Development",
@@ -108,6 +115,7 @@
     "contributorButton": "See all Contributor"
   },
   "sendPanel": {
+    "title": "Send Verge",
     "recipient": "Recipient Address",
     "fundwarning":
       "Please ONLY enter an XVG address. Funds will be lost otherwise.",
@@ -121,7 +129,11 @@
     "sendButton": "Send",
     "walletAfterTransaction": "Your wallet balance after the transaction:",
     "sendWarning":
-      "Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets."
+      "Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets.",
+    "sending": "Sending your transaction",
+    "sent": "Transaction sent!",
+    "amountplaceholder": "Enter amount",
+    "labelPlaceholder": "Example: Johns Wallet Address"
   },
   "accountbar": {
     "xvgbalance": "XVG BALANCE",

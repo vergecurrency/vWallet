@@ -100,10 +100,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       !this.props.AccountInformationStore!.info.blocks
     ) {
       return this.props.AccountInformationStore!.info.loadingProgress
-        ? `loading ... ${
+        ? `${T.translate('header.loading')} ${
             this.props.AccountInformationStore!.info.loadingProgress
           }%`
-        : `loading ...`
+        : T.translate('header.loading')
     }
 
     return this.props.AccountInformationStore!.info &&

@@ -140,7 +140,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
               {XVGformatter.format(
                 this.props.AccountInformationStore!.getBalance,
               )}{' '}
-              XVG {/*<CurrencySymbol fontSize={18} color={'#fff'} />*/}
+              XVG
             </h4>
           </div>
           <div

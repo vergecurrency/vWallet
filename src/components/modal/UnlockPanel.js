@@ -94,7 +94,7 @@ class Unlock extends Component {
             <SubTitle>{T.translate('unlock.info')}</SubTitle>
           ) : (
             <FalseInputHandler>
-              The password you entered was incorrect.
+              {T.translate('unlock.wrongpass')}
             </FalseInputHandler>
           )}
           <UnlockButton type="submit" onClick={this.unlocking.bind(this)}>

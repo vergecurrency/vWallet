@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 
 import SearchMagnify from '../../icons/SearchMagnify'
 import styled from 'styled-components'
+import i18nReact from 'i18n-react'
 
 const SearchRow = styled.input`
   padding-top: 10px;
@@ -33,7 +34,7 @@ const SearchBar = ({ TransactionStore }) => {
       </Icon>
       <SearchRow
         className="col-md-11"
-        placeholder="Search account or amount"
+        placeholder={i18nReact.translate('transaction.searchplaceholder')}
         value={TransactionStore.searchValue}
         onChange={e => TransactionStore.setSearch(e)}
       />

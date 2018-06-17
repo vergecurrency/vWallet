@@ -171,7 +171,10 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
   render() {
     const props = this.props
     return (
-      <Modal {...props} title="Send XVG">
+      <Modal
+        {...props}
+        title={i18nReact.translate('sendPanel.title') as string}
+      >
         <Title>{i18nReact.translate('sendPanel.recipient')}</Title>
         <InputContainer>
           <InputHandler
@@ -180,15 +183,15 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
             id="passpharse"
             placeholder="Verge Address"
             onChange={e => this.setState({ address: e.target.value })}
-            /*style={{ width: '396px' }}*/
             style={{ width: '460px' }}
           />
-          {/*<FolderButton />*/}
         </InputContainer>
         <SubTitle>{i18nReact.translate('sendPanel.fundwarning')}</SubTitle>
         <Title>{i18nReact.translate('sendPanel.addressLabel')}</Title>
         <InputHandler
-          placeholder="Example: Johns wallet address"
+          placeholder={
+            i18nReact.translate('sendPanel.labelPlaceholder') as string
+          }
           value={this.state.label}
           onChange={e => this.setState({ label: e.target.value })}
           style={{ width: '460px' }}
@@ -203,7 +206,9 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
               ? this.setState({ amount: parseFloat(e.target.value) })
               : null
           }}
-          placeholder="Enter amount"
+          placeholder={
+            i18nReact.translate('sendPanel.amountplaceholder') as string
+          }
           type="number"
           style={{ width: '460px' }}
         />
@@ -245,9 +250,10 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
               : ''
           }`}
           {this.state.status === SendState.SENDING &&
-            'Sending your transaction ...'}
+            i18nReact.translate('sendPanel.sending')}
           {this.state.status === SendState.ERROR && this.state.error}
-          {this.state.status === SendState.DONE && 'Transaction sent!'}
+          {this.state.status === SendState.DONE &&
+            i18nReact.translate('sendPanel.sent')}
         </SendButton>
 
         <SubTitle style={{ textAlign: 'center', color: '#476b84' }}>
