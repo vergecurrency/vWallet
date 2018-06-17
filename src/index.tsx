@@ -1,14 +1,11 @@
 import './assets/css/main.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const logrocket = require('logrocket')
 import * as React from 'react'
 
 import { AppContainer } from 'react-hot-loader'
 import Root from './containers/Root'
 import { render } from 'react-dom'
-
-logrocket.init('lcchgf/vwallet')
 
 // Since we are using HtmlWebpackPlugin WITHOUT a template,
 // we should create our own root node in the body element before rendering into it
