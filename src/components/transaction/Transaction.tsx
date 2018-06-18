@@ -303,8 +303,10 @@ class Transaction extends React.Component<Props> {
                   style={{ fill: 'rgba(100,100,100, 0.5)', marginRight: '7px' }}
                 />{' '}
                 {confirmations > 0
-                  ? `${confirmations} confirmation(s)`
-                  : 'Confirmation: out of sync'}
+                  ? `${confirmations} ${T.default.translate(
+                      'transaction.item.confirmations',
+                    )}`
+                  : T.default.translate('transaction.item.outofsync')}
               </TransactionDetailProp>
               <TransactionDetailProp className="col-md-6">
                 <Timer
@@ -325,10 +327,14 @@ class Transaction extends React.Component<Props> {
                   width={15}
                   style={{ fill: 'rgba(100,100,100, 0.7)', marginRight: '7px' }}
                 />{' '}
-                Further Information:
-                <ExternalLinks href="#">Open Transaction</ExternalLinks>
+                {T.default.translate('transaction.item.more')}
+                <ExternalLinks href="#">
+                  {T.default.translate('transaction.item.opentransaction')}
+                </ExternalLinks>
                 {' · '}
-                <ExternalLinks href="#">Open Block</ExternalLinks>
+                <ExternalLinks href="#">
+                  {T.default.translate('transaction.item.openblock')}
+                </ExternalLinks>
               </TransactionDetailProp>
             </SubTransactionFurtherDetails>
           </TransactionDetails>

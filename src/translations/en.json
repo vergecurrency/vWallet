@@ -50,10 +50,14 @@
       "address": "Address",
       "blockhash": "Blockhash",
       "txid": "TXID",
-      "confirmations": "Confirmations",
+      "confirmations": "confirmations",
       "amount": "Amount",
       "time": "Time sent",
-      "timereceived": "Time received"
+      "timereceived": "Time received",
+      "outofsync": "Confirmations: Out of sync",
+      "more": "Further information:",
+      "opentransaction": "Open Transaction",
+      "openblock": "Open Block"
     }
   },
   "settings": {

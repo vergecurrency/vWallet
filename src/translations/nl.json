@@ -1,0 +1,163 @@
+{
+  "account-bar": {
+    "receive": "Ontvangen",
+    "send": "Verzenden"
+  },
+  "receive": {
+    "title": "Ontvang Verge",
+    "generate": "Klik om te genereren",
+    "address": "Genereer adres:"
+  },
+  "debug": {
+    "types": {
+      "General": "Algemeen",
+      "Network": "Netwerk",
+      "Scripts": "Hashes/Mining",
+      "Pool": "Pool"
+    },
+    "title": "Debug informatie",
+    "version": "Versie",
+    "protocolversion": "Protocol versie",
+    "walletversion": "Daemon versie",
+    "balance": "Balans",
+    "blocks": "Blokken",
+    "moneysupply": "Geld in omloop",
+    "connections": "Connectie(s)",
+    "ip": "IP adres",
+    "pow_algo": "Huidig algoritme",
+    "difficulty": "Huidige moeilijkheidsgraad",
+    "difficulty_x17": "X17 moeilijkheidsgraad",
+    "difficulty_scrypt": "Scrypt moeilijkheidsgraad",
+    "difficulty_groestl": "Groestl moeilijkheidsgraad",
+    "difficulty_lyra2re": "Lyra2re moeilijkheidsgraad",
+    "difficulty_blake": "Blake moeilijkheidsgraad",
+    "keypoololdest": "Oudste keypool",
+    "keypoolsize": "Grootte keypool",
+    "paytxfee": "Transactie kosten",
+    "highestBlock": "Hoogste blok (peers)"
+  },
+  "transaction": {
+    "list": "Transactie Lijst",
+    "summary": "Overzicht van",
+    "loading": "Laden ...",
+    "searchplaceholder": "Zoek een adres of bedrag",
+    "item": {
+      "receive": "Ontvangen",
+      "sent": "Verzonden",
+      "fee": "Betaalde transactie kosten",
+      "details": "details",
+      "close": "sluiten",
+      "address": "Adres",
+      "blockhash": "Blokhash",
+      "txid": "TXID",
+      "confirmations": "Bevestigingen",
+      "amount": "Bedrag",
+      "time": "Datum en tijd verzonden",
+      "timereceived": "Datum en tijd ontvangen",
+      "outofsync": "Bevestigingen: Niet gesynced",
+      "more": "Meer informatie:",
+      "opentransaction": "Open Transactie",
+      "openblock": "Open Blok"
+    }
+  },
+  "settings": {
+    "title": "Overzicht instellingen",
+    "explaination": "Uitleg",
+    "keymap": "Sneltoetsen overzicht",
+    "usage": "Gebruik",
+    "shortkey": {
+      "quicksend": {
+        "name": "Snel verzenden",
+        "usage": "Opent het transactieformulier om XVG the verzenden."
+      },
+      "hideinformation": {
+        "name": "Toon/Verberg persoonlijke informatie",
+        "usage":
+          "Verbergt alle persoonlijke informatie, zoals transacties, balans etc. door middel van placeholders."
+      },
+      "lockwallet": {
+        "name": "Vergrendel Portemonnee",
+        "usage":
+          "Deze actie vergrendeld uw portemonnee. Dat betekend dat sommige acties niet meer uitgevoerd kunnen worden (bijv. Verge verzenden) totdat het wachtwoord van de portemonnee weer is ingevoerd"
+      }
+    },
+    "region": {
+      "name": "Land",
+      "explain": "Pas je taal voorkeur aan"
+    },
+    "currency": {
+      "name": "Valuta",
+      "explain":
+        "Geef in deze valuta je portemonnee waarde in fiat weer. Bijv. Euro of Amerikaanse Dollar"
+    }
+  },
+  "header": {
+    "connection": "Connectie(s)",
+    "synced": "geladen",
+    "notsyncing": "niet aan het laden",
+    "menu": {
+      "wallet": "Portemonnee",
+      "settings": "Instellingen"
+    },
+    "unlocked": "ontgrendeld",
+    "locked": "vergrendeld",
+    "on": "AAN",
+    "off": "UIT",
+    "loading": "Laden ..."
+  },
+  "unlock": {
+    "title": "Ontgrendel je portemonnee",
+    "inputTitle": "Wachtwoord zin",
+    "info": "Zorg ervoor dat niemand je wachtwoord ziet invoeren.",
+    "button": "Ontgrendel",
+    "wrongpass": " Dit is een ongeldig wachtwoord."
+  },
+  "credits": {
+    "development": "Ontwikkeling",
+    "design": "Ontwerp",
+    "translation": "Vertaling",
+    "contributorButton":
+      "Bekijk allen die meegewerkt hebben aan deze portemonnee"
+  },
+  "sendPanel": {
+    "title": "Verzend Verge",
+    "recipient": "Adres van de ontvanger",
+    "fundwarning":
+      "Vul een geldig Verge adres in, anders gaan de munten verloren.",
+    "addressLabel": "Label",
+    "labelInfo":
+      "Vul een label in voor dit adres in. Dit komt terug in je adresboek.",
+    "amount": "Bedrag",
+    "amountInfo": "Verzendkosten, 0.1 XVG",
+    "xvgUSD": "XVG in {currency}",
+    "balanceXVG": "Balans in XVG",
+    "sendButton": "Verzenden",
+    "walletAfterTransaction": "Je portemonnee balans na de transactie:",
+    "sendWarning":
+      "Controleer het adres goed. Verge Currency kan niet aanspraakelijk worden gehouden voor verloren munten",
+    "sending": "De munten aan het verzenden",
+    "sent": "De munten zijn verzonden!",
+    "amountplaceholder": "Voer een bedrag in",
+    "labelPlaceholder": "Bijvoorbeeld: Adres van Kees"
+  },
+  "accountbar": {
+    "xvgbalance": "XVG BALANS",
+    "xvgusd": "XVG IN {currency}",
+    "xvgprice": "XVG PRIJS"
+  },
+  "footer": {
+    "wallet": "Officiele Verge Wallet",
+    "explorer": "Officiele Blockchain Explorer",
+    "donate": "Doneer",
+    "credits": "Credits"
+  },
+  "statistics": {
+    "title": "Prijs Statistieken",
+    "price": "Prijs",
+    "cap": "Market Cap",
+    "hourchange": "1 uur prestatie",
+    "daychange": "24 uur prestatie",
+    "cmc": "CMC Positie",
+    "chart": "7-dagen prijsverloop"
+  }
+}

@@ -24,6 +24,10 @@ const locales = [
     name: 'Dansk',
     localeId: 'da',
   },
+  {
+    name: 'Nederlands',
+    localeId: 'nl',
+  },
 ]
 
 const Row = styledComponents.div`
