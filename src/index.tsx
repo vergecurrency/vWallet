@@ -1,5 +1,5 @@
-import './assets/css/main.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/css/main.scss'
 
 import * as React from 'react'
 
