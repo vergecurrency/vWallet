@@ -63,7 +63,7 @@ let createProc = processPath => {
 
 if (process.env.NODE_ENV === 'dev') {
   log.info('Creating the verge deamon - dev')
-  createProc('./build/VERGEd')
+  // createProc('./build/VERGEd')
 } else {
   log.info('Creating the verge deamon - prod')
   createProc(process.resourcesPath + '/VERGEd')
