@@ -40,7 +40,9 @@
     "notsyncing": "not syncing",
     "menu": {
       "wallet": "Wallet",
-      "settings": "Einstellungen"
+      "addressbook": "Adressbuch",
+      "settings": "Einstellungen",
+      "blockchain_explorer": "Blockchain Explorer"
     }
   }
 }

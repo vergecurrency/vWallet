@@ -6,6 +6,7 @@
 @import 'highchart';
 @import 'basic';
 @import 'appbar';
+@import 'burger-menu';
 @import 'normalize';
 @import 'fa/fontawesome';
 @import 'fa/fa-brands';
@@ -17,7 +18,7 @@ body {
   color: #fff;
   //height: 700px;
 
-  font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif !important;
+  font-family: 'AvenirNextLTW01Medium', Helvetica, sans-serif !important;
 }
 
 a:hover {
