@@ -97,7 +97,9 @@
     "notsyncing": "not syncing",
     "menu": {
       "wallet": "Wallet",
-      "settings": "Settings"
+      "addressbook": "Addressbook",
+      "settings": "Settings",
+      "blockchain_explorer": "Blockchain Explorer"
     },
     "unlocked": "unlocked",
     "locked": "locked",

@@ -52,7 +52,9 @@
     "notsyncing": "Ikke synkroniseret",
     "menu": {
       "wallet": "Pung",
-      "settings": "Indstillinger"
+      "addressbook": "Adressebog",
+      "settings": "Indstillinger",
+      "blockchain_explorer": "Blockchain Explorer"
     },
     "unlocked": "Åbnet",
     "locked": "Låst",

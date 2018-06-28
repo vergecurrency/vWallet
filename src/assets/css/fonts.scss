@@ -29,6 +29,16 @@
 }
 
 @font-face {
+	font-family: 'AvenirNextLTW01Medium';
+	src: url('../fonts/avenir-next-medium.eot');
+	src: url('../fonts/avenir-next-medium.eot') format('embedded-opentype'),
+	url('../fonts/avenir-next-medium.woff') format('woff'),
+	url('../fonts/avenir-next-medium.ttf') format('truetype'),
+	url('../fonts/avenir-next-medium.svg#AvenirNextLTW01MediumRegular')
+	format('svg');
+}
+
+@font-face {
 	font-family: 'AvenirNextW01Thin';
 	src: url('../fonts/avenir-next-thin.eot');
 	src: url('../fonts/avenir-next-thin.eot') format('embedded-opentype'),

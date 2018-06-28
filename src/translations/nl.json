@@ -97,7 +97,9 @@
     "notsyncing": "niet aan het laden",
     "menu": {
       "wallet": "Portemonnee",
-      "settings": "Instellingen"
+      "addressbook": "Adresboek",
+      "settings": "Instellingen",
+      "blockchain_explorer": "Blockchain Explorer"
     },
     "unlocked": "ontgrendeld",
     "locked": "vergrendeld",

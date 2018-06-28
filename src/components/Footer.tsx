@@ -10,11 +10,6 @@ import styledComponents from 'styled-components'
 import Info from '../icons/Info'
 import DebugPanel from './modal/DebugPanel'
 
-const Explorer = styledComponents.div`
-  padding-left: 0px!important;
-  ${props => (props.theme.light ? '' : 'color: #7193ae;')};
-`
-
 const FooterText = styledComponents.div`
   textalign: 'center';
   ${props => (props.theme.light ? '' : 'color: #7193ae;')};
@@ -64,10 +59,6 @@ class Footer extends React.Component<FooterProps, FooterState> {
     )
   }
 
-  openBlockExplorer() {
-    shell.openExternal('https://verge-blockchain.info/')
-  }
-
   render() {
     const { SettingsStore } = this.props
 
@@ -92,7 +83,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
               }
             </span>
           </FooterVersion>
-          <FooterDebug className="col-md-5">
+          <FooterDebug className="col-md-7">
             <Info
               width={12}
               height={12}
@@ -100,12 +91,6 @@ class Footer extends React.Component<FooterProps, FooterState> {
               onClick={this.toggleWindow('debugWindow')}
             />
           </FooterDebug>
-          <Explorer
-            className="col-md-2 clicky"
-            onClick={this.openBlockExplorer.bind(this)}
-          >
-            {i18nReact.translate('footer.explorer')}
-          </Explorer>
           <FooterText className="col-md-1 clicky">
             {i18nReact.translate('footer.donate')}
           </FooterText>
