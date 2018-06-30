@@ -10,6 +10,7 @@ import Header from '../components/Header/Header'
 import i18nReact from 'i18n-react'
 import { TitleBar } from 'electron-react-titlebar'
 import { SettingsStore } from '../stores/SettingsStore'
+import { platform } from 'os'
 
 class App extends React.Component<{ SettingsStore?: SettingsStore }> {
   render() {
@@ -18,7 +19,7 @@ class App extends React.Component<{ SettingsStore?: SettingsStore }> {
     i18nReact.setTexts(dictionary)
     return (
       <div className="main-layer">
-        <TitleBar disableMaximize={true} menu={[]} />
+        <TitleBar disableMaximize={true} menu={[]} className={platform()} />
         <Header />
         <AccountBar />
         <ContentContainer>{this.props.children}</ContentContainer>
