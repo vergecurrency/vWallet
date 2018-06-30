@@ -4,8 +4,8 @@ import { inject, observer } from 'mobx-react'
 
 import { AccountInformationStore } from '../stores/AccountInformationStore'
 import { CoinStatsStore } from '../stores/CoinStatsStore'
-import MoneyIn from '../icons/MoneyIn'
-import MoneyOut from '../icons/MoneyOut'
+import Send from 'react-material-icon-svg/dist/SendIcon'
+import Receive from 'react-material-icon-svg/dist/ArrowDownIcon'
 import SendPanel from './modal/SendPanel'
 import { SettingsStore } from '../stores/SettingsStore'
 import { Tooltip } from 'reactstrap'
@@ -111,95 +111,52 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
     )
 
     return (
-      <AccountBarContainer className="container-fluid">
+      <AccountBarContainer className="container-fluid account-bar-container">
         <SendPanel open={this.state.sendOpen} toggle={this.toggleSend} />
         <ReceivePanel
           open={this.state.receiveOpen}
           toggle={this.toggleReceive}
         />
         <div className="row">
-          <div
-            className="col-md-3"
-            style={{
-              textAlign: 'left',
-              fontWeight: 'bold',
-              paddingTop: '10px',
-              paddingLeft: '5%',
-            }}
-          >
-            <span
-              style={{
-                color: '#fff',
-                letterSpacing: '3px',
-                fontSize: '10px',
-              }}
-            >
+          <div className="col-md-3 account-bar-label">
+            <span className="account-bar-title">
               {i18nReact.translate('accountbar.xvgbalance')}
             </span>
-            <h4 style={{ color: '#fff' }}>
+            <h4>
               {XVGformatter.format(
                 this.props.AccountInformationStore!.getBalance,
               )}{' '}
               XVG
             </h4>
           </div>
-          <div
-            className="col-md-2"
-            style={{
-              textAlign: 'left',
-              fontWeight: 'bold',
-              paddingTop: '10px',
-              paddingLeft: '5%',
-            }}
-          >
-            <span
-              style={{
-                color: '#fff',
-                letterSpacing: '3px',
-                fontSize: '10px',
-              }}
-            >
+          <div className="col-md-2 account-bar-label">
+            <span className="account-bar-title">
               {i18nReact.translate('accountbar.xvgusd', {
                 currency: this.props.SettingsStore!.getCurrency,
               })}
             </span>
-            <h4 style={{ color: '#fff' }}>
+            <h4>
               {formatter.format(
                 this.props.AccountInformationStore!.getBalance *
                   this.props.CoinStatsStore!.priceWithCurrency,
               )}
             </h4>
           </div>
-          <div
-            className="col-md-3"
-            style={{
-              textAlign: 'left',
-              fontWeight: 'bold',
-              paddingTop: '10px',
-              paddingLeft: '5%',
-            }}
-          >
-            <span
-              style={{
-                color: '#fff',
-                letterSpacing: '3px',
-                fontSize: '10px',
-              }}
-            >
+          <div className="col-md-3 account-bar-label">
+            <span className="account-bar-title">
               {i18nReact.translate('accountbar.xvgprice')}
             </span>
-            <h4 style={{ color: '#fff' }}>
+            <h4>
               {formatterPrice.format(
                 this.props.CoinStatsStore!.priceWithCurrency,
               )}
             </h4>
           </div>
           <div
-            className="col-md-2"
+            className="col-md-4"
             style={{
-              textAlign: 'center',
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
               ...(this.props.AccountInformationStore!.unlocked
                 ? {}
                 : { opacity: 0.5 }),
@@ -216,40 +173,21 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
               </Tooltip>
             ) : null}
             <div
-              className="big-button send"
               id="sending"
-              style={{
-                alignSelf: 'center',
-                alignItems: 'center',
-                justifyItems: 'center',
-                display: 'inline-flex',
-                justifyContent: 'center',
-              }}
+              className="account-bar-big-button send"
               onClick={
                 this.props.AccountInformationStore!.unlocked
                   ? this.toggleSend
                   : () => {}
               }
             >
-              <MoneyOut
-                width={16}
-                height={16}
-                style={{ fill: '#fff', marginRight: '10px' }}
+              <Send
+                width={18}
+                height={18}
+                style={{ fill: '#fff', marginRight: '5px' }}
               />
               {i18nReact.translate('account-bar.send')}
             </div>
-          </div>
-          <div
-            className="col-md-2"
-            style={{
-              textAlign: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-              ...(this.props.AccountInformationStore!.unlocked
-                ? {}
-                : { opacity: 0.5 }),
-            }}
-          >
             {!this.props.AccountInformationStore!.unlocked ? (
               <Tooltip
                 placement="top"
@@ -262,25 +200,17 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
             ) : null}
             <div
               id="receiving"
-              className="big-button receive"
-              style={{
-                display: 'inline-flex',
-                justifyItems: 'center',
-                alignItems: 'center',
-                alignSelf: 'center',
-                marginRight: '40px',
-                justifyContent: 'center',
-              }}
+              className="account-bar-big-button receive"
               onClick={
                 this.props.AccountInformationStore!.unlocked
                   ? this.toggleReceive
                   : () => {}
               }
             >
-              <MoneyIn
-                width={16}
-                height={16}
-                style={{ fill: '#fff', marginRight: '10px' }}
+              <Receive
+                width={18}
+                height={18}
+                style={{ fill: '#fff', marginRight: '5px' }}
               />
               {i18nReact.translate('account-bar.receive')}
             </div>
