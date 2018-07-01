@@ -46,7 +46,7 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 
 2.  On finish building the VERGEd, you should be able to run the wallet by entering the following command inside the root of the cloned verge repository: `./src/VERGEd -rpcusername=kyon -rpcpassword=lolcat -printtoconsole -deamon`, this will start the verge deamon with the given userdata, which you now have to change inside the `dev-config.json.example`.
 
-So ultimatively:
+So ultimately:
 
 ```bash
 ~/work/VERGE » ./src/VERGEd -rpcusername=myusername -rpcpassword=mypassword -printtoconsole -deamon
