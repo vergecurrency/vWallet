@@ -12,21 +12,9 @@ import { SettingsStore } from '../../stores/SettingsStore'
 import i18nReact from 'i18n-react'
 import styledComponents from 'styled-components'
 
-const SettingPanel = styledComponents.div`
-  position: absolute;
-  background-color: #fff;
-  bottom: 330px;
-  left: 30px;
-  border-radius: 0.3em;
-`
+const SettingPanel = styledComponents.div``
 
-const KeymapPanel = styledComponents.div`
-  position: absolute;
-  background-color: #fff;
-  bottom: 30px;
-  left: 30px;
-  border-radius: 0.3em;
-`
+const KeymapPanel = styledComponents.div``
 
 const Title = styledComponents.span`
   color: #003b54;
@@ -80,8 +68,8 @@ class SettingsPanel extends React.Component<SettingsPanelProps> {
 
   render() {
     return (
-      <div>
-        <SettingPanel className="container">
+      <div className="content-container-wrapper">
+        <SettingPanel className="container-fluid panel">
           <HeaderTitle>
             <TitleIcon src={settingIcon} />
             <Title>{i18nReact.translate('settings.title')}</Title>
@@ -93,7 +81,7 @@ class SettingsPanel extends React.Component<SettingsPanelProps> {
             </div>
           </div>
         </SettingPanel>
-        <KeymapPanel className="container">
+        <KeymapPanel className="container-fluid panel">
           <HeaderTitle>
             <KeymapIcon src={commandIcon} />
             <Title>{i18nReact.translate('settings.keymap')}</Title>

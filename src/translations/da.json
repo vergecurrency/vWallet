@@ -96,7 +96,7 @@
   },
   "footer": {
     "wallet": "Officiel Verge Pung",
-    "explorer": "Gå til Blockchain Explorer",
+    "debug_information": "Debug Information",
     "donate": "Donér",
     "credits": "Credits"
   },

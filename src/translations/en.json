@@ -148,7 +148,7 @@
   },
   "footer": {
     "wallet": "Official Verge Wallet",
-    "explorer": "Go to Blockchain Explorer",
+    "debug_information": "Debug Information",
     "donate": "Donate",
     "credits": "Credits"
   },

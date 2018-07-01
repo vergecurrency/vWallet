@@ -2,24 +2,43 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+@import 'variables';
 @import 'fonts';
-@import 'highchart';
 @import 'basic';
 @import 'app-title-bar';
 @import 'burger-menu';
 @import 'account-bar';
+@import 'content-container';
+@import 'footer';
+@import 'panel';
 @import 'normalize';
 @import 'fa/fontawesome';
 @import 'fa/fa-brands';
 @import 'fa/fa-regular';
 @import 'fa/fa-solid';
 
+@import 'home-page';
+@import 'settings-page';
+
 body {
-  background-color: #152f36;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  overflow: hidden;
+
+  background-color: #09121A;
   color: #fff;
-  //height: 700px;
 
   font-family: 'AvenirNextLTW01Medium', Helvetica, sans-serif !important;
+}
+
+.main-layer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 a:hover {
@@ -82,12 +101,6 @@ a:hover {
   text-shadow: transparent;
 }
 
-.content-container {
-  height: 465px;
-  border: 1px solid #d3d9dd;
-  background-color: #e7ebee;
-}
-
 .topbar {
   background-color: #07121b;
 }
@@ -123,20 +136,6 @@ a:hover {
   width: 400px !important;
   background-color: #fff;
   border-radius: 7px;
-}
-
-.footer {
-  font-size: 13px;
-  font-weight: 500;
-  background-color: transparent;
-  color: #151617;
-  position: absolute;
-  bottom: 25px;
-  left: 30px;
-}
-
-.footer-block {
-  margin: 10px 0;
 }
 
 .switch {
@@ -265,4 +264,8 @@ button.close {
 
 .clicky {
   cursor: pointer;
+}
+
+.padding-bottom {
+  padding-bottom: 45px;
 }

@@ -10,23 +10,17 @@ import T from 'i18n-react'
 import { fadeIn } from 'react-animations'
 import price from '../assets/images/price.png'
 import priceLight from '../assets/images/price-light.png'
+import PriceUpdater from '../components/PriceUpdater'
 const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9089)
 
 const StatisticContainer = styled.div`
-  position: absolute;
-  top: 243px;
-  left: 755px;
-  height: 450px;
-  width: 400px !important;
-  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
   ${props =>
     props.theme.light
       ? 'background-color: #fff;'
       : 'background-color: #152b3d;'} ${props =>
-    props.theme.light ? '' : 'color: #fff!important;'}
-  border-radius: 7px;
+    props.theme.light ? '' : 'color: #fff!important;'};
 `
 const fadeInAnimation = keyframes`${fadeIn}`
 const StatItem = styled.div`
@@ -109,7 +103,7 @@ class Statistics extends React.Component<StatisticsProps> {
       },
     )
     return (
-      <StatisticContainer className="container">
+      <StatisticContainer className="container statistic-container">
         <TopContainer className="row">
           <div
             className="col-md-12"
@@ -166,6 +160,9 @@ class Statistics extends React.Component<StatisticsProps> {
             </StatItem>
             <StatChartItem className="row">
               <div className="col-md-5">{T.translate('statistics.chart')}</div>
+              <div className="col-md-7">
+                <PriceUpdater />
+              </div>
             </StatChartItem>
           </div>
         ) : (

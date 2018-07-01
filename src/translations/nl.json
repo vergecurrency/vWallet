@@ -149,7 +149,7 @@
   },
   "footer": {
     "wallet": "Officiele Verge Wallet",
-    "explorer": "Officiele Blockchain Explorer",
+    "debug_information": "Debug Informatie",
     "donate": "Doneer",
     "credits": "Credits"
   },
@@ -160,6 +160,6 @@
     "hourchange": "1 uur prestatie",
     "daychange": "24 uur prestatie",
     "cmc": "CMC Positie",
-    "chart": "7-dagen prijsverloop"
+    "chart": "Week diagram"
   }
 }

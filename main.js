@@ -73,12 +73,14 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 768,
+    minWidth: 1200,
+    minHeight: 768,
     show: false,
     frame: false,
     titleBarStyle: 'hiddenInset',
     icon: __dirname + '/verge.ico',
-    resizable: false,
-    fullscreenable: false,
+    resizable: true,
+    fullscreenable: true,
   })
 
   let indexPath
