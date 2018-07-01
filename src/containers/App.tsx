@@ -19,7 +19,7 @@ class App extends React.Component<{ SettingsStore?: SettingsStore }> {
     i18nReact.setTexts(dictionary)
     return (
       <div className="main-layer">
-        <TitleBar disableMaximize={true} menu={[]} className={platform()} />
+        <TitleBar menu={[]} className={platform()} />
         <Header />
         <AccountBar />
         <ContentContainer>{this.props.children}</ContentContainer>

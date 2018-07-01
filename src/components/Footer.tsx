@@ -7,7 +7,6 @@ import { SettingsStore } from '../stores/SettingsStore'
 import { shell } from 'electron'
 import i18nReact from 'i18n-react'
 import styledComponents from 'styled-components'
-import Info from '../icons/Info'
 import DebugPanel from './modal/DebugPanel'
 
 const FooterText = styledComponents.div`
@@ -17,12 +16,6 @@ const FooterText = styledComponents.div`
 
 const FooterVersion = styledComponents.div`
   ${props => (props.theme.light ? '' : 'color: #7193ae;')};
-`
-
-const FooterDebug = styledComponents.div`
-  ${props => (props.theme.light ? '' : 'color: #7193ae;')};
-  display: flex;
-  align-items: center;
 `
 
 interface FooterProps {
@@ -63,7 +56,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
     const { SettingsStore } = this.props
 
     return (
-      <div className="container footer">
+      <div className="footer">
         <CreditsPanel
           toggle={this.toggle('credits')}
           open={this.state.credits}
@@ -74,7 +67,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
         />
         <div className="row">
           <FooterVersion
-            className="col-md-3"
+            className="col-md-8"
             onClick={this.openLatestRelease.bind(this)}
           >
             <span className="clicky">
@@ -83,19 +76,17 @@ class Footer extends React.Component<FooterProps, FooterState> {
               }
             </span>
           </FooterVersion>
-          <FooterDebug className="col-md-7">
-            <Info
-              width={12}
-              height={12}
-              className="clicky"
-              onClick={this.toggleWindow('debugWindow')}
-            />
-          </FooterDebug>
-          <FooterText className="col-md-1 clicky">
+          <FooterText
+            className="col-md-2 text-right clicky"
+            onClick={this.toggleWindow('debugWindow')}
+          >
+            {i18nReact.translate('footer.debug_information')}
+          </FooterText>
+          <FooterText className="col-md-1 text-right clicky">
             {i18nReact.translate('footer.donate')}
           </FooterText>
           <FooterText
-            className="col-md-1 clicky"
+            className="col-md-1 text-right clicky"
             onClick={this.toggle('credits')}
           >
             {i18nReact.translate('footer.credits')}

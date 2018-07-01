@@ -4,13 +4,31 @@ import * as moment from 'moment'
 import { inject, observer } from 'mobx-react'
 
 import { CoinStatsStore } from '../stores/CoinStatsStore'
-import * as ReactHighcharts from 'react-highcharts'
+import { Line as LineChart } from 'react-chartjs-2'
+
 const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9089)
 
 interface PriceUpdaterProps {
   CoinStatsStore?: CoinStatsStore
+}
+
+const createDataset = function (entries) {
+  if (! entries) {
+    return {}
+  }
+  return {
+    labels: entries.map(entry => entry[0]),
+    datasets: [
+      {
+        fill: false,
+        borderWidth: 2,
+        borderColor: 'rgba(29,181,219,1)',
+        data: entries.map(entry => entry[1]),
+      },
+    ],
+  }
 }
 
 class PriceUpdater extends React.Component<PriceUpdaterProps> {
@@ -42,44 +60,31 @@ class PriceUpdater extends React.Component<PriceUpdaterProps> {
 
   render() {
     const config = {
-      rangeSelector: {
-        selected: 1,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          display: false,
+        }],
+        xAxes: [{
+          display: false,
+        }],
       },
-      xAxis: {
-        type: 'datetime',
-      },
-      chart: {
-        zoomType: 'x',
-      },
-      yAxis: {
-        title: {
-          text: 'Exchange rate (BTC)',
+      elements: {
+        point: {
+          radius: 0,
         },
       },
-      series: [
-        {
-          name: 'XVG',
-          // type: 'area',
-          data: this.state.history,
-          tooltip: {
-            valueDecimals: 8,
-          },
-        },
-      ],
+      tooltips: {
+        enabled: false,
+      },
+      legend: {
+        display: false,
+      },
     }
+    const data = createDataset(this.state.history)
     return (
-      <div
-        style={{
-          position: 'absolute',
-          left: '767px',
-          bottom: '0px',
-        }}
-      >
-        {this.props.CoinStatsStore!.loaded ? (
-          <ReactHighcharts config={config} />
-        ) : (
-          <span />
-        )}
+      <div className="statistics-chart-container chart-container">
+        <LineChart data={data} options={config} height={90} />
       </div>
     )
   }

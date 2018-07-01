@@ -1,0 +1,27 @@
+.content-container {
+  display: flex;
+  flex-grow: 1;
+  background-color: #e7ebee;
+  border: 1px solid #d3d9dd;
+}
+
+.content-container-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -50px;
+  padding: 0 45px;
+}
+
+.content-container-wrapper-full {
+  justify-content: space-between;
+}
+
+.content-container-row {
+  display: flex;
+  width: 100%;
+}
+
+.content-container-row-grow {
+  flex-grow: 1;
+}

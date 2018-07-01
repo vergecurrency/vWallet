@@ -12,14 +12,6 @@ import moment from 'moment'
 import styled from 'styled-components'
 
 const TransactionListContainer = styled.div`
-  position: relative;
-  bottom: 50px;
-  left: 40px;
-  width: 670px;
-  height: 450px;
-  border-radius: 7px;
-  color: #003b54 !important;
-  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
   ${props =>
     props.theme.light
       ? 'background-color: #ffffff;'
@@ -123,7 +115,7 @@ class TransactionList extends Component {
     )
 
     return (
-      <TransactionListContainer>
+      <TransactionListContainer className="transaction-list-container">
         <div className="trans-counter">
           {this.props.TransactionStore.getTransactionCount > 10
             ? '10+'
@@ -165,7 +157,6 @@ class TransactionList extends Component {
         </div>
         <Seperator />
         <div
-          className="scrollbar scrollbar-primary transaction-list-top"
           style={{
             ...(this.props.TransactionStore.loaded
               ? {}
@@ -175,8 +166,6 @@ class TransactionList extends Component {
                   paddingTop: '25%',
                 }),
             overflowY: 'auto',
-            maxHeight: '353px',
-            minHeight: '353px',
           }}
         >
           {this.props.TransactionStore.loaded ? (
