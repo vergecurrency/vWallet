@@ -15,8 +15,8 @@ import styledComponents from 'styled-components'
 import ReceivePanel from './modal/ReceivePanel'
 
 const AccountBarContainer = styledComponents.div`
-  max-height: 200px;
-  min-height: 200px;
+  max-height: 190px;
+  min-height: 190px;
   padding-top: 35px;
   ${props =>
     props.theme.light

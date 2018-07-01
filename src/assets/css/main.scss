@@ -5,7 +5,7 @@
 @import 'fonts';
 @import 'highchart';
 @import 'basic';
-@import 'appbar';
+@import 'app-title-bar';
 @import 'burger-menu';
 @import 'account-bar';
 @import 'normalize';
@@ -35,7 +35,7 @@ a:hover {
   bottom: 50px;
   left: 40px;
   width: 670px;
-  height: 450px;
+  height: 440px;
   border-radius: 7px;
   background-color: #ffffff;
   color: #003b54 !important;
@@ -83,7 +83,7 @@ a:hover {
 }
 
 .content-container {
-  height: 475px;
+  height: 465px;
   border: 1px solid #d3d9dd;
   background-color: #e7ebee;
 }
@@ -119,7 +119,7 @@ a:hover {
   position: absolute;
   top: 243px;
   left: 755px;
-  height: 450px;
+  height: 440px;
   width: 400px !important;
   background-color: #fff;
   border-radius: 7px;

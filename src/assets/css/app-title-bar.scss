@@ -1,0 +1,21 @@
+#electron-app-title-bar {
+  height: 38px!important;
+  background: #07121b!important;
+  border-bottom: 1px solid #0d273a!important;
+}
+
+#electron-app-title-bar::before {
+  padding-top: 10px;
+  padding-left: 10px;
+  color: #3f5e78;
+  content: 'VERGE Wallet';
+}
+
+#electron-app-title-bar.darwin::before {
+  width: 100%;
+  text-align: center;
+}
+
+#electron-app-title-bar.darwin .window-controls {
+  display: none;
+}

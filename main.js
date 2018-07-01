@@ -75,6 +75,7 @@ function createWindow() {
     height: 768,
     show: false,
     frame: false,
+    titleBarStyle: 'hiddenInset',
     icon: __dirname + '/verge.ico',
     resizable: false,
     fullscreenable: false,
