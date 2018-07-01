@@ -20,7 +20,7 @@ const StatisticContainer = styled.div`
     props.theme.light
       ? 'background-color: #fff;'
       : 'background-color: #152b3d;'} ${props =>
-    props.theme.light ? '' : 'color: #fff!important;'}
+    props.theme.light ? '' : 'color: #fff!important;'};
 `
 const fadeInAnimation = keyframes`${fadeIn}`
 const StatItem = styled.div`

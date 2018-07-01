@@ -3,18 +3,16 @@
   flex-direction: column;
   flex-grow: 1;
   margin-right: 45px;
-  border-radius: 7px;
+  border-radius: $border-radius;
   color: #003b54 !important;
-  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
 }
 
 .statistic-container {
   min-width: 400px;
   width: 0;
-  border-radius: 7px;
-  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
   overflow-y: auto;
   overflow-x: hidden;
+  border-radius: $border-radius;
 }
 
 .statistics-chart-container {

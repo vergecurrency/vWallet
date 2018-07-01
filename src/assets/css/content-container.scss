@@ -1,16 +1,22 @@
+$content-container-background: #e7ebee;
+$content-container-border: 1px solid #d3d9dd;
+
+$content-container-wrapper-margin-top: -50px;
+$content-container-wrapper-side-padding: 45px;
+
 .content-container {
   display: flex;
   flex-grow: 1;
-  background-color: #e7ebee;
-  border: 1px solid #d3d9dd;
+  background-color: $content-container-background;
+  border: $content-container-border;
 }
 
 .content-container-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: -50px;
-  padding: 0 45px;
+  margin-top: $content-container-wrapper-margin-top;
+  padding: 0 $content-container-wrapper-side-padding;
 }
 
 .content-container-wrapper-full {

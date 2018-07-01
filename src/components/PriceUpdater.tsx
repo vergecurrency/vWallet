@@ -14,8 +14,8 @@ interface PriceUpdaterProps {
   CoinStatsStore?: CoinStatsStore
 }
 
-const createDataset = function (entries) {
-  if (! entries) {
+const createDataset = function(entries) {
+  if (!entries) {
     return {}
   }
   return {
@@ -62,12 +62,16 @@ class PriceUpdater extends React.Component<PriceUpdaterProps> {
     const config = {
       maintainAspectRatio: false,
       scales: {
-        yAxes: [{
-          display: false,
-        }],
-        xAxes: [{
-          display: false,
-        }],
+        yAxes: [
+          {
+            display: false,
+          },
+        ],
+        xAxes: [
+          {
+            display: false,
+          },
+        ],
       },
       elements: {
         point: {

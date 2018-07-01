@@ -9,4 +9,8 @@ const ContentContainer = styledComponents.div`
       : 'background-color: #0d1f2d;'};
 `
 
-export default props => <ContentContainer className="content-container">{props.children}</ContentContainer>
+export default props => (
+  <ContentContainer className="content-container">
+    {props.children}
+  </ContentContainer>
+)
