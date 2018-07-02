@@ -44,12 +44,12 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 
 1.  Clone and build VERGE on your own by following the following guide: [VERGE Building Guide](https://github.com/vergecurrency/VERGE/blob/master/README.md)
 
-2.  On finish building the VERGEd, you should be able to run the wallet by entering the following command inside the root of the cloned verge repository: `./src/VERGEd -rpcusername=kyon -rpcpassword=lolcat -printtoconsole -deamon`, this will start the verge deamon with the given userdata, which you now have to change inside the `dev-config.json.example`.
+2.  On finish building the VERGEd, you should be able to run the wallet by entering the following command inside the root of the cloned verge repository: `./src/VERGEd -rpcuser=kyon -rpcpassword=lolcat -printtoconsole -deamon`, this will start the verge deamon with the given userdata, which you now have to change inside the `dev-config.json.example`.
 
 So ultimately:
 
 ```bash
-~/work/VERGE » ./src/VERGEd -rpcusername=myusername -rpcpassword=mypassword -printtoconsole -deamon
+~/work/VERGE » ./src/VERGEd -rpcuser=myusername -rpcpassword=mypassword -printtoconsole -deamon
 ~/work/vWallet » mv dev-config.json.example dev-config.json && vim dev-config.json
 ```
 
