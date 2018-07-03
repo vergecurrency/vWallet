@@ -8,9 +8,8 @@ import Loading from '../icons/Loading'
 import { SettingsStore } from '../stores/SettingsStore'
 import T from 'i18n-react'
 import { fadeIn } from 'react-animations'
-import price from '../assets/images/price.png'
-import priceLight from '../assets/images/price-light.png'
 import PriceUpdater from '../components/PriceUpdater'
+import ChartLine from 'react-material-icon-svg/dist/ChartLineIcon'
 const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9089)
@@ -24,6 +23,8 @@ const StatisticContainer = styled.div`
 `
 const fadeInAnimation = keyframes`${fadeIn}`
 const StatItem = styled.div`
+  display: flex;
+  font-weight: normal;
   line-height: 3em;
   padding-left: 12px;
   animation: 1s ${fadeInAnimation};
@@ -32,11 +33,13 @@ const StatItem = styled.div`
     solid 1px;
   ${props =>
     props.theme.light ? 'color: #476b84;' : 'color: #7193ae;'} .info {
-    font-weight: 700;
+    font-weight: 500;
   }
 `
 
 const StatChartItem = styled.div`
+  display: flex;
+  font-weight: normal;
   line-height: 3em;
   padding-left: 12px;
   animation: 1s ${fadeInAnimation};
@@ -45,33 +48,30 @@ const StatChartItem = styled.div`
     solid 1px;
   ${props =>
     props.theme.light ? 'color: #476b84;' : 'color: #7193ae;'} .info {
-    font-weight: 700;
+    font-weight: 500;
   }
   border-bottom: none;
 `
 
-const TopContainer = styled.div`
-  border-bottom: ${props =>
-      props.theme.light ? '#f2f2f2' : 'rgba(238,238,238, 0.05)'}
-    solid 1px;
-`
+const TopContainer = styled.div``
 
 const TransactionTitle = styled.div`
   display: flex;
   align-content: center;
-  font-size: 26px;
-  height: 45px;
-  padding-bottom: 59px;
-  ${props => (props.theme.light ? 'color: #003b54;' : 'color: #fff;')};
-  :before {
-    content: url(${props => (props.theme.light ? price : priceLight)});
-    padding-right: 15px;
-  }
+  align-items: center;
+  justify-items: center;
+  font-size: 21px;
+  padding-left: 30px !important;
 `
 
 const LoadingContainer = styled.div`
   text-align: center;
   padding-top: 35%;
+`
+
+const Seperator = styled.hr`
+  margin: 0px 0px;
+  height: 1px;
 `
 
 interface StatisticsProps {
@@ -103,21 +103,24 @@ class Statistics extends React.Component<StatisticsProps> {
       },
     )
     return (
-      <StatisticContainer className="container statistic-container">
-        <TopContainer className="row">
-          <div
-            className="col-md-12"
-            style={{ marginTop: '25px', marginLeft: '15px' }}
-          >
+      <StatisticContainer className="statistic-container">
+        <div className="statistic-title-container">
+          <TopContainer className="row">
             <TransactionTitle>
+              <ChartLine
+                width={30}
+                height={30}
+                style={{ fill: '#003b54', marginRight: '10px' }}
+              />{' '}
               {T.translate('statistics.title')}
             </TransactionTitle>
-          </div>
-        </TopContainer>
+          </TopContainer>
+        </div>
+        <Seperator />
         {this.props.CoinStatsStore!.loaded ? (
           <div>
             {' '}
-            <StatItem className="row">
+            <StatItem>
               <div className="col-md-5">
                 XVG/{this.props.SettingsStore!.getCurrency}{' '}
                 {T.translate('statistics.price')}
@@ -128,7 +131,7 @@ class Statistics extends React.Component<StatisticsProps> {
                 )}
               </div>
             </StatItem>
-            <StatItem className="row">
+            <StatItem>
               <div className="col-md-5">{T.translate('statistics.cap')}</div>
               <div className="col-md-7 info">
                 {bigNumber.format(
@@ -136,7 +139,7 @@ class Statistics extends React.Component<StatisticsProps> {
                 )}
               </div>
             </StatItem>
-            <StatItem className="row">
+            <StatItem>
               <div className="col-md-5">
                 {T.translate('statistics.hourchange')}
               </div>
@@ -144,7 +147,7 @@ class Statistics extends React.Component<StatisticsProps> {
                 {this.props.CoinStatsStore!.getUpdatedStats.hourChange} %
               </div>
             </StatItem>
-            <StatItem className="row">
+            <StatItem>
               <div className="col-md-5">
                 {T.translate('statistics.daychange')}
               </div>
@@ -152,13 +155,13 @@ class Statistics extends React.Component<StatisticsProps> {
                 {this.props.CoinStatsStore!.getUpdatedStats.dayChange} %
               </div>
             </StatItem>
-            <StatItem className="row">
+            <StatItem>
               <div className="col-md-5">{T.translate('statistics.cmc')}</div>
               <div className="col-md-7 info">
                 {this.props.CoinStatsStore!.getUpdatedStats.rank}.
               </div>
             </StatItem>
-            <StatChartItem className="row">
+            <StatChartItem>
               <div className="col-md-5">{T.translate('statistics.chart')}</div>
               <div className="col-md-7">
                 <PriceUpdater />

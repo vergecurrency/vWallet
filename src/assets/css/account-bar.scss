@@ -1,5 +1,3 @@
-$account-bar-title-font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif;
-
 .account-bar-container {
   padding: 0 45px;
 }
@@ -8,12 +6,12 @@ $account-bar-title-font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif;
   color: #fff;
   letter-spacing: 3px;
   font-size: 9px;
-  font-family: $account-bar-title-font-family !important;
+  font-weight: normal;
 }
 
 .account-bar-label {
   text-align: left;
-  font-weight: bold;
+  font-weight: 500;
   padding-top: 10px;
 }
 
@@ -27,7 +25,7 @@ $account-bar-title-font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif;
   border: 2px solid #fff;
   border-radius: 4px;
   color: #fff;
-  font-family: $account-bar-title-font-family;
+  font-weight: normal;
   font-size: .9rem;
   display: inline-flex;
   align-self: center;
