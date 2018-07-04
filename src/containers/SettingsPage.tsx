@@ -6,15 +6,17 @@ import Footer from '../components/Footer'
 
 class SettingsPage extends React.Component<{}> {
   render() {
-    return <div className="content-container-wrapper content-container-wrapper-full">
-      <div className="content-container-row content-container-row-grow flex-column padding-bottom">
-        <SettingsPanel />
-        <KeymapsPanel />
+    return (
+      <div className="content-container-wrapper content-container-wrapper-full">
+        <div className="content-container-row content-container-row-grow flex-column padding-bottom">
+          <SettingsPanel />
+          <KeymapsPanel />
+        </div>
+        <div className="content-container-row footer-container">
+          <Footer />
+        </div>
       </div>
-      <div className="content-container-row footer-container">
-        <Footer />
-      </div>
-    </div>
+    )
   }
 }
 
