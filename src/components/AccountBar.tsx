@@ -17,18 +17,18 @@ import ReceivePanel from './modal/ReceivePanel'
 const AccountBarContainer = styledComponents.div`
   max-height: 190px;
   min-height: 190px;
-  padding-top: 35px;
+  padding-top: 28px;
   ${props =>
     props.theme.light
       ? `
    background-color: #00b8dc;
    background-image: linear-gradient(
     -86deg,
-    #1db6dc 0%,
-    #1db6dc 20%,
+    #1db5db 0%,
+    #1db5db 20%,
     #25c5ed 46%,
-    #0fa2c6 75%,
-    #0fa2c6 100%
+    #0ea1c6 75%,
+    #0ea1c6 100%
   );`
       : 'background-color: #0d1f2d;'};
 `

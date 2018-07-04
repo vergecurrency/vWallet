@@ -119,7 +119,6 @@ export class CurrencySetting extends React.Component<
               color: '#647e90',
               fontSize: 15,
               fontStyle: 'italic',
-              fontFamily: 'AvenirNextLTW01Italic',
             }}
           >
             {i18nReact.translate('settings.currency.explain')}
