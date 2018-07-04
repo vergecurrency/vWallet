@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
+import ScaleBalance from 'react-material-icon-svg/dist/ScaleBalanceIcon'
 import ArrowDown from '../../icons/ArrowDown'
 import ArrowUp from '../../icons/ArrowUp'
 import Loading from '../../icons/Loading'
@@ -12,86 +13,67 @@ import moment from 'moment'
 import styled from 'styled-components'
 
 const TransactionListContainer = styled.div`
-  ${props =>
-    props.theme.light
-      ? 'background-color: #ffffff;'
-      : 'background-color: #152b3d;'};
+  background-color: #ffffff;
 `
 
-const ItemContainer = styled.div`
-  padding: 6px 10px;
-`
+const ItemContainer = styled.div``
 
 const TransactionTitle = styled.div`
   display: flex;
   align-content: center;
   align-items: center;
   justify-items: center;
-  font-size: 26px;
-  height: 45px;
-  padding-bottom: 8px;
+  font-size: 21px;
   padding-left: 30px !important;
-  ${props => (props.theme.light ? '' : 'color: #fff;')};
-  > svg {
-    ${props => (props.theme.light ? '' : 'fill: #fff;')};
-  }
 `
-/*:before {
-    content: url(${props => (props.theme.light ? layers : layersLight)});
-    width: 26px;
-    height: 26px;
-    margin-right: 15px;
-    margin-top: 5px;
-  }*/
 
 const MonthlySummary = styled.div`
-  bottom: 15px;
-  height: 45px;
-  padding-bottom: 59px;
-  text-align: right;
-  padding-right: 30px !important;
-  ${props => (props.theme.light ? '' : 'color: #fff;')};
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
 `
 
-const UpperSummary = styled.div`
-  ${props => (props.theme.light ? '' : 'color: #fff;')};
-  margin-bottom: 5px;
-  font-size: 15px;
-  font-weight: 400;
-  display: block;
+const MonthSummary = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  background: whitesmoke;
+  padding: 7px 9px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 `
 
 const SpendSummary = styled.div`
-  font-size: 14px;
-  border-radius: 21px;
+  font-size: 12px;
   width: auto;
   align-items: center;
   display: inline-flex;
-  padding: 5px 10px;
-  margin-right: 15px;
-  background-color: ${props =>
-    props.theme.light ? 'rgb(222, 222, 222)' : '#091825'};
-  color: ${props => (props.theme.light ? '#003b54' : '#fff')};
+  padding: 7px 9px;
+  background-color: rgb(222, 222, 222);
+  border-left: 1px solid white;
+  color: #003b54;
   .arrow-down {
-    stroke: ${props => (props.theme.light ? '#003b54' : '#fff')};
+    stroke: #003b54;
   }
 `
 
 const ReceivedSummary = styled.div`
-  font-size: 14px;
-  border-radius: 21px;
+  font-size: 12px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
   width: auto;
   align-items: center;
   display: inline-flex;
-  padding: 5px 10px;
+  padding: 7px 9px;
   background-color: #009178;
+  border-left: 1px solid white;
   color: #fff;
 `
 
 const Seperator = styled.hr`
-  ${props =>
-    props.theme.light ? '' : 'background-color: rgba(238, 238, 238, 0.05);'};
   margin: 0px 0px;
+  height: 1px;
 `
 
 class TransactionList extends Component {
@@ -116,12 +98,12 @@ class TransactionList extends Component {
 
     return (
       <TransactionListContainer className="transaction-list-container">
-        <div className="trans-counter">
-          {this.props.TransactionStore.getTransactionCount > 10
-            ? '10+'
+        <div className="transaction-list-counter">
+          {this.props.TransactionStore.getTransactionCount > 999
+            ? '999+'
             : this.props.TransactionStore.getTransactionCount}
         </div>
-        <div className="container">
+        <div className="container-fluid transaction-list-title-container">
           <div className="row">
             <TransactionTitle className="col-md-6">
               <Pile
@@ -132,10 +114,14 @@ class TransactionList extends Component {
               {T.translate('transaction.list')}
             </TransactionTitle>
             <MonthlySummary className="col-md-6">
-              <UpperSummary>
-                {T.translate('transaction.summary')}{' '}
-                {moment().format('MMMM YYYY')}
-              </UpperSummary>
+              <MonthSummary>
+                  <ScaleBalance
+                      width={14}
+                      height={14}
+                      style={{ marginRight: '5px' }}
+                  />
+                  {moment().format('MMMM')}
+              </MonthSummary>
               <SpendSummary>
                 <ArrowDown
                   width={14}
@@ -169,12 +155,12 @@ class TransactionList extends Component {
           }}
         >
           {this.props.TransactionStore.loaded ? (
-            <div className="container">
+            <div className="container-fluid">
               <SearchBar />
               {this.props.TransactionStore.lastTenTransaction.map(
                 transaction => (
                   <ItemContainer
-                    className="row"
+                    className="row transaction-list-item"
                     key={`${transaction.txid}#${transaction.category}#${
                       transaction.address
                     }#${transaction.timereceived}`}

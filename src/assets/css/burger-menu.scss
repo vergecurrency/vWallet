@@ -2,10 +2,7 @@ $burger-menu-dropdown-menu-traingle-size: 8px;
 
 $burger-menu-dropdown-menu-item-padding: 8px 30px;
 
-$burger-menu-dropdown-menu-item-font-family: 'AvenirNextLTW01Regular', Helvetica, sans-serif !important;
 $burger-menu-dropdown-menu-item-font-size: .9rem;
-$burger-menu-dropdown-menu-item-font-weight: normal;
-$burger-menu-dropdown-menu-item-font-weight-active: bold;
 $burger-menu-dropdown-menu-item-color: #75A0B2;
 $burger-menu-dropdown-menu-item-color-hover: darken($burger-menu-dropdown-menu-item-color, 10);
 $burger-menu-dropdown-menu-item-color-active: #003B53;
@@ -39,9 +36,8 @@ $burger-menu-dropdown-menu-item-icon-width: 22px;
   padding: $burger-menu-dropdown-menu-item-padding;
   display: flex;
   align-items: center;
-  font-family: $burger-menu-dropdown-menu-item-font-family;
   font-size: $burger-menu-dropdown-menu-item-font-size;
-  font-weight: $burger-menu-dropdown-menu-item-font-weight;
+  font-weight: normal;
   color: $burger-menu-dropdown-menu-item-color;
 }
 
@@ -51,7 +47,7 @@ $burger-menu-dropdown-menu-item-icon-width: 22px;
 
 .burger-menu-dropdown-menu .dropdown-item:active {
   color: $burger-menu-dropdown-menu-item-color-active;
-  font-weight: $burger-menu-dropdown-menu-item-font-weight-active;
+  font-weight: 500;
   background-color: $burger-menu-dropdown-menu-item-background-color-active;
 }
 

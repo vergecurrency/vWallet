@@ -1,45 +1,74 @@
 @font-face {
-	font-family: 'AvenirNextLTW01Bold';
+	font-family: 'AvenirNext';
+	src: url('../fonts/avenir-next-regular.eot');
+	src: url('../fonts/avenir-next-regular.eot') format('embedded-opentype'),
+	url('../fonts/avenir-next-regular.woff') format('woff'),
+	url('../fonts/avenir-next-regular.ttf') format('truetype'),
+	url('../fonts/avenir-next-regular.svg#avenirnextregular')
+	format('svg');
+}
+
+@font-face {
+	font-family: 'AvenirNext';
+	font-weight: normal;
+	font-style: italic;
+	src: url('../fonts/avenir-next-italic.eot');
+	src: url('../fonts/avenir-next-italic.eot') format('embedded-opentype'),
+	url('../fonts/avenir-next-italic.woff') format('woff'),
+	url('../fonts/avenir-next-italic.ttf') format('truetype'),
+	url('../fonts/avenir-next-italic.svg#avenirnextitalic')
+	format('svg');
+}
+
+@font-face {
+	font-family: 'AvenirNext';
+	font-weight: bold;
 	src: url('../fonts/avenir-next-bold.eot');
 	src: url('../fonts/avenir-next-bold.eot') format('embedded-opentype'),
 		url('../fonts/avenir-next-bold.woff') format('woff'),
 		url('../fonts/avenir-next-bold.ttf') format('truetype'),
-		url('../fonts/avenir-next-bold.svg#AvenirNextLTW01BoldRegular')
+		url('../fonts/avenir-next-bold.svg#avenirnextbold')
 			format('svg');
 }
 
 @font-face {
-	font-family: 'AvenirNextLTW01Italic';
-	src: url('../fonts/avenir-next-italic.eot');
-	src: url('../fonts/avenir-next-italic.eot') format('embedded-opentype'),
-		url('../fonts/avenir-next-italic.woff') format('woff'),
-		url('../fonts/avenir-next-italic.ttf') format('truetype'),
-		url('../fonts/avenir-next-italic.svg#AvenirNextLTW01ItalicRegular')
-			format('svg');
+	font-family: 'AvenirNext';
+	font-weight: bold;
+	font-style: italic;
+	src: url('../fonts/avenir-next-bold-italic.eot');
+	src: url('../fonts/avenir-next-bold-italic.eot') format('embedded-opentype'),
+	url('../fonts/avenir-next-bold-italic.woff') format('woff'),
+	url('../fonts/avenir-next-bold-italic.ttf') format('truetype'),
+	url('../fonts/avenir-next-bold-italic.svg#avenirnextbolditalic')
+	format('svg');
 }
 
 @font-face {
-	font-family: 'AvenirNextLTW01Regular';
-	src: url('../fonts/avenir-next-regular.eot');
-	src: url('../fonts/avenir-next-regular.eot') format('embedded-opentype'),
-		url('../fonts/avenir-next-regular.woff') format('woff'),
-		url('../fonts/avenir-next-regular.ttf') format('truetype'),
-		url('../fonts/avenir-next-regular.svg#AvenirNextLTW01RegularRegular')
-			format('svg');
-}
-
-@font-face {
-	font-family: 'AvenirNextLTW01Medium';
+	font-family: 'AvenirNext';
+	font-weight: 500;
 	src: url('../fonts/avenir-next-medium.eot');
 	src: url('../fonts/avenir-next-medium.eot') format('embedded-opentype'),
 	url('../fonts/avenir-next-medium.woff') format('woff'),
 	url('../fonts/avenir-next-medium.ttf') format('truetype'),
-	url('../fonts/avenir-next-medium.svg#AvenirNextLTW01MediumRegular')
+	url('../fonts/avenir-next-medium.svg#avenirnextmedium')
+	format('svg');
+}
+
+@font-face {
+	font-family: 'AvenirNext';
+	font-weight: 500;
+	font-style: italic;
+	src: url('../fonts/avenir-next-medium-italic.eot');
+	src: url('../fonts/avenir-next-medium-italic.eot') format('embedded-opentype'),
+	url('../fonts/avenir-next-medium-italic.woff') format('woff'),
+	url('../fonts/avenir-next-medium-italic.ttf') format('truetype'),
+	url('../fonts/avenir-next-medium-italic.svg#avenirnextmediumitalic')
 	format('svg');
 }
 
 @font-face {
 	font-family: 'AvenirNextW01Thin';
+	font-weight: 200;
 	src: url('../fonts/avenir-next-thin.eot');
 	src: url('../fonts/avenir-next-thin.eot') format('embedded-opentype'),
 		url('../fonts/avenir-next-thin.woff') format('woff'),

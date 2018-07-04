@@ -44,7 +44,7 @@ const Artwork = styledComponents.div`
 
 const Artist = styledComponents.span`
   font-weight: 600px;
-  font-style: bold;
+  font-style: 500;
   font-size: 12px;
   line-height: 1.8em;
   color: #a5adb6;

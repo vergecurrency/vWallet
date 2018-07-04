@@ -1,3 +1,6 @@
+$transaction-list-search-background: rgba(0, 0, 0, 0.02);
+$transaction-list-search-padding: 15px;
+
 .transaction-list-container {
   display: flex;
   flex-direction: column;
@@ -7,12 +10,59 @@
   color: #003b54 !important;
 }
 
+.transaction-list-counter {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -18px;
+  margin-left: -18px;
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  box-shadow: 0 0 29px rgba(0, 3, 10, 0.14);
+  background-color: #1dc9f3;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.transaction-list-search-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.transaction-list-search-icon {
+  padding-left: $transaction-list-search-padding;
+  padding-top: 13px;
+  background-color: $transaction-list-search-background;
+}
+
+.transaction-list-search-input {
+  flex: 1;
+  width: 100%;
+  border: none;
+  padding: $transaction-list-search-padding;
+  background-color: $transaction-list-search-background;
+  font-weight: normal;
+  font-size: 80%;
+}
+
 .statistic-container {
   min-width: 400px;
   width: 0;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: $border-radius;
+  color: #003b54 !important;
+}
+
+.statistic-title-container {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .statistics-chart-container {
@@ -21,4 +71,15 @@
   padding: 10px;
   margin-left: -50px;
   margin-right: -25px;
+}
+
+.transaction-list-item:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+.transaction-list-title-container {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

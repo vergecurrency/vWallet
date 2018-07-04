@@ -1,15 +1,15 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
-<svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 <metadata>
-Created by FontForge 20120731 at Tue Jun 26 20:20:59 2018
+Created by FontForge 20161003 at Mon Jul  2 19:18:51 2018
  By www-data
 Copyright (c) 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved.
 </metadata>
 <defs>
-<font id="AvenirNext-Medium" horiz-adv-x="595" >
+<font id="avenirnextmedium" horiz-adv-x="595" >
   <font-face 
-    font-family="Avenir Next Medium"
+    font-family="avenirnextmedium"
     font-weight="500"
     font-stretch="normal"
     units-per-em="1000"
@@ -20,7 +20,7 @@ Copyright (c) 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved.
     cap-height="708"
     bbox="-210 -250 1015 951"
     underline-thickness="50"
-    underline-position="-50"
+    underline-position="-150"
     unicode-range="U+000D-FB02"
   />
 <missing-glyph horiz-adv-x="512" 
@@ -6651,6 +6651,36 @@ d="M491 0h-94v756h94v-756zM304 397h-110v-397h-94v397h-94v77h94v99q0 42 9.5 77.5t
     <hkern u1="&#x203a;" u2="&#x2e;" k="36" />
     <hkern u1="&#x203a;" u2="&#x2c;" k="36" />
     <hkern u1="&#x203a;" u2="&#x20;" k="30" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="space,uni00A0"
+	k="18" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="C,Ccedilla,Cacute,Ccircumflex,Cdotaccent,Ccaron"
+	k="18" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="G,Gcircumflex,Gbreve,Gdotaccent,Gcommaaccent"
+	k="18" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="O,Ograve,Oacute,Ocircumflex,Otilde,Odieresis,Oslash,Omacron,Obreve,Ohungarumlaut,OE"
+	k="18" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="T,Tcommaaccent,Tcaron,uni021A"
+	k="60" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="U,Ugrave,Uacute,Ucircumflex,Udieresis,Utilde,Umacron,Ubreve,Uring,Uhungarumlaut,Uogonek"
+	k="13" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="W,Wcircumflex"
+	k="12" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="Y,Yacute,Ycircumflex,Ydieresis"
+	k="60" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="w,wcircumflex"
+	k="6" />
+    <hkern g1="A,Agrave,Aacute,Acircumflex,Atilde,Adieresis,Aring,Amacron,Abreve,Aogonek"
+	g2="y,yacute,ydieresis,ycircumflex"
+	k="6" />
     <hkern g1="C,Ccedilla,Cacute,Ccircumflex,Cdotaccent,Ccaron"
 	g2="C,Ccedilla,Cacute,Ccircumflex,Cdotaccent,Ccaron"
 	k="12" />

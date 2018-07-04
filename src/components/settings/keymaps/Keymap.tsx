@@ -14,11 +14,11 @@ const Name = styledComponents.div`
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 62px;
-	font-family: 'AvenirNextLTW01Regular';
+  font-weight: normal;
 `
 
 const Key = styledComponents.div`
-	font-family: 'AvenirNextLTW01Regular';
+  font-weight: normal;
 	color: #647e90;
 	font-size: 18px;
 	font-weight: 500;
@@ -30,7 +30,6 @@ const Description = styledComponents.div`
 	font-size: 15px;
 	font-style: italic;
 	line-height: 23px;
-	font-family: 'AvenirNextLTW01Italic';
 `
 
 export default ({ name, keyName, usage }) => (

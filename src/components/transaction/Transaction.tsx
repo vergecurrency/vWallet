@@ -45,30 +45,27 @@ const fadeInAnimation = styled.keyframes`
 const ContainerClicky = styled.default.div`
   cursor: pointer;
   animation: 1s ${fadeInAnimation};
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
-  border-radius: 5px 5px;
 `
 
 const TransactionDetails = styled.default.div`
   animation: 1s ${fadeInAnimation};
   padding-left: 8px;
   margin: 10px 0px;
+  font-weight: normal;
+  font-size: 80%;
 `
 
 const TransactionDetailsHeader = styled.default.div`
-  font-weight: 800;
   font-size: 14px;
-  font-style: bold;
+  font-style: 500;
 `
 const TransactionDetailsFooter = styled.default.div`
-  font-weight: 800;
   font-size: 12px;
 `
 
 const TransactionDetailsMoney = styled.default.div`
   margin-top: 2px;
   margin-bottom: 2px;
-  font-weight: 800;
   font-size: 18px;
   color: #000;
 `
@@ -85,19 +82,15 @@ const SubTransactionDetails = styled.default.div`
 `
 
 const SubTransactionFurtherDetails = styled.default.div`
-  margin-top: 5px;
   padding-top: 5px;
-  border-top: 1px solid rgba(100, 100, 100, 0.07);
+  border-bottom: 1px solid rgba(100, 100, 100, 0.07);
   padding-left: 23px;
   padding-right: 15px;
   margin-left: -23px;
   margin-right: -15px;
-  padding-bottom: 4px;
   text-align: left;
   background-color: rgba(100, 100, 100, 0.07);
   margin-bottom: -10px;
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
 `
 
 const TransactionDetailProp = styled.default.div`
@@ -112,10 +105,6 @@ const ExternalLinks = styled.default.a`
 `
 
 const RoundedTransaction = styled.default.div`
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
   padding: 6px 10px;
   border-bottom: 1px solid rgba(100, 100, 100, 0.07);
   &:hover {
@@ -182,7 +171,7 @@ class Transaction extends React.Component<Props> {
     }: Props = this.props
 
     return (
-      <ContainerClicky className="container">
+      <ContainerClicky className="container-fluid">
         <RoundedTransaction
           className="row"
           onClick={() => {
@@ -198,10 +187,12 @@ class Transaction extends React.Component<Props> {
           <div
             className="col-md-1"
             style={{
-              textAlign: 'center',
               fontWeight: 500,
               fontSize: '13px',
-              paddingTop: '5px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'column',
+              justifyContent: 'center',
             }}
           >
             <TextContainer>
@@ -235,18 +226,22 @@ class Transaction extends React.Component<Props> {
           <div
             className={'col-md-9'}
             style={{
-              fontWeight: 'bold',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+              fontWeight: 500,
               color: category.includes('receive') ? '#00917a' : '#dc2b3d',
-              textAlign: 'right',
               letterSpacing: '1px',
-              fontSize: '22px',
+              paddingTop: '7px',
+              paddingBottom: '7px',
             }}
           >
             <div>
               <span
                 style={{
                   fontSize: '20px',
-                  fontWeight: 400,
+                  fontWeight: 500,
                 }}
               >
                 {category.includes('receive') ? '+' : '-'}
@@ -260,7 +255,7 @@ class Transaction extends React.Component<Props> {
               <span
                 style={{
                   fontSize: '12px',
-                  fontWeight: 500,
+                  fontWeight: 'normal',
                   letterSpacing: '1px',
                 }}
               >
@@ -272,7 +267,6 @@ class Transaction extends React.Component<Props> {
           <div
             className="col-md-1"
             style={{
-              textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
