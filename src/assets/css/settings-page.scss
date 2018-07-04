@@ -1,12 +1,16 @@
-.setting {
+@mixin setting {
   display: flex;
   align-content: center;
   align-items: center;
   height: 65px;
 }
 
+.setting {
+  @include setting;
+}
+
 .setting-keymap {
-  @extend .setting;
+  @include setting;
   height: 50px;
 }
 
