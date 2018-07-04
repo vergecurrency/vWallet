@@ -14,7 +14,7 @@ interface PriceUpdaterProps {
   CoinStatsStore?: CoinStatsStore
 }
 
-const createDataset = function(entries) {
+const createDataset = function (entries) {
   if (!entries) {
     return {}
   }
@@ -25,7 +25,9 @@ const createDataset = function(entries) {
         fill: false,
         borderWidth: 2,
         borderColor: 'rgba(29,181,219,1)',
-        data: entries.map(entry => entry[1]),
+        data: entries.map(entry => {
+          return (entry[1] * 100000000000).toFixed(0)
+        }),
       },
     ],
   }
