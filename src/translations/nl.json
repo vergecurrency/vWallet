@@ -122,8 +122,9 @@
       "Bekijk allen die meegewerkt hebben aan deze portemonnee"
   },
   "sendPanel": {
-    "title": "Verzend Verge",
+    "title": "Verzend XVG",
     "recipient": "Adres van de ontvanger",
+    "xvgAddress": "XVG Adres",
     "fundwarning":
       "Vul een geldig Verge adres in, anders gaan de munten verloren.",
     "addressLabel": "Label",
@@ -133,7 +134,7 @@
     "amountInfo": "Verzendkosten, 0.1 XVG",
     "xvgUSD": "XVG in {currency}",
     "balanceXVG": "Balans in XVG",
-    "sendButton": "Verzenden",
+    "sendButton": "Verzend XVG",
     "walletAfterTransaction": "Je portemonnee balans na de transactie:",
     "sendWarning":
       "Controleer het adres goed. Verge Currency kan niet aanspraakelijk worden gehouden voor verloren munten",

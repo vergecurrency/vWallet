@@ -121,10 +121,11 @@
     "contributorButton": "See all Contributor"
   },
   "sendPanel": {
-    "title": "Send Verge",
+    "title": "Send XVG",
     "recipient": "Recipient Address",
+    "xvgAddress": "XVG Address",
     "fundwarning":
-      "Please ONLY enter an XVG address. Funds will be lost otherwise.",
+      "Please ONLY enter a XVG address. Funds will be lost otherwise.",
     "addressLabel": "Label",
     "labelInfo":
       "Enter a label for this address to add it in your addressbook.",
@@ -132,7 +133,7 @@
     "amountInfo": "Transaction fee, 0.1 XVG",
     "xvgUSD": "XVG in {currency}",
     "balanceXVG": "Balance in XVG",
-    "sendButton": "Send",
+    "sendButton": "Send XVG",
     "walletAfterTransaction": "Your wallet balance after the transaction:",
     "sendWarning":
       "Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets.",

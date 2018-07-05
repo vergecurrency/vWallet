@@ -1,0 +1,99 @@
+.form-label {
+  color: #476b84;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.form-input {
+  box-shadow: $form-input-box-shadow;
+  border-radius: $form-input-border-radius;
+  border: $form-input-border;
+  color: #6a6a6a;
+  font-size: 12px;
+  height: 35px;
+  padding: 12px;
+}
+
+.form-input::placeholder {
+  color: $form-input-placeholder-color;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.form-input:hover {
+  box-shadow: $form-input-box-shadow-hover;
+}
+
+.form-input:focus {
+  box-shadow: $form-input-box-shadow-focus;
+}
+
+@mixin form-input-help-box {
+  color: #909090;
+  font-size: 9px;
+  font-weight: 100;
+  line-height: 26px;
+  letter-spacing: 0.4px;
+}
+
+.form-input-help {
+  @include form-input-help-box;
+}
+
+.form-input-helpers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include form-input-help-box;
+}
+
+.form-input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.form-input-group > .form-input:not(:first-child) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.form-input-group > .form-input:not(:last-child) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+@mixin form-input-group-div {
+  padding: 0 15px;
+  font-weight: 500;
+  font-size: 11px;
+  color: #5e5e5e;
+  border-radius: $form-input-border-radius;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  align-items: center;
+}
+
+.form-input-group-prepend {
+  @include form-input-group-div;
+
+  border-right: none;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-input-group-append {
+  @include form-input-group-div;
+
+  border-left: none;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.form-separator {
+  border-bottom: $border-bottom;
+  height: 1px;
+  margin-bottom: 12px;
+}

@@ -75,6 +75,7 @@
   },
   "sendPanel": {
     "recipient": "Modtageradresse",
+    "xvgAddress": "XVG Adresse",
     "fundwarning":
       "Sørg for KUN at indtaste en XVG adresse, ellers risikere du transaktionen går tabt.",
     "addressLabel": "Label",
@@ -84,7 +85,7 @@
     "amountInfo": "Transaktionsgebyr, 0.1 XVG",
     "xvgUSD": "XVG i {currency}",
     "balanceXVG": "Beholdning in XVG",
-    "sendButton": "Send",
+    "sendButton": "Send XVG",
     "walletAfterTransaction": "Din XVG beholdning efter transaktionen:",
     "sendWarning":
       "Venligst dobbelttjek at XVG adressen du har indtastet er korrekt. Verge Currency kan ikke holdes ansvarlig for tab af XVG, der går tabt på grund af forkert adresse."

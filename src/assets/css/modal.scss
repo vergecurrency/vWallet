@@ -1,0 +1,31 @@
+$modal-title-font-size: 16px;
+
+$modal-padding-sides: 30px;
+$modal-padding-header: 12px $modal-padding-sides;
+$modal-padding-body: 15px $modal-padding-sides;
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: #003B54;
+  padding: $modal-padding-header;
+}
+
+.modal-header > h5.modal-title {
+  font-size: $modal-title-font-size;
+}
+
+.modal-content {
+  background-color: transparent;
+  border: none;
+  color: white;
+  opacity: 1;
+}
+
+.modal-body {
+  background: #fff;
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: .3em;
+  padding: $modal-padding-body;
+}
