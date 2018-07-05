@@ -106,7 +106,7 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     log.log('Killing verge process')
-    while (!vergeProcess.killed) {
+    while (vergeProcess && !vergeProcess.killed) {
       try {
         process.kill(vergeProcess.pid + 1, 'SIGINT')
       } catch (e) {}
