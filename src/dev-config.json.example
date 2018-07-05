@@ -1,4 +1,10 @@
 {
   "rpcusername": "kyon",
   "rpcpassword": "lolcat"
+
+  "clientDriver": "mock",
+
+  "mockClient": {
+    "transactions": 15
+  }
 }

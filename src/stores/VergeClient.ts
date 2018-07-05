@@ -1,5 +1,6 @@
 import { Client } from 'verge-node-typescript'
-import MockClient from './MockClient'
+import MockClient from '../utils/mockups/MockClient'
+import electronLog from 'electron-log'
 
 const { remote } = require('electron')
 
@@ -12,9 +13,11 @@ let client: Client
 function getClientByDriver(driver: String = '') {
   switch (driver) {
     case 'mock':
+      electronLog.log(`Using Mock Client`)
       return MockClient
     case 'deamon':
     default:
+      electronLog.log(`Using Deamon Client`)
       return Client
   }
 }

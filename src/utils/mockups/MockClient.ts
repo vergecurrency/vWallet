@@ -2,34 +2,8 @@ import { Transaction } from 'verge-node-typescript/dist/Transaction'
 import { Client } from 'verge-node-typescript'
 import { Peer } from 'verge-node-typescript/dist/Peer'
 import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
+import MockWalletInfo from './MockWalletInfo'
 const faker = require('faker')
-
-class Info implements WalletInfo {
-  balance: number
-  blocks: number
-  connections: number
-  difficulty: number
-  difficulty_blake: number
-  difficulty_groestl: number
-  difficulty_lyra2re: number
-  difficulty_scrypt: number
-  difficulty_x17: number
-  errors: string
-  ip: string
-  keypoololdest: number
-  keypoolsize: number
-  moneysupply: number
-  newmint: number
-  paytxfee: number
-  pow_algo: string
-  pow_algo_id: number
-  protocolversion: number
-  proxy: string
-  stake: number
-  testnet: boolean
-  version: string
-  walletversion: number
-}
 
 function generateTransaction() {
   const time = Math.trunc(faker.date.recent(12).getTime() / 1000)
@@ -39,7 +13,7 @@ function generateTransaction() {
     account: 'my account',
     address: faker.finance.bitcoinAddress(),
     category: faker.random.boolean() ? 'receive' : 'send',
-    amount: faker.finance.amount(),
+    amount: 123.456789 * faker.random.number(100, 1),
     confirmations: faker.random.number(),
     blockhash: faker.random.alphaNumeric(64),
     blockindex: faker.random.alphaNumeric(64),
@@ -49,10 +23,8 @@ function generateTransaction() {
   }
 }
 
-const { mockClient: mockClient } = require('../dev-config.json')
-const transactions = Array(mockClient.transactions)
-  .fill(null)
-  .map(() => generateTransaction())
+const { mockClient: mockClient } = require('../../dev-config.json')
+const transactions = Array(mockClient.transactions).fill(null).map(() => generateTransaction())
 
 class MockClient extends Client {
   unlockWallet(passphrase: any, timeout?: number): Promise<boolean> {
@@ -67,7 +39,7 @@ class MockClient extends Client {
   }
   getInfo(): Promise<WalletInfo> {
     return new Promise((respond, reject) => {
-      const walletInfo = new Info()
+      const walletInfo = new MockWalletInfo()
       return respond(walletInfo)
     })
   }
