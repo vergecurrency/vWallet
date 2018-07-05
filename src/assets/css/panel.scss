@@ -7,3 +7,20 @@ $panel-box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
   border-radius: $panel-border-radius;
   margin-bottom: 20px;
 }
+
+.panel-title {
+  color: #013B57;
+  min-height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 21px;
+  border-bottom: $border-bottom;
+  padding: 0 20px;
+  margin: 0 -15px;
+}
+
+.panel-body {
+  width: 100%;
+  padding: 10px 45px;
+}
