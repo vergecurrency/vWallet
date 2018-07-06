@@ -30,6 +30,7 @@ const auth = { pass: generator(), user: generator(), loadingProgress: 0 }
 global.sharedObj = auth
 
 let vergeProcess
+let torProcess
 
 let createProc = processPath => {
   vergeProcess = childProcess.spawn(
@@ -61,12 +62,31 @@ let createProc = processPath => {
   })
 }
 
+let createTorProcess = path => {
+    return childProcess.spawn(
+      path + 'tor/mac/tor',
+      [
+        '-f',
+        'build/tor/torrc'
+      ],
+      {
+        stdio: ['inherit', 'inherit', 'inherit', 'ipc']
+      }
+    )
+}
+
 if (process.env.NODE_ENV === 'dev') {
   log.info('Creating the verge deamon - dev')
   // createProc('./build/VERGEd')
+  log.info('Starting tor...')
+  torProcess = createTorProcess('./build/')
+  log.info('VERGE Process running @ ', torProcess.pid, ' pid')
 } else {
   log.info('Creating the verge deamon - prod')
   createProc(process.resourcesPath + '/VERGEd')
+  log.info('Starting tor...')
+  torProcess = createTorProcess(process.resourcesPath)
+  log.info('VERGE Process running @ ', torProcess.pid, ' pid')
 }
 
 function createWindow() {
@@ -111,6 +131,9 @@ function createWindow() {
         process.kill(vergeProcess.pid + 1, 'SIGINT')
       } catch (e) {}
     }
+
+    log.log('Killing tor process')
+    process.kill(torProcess.pid)
 
     mainWindow = null
   })
