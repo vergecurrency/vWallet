@@ -142,7 +142,8 @@
     "title": "Receive XVG",
     "address": "Deposit Address",
     "generate": "Hit the refresh button to generate a new XVG address",
-    "disclaimer": "Send only XVG to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit.",
+    "disclaimer":
+      "Send only XVG to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit.",
     "addressCopyConfirm": "XVG Address copied!"
   },
   "accountbar": {

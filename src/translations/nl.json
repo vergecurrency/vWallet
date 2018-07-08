@@ -142,7 +142,8 @@
     "title": "Ontvang XVG",
     "address": "Ontvangstadres",
     "generate": "Klik op de herlaad knop om een nieuw XVG adres te genereren",
-    "disclaimer": "Verzend alleen XVG naar dit ontvangstadres. Het verzenden van elke andere munt naar dit adres zal resulteren in het verliezen van munten.",
+    "disclaimer":
+      "Verzend alleen XVG naar dit ontvangstadres. Het verzenden van elke andere munt naar dit adres zal resulteren in het verliezen van munten.",
     "addressCopyConfirm": "XVG adres gekopieerd!"
   },
   "accountbar": {
