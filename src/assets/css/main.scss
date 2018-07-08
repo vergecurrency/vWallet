@@ -3,6 +3,7 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 @import 'variables';
+@import 'animation';
 @import 'fonts';
 @import 'basic';
 @import 'button';
@@ -24,6 +25,8 @@
 @import 'settings-page';
 
 @import 'send-modal';
+@import 'receive-modal';
+@import 'debug-information-modal';
 
 body {
   position: absolute;

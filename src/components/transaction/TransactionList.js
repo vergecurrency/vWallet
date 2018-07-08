@@ -73,7 +73,7 @@ const ReceivedSummary = styled.div`
 
 const Seperator = styled.hr`
   margin: 0px 0px;
-  height: 1px;
+  height: 0px;
 `
 
 class TransactionList extends Component {

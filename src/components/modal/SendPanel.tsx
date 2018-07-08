@@ -56,6 +56,17 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
     return this.props.CoinStatsStore!.priceWithCurrency
   }
 
+  amountChanged(e) {
+    const input = parseFloat(e.target.value) || 0
+    input <= this.getBalance() && input >= 0
+      ? this.setState({ amount: parseFloat(e.target.value) })
+      : null
+  }
+
+  sendMax() {
+    this.setState({ amount: this.props.AccountInformationStore!.getBalance - FEE })
+  }
+
   sendTransaction() {
     const { address, amount } = this.state
     const { AccountInformationStore } = this.props
@@ -109,7 +120,6 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
             i18nReact.translate('sendPanel.xvgAddress') as string
           }
           onChange={e => this.setState({ address: e.target.value })}
-          style={{ width: '100%' }}
         />
         <p className="form-input-help">{i18nReact.translate('sendPanel.fundwarning')}</p>
         <label className="form-label">{i18nReact.translate('sendPanel.addressLabel')}</label>
@@ -120,29 +130,33 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
           }
           value={this.state.label}
           onChange={e => this.setState({ label: e.target.value })}
-          style={{ width: '100%' }}
         />
         <p className="form-input-help">{i18nReact.translate('sendPanel.labelInfo')}</p>
         <label className="form-label">{i18nReact.translate('sendPanel.amount')}</label>
         <div className="form-input-group">
+          <div className="form-input-group-prepend">XVG</div>
+          <div className="form-input-group-max-section">
+            <button
+              className="form-input-group-max-button"
+              type="button"
+              onClick={this.sendMax.bind(this)}
+            >
+              { i18nReact.translate('sendPanel.sendMax') }
+            </button>
+          </div>
           <input
             className="form-input"
             value={this.state.amount}
-            onChange={e => {
-              const input = parseFloat(e.target.value) || 0
-              input <= this.getBalance() && input >= 0
-                ? this.setState({ amount: parseFloat(e.target.value) })
-                : null
-            }}
+            onChange={this.amountChanged.bind(this)}
             placeholder={
               i18nReact.translate('sendPanel.amountplaceholder') as string
             }
             type="number"
-            style={{ width: '100%' }}
           />
-          <div className="form-input-group-append">XVG</div>
         </div>
-        <p className="form-input-helpers">
+        <div className="form-input-helpers" style={{
+          marginBottom: '1rem',
+        }}>
           <div>
             {i18nReact.translate('sendPanel.amountInfo')}
           </div>
@@ -156,7 +170,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
               XVG
             </b>
           </div>
-        </p>
+        </div>
         <div className="form-separator" />
         <div style={{ marginBottom: '20px' }}>
           <Row>
@@ -180,7 +194,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
             </Col>
           </Row>
         </div>
-        <button className="send-button" onClick={() => this.sendTransaction()}>
+        <button className="btn btn-lg" onClick={() => this.sendTransaction()}>
           <Send
             width={22}
             height={22}

@@ -3,11 +3,6 @@
     "receive": "Ontvangen",
     "send": "Verzenden"
   },
-  "receive": {
-    "title": "Ontvang Verge",
-    "generate": "Klik om te genereren",
-    "address": "Genereer adres:"
-  },
   "debug": {
     "types": {
       "General": "Algemeen",
@@ -118,8 +113,7 @@
     "development": "Ontwikkeling",
     "design": "Ontwerp",
     "translation": "Vertaling",
-    "contributorButton":
-      "Bekijk allen die meegewerkt hebben aan deze portemonnee"
+    "contributorButton": "Alle bijdragen"
   },
   "sendPanel": {
     "title": "Verzend XVG",
@@ -141,7 +135,15 @@
     "sending": "De munten aan het verzenden",
     "sent": "De munten zijn verzonden!",
     "amountplaceholder": "Voer een bedrag in",
-    "labelPlaceholder": "Bijvoorbeeld: Adres van Kees"
+    "labelPlaceholder": "Bijvoorbeeld: Adres van Kees",
+    "sendMax": "Verzend Max"
+  },
+  "receivePanel": {
+    "title": "Ontvang XVG",
+    "address": "Ontvangstadres",
+    "generate": "Klik op de herlaad knop om een nieuw XVG adres te genereren",
+    "disclaimer": "Verzend alleen XVG naar dit ontvangstadres. Het verzenden van elke andere munt naar dit adres zal resulteren in het verliezen van munten.",
+    "addressCopyConfirm": "XVG adres gekopieerd!"
   },
   "accountbar": {
     "xvgbalance": "XVG BALANS",

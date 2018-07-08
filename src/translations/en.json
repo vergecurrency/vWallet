@@ -3,11 +3,6 @@
     "receive": "Receive",
     "send": "Send"
   },
-  "receive": {
-    "title": "Receive Verge",
-    "generate": "Press to generate",
-    "address": "Generate Address:"
-  },
   "debug": {
     "types": {
       "General": "General",
@@ -118,7 +113,7 @@
     "development": "Development",
     "design": "Design",
     "translation": "Translation",
-    "contributorButton": "See all Contributor"
+    "contributorButton": "See all contributors"
   },
   "sendPanel": {
     "title": "Send XVG",
@@ -140,7 +135,15 @@
     "sending": "Sending your transaction",
     "sent": "Transaction sent!",
     "amountplaceholder": "Enter amount",
-    "labelPlaceholder": "Example: Johns Wallet Address"
+    "labelPlaceholder": "Example: Johns Wallet Address",
+    "sendMax": "Send Max"
+  },
+  "receivePanel": {
+    "title": "Receive XVG",
+    "address": "Deposit Address",
+    "generate": "Hit the refresh button to generate a new XVG address",
+    "disclaimer": "Send only XVG to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit.",
+    "addressCopyConfirm": "XVG Address copied!"
   },
   "accountbar": {
     "xvgbalance": "XVG BALANCE",

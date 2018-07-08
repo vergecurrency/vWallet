@@ -1,3 +1,7 @@
+$form-input-height: 35px;
+$form-input-padding: 12px;
+$form-input-help-font-size: 0.642rem;
+
 .form-label {
   color: #476b84;
   font-size: 14px;
@@ -11,8 +15,9 @@
   border: $form-input-border;
   color: #6a6a6a;
   font-size: 12px;
-  height: 35px;
-  padding: 12px;
+  height: $form-input-height;
+  width: 100%;
+  padding: $form-input-padding;
 }
 
 .form-input::placeholder {
@@ -29,9 +34,14 @@
   box-shadow: $form-input-box-shadow-focus;
 }
 
+.form-input-invalid {
+  background-color: #fdf6f6;
+  border: 1px solid #deb1b1;
+}
+
 @mixin form-input-help-box {
   color: #909090;
-  font-size: 9px;
+  font-size: $form-input-help-font-size;
   font-weight: 100;
   line-height: 26px;
   letter-spacing: 0.4px;
@@ -46,6 +56,11 @@
   align-items: center;
   justify-content: space-between;
   @include form-input-help-box;
+}
+
+.form-input-help-invalid {
+  color: #cc0000;
+  font-weight: 400;
 }
 
 .form-input-group {
@@ -69,7 +84,9 @@
   padding: 0 15px;
   font-weight: 500;
   font-size: 11px;
+  line-height: 11px;
   color: #5e5e5e;
+  background-color: white;
   border-radius: $form-input-border-radius;
   border: 1px solid #dcdcdc;
   display: flex;
@@ -90,6 +107,35 @@
   border-left: none;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
+}
+
+.form-input-group-max-section {
+  position: absolute;
+  right: 6px;
+  height: $form-input-height;
+  padding: 4px 0;
+}
+
+.form-input-group-max-button {
+  border: none;
+  background: #00b8dc;
+  color: #ffffff;
+  font-size: 12px;
+  border-radius: 0.2rem;
+  padding: 4px 6px;
+  text-transform: capitalize;
+}
+
+.form-input-group-max-button:hover {
+  background: #00a5ca;
+}
+
+.form-input-group-max-button:active {
+  background: #0091b5;
+}
+
+.form-input-group > .form-input-group-append:not(:last-child) {
+  border-radius: 0;
 }
 
 .form-separator {

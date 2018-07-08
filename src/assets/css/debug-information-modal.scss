@@ -1,0 +1,42 @@
+$debug-information-row-font-size: 12px;
+
+.debug-information-section {
+  margin-bottom: 35px;
+}
+
+.debug-information-section:last-child {
+  margin-bottom: 0;
+}
+
+.debug-information-section-title {
+  display: flex;
+  color: #476b84;
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.debug-information-section-title-icon {
+  margin-right: 5px;
+}
+
+.debug-information-row {
+  display: flex;
+  padding: 3px;
+}
+
+.debug-information-row:hover {
+  background-color: #e7e7e7;
+}
+
+.debug-information-row-title {
+  width: 200px;
+  font-size: $debug-information-row-font-size;
+  font-weight: 500;
+}
+
+.debug-information-row-value {
+  font-size: $debug-information-row-font-size;
+  font-weight: 400;
+}
