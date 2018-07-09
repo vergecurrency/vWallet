@@ -1,0 +1,37 @@
+$modal-border-radius: .5rem;
+
+$modal-title-font-size: 16px;
+
+$modal-padding-sides: 30px;
+$modal-padding-header: 12px $modal-padding-sides;
+$modal-padding-body: 15px $modal-padding-sides;
+
+.modal-content {
+  background-color: transparent;
+  border: none;
+  border-radius: $modal-border-radius;
+  color: white;
+  opacity: 1;
+  box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.37);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: #003B54;
+  padding: $modal-padding-header;
+  border-top-left-radius: $modal-border-radius;
+  border-top-right-radius: $modal-border-radius;
+}
+
+.modal-header > h5.modal-title {
+  font-size: $modal-title-font-size;
+}
+
+.modal-body {
+  background: #fff;
+  border-bottom-left-radius: $modal-border-radius;
+  border-bottom-right-radius: $modal-border-radius;
+  padding: $modal-padding-body;
+}

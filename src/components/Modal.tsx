@@ -17,28 +17,7 @@ export default ({ open, toggle, title, children, style }: ModalProps) => (
     centered={true}
     style={{ width: '547px', height: '688px', ...style }}
   >
-    <ModalHeader
-      style={{
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 400,
-        lineHeight: 78,
-        background: '#00b8dc',
-        textAlign: 'center',
-        padding: 'none',
-      }}
-      toggle={toggle}
-    >
-      {title}
-    </ModalHeader>
-    <ModalBody
-      style={{
-        background: '#fff',
-        borderBottomLeftRadius: '.3em',
-        borderBottomRightRadius: '.3em',
-      }}
-    >
-      {children}
-    </ModalBody>
+    <ModalHeader toggle={toggle}>{title}</ModalHeader>
+    <ModalBody>{children}</ModalBody>
   </Modal>
 )

@@ -1,87 +1,13 @@
-import { Col, Container, Row } from 'reactstrap'
+import { Col, Row } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
 
 import Modal from '../Modal'
+import Send from 'react-material-icon-svg/dist/SendIcon'
 import * as React from 'react'
 import i18nReact from 'i18n-react'
-import styledComponents from 'styled-components'
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import { CoinStatsStore } from '../../stores/CoinStatsStore'
 import { SettingsStore } from '../../stores/SettingsStore'
-
-const Title = styledComponents.p`
-  color: #476b84;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 20px;
-`
-
-const SubTitle = styledComponents.p`
-  color: #909090;
-  font-family: 'Avenir Next';
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 30px;
-`
-
-const InputHandler = styledComponents.input`
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.09);
-  border-radius: 3px;
-  border: 1px solid #dcdcdc;
-  color: #9e9e9e;
-  font-size: 14px;
-  font-style: italic;
-  height: 45px;
-  padding: 15px;
-`
-
-const InputContainer = styledComponents.div`
-  display: inline-flex;
-`
-
-const Marker = styledComponents.span`
-  color: #000;
-  position: absolute;
-  left: 423px;
-  height: 43px;
-  padding-top: 11px;
-  bottom: 313px;
-  padding-left: 10px;
-  border-left: 1px solid #dcdcdc;
-  font-weight: 400;
-  color: #5e5e5e;
-`
-
-const BalanceTitle = styledComponents.div`
-  text-shadow: 0 0 73px rgba(255, 255, 255, 0.1);
-  color: #476b84;
-  font-size: 8px;
-  font-weight: 400;
-  line-height: 10.53px;
-  text-transform: uppercase;
-  letter-spacing: 2.12px;
-`
-
-const Balance = styledComponents.div`
-  text-shadow: 0 0 73px rgba(255, 255, 255, 0.1);
-  color: #476b84;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 20.54px;
-`
-
-const SendButton = styledComponents.button`
-  width: 460px;
-  height: 62px;
-  border-radius: 4px;
-  background-color: #00b8dc;
-  border: 0;
-  box-shadow: none;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 29.02px;
-`
 
 const FEE = 0.1
 
@@ -130,6 +56,17 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
     return this.props.CoinStatsStore!.priceWithCurrency
   }
 
+  amountChanged(e) {
+    const input = parseFloat(e.target.value) || 0
+    input <= this.getBalance() && input >= 0
+      ? this.setState({ amount: parseFloat(e.target.value) })
+      : null
+  }
+
+  sendMax() {
+    this.setState({ amount: this.props.AccountInformationStore!.getBalance - FEE })
+  }
+
   sendTransaction() {
     const { address, amount } = this.state
     const { AccountInformationStore } = this.props
@@ -175,108 +112,114 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
         {...props}
         title={i18nReact.translate('sendPanel.title') as string}
       >
-        <Title>{i18nReact.translate('sendPanel.recipient')}</Title>
-        <InputContainer>
-          <InputHandler
-            value={this.state.address}
-            name="address"
-            id="passpharse"
-            placeholder="Verge Address"
-            onChange={e => this.setState({ address: e.target.value })}
-            style={{ width: '460px' }}
-          />
-        </InputContainer>
-        <SubTitle>{i18nReact.translate('sendPanel.fundwarning')}</SubTitle>
-        <Title>{i18nReact.translate('sendPanel.addressLabel')}</Title>
-        <InputHandler
+        <label className="form-label">{i18nReact.translate('sendPanel.recipient')}</label>
+        <input
+          className="form-input"
+          value={this.state.address}
+          placeholder={
+            i18nReact.translate('sendPanel.xvgAddress') as string
+          }
+          onChange={e => this.setState({ address: e.target.value })}
+        />
+        <p className="form-input-help">{i18nReact.translate('sendPanel.fundwarning')}</p>
+        <label className="form-label">{i18nReact.translate('sendPanel.addressLabel')}</label>
+        <input
+          className="form-input"
           placeholder={
             i18nReact.translate('sendPanel.labelPlaceholder') as string
           }
           value={this.state.label}
           onChange={e => this.setState({ label: e.target.value })}
-          style={{ width: '460px' }}
         />
-        <SubTitle>{i18nReact.translate('sendPanel.labelInfo')}</SubTitle>
-        <Title>{i18nReact.translate('sendPanel.amount')}</Title>
-        <InputHandler
-          value={this.state.amount}
-          onChange={e => {
-            const input = parseFloat(e.target.value) || 0
-            input <= this.getBalance() && input >= 0
-              ? this.setState({ amount: parseFloat(e.target.value) })
-              : null
-          }}
-          placeholder={
-            i18nReact.translate('sendPanel.amountplaceholder') as string
-          }
-          type="number"
-          style={{ width: '460px' }}
-        />
-        <Marker>XVG</Marker>
-        <SubTitle>{i18nReact.translate('sendPanel.amountInfo')}</SubTitle>
-        <hr />
-        <Container style={{ marginBottom: '20px' }}>
+        <p className="form-input-help">{i18nReact.translate('sendPanel.labelInfo')}</p>
+        <label className="form-label">{i18nReact.translate('sendPanel.amount')}</label>
+        <div className="form-input-group">
+          <div className="form-input-group-prepend">XVG</div>
+          <div className="form-input-group-max-section">
+            <button
+              className="form-input-group-max-button"
+              type="button"
+              onClick={this.sendMax.bind(this)}
+            >
+              { i18nReact.translate('sendPanel.sendMax') }
+            </button>
+          </div>
+          <input
+            className="form-input"
+            value={this.state.amount}
+            onChange={this.amountChanged.bind(this)}
+            placeholder={
+              i18nReact.translate('sendPanel.amountplaceholder') as string
+            }
+            type="number"
+          />
+        </div>
+        <div className="form-input-helpers" style={{
+          marginBottom: '1rem',
+        }}>
+          <div>
+            {i18nReact.translate('sendPanel.amountInfo')}
+          </div>
+          <div>
+            {i18nReact.translate('sendPanel.walletAfterTransaction')}
+            {' '}
+            <b>
+              {(this.getBalance() - this.state.amount - FEE).toLocaleString(
+                this.getLocaleId(),
+              )}{' '}
+              XVG
+            </b>
+          </div>
+        </div>
+        <div className="form-separator" />
+        <div style={{ marginBottom: '20px' }}>
           <Row>
             <Col md="5">
-              <BalanceTitle>
+              <div className="balance-title">
                 {i18nReact.translate('sendPanel.xvgUSD')}
-              </BalanceTitle>
-              <Balance>
+              </div>
+              <div className="balance-value">
                 ${(this.getBalance() * this.getPrice()).toLocaleString(
-                  this.getLocaleId(),
-                )}
-              </Balance>
+                this.getLocaleId(),
+              )}
+              </div>
             </Col>
             <Col md="7">
-              <BalanceTitle>
+              <div className="balance-title">
                 {i18nReact.translate('sendPanel.balanceXVG')}
-              </BalanceTitle>
-              <Balance>
+              </div>
+              <div className="balance-value">
                 {this.getBalance().toLocaleString(this.getLocaleId())} XVG
-              </Balance>
+              </div>
             </Col>
           </Row>
-        </Container>
-        <SendButton onClick={() => this.sendTransaction()}>
+        </div>
+        <button className="btn btn-lg" onClick={() => this.sendTransaction()}>
+          <Send
+            width={22}
+            height={22}
+            style={{ fill: '#fff', marginRight: '5px' }}
+          />
           {this.state.status === SendState.OPEN &&
-            `${i18nReact.translate('sendPanel.sendButton')}${' '}
+          `${i18nReact.translate('sendPanel.sendButton')}${' '}
           ${
             this.state.amount
               ? `${this.state.amount.toLocaleString(
-                  this.getLocaleId(),
-                )} XVG ($${(this.state.amount * this.getPrice()).toLocaleString(
-                  this.getLocaleId(),
-                )}) + ${FEE.toLocaleString(this.getLocaleId())} XVG Fee`
+              this.getLocaleId(),
+              )} XVG ($${(this.state.amount * this.getPrice()).toLocaleString(
+              this.getLocaleId(),
+              )}) + ${FEE.toLocaleString(this.getLocaleId())} XVG Fee`
               : ''
-          }`}
+            }`}
           {this.state.status === SendState.SENDING &&
-            i18nReact.translate('sendPanel.sending')}
+          i18nReact.translate('sendPanel.sending')}
           {this.state.status === SendState.ERROR && this.state.error}
           {this.state.status === SendState.DONE &&
-            i18nReact.translate('sendPanel.sent')}
-        </SendButton>
-
-        <SubTitle style={{ textAlign: 'center', color: '#476b84' }}>
-          {i18nReact.translate('sendPanel.walletAfterTransaction')}
-          <b>
-            {(this.getBalance() - this.state.amount - FEE).toLocaleString(
-              this.getLocaleId(),
-            )}{' '}
-            XVG
-          </b>
-        </SubTitle>
-        <hr />
-        <SubTitle
-          style={{
-            textAlign: 'center',
-            marginTop: '20px',
-            fontSize: '12px',
-            fontWeight: 400,
-            lineHeight: '19px',
-          }}
-        >
+          i18nReact.translate('sendPanel.sent')}
+        </button>
+        <p className="form-input-help send-disclaimer">
           {i18nReact.translate('sendPanel.sendWarning')}
-        </SubTitle>
+        </p>
       </Modal>
     )
   }

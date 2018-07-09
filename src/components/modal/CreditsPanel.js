@@ -14,15 +14,15 @@ const centerStyle = css`
 
 const TitleItem = styled.span`
   color: #476b84;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
 `
 
 const NameItem = styled.div`
   color: #647e90;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1.5em;
+  line-height: 2em;
 `
 
 const CenterContainer = styled.div`
@@ -30,18 +30,20 @@ const CenterContainer = styled.div`
 `
 
 const ContributorButton = styled.button`
-  ${centerStyle} width: 253px;
-  height: 62px;
+  ${centerStyle} 
+  width: 223px;
+  height: 44px;
   border-radius: 4px;
   background-color: #25292e;
   border: 0;
   box-shadow: none;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 29.02px;
   text-align: center;
-  margin-top: 35px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 `
 
 const GithubImage = styled.img`
@@ -53,30 +55,29 @@ const GithubImage = styled.img`
 
 const CreditsPanel = props => (
   <Modal {...props} title="Credits">
-    <Row>
-      <Col md="6">
+    <Row style={{ marginBottom: '10px' }}>
+      <Col md="3">
         <TitleItem>{T.translate('credits.development')}</TitleItem>
       </Col>
-      <Col md="6">
+      <Col md="9">
         <NameItem>Justin, @justinvendetta</NameItem>
         <NameItem>Marvin, @marpme_</NameItem>
+        <NameItem>Swen, @swenvanzanten</NameItem>
       </Col>
     </Row>
-    <hr />
-    <Row>
-      <Col md="6">
+    <Row style={{ marginBottom: '10px' }}>
+      <Col md="3">
         <TitleItem>{T.translate('credits.design')}</TitleItem>
       </Col>
-      <Col md="6">
+      <Col md="9">
         <NameItem>Hassan, @waveon3</NameItem>
       </Col>
     </Row>
-    <hr />
     <Row>
-      <Col md="6">
+      <Col md="3">
         <TitleItem>{T.translate('credits.translation')}</TitleItem>
       </Col>
-      <Col md="6">
+      <Col md="9">
         <NameItem>Marvin, @marpme_ (English/German)</NameItem>
       </Col>
     </Row>
