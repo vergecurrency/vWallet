@@ -17,9 +17,15 @@ class ReceivePanel extends React.Component<{
     address: string
     addressCopied: boolean
   } = {
-    isLoadingAddress: false,
-    address: '',
-    addressCopied: false,
+      isLoadingAddress: false,
+      address: '',
+      addressCopied: false,
+    }
+
+  constructor(props) {
+    super(props)
+
+    this.createNewAddress()
   }
 
   createNewAddress() {
@@ -66,7 +72,7 @@ class ReceivePanel extends React.Component<{
             {this.state.addressCopied &&
               <div className="receive-address-copied-panel animation-fade">
                 <div className="receive-address-copied-check">
-                  <i className="fas fa-check fa-3x"/>
+                  <i className="fas fa-check fa-3x" />
                 </div>
                 <div className="receive-address-copied-label">
                   {i18nReact.translate('receivePanel.addressCopyConfirm')}
@@ -79,7 +85,7 @@ class ReceivePanel extends React.Component<{
             <div className="form-input-group">
               <input
                 className="form-input"
-                onChange={() => {}}
+                onChange={() => { }}
                 value={this.state.address}
               />
               <button
@@ -88,7 +94,7 @@ class ReceivePanel extends React.Component<{
                 onClick={
                   !this.state.isLoadingAddress
                     ? () => this.createNewAddress()
-                    : () => {}
+                    : () => { }
                 }
               >
                 <i
@@ -98,13 +104,13 @@ class ReceivePanel extends React.Component<{
                 />
               </button>
               <button className="form-input-group-append" onClick={this.copyAddress.bind(this)}>
-                <i className="fas fa-copy"/>
+                <i className="fas fa-copy" />
               </button>
             </div>
-            <p className="form-input-help">{ i18nReact.translate('receivePanel.generate') }</p>
+            <p className="form-input-help">{i18nReact.translate('receivePanel.generate')}</p>
             <div className="form-separator" />
             <p className="form-input-help send-disclaimer">
-              { i18nReact.translate('receivePanel.disclaimer') }
+              {i18nReact.translate('receivePanel.disclaimer')}
             </p>
           </div>
         </div>
