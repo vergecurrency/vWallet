@@ -1,8 +1,8 @@
 import React from 'react'
 import { TitleBar } from 'electron-react-titlebar'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from '../assets/images/verge-logo-white.png'
+import { platform } from 'os'
 
 const Background = styled.div`
   background-color: #07121b;
@@ -12,7 +12,7 @@ const Background = styled.div`
     #0c1b27 48%,
     #07121b 100%
   );
-  height: 740px;
+  height: 100%;
   text-align: center;
   align-content: center;
   align-items: center;
@@ -21,8 +21,9 @@ const Background = styled.div`
 
 const Title = styled.p`
   color: #fcf1eb;
-  font-size: 110px;
-  font-weight: 400;
+  font-size: 90px;
+  font-weight: 500;
+  line-height: 70%;
   /* Text style for "Hello" */
   color: #00b8dc;
 `
@@ -37,8 +38,8 @@ const SmallTitle = styled.p`
 
 const SubTitle = styled.p`
   color: #fcf1eb;
-  font-size: 43px;
-  font-weight: 500;
+  font-size: 35px;
+  font-weight: 400;
   margin-bottom: 45px;
 `
 
@@ -58,8 +59,8 @@ const BackLink = styled.div`
 
 export default ({ title, subtitle, small, component, history, ...props }) => {
   return (
-    <div>
-      <TitleBar disableMaximize={true} menu={[]} />
+    <div style={{ height: '100%' }}>
+      <TitleBar menu={[]} className={platform()} />
       <Background>
         {!small ? <Title>{title}</Title> : <SmallTitle>{title}</SmallTitle>}
         <SubTitle>{subtitle}</SubTitle>
