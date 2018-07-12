@@ -4,7 +4,7 @@ import Step from './Step'
 import { Link } from 'react-router-dom'
 import { shell } from 'electron'
 
-const LinkInfo = styled.div`    
+const LinkInfo = styled.div`
   color: #456884;
   font-size: 14px;
   font-weight: 400;

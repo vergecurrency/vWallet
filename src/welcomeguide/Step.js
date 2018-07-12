@@ -24,23 +24,31 @@ const STEP_LINKS = [
   {
     link: '/finalize',
     returnable: false,
-  }
+  },
 ]
 
-const createProgressSteps = (step) => {
+const createProgressSteps = step => {
   return STEP_LINKS.map((item, index) => {
     let selectedStep = STEP_LINKS.find(x => x.link === step)
     let selectedStepIndex = STEP_LINKS.findIndex(x => x.link === step)
-    let progressCircle = <div className={'tour-progress-circle ' + ((step === item.link) ? 'active' : '')}/>
+    let progressCircle = (
+      <div
+        className={
+          'tour-progress-circle ' + (step === item.link ? 'active' : '')
+        }
+      />
+    )
 
     return (
       <div key={item.link}>
-        {index < selectedStepIndex && selectedStep.returnable &&
-          <Link to={item.link}>{progressCircle}</Link>
-        }
-        {index < selectedStepIndex && ! selectedStep.returnable &&
-          <div className="tour-progress-circle-done">{progressCircle}</div>
-        }
+        {index < selectedStepIndex &&
+          selectedStep.returnable && (
+            <Link to={item.link}>{progressCircle}</Link>
+          )}
+        {index < selectedStepIndex &&
+          !selectedStep.returnable && (
+            <div className="tour-progress-circle-done">{progressCircle}</div>
+          )}
         {index >= selectedStepIndex && progressCircle}
       </div>
     )
@@ -52,19 +60,15 @@ export default ({ title, subtitle, small, component, step, ...props }) => {
     <div style={{ height: '100%' }}>
       <TitleBar menu={[]} className={platform()} />
       <div className="tour-background">
-        {title &&
+        {title && (
           <p className={!small ? 'tour-title' : 'tour-title-small'}>{title}</p>
-        }
-        {subtitle &&
-          <p className="tour-subtitle">{subtitle}</p>
-        }
+        )}
+        {subtitle && <p className="tour-subtitle">{subtitle}</p>}
         {props.children}
         <div className="tour-verge-logo">
           <img src={logo} width="125px" />
         </div>
-        <div className="tour-progress">
-          { createProgressSteps(step) }
-        </div>
+        <div className="tour-progress">{createProgressSteps(step)}</div>
       </div>
     </div>
   )

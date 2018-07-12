@@ -12,7 +12,11 @@ const title = () => {
 
 export default props => {
   return (
-    <Step title={title()} subtitle={'Lets set up your XVG wallet.'} step="/welcome">
+    <Step
+      title={title()}
+      subtitle={'Lets set up your XVG wallet.'}
+      step="/welcome"
+    >
       <div>
         <Link to="/wallet/create">
           <button className="tour-primary-button">Create new wallet</button>
