@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { inject, observer } from 'mobx-react'
+import { inject } from 'mobx-react'
 
 import LoadingRoot from './loading/LoadingRoot'
 import MainRoute from './mainRoute'
@@ -18,4 +18,4 @@ class ReRouter extends React.Component<{ SetupStore: SetupStore }> {
   }
 }
 
-export default inject('SetupStore')(observer(ReRouter))
+export default inject('SetupStore')(ReRouter)

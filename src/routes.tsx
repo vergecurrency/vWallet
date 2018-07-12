@@ -8,8 +8,8 @@ import { Router } from 'react-router-dom'
 import SettingsStore from './stores/SettingsStore'
 import SetupStore from './stores/SetupStore'
 import TransactionStore from './stores/TransactionStore'
-import VergeProvider from './VergeProvider'
 import { createHashHistory } from 'history'
+import { ThemeProvider } from 'styled-components'
 
 document.addEventListener('dragover', event => event.preventDefault())
 document.addEventListener('drop', event => event.preventDefault())
@@ -23,11 +23,11 @@ const Routes = (props: any) => (
       CoinStatsStore={CoinStatsStore}
       SetupStore={SetupStore}
     >
-      <VergeProvider>
+      <ThemeProvider theme={{ light: !SettingsStore.getDarkTheme }}>
         <div>
           <ReRouter {...props} />
         </div>
-      </VergeProvider>
+      </ThemeProvider>
     </Provider>
   </Router>
 )
