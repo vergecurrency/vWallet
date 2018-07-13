@@ -1,78 +1,75 @@
 import React from 'react'
 import { TitleBar } from 'electron-react-titlebar'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import logo from '../assets/images/verge-logo-white.png'
+import { Link } from 'react-router-dom'
+import { platform } from 'os'
 
-const Background = styled.div`
-  background-color: #07121b;
-  background-image: linear-gradient(
-    38deg,
-    #07121b 0%,
-    #0c1b27 48%,
-    #07121b 100%
-  );
-  height: 740px;
-  text-align: center;
-  align-content: center;
-  align-items: center;
-  display: grid;
-`
+const STEP_LINKS = [
+  {
+    link: '/welcome',
+    returnable: true,
+  },
+  {
+    link: '/wallet/create',
+    returnable: true,
+  },
+  {
+    link: '/wallet/create/confirm',
+    returnable: true,
+  },
+  {
+    link: '/buyhelp',
+    returnable: false,
+  },
+  {
+    link: '/finalize',
+    returnable: false,
+  },
+]
 
-const Title = styled.p`
-  color: #fcf1eb;
-  font-size: 110px;
-  font-weight: 400;
-  /* Text style for "Hello" */
-  color: #00b8dc;
-`
+const createProgressSteps = step => {
+  return STEP_LINKS.map((item, index) => {
+    let selectedStep = STEP_LINKS.find(x => x.link === step)
+    let selectedStepIndex = STEP_LINKS.findIndex(x => x.link === step)
+    let progressCircle = (
+      <div
+        className={
+          'tour-progress-circle ' + (step === item.link ? 'active' : '')
+        }
+      />
+    )
 
-const SmallTitle = styled.p`
-  height: 61px;
-  color: #ffffff;
-  font-size: 60px;
-  font-weight: 400;
-  margin-bottom: 40px;
-`
+    return (
+      <div key={item.link}>
+        {index < selectedStepIndex &&
+          selectedStep.returnable && (
+            <Link to={item.link}>{progressCircle}</Link>
+          )}
+        {index < selectedStepIndex &&
+          !selectedStep.returnable && (
+            <div className="tour-progress-circle-done">{progressCircle}</div>
+          )}
+        {index >= selectedStepIndex && progressCircle}
+      </div>
+    )
+  })
+}
 
-const SubTitle = styled.p`
-  color: #fcf1eb;
-  font-size: 43px;
-  font-weight: 500;
-  margin-bottom: 45px;
-`
-
-const LogoFix = styled.div`
-  position: fixed;
-  bottom: 40px;
-  left: 60px;
-  color: #fff;
-`
-
-const BackLink = styled.div`
-  position: fixed;
-  bottom: 40px;
-  right: 60px;
-  color: #fff;
-`
-
-export default ({ title, subtitle, small, component, history, ...props }) => {
+export default ({ title, subtitle, small, component, step, ...props }) => {
   return (
-    <div>
-      <TitleBar disableMaximize={true} menu={[]} />
-      <Background>
-        {!small ? <Title>{title}</Title> : <SmallTitle>{title}</SmallTitle>}
-        <SubTitle>{subtitle}</SubTitle>
+    <div style={{ height: '100%' }}>
+      <TitleBar menu={[]} className={platform()} />
+      <div className="tour-background">
+        {title && (
+          <p className={!small ? 'tour-title' : 'tour-title-small'}>{title}</p>
+        )}
+        {subtitle && <p className="tour-subtitle">{subtitle}</p>}
         {props.children}
-        <LogoFix>
+        <div className="tour-verge-logo">
           <img src={logo} width="125px" />
-        </LogoFix>
-        {history ? (
-          <BackLink>
-            <a onClick={() => history.goBack()}>{'< Back'}</a>
-          </BackLink>
-        ) : null}
-      </Background>
+        </div>
+        <div className="tour-progress">{createProgressSteps(step)}</div>
+      </div>
     </div>
   )
 }

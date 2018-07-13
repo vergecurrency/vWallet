@@ -6,8 +6,6 @@ import App from './containers/App'
 import HomePage from './containers/HomePage'
 import SettingsPage from './containers/SettingsPage'
 
-const RedirectHome = () => <Redirect to="/" />
-
 const WrapWithApp = Site => {
   const AppWrapper = () => (
     <App>
@@ -22,7 +20,7 @@ const MainRoute = () => (
   <Switch>
     <Route exact path="/" component={WrapWithApp(HomePage)} />
     <Route exact path="/settings" component={WrapWithApp(SettingsPage)} />
-    <Route component={WrapWithApp(RedirectHome)} />
+    <Redirect to="/" />
   </Switch>
 )
 

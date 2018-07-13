@@ -1,0 +1,135 @@
+.tour-background {
+  background-color: #07121b;
+  background-image: linear-gradient(
+                  38deg,
+                  #07121b 0%,
+                  #0c1b27 48%,
+                  #07121b 100%
+  );
+  height: 100%;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  display: grid;
+}
+
+.tour-title {
+  color: #00b8dc;
+  font-size: 90px;
+  font-weight: 500;
+  line-height: 70%;
+}
+
+.tour-title-small {
+  color: #ffffff;
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.tour-subtitle {
+  color: #fcf1eb;
+  font-size: 35px;
+  font-weight: 400;
+  margin-bottom: 45px;
+}
+
+.tour-verge-logo {
+  position: fixed;
+  bottom: 40px;
+  left: 60px;
+  color: #fff;
+}
+
+.tour-input {
+  width: 600px;
+  height: 78px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: $form-input-color;
+  font-size: 28px;
+  font-style: italic;
+  line-height: 78px;
+  padding: 30px 40px;
+  margin-right: 30px;
+}
+
+.tour-input::placeholder {
+  color: $form-input-placeholder-color;
+}
+
+.tour-primary-button {
+  border-radius: 4px;
+  background-color: #00b8dc;
+  box-shadow: none;
+  color: #fff;
+  border: none;
+  width: 374px;
+  height: 72px;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 33.78px;
+  margin-right: 50px;
+}
+
+.tour-secondary-button {
+  border-radius: 4px;
+  border: 3px solid #ffffff;
+  background-color: transparent;
+  box-shadow: none;
+  color: #fff;
+  width: 374px;
+  height: 72px;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 33.78px;
+}
+
+.tour-progress {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  display: grid;
+  grid-gap: 14px;
+  grid-template-columns: repeat(5, auto);
+}
+
+a > .tour-progress-circle {
+  cursor: pointer;
+  background-color: #122638;
+}
+
+.tour-progress-circle {
+  background-color: #0B1A27;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: 1px solid #253b4e;
+}
+
+.tour-progress-circle.active {
+  background-color: #00B7DB;
+  border-color: #00B7DB;
+}
+
+.tour-progress-circle-done > .tour-progress-circle {
+  border: 1px solid #182733;
+  background-color: #182733;
+}
+
+.tour-animation-container {
+  margin-top: -100px;
+}
+
+.tour-animation-img {
+  width: 500px;
+  height: auto;
+}
+
+.tour-animation-title {
+  color: #fcf1eb;
+  font-weight: 400;
+  font-size: 45px;
+  margin-top: -50px;
+}

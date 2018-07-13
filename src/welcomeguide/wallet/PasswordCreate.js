@@ -16,7 +16,7 @@ const NewButton = styled.button`
   border: none;
   height: 78px;
   font-size: 27px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 33.78px;
 `
 
@@ -33,32 +33,18 @@ const DisabledButton = styled.button`
   line-height: 33.78px;
 `
 
-const PasswordField = styled.input`
-  width: 600px;
-  height: 78px;
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: #9ba8ab;
-  font-family: 'Avenir Next';
-  font-size: 28px;
-  font-style: italic;
-  line-height: 78px;
-  padding-left: 40px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  margin-right: 30px;
-`
-
 const PasswordHelper = styled.div`
   display: flex;
-  margin-left: 190px;
+  align-items: flex-end;
+  justify-content: center;
   margin-top: 30px;
 `
 
 const Tip = styled.span`
   color: #506f89;
-  font-size: 16px;
+  font-size: 13px;
   font-style: italic;
+  font-weight: 100;
   margin-left: 11px;
   margin-right: 30px;
 `
@@ -72,9 +58,9 @@ const checkForSpecial = pass =>
 
 const checkedOrNot = (func, pass) =>
   func(pass) ? (
-    <CheckCircle width="24px" height="24px" />
+    <CheckCircle width="20px" height="20px" />
   ) : (
-    <CrossCircle width="24px" height="24px" />
+    <CrossCircle width="20px" height="20px" />
   )
 
 export default class PasswordCreate extends Component {
@@ -94,10 +80,11 @@ export default class PasswordCreate extends Component {
         title={'Create a password.'}
         subtitle={'Choose a password to secure your wallet.'}
         small
-        history={this.props.history}
+        step="/wallet/create"
       >
         <div>
-          <PasswordField
+          <input
+            className="tour-input"
             type="password"
             placeholder="Enter a strong password"
             value={this.state.password}
@@ -115,15 +102,15 @@ export default class PasswordCreate extends Component {
                 },
               }}
             >
-              <NewButton>Contiune</NewButton>
+              <NewButton>Continue</NewButton>
             </Link>
           ) : (
-            <DisabledButton>Contiune</DisabledButton>
+            <DisabledButton>Continue</DisabledButton>
           )}
         </div>
         <PasswordHelper>
           {checkedOrNot(checkLength, this.state.password)}
-          <Tip>min. 8 characters</Tip>
+          <Tip>Min. 8 characters</Tip>
           {checkedOrNot(checkUpperLowerCase, this.state.password)}
           <Tip>Uppercase and lowercase characters</Tip>
           {checkedOrNot(checkForSpecial, this.state.password)}
