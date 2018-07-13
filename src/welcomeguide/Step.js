@@ -1,75 +1,90 @@
 import React from 'react'
 import { TitleBar } from 'electron-react-titlebar'
 import logo from '../assets/images/verge-logo-white.png'
-import { Link } from 'react-router-dom'
+import createProgressSteps from './ProgressBar'
 import { platform } from 'os'
+import { observer, inject } from 'mobx-react'
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from 'reactstrap'
+import locales from '../translations/locales'
 
-const STEP_LINKS = [
-  {
-    link: '/welcome',
-    returnable: true,
-  },
-  {
-    link: '/wallet/create',
-    returnable: true,
-  },
-  {
-    link: '/wallet/create/confirm',
-    returnable: true,
-  },
-  {
-    link: '/buyhelp',
-    returnable: false,
-  },
-  {
-    link: '/finalize',
-    returnable: false,
-  },
-]
+class Step extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      dropdownOpen: false,
+    }
+  }
 
-const createProgressSteps = step => {
-  return STEP_LINKS.map((item, index) => {
-    let selectedStep = STEP_LINKS.find(x => x.link === step)
-    let selectedStepIndex = STEP_LINKS.findIndex(x => x.link === step)
-    let progressCircle = (
-      <div
-        className={
-          'tour-progress-circle ' + (step === item.link ? 'active' : '')
-        }
-      />
-    )
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    })
+  }
+
+  render() {
+    const {
+      SettingsStore,
+      title,
+      subtitle,
+      small,
+      component,
+      step,
+      ...props
+    } = this.props
 
     return (
-      <div key={item.link}>
-        {index < selectedStepIndex &&
-          selectedStep.returnable && (
-            <Link to={item.link}>{progressCircle}</Link>
+      <div style={{ height: '100%' }}>
+        <TitleBar menu={[]} className={platform()} />
+        <div className="tour-background">
+          <div className="language-switch">
+            <Dropdown
+              isOpen={this.state.dropdownOpen}
+              toggle={this.toggle.bind(this)}
+            >
+              <DropdownToggle caret>
+                {SettingsStore.getLocaleId.toUpperCase()}
+              </DropdownToggle>
+              <DropdownMenu>
+                {locales.map(locale => (
+                  <DropdownItem
+                    key={locale.localeId}
+                    onClick={() => {
+                      SettingsStore.setSettingOption({
+                        key: 'name',
+                        value: locale.name,
+                      })
+                      SettingsStore.setSettingOption({
+                        key: 'localeId',
+                        value: locale.localeId,
+                      })
+                    }}
+                  >
+                    {locale.localeId.toUpperCase()}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          {title && (
+            <p className={!small ? 'tour-title' : 'tour-title-small'}>
+              {title}
+            </p>
           )}
-        {index < selectedStepIndex &&
-          !selectedStep.returnable && (
-            <div className="tour-progress-circle-done">{progressCircle}</div>
-          )}
-        {index >= selectedStepIndex && progressCircle}
+          {subtitle && <p className="tour-subtitle">{subtitle}</p>}
+          {props.children}
+          <div className="tour-verge-logo">
+            <img src={logo} width="125px" />
+          </div>
+          <div className="tour-progress">{createProgressSteps(step)}</div>
+        </div>
       </div>
     )
-  })
+  }
 }
 
-export default ({ title, subtitle, small, component, step, ...props }) => {
-  return (
-    <div style={{ height: '100%' }}>
-      <TitleBar menu={[]} className={platform()} />
-      <div className="tour-background">
-        {title && (
-          <p className={!small ? 'tour-title' : 'tour-title-small'}>{title}</p>
-        )}
-        {subtitle && <p className="tour-subtitle">{subtitle}</p>}
-        {props.children}
-        <div className="tour-verge-logo">
-          <img src={logo} width="125px" />
-        </div>
-        <div className="tour-progress">{createProgressSteps(step)}</div>
-      </div>
-    </div>
-  )
-}
+export default inject('SettingsStore')(observer(Step))

@@ -186,6 +186,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "@types/prop-types": "^15.5.3",
     "@types/react-dom": "^16.0.5",
     "@types/react-toastify": "^4.0.0",
     "@types/reactstrap": "^5.0.27",
@@ -208,6 +209,7 @@
     "mobx": "^4.2.0",
     "mobx-react": "^5.0.0",
     "moment": "^2.22.1",
+    "prop-types": "^15.6.2",
     "qrcode.react": "^0.8.0",
     "react": "^16.2.0",
     "react-animations": "^1.0.0",

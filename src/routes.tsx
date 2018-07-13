@@ -10,6 +10,7 @@ import SetupStore from './stores/SetupStore'
 import TransactionStore from './stores/TransactionStore'
 import { createHashHistory } from 'history'
 import { ThemeProvider } from 'styled-components'
+import LanguageProvider from './LanguageProvider'
 
 document.addEventListener('dragover', event => event.preventDefault())
 document.addEventListener('drop', event => event.preventDefault())
@@ -24,9 +25,9 @@ const Routes = (props: any) => (
       SetupStore={SetupStore}
     >
       <ThemeProvider theme={{ light: !SettingsStore.getDarkTheme }}>
-        <div>
+        <LanguageProvider>
           <ReRouter {...props} />
-        </div>
+        </LanguageProvider>
       </ThemeProvider>
     </Provider>
   </Router>

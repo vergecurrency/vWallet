@@ -1,4 +1,9 @@
 {
+  "tour": {
+    "welcome": {
+      "hello": "Hello"
+    }
+  },
   "account-bar": {
     "receive": "Receive",
     "send": "Send"

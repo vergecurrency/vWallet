@@ -7,27 +7,8 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
-
+import locales from '../../../translations/locales'
 import i18nReact from 'i18n-react'
-
-const locales = [
-  {
-    name: 'German',
-    localeId: 'de',
-  },
-  {
-    name: 'English',
-    localeId: 'en',
-  },
-  {
-    name: 'Dansk',
-    localeId: 'da',
-  },
-  {
-    name: 'Nederlands',
-    localeId: 'nl',
-  },
-]
 
 class RegionSetting extends React.Component<any, { dropdownOpen: boolean }> {
   constructor(props) {
