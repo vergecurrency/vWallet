@@ -21,7 +21,10 @@ export class TransactionStore {
   transactions: Map<string, TransactionView> = new Map()
   loadingFinished: boolean = false
   search: string = ''
-  receivedTransactions: boolean = VergeCacheStore.get('receivedTransactions', false)
+  receivedTransactions: boolean = VergeCacheStore.get(
+    'receivedTransactions',
+    false,
+  )
 
   constructor() {
     // Force no transactions shown...
