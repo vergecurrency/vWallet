@@ -34,8 +34,8 @@
   "transaction": {
     "noTransactionsTitle": "No transactions received yet",
     "noTransactionsSubtitle": "Open the {buyGuide} or {receive}",
-    "buyXvgGuide": "Buy XVG Guide",
-    "receiveXvg": "Receive XVG",
+    "buyXvgGuide": "buy XVG guide",
+    "receiveXvg": "receive XVG",
     "list": "Transaction List",
     "summary": "Summary for",
     "loading": "Loading ...",
