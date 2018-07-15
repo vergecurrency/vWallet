@@ -129,14 +129,16 @@
     "xvgUSD": "XVG in {currency}",
     "balanceXVG": "Balance in XVG",
     "sendButton": "Send XVG",
-    "walletAfterTransaction": "Your wallet balance after the transaction:",
+    "walletAfterTransaction": "Balance after transaction:",
     "sendWarning":
       "Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets.",
     "sending": "Sending your transaction",
     "sent": "Transaction sent!",
     "amountplaceholder": "Enter amount",
     "labelPlaceholder": "Example: Johns Wallet Address",
-    "sendMax": "Send Max"
+    "sendMax": "Send Max",
+    "notEnoughBalance": "Not enough balance",
+    "notEnoughBalanceDescription": "You do not have enough balance to send any XVG.\nPlease increase you're balance."
   },
   "receivePanel": {
     "title": "Receive XVG",

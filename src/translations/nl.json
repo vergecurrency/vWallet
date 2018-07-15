@@ -129,14 +129,16 @@
     "xvgUSD": "XVG in {currency}",
     "balanceXVG": "Balans in XVG",
     "sendButton": "Verzend XVG",
-    "walletAfterTransaction": "Je portemonnee balans na de transactie:",
+    "walletAfterTransaction": "Balans na transactie:",
     "sendWarning":
       "Controleer het adres goed. Verge Currency kan niet aanspraakelijk worden gehouden voor verloren munten",
     "sending": "De munten aan het verzenden",
     "sent": "De munten zijn verzonden!",
     "amountplaceholder": "Voer een bedrag in",
     "labelPlaceholder": "Bijvoorbeeld: Adres van Kees",
-    "sendMax": "Verzend Max"
+    "sendMax": "Verzend Max",
+    "notEnoughBalance": "Saldo te laag",
+    "notEnoughBalanceDescription": "U heeft niet genoeg saldo om XVG te verzenden.\nVerhoog alstublieft uw saldo."
   },
   "receivePanel": {
     "title": "Ontvang XVG",
