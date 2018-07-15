@@ -6,7 +6,7 @@ import styled, { keyframes } from 'styled-components'
 import { CoinStatsStore } from '../stores/CoinStatsStore'
 import Loading from '../icons/Loading'
 import { SettingsStore } from '../stores/SettingsStore'
-import T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import { fadeIn } from 'react-animations'
 import PriceUpdater from '../components/PriceUpdater'
 import ChartLine from 'react-material-icon-svg/dist/ChartLineIcon'
@@ -112,7 +112,7 @@ class Statistics extends React.Component<StatisticsProps> {
                 height={30}
                 style={{ fill: '#003b54', marginRight: '10px' }}
               />{' '}
-              {T.translate('statistics.title')}
+              <Trans i18nKey={'statistics.title'} />
             </TransactionTitle>
           </TopContainer>
         </div>
@@ -123,7 +123,7 @@ class Statistics extends React.Component<StatisticsProps> {
             <StatItem>
               <div className="col-md-5">
                 XVG/{this.props.SettingsStore!.getCurrency}{' '}
-                {T.translate('statistics.price')}
+                <Trans i18nKey={'statistics.price'} />
               </div>
               <div className="col-md-7 info">
                 {formatter.format(
@@ -132,7 +132,9 @@ class Statistics extends React.Component<StatisticsProps> {
               </div>
             </StatItem>
             <StatItem>
-              <div className="col-md-5">{T.translate('statistics.cap')}</div>
+              <div className="col-md-5">
+                <Trans i18nKey={'statistics.cap'} />
+              </div>
               <div className="col-md-7 info">
                 {bigNumber.format(
                   this.props.CoinStatsStore!.getUpdatedStats.cap,
@@ -141,7 +143,7 @@ class Statistics extends React.Component<StatisticsProps> {
             </StatItem>
             <StatItem>
               <div className="col-md-5">
-                {T.translate('statistics.hourchange')}
+                <Trans i18nKey={'statistics.hourchange'} />
               </div>
               <div className="col-md-7 info">
                 {this.props.CoinStatsStore!.getUpdatedStats.hourChange} %
@@ -149,20 +151,24 @@ class Statistics extends React.Component<StatisticsProps> {
             </StatItem>
             <StatItem>
               <div className="col-md-5">
-                {T.translate('statistics.daychange')}
+                <Trans i18nKey={'statistics.daychange'} />
               </div>
               <div className="col-md-7 info">
                 {this.props.CoinStatsStore!.getUpdatedStats.dayChange} %
               </div>
             </StatItem>
             <StatItem>
-              <div className="col-md-5">{T.translate('statistics.cmc')}</div>
+              <div className="col-md-5">
+                <Trans i18nKey={'statistics.cmc'} />
+              </div>
               <div className="col-md-7 info">
                 {this.props.CoinStatsStore!.getUpdatedStats.rank}.
               </div>
             </StatItem>
             <StatChartItem>
-              <div className="col-md-5">{T.translate('statistics.chart')}</div>
+              <div className="col-md-5">
+                <Trans i18nKey={'statistics.chart'} />
+              </div>
               <div className="col-md-7">
                 <PriceUpdater />
               </div>
@@ -178,4 +184,6 @@ class Statistics extends React.Component<StatisticsProps> {
   }
 }
 
-export default inject('SettingsStore', 'CoinStatsStore')(observer(Statistics))
+export default translate()(
+  inject('SettingsStore', 'CoinStatsStore')(observer(Statistics)),
+)

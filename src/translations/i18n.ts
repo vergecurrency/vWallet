@@ -22,8 +22,6 @@ const options: i18n.InitOptions = {
   resources: localesResources,
 }
 
-console.log(localesResources)
-
 const myi18n = i18n
   .use(LanguageDetector)
   .use(reactI18nextModule)
