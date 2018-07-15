@@ -9,7 +9,7 @@ const options: i18n.InitOptions = {
   // have a common namespace used around the full app
   ns: ['translations'],
   defaultNS: 'translations',
-  debug: true,
+  debug: false,
 
   interpolation: {
     escapeValue: false, // not needed for react!!
