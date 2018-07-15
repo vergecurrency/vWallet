@@ -14,6 +14,7 @@ import Transaction from './Transaction'
 import moment from 'moment'
 import styled from 'styled-components'
 import ReceivePanel from './../modal/ReceivePanel'
+import { Tooltip } from 'reactstrap'
 
 const TransactionTitle = styled.div`
   display: flex;
@@ -78,6 +79,7 @@ class TransactionList extends Component {
     super(props)
     this.state = {
       receiveOpen: false,
+      tooltipReceiveOpen: false,
     }
   }
 
@@ -96,7 +98,15 @@ class TransactionList extends Component {
   }
 
   toggleReceive() {
-    this.setState({ receiveOpen: !this.state.receiveOpen })
+    if (this.props.AccountInformationStore.unlocked) {
+      this.setState({ receiveOpen: !this.state.receiveOpen })
+    }
+  }
+
+  toggleReceiveTooltip() {
+    this.setState({
+      tooltipReceiveOpen: !this.state.tooltipReceiveOpen,
+    })
   }
 
   showTransactionsList() {
@@ -207,13 +217,23 @@ class TransactionList extends Component {
         <div className="no-transactions-panel">
           <img src={NoTransactions} className="no-transactions-img"/>
           <p className="no-transactions-title">{T.translate('transaction.noTransactionsTitle')}</p>
+          {!this.props.AccountInformationStore.unlocked &&
+            <Tooltip
+              placement="top"
+              isOpen={this.state.tooltipReceiveOpen}
+              target="receive-xvg"
+              toggle={this.toggleReceiveTooltip.bind(this)}
+            >
+              {T.translate('unlock.title')}
+            </Tooltip>
+          }
           <p className="no-transactions-subtitle">
             {
               T.translate('transaction.noTransactionsSubtitle', {
                 buyGuide: <a href="#" onClick={this.openBuyGuide.bind(this)}>
                   {T.translate('transaction.buyXvgGuide')}
                 </a>,
-                receive: <a href="#" onClick={this.toggleReceive.bind(this)}>
+                receive: <a id="receive-xvg" href="#" onClick={this.toggleReceive.bind(this)}>
                   {T.translate('transaction.receiveXvg')}
                 </a>,
               })
@@ -225,6 +245,6 @@ class TransactionList extends Component {
   }
 }
 
-export default inject('TransactionStore', 'SettingsStore')(
+export default inject('TransactionStore', 'AccountInformationStore', 'SettingsStore')(
   observer(TransactionList),
 )

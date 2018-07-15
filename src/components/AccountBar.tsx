@@ -149,7 +149,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 target="sending"
                 toggle={this.toggleSendTooltip}
               >
-                Unlock your wallet!
+                {i18nReact.translate('unlock.title')}
               </Tooltip>
             ) : null}
             <div
@@ -175,7 +175,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 target="receiving"
                 toggle={this.toggleReceiveTooltip}
               >
-                Unlock your wallet!
+                {i18nReact.translate('unlock.title')}
               </Tooltip>
             ) : null}
             <div
