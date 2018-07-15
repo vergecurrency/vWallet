@@ -8,6 +8,7 @@ import { shell } from 'electron'
 import i18nReact from 'i18n-react'
 import styledComponents from 'styled-components'
 import DebugPanel from './modal/DebugPanel'
+import DonatePanel from './modal/DonatePanel'
 
 const FooterText = styledComponents.div`
   textalign: 'center';
@@ -25,6 +26,7 @@ interface FooterProps {
 interface FooterState {
   credits: boolean
   debugWindow: boolean
+  donateModal: boolean
 }
 
 class Footer extends React.Component<FooterProps, FooterState> {
@@ -33,6 +35,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
     this.state = {
       credits: false,
       debugWindow: false,
+      donateModal: false,
     }
 
     this.toggle = this.toggle.bind(this)
@@ -43,6 +46,10 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   toggleWindow(item: 'debugWindow' = 'debugWindow') {
+    return () => this.setState({ [item]: !this.state[item] })
+  }
+
+  toggleDonate(item: 'donateModal' = 'donateModal') {
     return () => this.setState({ [item]: !this.state[item] })
   }
 
@@ -65,6 +72,10 @@ class Footer extends React.Component<FooterProps, FooterState> {
           toggle={this.toggleWindow('debugWindow')}
           open={this.state.debugWindow}
         />
+        <DonatePanel
+          toggle={this.toggleDonate('donateModal')}
+          open={this.state.donateModal}
+        />
         <div className="row">
           <FooterVersion
             className="col-md-8"
@@ -82,7 +93,10 @@ class Footer extends React.Component<FooterProps, FooterState> {
           >
             {i18nReact.translate('footer.debug_information')}
           </FooterText>
-          <FooterText className="col-md-1 text-right clicky">
+          <FooterText
+            className="col-md-1 text-right clicky"
+            onClick={this.toggleDonate('donateModal')}
+          >
             {i18nReact.translate('footer.donate')}
           </FooterText>
           <FooterText
