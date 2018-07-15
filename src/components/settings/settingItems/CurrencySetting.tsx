@@ -9,8 +9,7 @@ import {
 import { inject, observer } from 'mobx-react'
 
 import { SettingsStore } from '../../../stores/SettingsStore'
-import i18nReact from 'i18n-react'
-
+import { translate, Trans } from 'react-i18next'
 const locales = [
   {
     currency: 'EUR',
@@ -52,7 +51,7 @@ export class CurrencySetting extends React.Component<
     return (
       <div className="row setting">
         <div className="col-md-4 setting-label">
-          {i18nReact.translate('settings.currency.name')}
+          <Trans i18nKey={'settings.currency.name'} />
         </div>
         <div className="col-md-2">
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -90,11 +89,13 @@ export class CurrencySetting extends React.Component<
           </Dropdown>{' '}
         </div>
         <div className="col-md-6 setting-description">
-          {i18nReact.translate('settings.currency.explain')}
+          <Trans i18nKey={'settings.currency.explain'} />
         </div>
       </div>
     )
   }
 }
 
-export default inject('SettingsStore')(observer(CurrencySetting))
+export default translate('translations')(
+  inject('SettingsStore')(observer(CurrencySetting)),
+)
