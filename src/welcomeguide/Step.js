@@ -11,6 +11,7 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 import locales from '../translations/locales'
+import { translate } from 'react-i18next'
 
 class Step extends React.Component {
   constructor() {
@@ -62,6 +63,7 @@ class Step extends React.Component {
                         key: 'localeId',
                         value: locale.localeId,
                       })
+                      this.props.i18n.changeLanguage(locale.localeId)
                     }}
                   >
                     {locale.localeId.toUpperCase()}
@@ -87,4 +89,6 @@ class Step extends React.Component {
   }
 }
 
-export default inject('SettingsStore')(observer(Step))
+export default translate('translations')(
+  inject('SettingsStore')(observer(Step)),
+)
