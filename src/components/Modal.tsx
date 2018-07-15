@@ -11,7 +11,14 @@ interface ModalProps {
   className?: string
 }
 
-export default ({ open, toggle, title, children, style, className }: ModalProps) => (
+export default ({
+  open,
+  toggle,
+  title,
+  children,
+  style,
+  className,
+}: ModalProps) => (
   <Modal
     isOpen={open}
     toggle={toggle}

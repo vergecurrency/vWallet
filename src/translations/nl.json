@@ -138,7 +138,8 @@
     "labelPlaceholder": "Bijvoorbeeld: Adres van Kees",
     "sendMax": "Verzend Max",
     "notEnoughBalance": "Saldo te laag",
-    "notEnoughBalanceDescription": "U heeft niet genoeg saldo om XVG te verzenden.\nVerhoog alstublieft uw saldo."
+    "notEnoughBalanceDescription":
+      "U heeft niet genoeg saldo om XVG te verzenden.\nVerhoog alstublieft uw saldo."
   },
   "receivePanel": {
     "title": "Ontvang XVG",
