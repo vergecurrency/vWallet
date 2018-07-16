@@ -2,25 +2,31 @@ import * as React from 'react'
 import * as QRCodeReact from 'qrcode.react'
 import { observer, inject } from 'mobx-react'
 import Modal from '../Modal'
-import i18nReact from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import { clipboard } from 'electron'
 
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
+import { i18n } from '../../../node_modules/@types/i18next'
 
-class ReceivePanel extends React.Component<{
+export interface ReceiveProps {
   open: boolean
   toggle: () => void
   AccountInformationStore?: AccountInformationStore
-}> {
-  state: {
-    isLoadingAddress: boolean
-    address: string
-    addressCopied: boolean
-  } = {
-      isLoadingAddress: false,
-      address: '',
-      addressCopied: false,
-    }
+  i18n: i18n
+}
+
+export interface ReceiveState {
+  isLoadingAddress: boolean
+  address: string
+  addressCopied: boolean
+}
+
+class ReceivePanel extends React.Component<ReceiveProps, ReceiveState> {
+  state = {
+    isLoadingAddress: false,
+    address: '',
+    addressCopied: false,
+  }
 
   constructor(props) {
     super(props)
@@ -34,30 +40,26 @@ class ReceivePanel extends React.Component<{
     })
     this.props
       .AccountInformationStore!.receiveNewAddress()
-      .then(address => this.setState({ address, isLoadingAddress: false }))
+      .then(address =>
+        this.setState({ address: address as string, isLoadingAddress: false }),
+      )
   }
 
   copyAddress() {
     clipboard.writeText(this.state.address)
     this.setState({ addressCopied: true })
-    setTimeout(
-      () => {
-        this.setState({ addressCopied: false })
-      },
-      2000,
-    )
+    setTimeout(() => {
+      this.setState({ addressCopied: false })
+    }, 2000)
   }
 
   render() {
-    const title: string = i18nReact.translate('receivePanel.title') as string
+    const title: string = this.props.i18n!.t('receivePanel.title') as string
     return (
-      <Modal
-        {...this.props}
-        title={title}
-      >
+      <Modal {...this.props} title={title}>
         <div className="receive-container">
           <div className="receive-qr-code-container">
-            {!this.state.addressCopied &&
+            {!this.state.addressCopied && (
               <div className="receive-qr-code-panel animation-fade">
                 <QRCodeReact
                   className="receive-qr-code"
@@ -68,24 +70,26 @@ class ReceivePanel extends React.Component<{
                   level={'M'}
                 />
               </div>
-            }
-            {this.state.addressCopied &&
+            )}
+            {this.state.addressCopied && (
               <div className="receive-address-copied-panel animation-fade">
                 <div className="receive-address-copied-check">
                   <i className="fas fa-check fa-3x" />
                 </div>
                 <div className="receive-address-copied-label">
-                  {i18nReact.translate('receivePanel.addressCopyConfirm')}
+                  <Trans i18nKey={'receivePanel.addressCopyConfirm'} />
                 </div>
               </div>
-            }
+            )}
           </div>
           <div>
-            <label className="form-label">{i18nReact.translate('receivePanel.address')}</label>
+            <label className="form-label">
+              <Trans i18nKey={'receivePanel.address'} />
+            </label>
             <div className="form-input-group">
               <input
                 className="form-input"
-                onChange={() => { }}
+                onChange={() => {}}
                 value={this.state.address}
               />
               <button
@@ -94,23 +98,28 @@ class ReceivePanel extends React.Component<{
                 onClick={
                   !this.state.isLoadingAddress
                     ? () => this.createNewAddress()
-                    : () => { }
+                    : () => {}
                 }
               >
                 <i
                   className={`fas fa-sync ${
                     this.state.isLoadingAddress ? 'fa-spin' : ''
-                    }`}
+                  }`}
                 />
               </button>
-              <button className="form-input-group-append" onClick={this.copyAddress.bind(this)}>
+              <button
+                className="form-input-group-append"
+                onClick={this.copyAddress.bind(this)}
+              >
                 <i className="fas fa-copy" />
               </button>
             </div>
-            <p className="form-input-help">{i18nReact.translate('receivePanel.generate')}</p>
+            <p className="form-input-help">
+              <Trans i18nKey={'receivePanel.generate'} />
+            </p>
             <div className="form-separator" />
             <p className="form-input-help send-disclaimer">
-              {i18nReact.translate('receivePanel.disclaimer')}
+              <Trans i18nKey={'receivePanel.disclaimer'} />
             </p>
           </div>
         </div>
@@ -119,4 +128,6 @@ class ReceivePanel extends React.Component<{
   }
 }
 
-export default inject('AccountInformationStore')(observer(ReceivePanel))
+export default translate()(
+  inject('AccountInformationStore')(observer(ReceivePanel)),
+)

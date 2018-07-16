@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 import CreditsPanel from './modal/CreditsPanel'
 import { SettingsStore } from '../stores/SettingsStore'
 import { shell } from 'electron'
-import i18nReact from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import styledComponents from 'styled-components'
 import DebugPanel from './modal/DebugPanel'
 
@@ -71,25 +71,23 @@ class Footer extends React.Component<FooterProps, FooterState> {
             onClick={this.openLatestRelease.bind(this)}
           >
             <span className="clicky">
-              {i18nReact.translate('footer.wallet')} v{
-                SettingsStore!.appVersion
-              }
+              <Trans i18nKey={'footer.wallet'} /> v{SettingsStore!.appVersion}
             </span>
           </FooterVersion>
           <FooterText
             className="col-md-2 text-right clicky"
             onClick={this.toggleWindow('debugWindow')}
           >
-            {i18nReact.translate('footer.debug_information')}
+            <Trans i18nKey={'footer.debug_information'} />
           </FooterText>
           <FooterText className="col-md-1 text-right clicky">
-            {i18nReact.translate('footer.donate')}
+            <Trans i18nKey={'footer.donate'} />
           </FooterText>
           <FooterText
             className="col-md-1 text-right clicky"
             onClick={this.toggle('credits')}
           >
-            {i18nReact.translate('footer.credits')}
+            <Trans i18nKey={'footer.credits'} />
           </FooterText>
         </div>
       </div>
@@ -97,4 +95,4 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 }
 
-export default inject('SettingsStore')(observer(Footer))
+export default translate()(inject('SettingsStore')(observer(Footer)))

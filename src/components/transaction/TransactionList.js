@@ -9,7 +9,7 @@ import Loading from '../../icons/Loading'
 import Pile from '../../icons/Pile'
 import NoTransactions from '../../assets/images/no-transactions.svg'
 import SearchBar from './SearchBar'
-import T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import Transaction from './Transaction'
 import moment from 'moment'
 import styled from 'styled-components'
@@ -26,10 +26,10 @@ const TransactionTitle = styled.div`
 `
 
 const MonthlySummary = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
 `
 
 const MonthSummary = styled.div`
@@ -141,7 +141,7 @@ class TransactionList extends Component {
                   height={30}
                   style={{ fill: '#003b54', marginRight: '10px' }}
                 />{' '}
-                {T.translate('transaction.list')}
+                <Trans i18nKey={'transaction.list'} />
               </TransactionTitle>
               <MonthlySummary className="col-md-6">
                 <MonthSummary>
@@ -224,20 +224,21 @@ class TransactionList extends Component {
               target="receive-xvg"
               toggle={this.toggleReceiveTooltip.bind(this)}
             >
-              {T.translate('unlock.title')}
+              <Trans i18nKey={'unlock.title'} />
             </Tooltip>
           }
           <p className="no-transactions-subtitle">
-            {
-              T.translate('transaction.noTransactionsSubtitle', {
-                buyGuide: <a href="#" onClick={this.openBuyGuide.bind(this)}>
-                  {T.translate('transaction.buyXvgGuide')}
-                </a>,
-                receive: <a id="receive-xvg" href="#" onClick={this.toggleReceive.bind(this)}>
-                  {T.translate('transaction.receiveXvg')}
-                </a>,
-              })
-            }
+            <Trans i18nKey={'transaction.noTransactionsSubtitle'} />
+            {/*{*/}
+              {/*T.translate('transaction.noTransactionsSubtitle', {*/}
+                {/*buyGuide: <a href="#" onClick={this.openBuyGuide.bind(this)}>*/}
+                  {/*{T.translate('transaction.buyXvgGuide')}*/}
+                {/*</a>,*/}
+                {/*receive: <a id="receive-xvg" href="#" onClick={this.toggleReceive.bind(this)}>*/}
+                  {/*{T.translate('transaction.receiveXvg')}*/}
+                {/*</a>,*/}
+              {/*})*/}
+            {/*}*/}
           </p>
         </div>
       </div>
@@ -245,6 +246,6 @@ class TransactionList extends Component {
   }
 }
 
-export default inject('TransactionStore', 'AccountInformationStore', 'SettingsStore')(
-  observer(TransactionList),
+export default translate()(
+  inject('TransactionStore', 'AccountInformationStore', 'SettingsStore')(observer(TransactionList)),
 )

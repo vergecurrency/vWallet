@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import * as moment from 'moment'
 import * as styled from 'styled-components'
 
@@ -14,6 +14,7 @@ import { SettingsStore } from '../../stores/SettingsStore'
 import Timer from '../../icons/Timer'
 import { TransactionStore } from '../../stores/TransactionStore'
 import { fadeIn } from 'react-animations'
+import { i18n } from '../../../node_modules/@types/i18next'
 
 const TextContainer = styled.default.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
@@ -126,21 +127,22 @@ interface Props {
   hide: boolean
   TransactionStore: TransactionStore
   SettingsStore: SettingsStore
+  i18n?: i18n
 }
 
 class Transaction extends React.Component<Props> {
   getType(amount: number, category: string, fee) {
     if (amount !== 0) {
       return category.includes('receive')
-        ? T.default.translate('transaction.item.receive')
-        : T.default.translate('transaction.item.sent')
+        ? this.props.i18n!.t('transaction.item.receive')
+        : this.props.i18n!.t('transaction.item.sent')
     }
 
     if ((!amount || amount === 0) && fee < 0) {
-      return T.default.translate('transaction.item.fee')
+      return this.props.i18n!.t('transaction.item.fee')
     }
 
-    return T.default.translate('transaction.item.unknown')
+    return this.props.i18n!.t('transaction.item.unknown')
   }
 
   isNew() {
@@ -297,10 +299,10 @@ class Transaction extends React.Component<Props> {
                   style={{ fill: 'rgba(100,100,100, 0.5)', marginRight: '7px' }}
                 />{' '}
                 {confirmations > 0
-                  ? `${confirmations} ${T.default.translate(
+                  ? `${confirmations} ${this.props.i18n!.t(
                       'transaction.item.confirmations',
                     )}`
-                  : T.default.translate('transaction.item.outofsync')}
+                  : this.props.i18n!.t('transaction.item.outofsync')}
               </TransactionDetailProp>
               <TransactionDetailProp className="col-md-6">
                 <Timer
@@ -321,13 +323,13 @@ class Transaction extends React.Component<Props> {
                   width={15}
                   style={{ fill: 'rgba(100,100,100, 0.7)', marginRight: '7px' }}
                 />{' '}
-                {T.default.translate('transaction.item.more')}
+                <Trans i18nKey={'transaction.item.more'} />
                 <ExternalLinks href="#">
-                  {T.default.translate('transaction.item.opentransaction')}
+                  <Trans i18nKey={'transaction.item.opentransaction'} />
                 </ExternalLinks>
                 {' · '}
                 <ExternalLinks href="#">
-                  {T.default.translate('transaction.item.openblock')}
+                  <Trans i18nKey={'transaction.item.openblock'} />
                 </ExternalLinks>
               </TransactionDetailProp>
             </SubTransactionFurtherDetails>
@@ -338,6 +340,6 @@ class Transaction extends React.Component<Props> {
   }
 }
 
-export default inject('TransactionStore', 'SettingsStore')(
-  observer(Transaction),
+export default translate()(
+  inject('TransactionStore', 'SettingsStore')(observer(Transaction)),
 )

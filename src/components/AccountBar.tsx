@@ -10,13 +10,15 @@ import SendPanel from './modal/SendPanel'
 import { SettingsStore } from '../stores/SettingsStore'
 import { Tooltip } from 'reactstrap'
 import VergeCacheStore from '../stores/VergeCacheStore'
-import i18nReact from 'i18n-react'
 import ReceivePanel from './modal/ReceivePanel'
+import { Trans, translate } from 'react-i18next'
+import { i18n } from '../../node_modules/@types/i18next'
 
 interface AccountBarProps {
   SettingsStore?: SettingsStore
   AccountInformationStore?: AccountInformationStore
   CoinStatsStore?: CoinStatsStore
+  i18n?: i18n
 }
 
 interface AccountBarState {
@@ -100,7 +102,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
         <div className="row">
           <div className="col-md-3 account-bar-label">
             <span className="account-bar-title">
-              {i18nReact.translate('accountbar.xvgbalance')}
+              <Trans i18nKey={'accountbar.xvgbalance'} />
             </span>
             <h4>
               {XVGformatter.format(
@@ -111,7 +113,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
           </div>
           <div className="col-md-2 account-bar-label">
             <span className="account-bar-title">
-              {i18nReact.translate('accountbar.xvgusd', {
+              {this.props.i18n!.t('accountbar.xvgusd', {
                 currency: this.props.SettingsStore!.getCurrency,
               })}
             </span>
@@ -124,7 +126,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
           </div>
           <div className="col-md-3 account-bar-label">
             <span className="account-bar-title">
-              {i18nReact.translate('accountbar.xvgprice')}
+              <Trans i18nKey={'accountbar.xvgprice'} />
             </span>
             <h4>
               {formatterPrice.format(
@@ -149,7 +151,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 target="sending"
                 toggle={this.toggleSendTooltip}
               >
-                {i18nReact.translate('unlock.title')}
+                <Trans i18nKey={'accountbar.unlock'} />
               </Tooltip>
             ) : null}
             <div
@@ -166,7 +168,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 height={18}
                 style={{ fill: '#fff', marginRight: '5px' }}
               />
-              {i18nReact.translate('account-bar.send')}
+              <Trans i18nKey={'account-bar.send'} />
             </div>
             {!this.props.AccountInformationStore!.unlocked ? (
               <Tooltip
@@ -175,7 +177,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 target="receiving"
                 toggle={this.toggleReceiveTooltip}
               >
-                {i18nReact.translate('unlock.title')}
+                <Trans i18nKey={'accountbar.unlock'} />
               </Tooltip>
             ) : null}
             <div
@@ -192,7 +194,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
                 height={18}
                 style={{ fill: '#fff', marginRight: '5px' }}
               />
-              {i18nReact.translate('account-bar.receive')}
+              <Trans i18nKey={'account-bar.receive'} />
             </div>
           </div>
         </div>
@@ -201,8 +203,8 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
   }
 }
 
-export default inject(
-  'SettingsStore',
-  'AccountInformationStore',
-  'CoinStatsStore',
-)(observer(AccountBar))
+export default translate('translations')(
+  inject('SettingsStore', 'AccountInformationStore', 'CoinStatsStore')(
+    observer(AccountBar),
+  ),
+)
