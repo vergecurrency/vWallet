@@ -2,6 +2,7 @@ $transaction-list-search-background: rgba(0, 0, 0, 0.02);
 $transaction-list-search-padding: 15px;
 
 .transaction-list-container {
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -82,4 +83,39 @@ $transaction-list-search-padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.no-transactions-container {
+  align-items: center;
+  justify-content: center;
+}
+
+.no-transactions-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-transactions-panel > p {
+  margin-bottom: 0;
+}
+
+.no-transactions-img {
+  width: 110px;
+}
+
+.no-transactions-title {
+  color: #b0c1c8;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+.no-transactions-subtitle {
+  color: #cbd9df;
+  font-size: 15px;
+}
+
+.no-transactions-subtitle > a {
+  color: #00b8dc;
+  cursor: pointer;
 }

@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 
 import Modal from '../Modal'
 import UnlockIcon from 'react-material-icon-svg/dist/LockOpenIcon'
-import T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 
 class Unlock extends Component {
   state = {
@@ -30,12 +30,22 @@ class Unlock extends Component {
 
   render() {
     return (
-      <Modal {...this.props} title={T.translate('unlock.title')} toggle={this.modalToggled.bind(this)}>
+      <Modal
+        {...this.props}
+        title={this.props.i18n.t('unlock.title')}
+        toggle={this.modalToggled.bind(this)}
+      >
         <form onSubmit={this.unlocking.bind(this)}>
-          <label className="form-label" htmlFor="passphrase">{T.translate('unlock.inputTitle')}</label>
+          <label className="form-label" htmlFor="passphrase">
+            <Trans i18nKey={'unlock.inputTitle'} />
+          </label>
           <input
             id="passphrase"
-            className={this.state.unlocked ? 'form-input' : 'form-input form-input-invalid animation-shake'}
+            className={
+              this.state.unlocked
+                ? 'form-input'
+                : 'form-input form-input-invalid animation-shake'
+            }
             type="password"
             value={this.state.password}
             onChange={e =>
@@ -43,23 +53,28 @@ class Unlock extends Component {
             }
           />
           {this.state.unlocked ? (
-            <p className="form-input-help">{T.translate('unlock.info')}</p>
+            <p className="form-input-help">
+              <Trans i18nKey={'unlock.info'} />
+            </p>
           ) : (
-            <p className="form-input-help form-input-help-invalid">{T.translate('unlock.wrongpass')}</p>
+            <p className="form-input-help form-input-help-invalid">
+              <Trans i18nKey={'unlock.wrongpass'} />
+            </p>
           )}
           <button
             className="btn-lg"
             type="submit"
             onClick={this.unlocking.bind(this)}
             style={{
-              marginBottom: '15px'
-            }}>
+              marginBottom: '15px',
+            }}
+          >
             <UnlockIcon
               width={22}
               height={22}
               style={{ fill: '#fff', marginRight: '5px' }}
             />
-            {T.translate('unlock.button')}
+            <Trans i18nKey={'unlock.button'} />
           </button>
         </form>
       </Modal>
@@ -67,4 +82,4 @@ class Unlock extends Component {
   }
 }
 
-export default inject('AccountInformationStore')(observer(Unlock))
+export default translate()(inject('AccountInformationStore')(observer(Unlock)))
