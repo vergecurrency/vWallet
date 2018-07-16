@@ -121,7 +121,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
       return (
         <Modal
           {...props}
-          title={i18nReact.translate('sendPanel.title') as string}
+          title={this.props.i18n!.t('sendPanel.title') as string}
           className="send-modal send-modal-balance-to-low"
         >
           <ScaleBalance
@@ -129,9 +129,9 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
             height={100}
             fill="#d6dee2"
           />
-          <p className="no-balance-title">{i18nReact.translate('sendPanel.notEnoughBalance')}</p>
+          <p className="no-balance-title">{this.props.i18n!.t('sendPanel.notEnoughBalance')}</p>
           <p className="no-balance-subtitle">
-            {i18nReact.translate('sendPanel.notEnoughBalanceDescription')}
+            {this.props.i18n!.t('sendPanel.notEnoughBalanceDescription')}
           </p>
         </Modal>
       )
