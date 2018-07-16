@@ -9,7 +9,7 @@ import Loading from '../../icons/Loading'
 import Pile from '../../icons/Pile'
 import NoTransactions from '../../assets/images/no-transactions.svg'
 import SearchBar from './SearchBar'
-import { translate, Trans } from 'react-i18next'
+import { translate, Trans, Interpolate } from 'react-i18next'
 import Transaction from './Transaction'
 import moment from 'moment'
 import styled from 'styled-components'
@@ -201,12 +201,24 @@ class TransactionList extends Component {
                 )}
               </div>
             ) : (
-              <Loading text={T.translate('transaction.loading')} />
+              <Loading text={translate('transaction.loading')} />
             )}
           </div>
         </div>
       )
     }
+
+    let buyGuide = (
+      <a href="#" onClick={this.openBuyGuide.bind(this)}>
+        <Trans i18nKey={'transaction.buyXvgGuide'} />
+      </a>
+    )
+
+    let receiveXvg = (
+      <a id="receive-xvg" href="#" onClick={this.toggleReceive.bind(this)}>
+        <Trans i18nKey={'transaction.receiveXvg'} />
+      </a>
+    )
 
     return (
       <div className="transaction-list-container no-transactions-container">
@@ -216,7 +228,9 @@ class TransactionList extends Component {
         />
         <div className="no-transactions-panel">
           <img src={NoTransactions} className="no-transactions-img"/>
-          <p className="no-transactions-title">{T.translate('transaction.noTransactionsTitle')}</p>
+          <p className="no-transactions-title">
+            <Trans i18nKey={'transaction.noTransactionsTitle'} />
+          </p>
           {!this.props.AccountInformationStore.unlocked &&
             <Tooltip
               placement="top"
@@ -227,19 +241,12 @@ class TransactionList extends Component {
               <Trans i18nKey={'unlock.title'} />
             </Tooltip>
           }
-          <p className="no-transactions-subtitle">
-            <Trans i18nKey={'transaction.noTransactionsSubtitle'} />
-            {/*{*/}
-              {/*T.translate('transaction.noTransactionsSubtitle', {*/}
-                {/*buyGuide: <a href="#" onClick={this.openBuyGuide.bind(this)}>*/}
-                  {/*{T.translate('transaction.buyXvgGuide')}*/}
-                {/*</a>,*/}
-                {/*receive: <a id="receive-xvg" href="#" onClick={this.toggleReceive.bind(this)}>*/}
-                  {/*{T.translate('transaction.receiveXvg')}*/}
-                {/*</a>,*/}
-              {/*})*/}
-            {/*}*/}
-          </p>
+          <Interpolate
+            className="no-transactions-subtitle"
+            i18nKey={'transaction.noTransactionsSubtitle'}
+            buyGuide={buyGuide}
+            receive={receiveXvg}
+          />
         </div>
       </div>
     )
