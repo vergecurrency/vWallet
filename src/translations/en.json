@@ -1,13 +1,5 @@
 {
   "translations": {
-    "tour": {
-      "welcome": {
-        "hello": "Hello <1>fella.</1>",
-        "prepare": "Let's prepare your XVG wallet.",
-        "create": "Create new wallet",
-        "restore": "Restore old wallet"
-      }
-    },
     "account-bar": {
       "receive": "Receive",
       "send": "Send"
@@ -41,6 +33,10 @@
       "highestBlock": "Highest block (peers)"
     },
     "transaction": {
+      "noTransactionsTitle": "No transactions received yet",
+      "noTransactionsSubtitle": "Open the {{buyGuide}} or {{receive}}",
+      "buyXvgGuide": "buy XVG guide",
+      "receiveXvg": "receive XVG",
       "list": "Transaction List",
       "summary": "Summary for",
       "loading": "Loading ...",
@@ -157,9 +153,8 @@
     },
     "accountbar": {
       "xvgbalance": "XVG BALANCE",
-      "xvgusd": "XVG IN {{currency}}",
-      "xvgprice": "XVG PRICE",
-      "unlock": "Please unlock your wallet!"
+      "xvgusd": "XVG IN {currency}",
+      "xvgprice": "XVG PRICE"
     },
     "footer": {
       "wallet": "Official Verge Wallet",

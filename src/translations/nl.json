@@ -33,6 +33,10 @@
       "highestBlock": "Hoogste blok (peers)"
     },
     "transaction": {
+      "noTransactionsTitle": "Nog geen transacties ontvangen",
+      "noTransactionsSubtitle": "Open de {buyGuide} of {receive}",
+      "buyXvgGuide": "koop XVG handleiding",
+      "receiveXvg": "ontvang XVG",
       "list": "Transactie Lijst",
       "summary": "Overzicht van",
       "loading": "Laden ...",

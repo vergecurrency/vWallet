@@ -10,29 +10,9 @@ import SendPanel from './modal/SendPanel'
 import { SettingsStore } from '../stores/SettingsStore'
 import { Tooltip } from 'reactstrap'
 import VergeCacheStore from '../stores/VergeCacheStore'
-import styledComponents from 'styled-components'
 import ReceivePanel from './modal/ReceivePanel'
 import { Trans, translate } from 'react-i18next'
 import { i18n } from '../../node_modules/@types/i18next'
-
-const AccountBarContainer = styledComponents.div`
-  max-height: 190px;
-  min-height: 190px;
-  padding-top: 28px;
-  ${props =>
-    props.theme.light
-      ? `
-   background-color: #00b8dc;
-   background-image: linear-gradient(
-    -86deg,
-    #1db5db 0%,
-    #1db5db 20%,
-    #25c5ed 46%,
-    #0ea1c6 75%,
-    #0ea1c6 100%
-  );`
-      : 'background-color: #0d1f2d;'};
-`
 
 interface AccountBarProps {
   SettingsStore?: SettingsStore
@@ -113,7 +93,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
     )
 
     return (
-      <AccountBarContainer className="container-fluid account-bar-container">
+      <div className="container-fluid account-bar-container">
         <SendPanel open={this.state.sendOpen} toggle={this.toggleSend} />
         <ReceivePanel
           open={this.state.receiveOpen}
@@ -218,7 +198,7 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
             </div>
           </div>
         </div>
-      </AccountBarContainer>
+      </div>
     )
   }
 }

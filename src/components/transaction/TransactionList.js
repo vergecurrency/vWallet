@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import { shell } from 'electron'
 
 import ScaleBalance from 'react-material-icon-svg/dist/ScaleBalanceIcon'
 import ArrowDown from '../../icons/ArrowDown'
 import ArrowUp from '../../icons/ArrowUp'
 import Loading from '../../icons/Loading'
 import Pile from '../../icons/Pile'
+import NoTransactions from '../../assets/images/no-transactions.svg'
 import SearchBar from './SearchBar'
-import { translate, Trans } from 'react-i18next'
+import { translate, Trans, Interpolate } from 'react-i18next'
 import Transaction from './Transaction'
 import moment from 'moment'
 import styled from 'styled-components'
-
-const TransactionListContainer = styled.div`
-  background-color: #ffffff;
-`
-
-const ItemContainer = styled.div``
+import ReceivePanel from './../modal/ReceivePanel'
+import { Tooltip } from 'reactstrap'
 
 const TransactionTitle = styled.div`
   display: flex;
@@ -77,6 +75,14 @@ const Seperator = styled.hr`
 `
 
 class TransactionList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      receiveOpen: false,
+      tooltipReceiveOpen: false,
+    }
+  }
+
   getMonthlyOuputFormatted(XVGSummaryFormatter) {
     return XVGSummaryFormatter.format(this.props.TransactionStore.monthlyOutput)
   }
@@ -85,6 +91,27 @@ class TransactionList extends Component {
     return `+${XVGSummaryFormatter.format(
       this.props.TransactionStore.monthlyIncome,
     )}`
+  }
+
+  openBuyGuide() {
+    shell.openExternal('https://vergecurrency.com/get-started/')
+  }
+
+  toggleReceive() {
+    if (this.props.AccountInformationStore.unlocked) {
+      this.setState({ receiveOpen: !this.state.receiveOpen })
+    }
+  }
+
+  toggleReceiveTooltip() {
+    this.setState({
+      tooltipReceiveOpen: !this.state.tooltipReceiveOpen,
+    })
+  }
+
+  showTransactionsList() {
+    return this.props.TransactionStore.getReceivedTransactionsStatus
+      || this.props.TransactionStore.getTransactionCount > 0
   }
 
   render() {
@@ -96,89 +123,136 @@ class TransactionList extends Component {
       },
     )
 
-    return (
-      <TransactionListContainer className="transaction-list-container">
-        <div className="transaction-list-counter">
-          {this.props.TransactionStore.getTransactionCount > 999
-            ? '999+'
-            : this.props.TransactionStore.getTransactionCount}
-        </div>
-        <div className="container-fluid transaction-list-title-container">
-          <div className="row">
-            <TransactionTitle className="col-md-6">
-              <Pile
-                width={30}
-                height={30}
-                style={{ fill: '#003b54', marginRight: '10px' }}
-              />{' '}
-              <Trans i18nKey={'transaction.list'} />
-            </TransactionTitle>
-            <MonthlySummary className="col-md-6">
-              <MonthSummary>
-                <ScaleBalance
-                  width={14}
-                  height={14}
-                  style={{ marginRight: '5px' }}
-                />
-                {moment().format('MMMM')}
-              </MonthSummary>
-              <SpendSummary>
-                <ArrowDown
-                  width={14}
-                  height={14}
-                  style={{ marginRight: '5px' }}
-                />
-                {this.getMonthlyOuputFormatted(XVGFormatter)}
-              </SpendSummary>
-              <ReceivedSummary>
-                <ArrowUp
-                  width={14}
-                  height={14}
-                  style={{ marginRight: '5px' }}
-                />
-                {this.getMonthlyIncomeFormatted(XVGFormatter)}
-              </ReceivedSummary>
-            </MonthlySummary>
+    if (this.showTransactionsList()) {
+      this.props.TransactionStore.setReceivedTransactions(true)
+
+      return (
+        <div className="transaction-list-container">
+          <div className="transaction-list-counter">
+            {this.props.TransactionStore.getTransactionCount > 999
+              ? '999+'
+              : this.props.TransactionStore.getTransactionCount}
+          </div>
+          <div className="container-fluid transaction-list-title-container">
+            <div className="row">
+              <TransactionTitle className="col-md-6">
+                <Pile
+                  width={30}
+                  height={30}
+                  style={{ fill: '#003b54', marginRight: '10px' }}
+                />{' '}
+                <Trans i18nKey={'transaction.list'} />
+              </TransactionTitle>
+              <MonthlySummary className="col-md-6">
+                <MonthSummary>
+                  <ScaleBalance
+                      width={14}
+                      height={14}
+                      style={{ marginRight: '5px' }}
+                  />
+                  {moment().format('MMMM')}
+                </MonthSummary>
+                <SpendSummary>
+                  <ArrowDown
+                    width={14}
+                    height={14}
+                    style={{ marginRight: '5px' }}
+                  />
+                  {this.getMonthlyOuputFormatted(XVGFormatter)}
+                </SpendSummary>
+                <ReceivedSummary>
+                  <ArrowUp
+                    width={14}
+                    height={14}
+                    style={{ marginRight: '5px' }}
+                  />
+                  {this.getMonthlyIncomeFormatted(XVGFormatter)}
+                </ReceivedSummary>
+              </MonthlySummary>
+            </div>
+          </div>
+          <Seperator />
+          <div
+            style={{
+              ...(this.props.TransactionStore.loaded
+                ? {}
+                : {
+                    textAlign: 'center',
+                    display: 'block',
+                    paddingTop: '25%',
+                  }),
+              overflowY: 'auto',
+            }}
+          >
+            {this.props.TransactionStore.loaded ? (
+              <div className="container-fluid">
+                <SearchBar />
+                {this.props.TransactionStore.lastTenTransaction.map(
+                  transaction => (
+                    <div
+                      className="row transaction-list-item"
+                      key={`${transaction.txid}#${transaction.category}#${
+                        transaction.address
+                      }#${transaction.timereceived}`}
+                    >
+                      <Transaction {...transaction} />
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : (
+              <Loading text={translate('transaction.loading')} />
+            )}
           </div>
         </div>
-        <Seperator />
-        <div
-          style={{
-            ...(this.props.TransactionStore.loaded
-              ? {}
-              : {
-                  textAlign: 'center',
-                  display: 'block',
-                  paddingTop: '25%',
-                }),
-            overflowY: 'auto',
-          }}
-        >
-          {this.props.TransactionStore.loaded ? (
-            <div className="container-fluid">
-              <SearchBar />
-              {this.props.TransactionStore.lastTenTransaction.map(
-                transaction => (
-                  <ItemContainer
-                    className="row transaction-list-item"
-                    key={`${transaction.txid}#${transaction.category}#${
-                      transaction.address
-                    }#${transaction.timereceived}`}
-                  >
-                    <Transaction {...transaction} />
-                  </ItemContainer>
-                ),
-              )}
-            </div>
-          ) : (
-            <Loading text={this.props.i18n.t('transaction.loading')} />
-          )}
+      )
+    }
+
+    let buyGuide = (
+      <a href="#" onClick={this.openBuyGuide.bind(this)}>
+        <Trans i18nKey={'transaction.buyXvgGuide'} />
+      </a>
+    )
+
+    let receiveXvg = (
+      <a id="receive-xvg" href="#" onClick={this.toggleReceive.bind(this)}>
+        <Trans i18nKey={'transaction.receiveXvg'} />
+      </a>
+    )
+
+    return (
+      <div className="transaction-list-container no-transactions-container">
+        <ReceivePanel
+          open={this.state.receiveOpen}
+          toggle={this.toggleReceive.bind(this)}
+        />
+        <div className="no-transactions-panel">
+          <img src={NoTransactions} className="no-transactions-img"/>
+          <p className="no-transactions-title">
+            <Trans i18nKey={'transaction.noTransactionsTitle'} />
+          </p>
+          {!this.props.AccountInformationStore.unlocked &&
+            <Tooltip
+              placement="top"
+              isOpen={this.state.tooltipReceiveOpen}
+              target="receive-xvg"
+              toggle={this.toggleReceiveTooltip.bind(this)}
+            >
+              <Trans i18nKey={'unlock.title'} />
+            </Tooltip>
+          }
+          <Interpolate
+            className="no-transactions-subtitle"
+            i18nKey={'transaction.noTransactionsSubtitle'}
+            buyGuide={buyGuide}
+            receive={receiveXvg}
+          />
         </div>
-      </TransactionListContainer>
+      </div>
     )
   }
 }
 
 export default translate()(
-  inject('TransactionStore', 'SettingsStore')(observer(TransactionList)),
+  inject('TransactionStore', 'AccountInformationStore', 'SettingsStore')(observer(TransactionList)),
 )
