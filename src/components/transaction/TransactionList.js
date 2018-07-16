@@ -7,7 +7,7 @@ import ArrowUp from '../../icons/ArrowUp'
 import Loading from '../../icons/Loading'
 import Pile from '../../icons/Pile'
 import SearchBar from './SearchBar'
-import T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import Transaction from './Transaction'
 import moment from 'moment'
 import styled from 'styled-components'
@@ -28,10 +28,10 @@ const TransactionTitle = styled.div`
 `
 
 const MonthlySummary = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
 `
 
 const MonthSummary = styled.div`
@@ -111,16 +111,16 @@ class TransactionList extends Component {
                 height={30}
                 style={{ fill: '#003b54', marginRight: '10px' }}
               />{' '}
-              {T.translate('transaction.list')}
+              <Trans i18nKey={'transaction.list'} />
             </TransactionTitle>
             <MonthlySummary className="col-md-6">
               <MonthSummary>
-                  <ScaleBalance
-                      width={14}
-                      height={14}
-                      style={{ marginRight: '5px' }}
-                  />
-                  {moment().format('MMMM')}
+                <ScaleBalance
+                  width={14}
+                  height={14}
+                  style={{ marginRight: '5px' }}
+                />
+                {moment().format('MMMM')}
               </MonthSummary>
               <SpendSummary>
                 <ArrowDown
@@ -171,7 +171,7 @@ class TransactionList extends Component {
               )}
             </div>
           ) : (
-            <Loading text={T.translate('transaction.loading')} />
+            <Loading text={this.props.i18n.t('transaction.loading')} />
           )}
         </div>
       </TransactionListContainer>
@@ -179,6 +179,6 @@ class TransactionList extends Component {
   }
 }
 
-export default inject('TransactionStore', 'SettingsStore')(
-  observer(TransactionList),
+export default translate()(
+  inject('TransactionStore', 'SettingsStore')(observer(TransactionList)),
 )

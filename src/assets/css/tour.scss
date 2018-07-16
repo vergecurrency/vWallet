@@ -1,10 +1,10 @@
 .tour-background {
   background-color: #07121b;
   background-image: linear-gradient(
-                  38deg,
-                  #07121b 0%,
-                  #0c1b27 48%,
-                  #07121b 100%
+    38deg,
+    #07121b 0%,
+    #0c1b27 48%,
+    #07121b 100%
   );
   height: 100%;
   text-align: center;
@@ -101,7 +101,7 @@ a > .tour-progress-circle {
 }
 
 .tour-progress-circle {
-  background-color: #0B1A27;
+  background-color: #0b1a27;
   height: 18px;
   width: 18px;
   border-radius: 50%;
@@ -109,8 +109,8 @@ a > .tour-progress-circle {
 }
 
 .tour-progress-circle.active {
-  background-color: #00B7DB;
-  border-color: #00B7DB;
+  background-color: #00b7db;
+  border-color: #00b7db;
 }
 
 .tour-progress-circle-done > .tour-progress-circle {
@@ -132,4 +132,12 @@ a > .tour-progress-circle {
   font-weight: 400;
   font-size: 45px;
   margin-top: -50px;
+}
+
+.language-switch {
+  right: 0;
+  position: absolute;
+  margin-right: 70px;
+  margin-top: 40px;
+  width: auto;
 }

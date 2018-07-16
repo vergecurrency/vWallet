@@ -3,30 +3,32 @@ import * as uuid from 'uuid'
 import AppleKeyboardCommand from 'react-material-icon-svg/dist/AppleKeyboardCommandIcon'
 import Keymap from './keymaps/Keymap'
 import { SettingsStore } from '../../stores/SettingsStore'
-import i18nReact from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import { inject, observer } from 'mobx-react'
+import { i18n } from '../../../node_modules/@types/i18next'
 
 interface SettingsPanelProps {
   SettingsStore?: SettingsStore
+  i18n: i18n
 }
 
 class KeymapsPanel extends React.Component<SettingsPanelProps> {
   getKeyMaps() {
     return [
       {
-        name: i18nReact.translate('settings.shortkey.quicksend.name'),
+        name: this.props.i18n.t('settings.shortkey.quicksend.name'),
         keyName: 'CTRL/CMD + S',
-        usage: i18nReact.translate('settings.shortkey.quicksend.usage'),
+        usage: this.props.i18n.t('settings.shortkey.quicksend.usage'),
       },
       {
-        name: i18nReact.translate('settings.shortkey.hideinformation.name'),
+        name: this.props.i18n.t('settings.shortkey.hideinformation.name'),
         keyName: 'CTRL/CMD + H',
-        usage: i18nReact.translate('settings.shortkey.hideinformation.usage'),
+        usage: this.props.i18n.t('settings.shortkey.hideinformation.usage'),
       },
       {
-        name: i18nReact.translate('settings.shortkey.lockwallet.name'),
+        name: this.props.i18n.t('settings.shortkey.lockwallet.name'),
         keyName: 'CTRL/CMD + L',
-        usage: i18nReact.translate('settings.shortkey.lockwallet.usage'),
+        usage: this.props.i18n.t('settings.shortkey.lockwallet.usage'),
       },
     ]
   }
@@ -40,7 +42,7 @@ class KeymapsPanel extends React.Component<SettingsPanelProps> {
             height={30}
             style={{ fill: '#003b54', marginRight: '10px' }}
           />{' '}
-          {i18nReact.translate('settings.keymap')}
+          <Trans i18nKey={'settings.keymap'} />
         </div>
         <div className="row">
           <div className="panel-body">
@@ -54,4 +56,6 @@ class KeymapsPanel extends React.Component<SettingsPanelProps> {
   }
 }
 
-export default inject('SettingsStore')(observer(KeymapsPanel))
+export default translate('translations')(
+  inject('SettingsStore')(observer(KeymapsPanel)),
+)

@@ -7,27 +7,8 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
-
-import i18nReact from 'i18n-react'
-
-const locales = [
-  {
-    name: 'German',
-    localeId: 'de',
-  },
-  {
-    name: 'English',
-    localeId: 'en',
-  },
-  {
-    name: 'Dansk',
-    localeId: 'da',
-  },
-  {
-    name: 'Nederlands',
-    localeId: 'nl',
-  },
-]
+import locales from '../../../translations/locales'
+import { translate, Trans } from 'react-i18next'
 
 class RegionSetting extends React.Component<any, { dropdownOpen: boolean }> {
   constructor(props) {
@@ -48,7 +29,7 @@ class RegionSetting extends React.Component<any, { dropdownOpen: boolean }> {
     return (
       <div className="row setting">
         <div className="col-md-4 setting-label">
-          {i18nReact.translate('settings.region.name')}
+          <Trans i18nKey={'settings.region.name'} />
         </div>
         <div className="col-md-2">
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -68,6 +49,7 @@ class RegionSetting extends React.Component<any, { dropdownOpen: boolean }> {
                       key: 'localeId',
                       value: locale.localeId,
                     })
+                    this.props.i18n.changeLanguage(locale.localeId)
                   }}
                 >
                   {locale.name}
@@ -77,11 +59,13 @@ class RegionSetting extends React.Component<any, { dropdownOpen: boolean }> {
           </Dropdown>{' '}
         </div>
         <div className="col-md-6 setting-description">
-          {i18nReact.translate('settings.region.explain')}
+          <Trans i18nKey={'settings.region.explain'} />
         </div>
       </div>
     )
   }
 }
 
-export default inject('SettingsStore')(observer(RegionSetting))
+export default translate('translations')(
+  inject('SettingsStore')(observer(RegionSetting)),
+)
