@@ -11,7 +11,8 @@ import Logout from '../../icons/Logout'
 import Notification from '../../icons/Notification'
 import NotificationLayer from './NotificationLayer'
 import { SettingsStore } from '../../stores/SettingsStore'
-import T from 'i18n-react'
+import { translate } from 'react-i18next'
+import { i18n } from '../../../node_modules/@types/i18next'
 import UnlockPanel from '../modal/UnlockPanel'
 import WifiIcon from 'react-material-icon-svg/dist/WifiIcon'
 import WifiOffIcon from 'react-material-icon-svg/dist/WifiOffIcon'
@@ -25,6 +26,7 @@ interface HeaderState {
 interface HeaderProps {
   AccountInformationStore?: AccountInformationStore
   SettingsStore?: SettingsStore
+  i18n?: i18n
 }
 
 const exampleNotifications: INotification[] = [
@@ -100,10 +102,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       !this.props.AccountInformationStore!.info.blocks
     ) {
       return this.props.AccountInformationStore!.info.loadingProgress
-        ? `${T.translate('header.loading')} ${
+        ? `${this.props.i18n!.t('header.loading') as string} ${
             this.props.AccountInformationStore!.info.loadingProgress
           }%`
-        : T.translate('header.loading')
+        : this.props.i18n!.t('header.loading') as string
     }
 
     return this.props.AccountInformationStore!.info &&
@@ -112,8 +114,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           (this.props.AccountInformationStore!.info.blocks /
             this.props.AccountInformationStore!.info.highestBlock) *
             100,
-        ).toFixed(2)} % ${T.translate('header.synced')}`
-      : T.translate('header.notsyncing')
+        ).toFixed(2)} % ${this.props.i18n!.t('header.synced') as string}`
+      : this.props.i18n!.t('header.notsyncing') as string
   }
 
   isUnlocked() {
@@ -230,8 +232,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               }}
             >
               {this.isUnlocked()
-                ? T.translate('header.unlocked')
-                : T.translate('header.locked')}
+                ? this.props.i18n!.t('header.unlocked') as string
+                : this.props.i18n!.t('header.locked') as string}
             </div>
           </div>
           <div
@@ -289,7 +291,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 color: '#467698',
               }}
             >
-              {this.getConnectionInfo()} {T.translate('header.connection')}
+              {this.getConnectionInfo()} {this.props.i18n!.t('header.connection') as string}
             </div>
           </div>
         </div>
@@ -298,6 +300,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 }
 
-export default inject('AccountInformationStore', 'SettingsStore')(
-  observer(Header),
+export default translate('translations')(
+  inject('AccountInformationStore', 'SettingsStore')(
+    observer(Header),
+  ),
 )
