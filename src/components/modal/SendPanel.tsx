@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 
 import Modal from '../Modal'
 import Send from 'react-material-icon-svg/dist/SendIcon'
+import ScaleBalance from 'react-material-icon-svg/dist/ScaleBalanceIcon'
 import * as React from 'react'
 import { translate, Trans } from 'react-i18next'
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
@@ -109,10 +110,39 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
     }, 1000)
   }
 
+  balanceToLow() {
+    return (this.getBalance() - FEE) <= 0
+  }
+
   render() {
     const props = this.props
+
+    if (this.balanceToLow()) {
+      return (
+        <Modal
+          {...props}
+          title={this.props.i18n!.t('sendPanel.title') as string}
+          className="send-modal send-modal-balance-to-low"
+        >
+          <ScaleBalance
+            width={100}
+            height={100}
+            fill="#d6dee2"
+          />
+          <p className="no-balance-title">{this.props.i18n!.t('sendPanel.notEnoughBalance')}</p>
+          <p className="no-balance-subtitle">
+            {this.props.i18n!.t('sendPanel.notEnoughBalanceDescription')}
+          </p>
+        </Modal>
+      )
+    }
+
     return (
-      <Modal {...props} title={this.props.i18n!.t('sendPanel.title') as string}>
+      <Modal
+        {...props}
+        title={this.props.i18n!.t('sendPanel.title') as string}
+        className="send-modal"
+      >
         <label className="form-label">
           <Trans i18nKey={'sendPanel.recipient'} />
         </label>

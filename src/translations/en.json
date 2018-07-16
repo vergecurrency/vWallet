@@ -141,7 +141,10 @@
       "sent": "Transaction sent!",
       "amountplaceholder": "Enter amount",
       "labelPlaceholder": "Example: Johns Wallet Address",
-      "sendMax": "Send Max"
+      "sendMax": "Send Max",
+      "notEnoughBalance": "Not enough balance",
+      "notEnoughBalanceDescription":
+        "You do not have enough balance to send any XVG.\nPlease increase you're balance."
     },
     "receivePanel": {
       "title": "Receive XVG",
