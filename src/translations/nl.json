@@ -34,7 +34,7 @@
     },
     "transaction": {
       "noTransactionsTitle": "Nog geen transacties ontvangen",
-      "noTransactionsSubtitle": "Open de {buyGuide} of {receive}",
+      "noTransactionsSubtitle": "Open de {{buyGuide}} of {{receive}}",
       "buyXvgGuide": "koop XVG handleiding",
       "receiveXvg": "ontvang XVG",
       "list": "Transactie Lijst",
@@ -131,7 +131,7 @@
         "Vul een label in voor dit adres in. Dit komt terug in je adresboek.",
       "amount": "Bedrag",
       "amountInfo": "Verzendkosten, 0.1 XVG",
-      "xvgUSD": "XVG in {currency}",
+      "xvgUSD": "XVG in {{currency}}",
       "balanceXVG": "Balans in XVG",
       "sendButton": "Verzend XVG",
       "walletAfterTransaction": "Je portemonnee balans na de transactie:",
@@ -153,7 +153,7 @@
     },
     "accountbar": {
       "xvgbalance": "XVG BALANS",
-      "xvgusd": "XVG IN {currency}",
+      "xvgusd": "XVG IN {{currency}}",
       "xvgprice": "XVG PRIJS"
     },
     "footer": {

@@ -187,7 +187,9 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
           <Row>
             <Col md="5">
               <div className="balance-title">
-                <Trans i18nKey={'sendPanel.xvgUSD'} />
+                {this.props.i18n!.t('sendPanel.xvgUSD', {
+                  currency: this.props.SettingsStore!.getCurrency,
+                })}
               </div>
               <div className="balance-value">
                 ${(this.getBalance() * this.getPrice()).toLocaleString(
