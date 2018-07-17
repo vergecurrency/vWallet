@@ -84,7 +84,7 @@
         "Indtast en label for denne adresse hvis du vil tilføje den til din adressebog.",
       "amount": "Beløb",
       "amountInfo": "Transaktionsgebyr, 0.1 XVG",
-      "xvgUSD": "XVG i {currency}",
+      "xvgUSD": "XVG i {{currency}}",
       "balanceXVG": "Beholdning in XVG",
       "sendButton": "Send XVG",
       "walletAfterTransaction": "Din XVG beholdning efter transaktionen:",
@@ -93,7 +93,7 @@
     },
     "accountbar": {
       "xvgbalance": "XVG BEHOLDNING",
-      "xvgusd": "XVG I {currency}",
+      "xvgusd": "XVG I {{currency}}",
       "xvgprice": "XVG PRIS"
     },
     "footer": {
