@@ -300,7 +300,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 }
 
-export default translate('translations')(
+export default translate()(
   inject('AccountInformationStore', 'SettingsStore')(
     observer(Header),
   ),
