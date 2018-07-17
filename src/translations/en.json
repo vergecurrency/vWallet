@@ -131,7 +131,7 @@
         "Enter a label for this address to add it in your addressbook.",
       "amount": "Amount",
       "amountInfo": "Transaction fee, 0.1 XVG",
-      "xvgUSD": "XVG in {currency}",
+      "xvgUSD": "XVG in {{currency}}",
       "balanceXVG": "Balance in XVG",
       "sendButton": "Send XVG",
       "walletAfterTransaction": "Your wallet balance after the transaction:",
@@ -156,8 +156,9 @@
     },
     "accountbar": {
       "xvgbalance": "XVG BALANCE",
-      "xvgusd": "XVG IN {currency}",
-      "xvgprice": "XVG PRICE"
+      "xvgusd": "XVG IN {{currency}}",
+      "xvgprice": "XVG PRICE",
+      "unlock": "Unlock your wallet!"
     },
     "footer": {
       "wallet": "Official Verge Wallet",
