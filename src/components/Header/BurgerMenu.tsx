@@ -1,5 +1,5 @@
 import * as React from 'react'
-import T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import {
   Dropdown,
   DropdownToggle,
@@ -14,11 +14,11 @@ import BlockchainExplorer from 'react-material-icon-svg/dist/OpenInNewIcon'
 import { Link } from 'react-router-dom'
 import { shell } from 'electron'
 
-const openBlockExplorer = function () {
+const openBlockExplorer = function() {
   shell.openExternal('https://verge-blockchain.info/')
 }
 
-export default props => (
+const BurgerMenu = props => (
   <Dropdown isOpen={props.dropdownOpen} toggle={props.toggle}>
     <DropdownToggle
       style={{
@@ -42,19 +42,31 @@ export default props => (
     </DropdownToggle>
     <DropdownMenu className="burger-menu-dropdown-menu">
       <Link to="/">
-        <DropdownItem><Wallet/>{T.translate('header.menu.wallet')}</DropdownItem>
+        <DropdownItem>
+          <Wallet />
+          <Trans i18nKey={'header.menu.wallet'} />
+        </DropdownItem>
       </Link>
       <Link to="/addressbook">
-        <DropdownItem><Addressbook/>{T.translate('header.menu.addressbook')}</DropdownItem>
+        <DropdownItem>
+          <Addressbook />
+          <Trans i18nKey={'header.menu.addressbook'} />
+        </DropdownItem>
       </Link>
       <Link to="/settings">
-        <DropdownItem><Settings/>{T.translate('header.menu.settings')}</DropdownItem>
+        <DropdownItem>
+          <Settings />
+          <Trans i18nKey={'header.menu.settings'} />
+        </DropdownItem>
       </Link>
       <a onClick={openBlockExplorer}>
         <DropdownItem>
-          <BlockchainExplorer/>{T.translate('header.menu.blockchain_explorer')}
+          <BlockchainExplorer />
+          <Trans i18nKey={'header.menu.blockchain_explorer'} />
         </DropdownItem>
       </a>
     </DropdownMenu>
   </Dropdown>
 )
+
+export default translate()(BurgerMenu)

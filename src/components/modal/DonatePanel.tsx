@@ -32,17 +32,11 @@ class DonatePanel extends React.Component<DonatePanelInterface> {
         title={title}
         className="donate-modal"
       >
-        <div className="donate-img-container">
-          <Gift
-            width={110}
-            height={110}
-            style={{ fill: '#d6dee2' }}
-          />
-        </div>
-        <p className="donate-description">
+        <p className="donate-description donate-description-larger">
           At Verge we are always striving to achieve new heights and deliver products
           or software implementations that are requested by the community.
-          <br/><br/>
+        </p>
+        <p  className="donate-description">
           Listening to our community members and taking in feedback is not only
           one of the core founding principles of Verge,
           but it is inherent in our open-source nature.

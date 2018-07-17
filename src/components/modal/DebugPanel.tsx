@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { observer, inject } from 'mobx-react'
 import Modal from '../Modal'
-import i18nReact from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
+import { i18n } from '../../../node_modules/@types/i18next'
 
 enum DebugCategory {
   GENERAL = 'General',
@@ -16,6 +17,7 @@ class DebugPanel extends React.Component<{
   open: boolean
   toggle: () => void
   AccountInformationStore?: AccountInformationStore
+  i18n: i18n
 }> {
   createNewAddress() {
     this.setState({
@@ -64,7 +66,7 @@ class DebugPanel extends React.Component<{
   }
 
   render() {
-    const title: string = i18nReact.translate('debug.title') as string
+    const title: string = this.props.i18n.t('debug.title') as string
     const types = [
       DebugCategory.GENERAL,
       DebugCategory.NETWORK,
@@ -72,10 +74,7 @@ class DebugPanel extends React.Component<{
       DebugCategory.POOL,
     ]
     return (
-      <Modal
-        {...this.props}
-        title={title}
-      >
+      <Modal {...this.props} title={title}>
         <div style={{ color: '#1d2830' }}>
           {types.map(type => {
             const infos = this.mapValuesToCategory(
@@ -85,7 +84,7 @@ class DebugPanel extends React.Component<{
               return value ? (
                 <div className="debug-information-row">
                   <div className="debug-information-row-title">
-                    {i18nReact.translate(`debug.${key}`)}
+                    <Trans i18nKey={`debug.${key}`} />
                   </div>
                   <div className="debug-information-row-value">{value}</div>
                 </div>
@@ -98,7 +97,7 @@ class DebugPanel extends React.Component<{
                     {this.mapCategoryToIcon(type)}
                   </div>
                   <div>
-                    {i18nReact.translate(`debug.types.${type}`)}
+                    <Trans i18nKey={`debug.types.${type}`} />
                   </div>
                 </div>
                 {infos}
@@ -111,4 +110,6 @@ class DebugPanel extends React.Component<{
   }
 }
 
-export default inject('AccountInformationStore')(observer(DebugPanel))
+export default translate('translations')(
+  inject('AccountInformationStore')(observer(DebugPanel)),
+)

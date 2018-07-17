@@ -1,113 +1,115 @@
 {
-  "account-bar": {
-    "receive": "Modtag",
-    "send": "Send"
-  },
-  "transaction": {
-    "list": "Transaktionsliste",
-    "item": {
-      "receive": "Du modtog",
-      "sent": "Du sendte",
-      "details": "Detaljer",
-      "close": "Luk",
-      "address": "Adresse",
-      "blockhash": "Blockhash",
-      "txid": "TXID",
-      "confirmations": "Bekræftelser",
-      "amount": "Beløb",
-      "time": "Tid",
-      "timereceived": "Tid modtaget"
-    }
-  },
-  "settings": {
-    "title": "Alle indstillinger",
-    "explaination": "Forklaringer",
-    "keymap": "Hurtige genveje",
-    "usage": "Brug",
-    "shortkey": {
-      "quicksend": {
-        "name": "Send hurtigt",
-        "usage": "Åbner send-formularen for at sende XVG."
-      },
-      "hideinformation": {
-        "name": "Vis/skjul personlig information",
-        "usage":
-          "Skjuler al personlig data som transaktioner, beholdninger m.m. og erstatter dem med pladsholdere."
-      },
-      "lockwallet": {
-        "name": "Lås pung",
-        "usage":
-          "Låser din pung/wallet, hvilket betyder at du ikke vil være i stand til at sende XVG samt flere funktioner, indtil du indtaster dit kodeord."
+  "translations": {
+    "account-bar": {
+      "receive": "Modtag",
+      "send": "Send"
+    },
+    "transaction": {
+      "list": "Transaktionsliste",
+      "item": {
+        "receive": "Du modtog",
+        "sent": "Du sendte",
+        "details": "Detaljer",
+        "close": "Luk",
+        "address": "Adresse",
+        "blockhash": "Blockhash",
+        "txid": "TXID",
+        "confirmations": "Bekræftelser",
+        "amount": "Beløb",
+        "time": "Tid",
+        "timereceived": "Tid modtaget"
       }
     },
-    "region": {
-      "name": "Region",
-      "explain":
-        "Vælg region, for at få vist din XVG beholding i din lokale valuta og decimal seperering."
-    }
-  },
-  "header": {
-    "connection": "Forbindelse(r)",
-    "synced": "Synk.",
-    "notsyncing": "Ikke synkroniseret",
-    "menu": {
-      "wallet": "Pung",
-      "addressbook": "Adressebog",
-      "settings": "Indstillinger",
-      "blockchain_explorer": "Blockchain Explorer"
+    "settings": {
+      "title": "Alle indstillinger",
+      "explaination": "Forklaringer",
+      "keymap": "Hurtige genveje",
+      "usage": "Brug",
+      "shortkey": {
+        "quicksend": {
+          "name": "Send hurtigt",
+          "usage": "Åbner send-formularen for at sende XVG."
+        },
+        "hideinformation": {
+          "name": "Vis/skjul personlig information",
+          "usage":
+            "Skjuler al personlig data som transaktioner, beholdninger m.m. og erstatter dem med pladsholdere."
+        },
+        "lockwallet": {
+          "name": "Lås pung",
+          "usage":
+            "Låser din pung/wallet, hvilket betyder at du ikke vil være i stand til at sende XVG samt flere funktioner, indtil du indtaster dit kodeord."
+        }
+      },
+      "region": {
+        "name": "Region",
+        "explain":
+          "Vælg region, for at få vist din XVG beholding i din lokale valuta og decimal seperering."
+      }
     },
-    "unlocked": "Åbnet",
-    "locked": "Låst",
-    "on": "TIL",
-    "off": "FRA"
-  },
-  "unlock": {
-    "title": "Lås din pung op",
-    "inputTitle": "Kodeord",
-    "info": "Sørg for at ingen kan se din kode.",
-    "button": "Lås op"
-  },
-  "credits": {
-    "development": "Udvikling",
-    "design": "Design",
-    "translation": "Oversættelser",
-    "contributorButton": "Se alle bidragsydere"
-  },
-  "sendPanel": {
-    "recipient": "Modtageradresse",
-    "xvgAddress": "XVG Adresse",
-    "fundwarning":
-      "Sørg for KUN at indtaste en XVG adresse, ellers risikere du transaktionen går tabt.",
-    "addressLabel": "Label",
-    "labelInfo":
-      "Indtast en label for denne adresse hvis du vil tilføje den til din adressebog.",
-    "amount": "Beløb",
-    "amountInfo": "Transaktionsgebyr, 0.1 XVG",
-    "xvgUSD": "XVG i {currency}",
-    "balanceXVG": "Beholdning in XVG",
-    "sendButton": "Send XVG",
-    "walletAfterTransaction": "Din XVG beholdning efter transaktionen:",
-    "sendWarning":
-      "Venligst dobbelttjek at XVG adressen du har indtastet er korrekt. Verge Currency kan ikke holdes ansvarlig for tab af XVG, der går tabt på grund af forkert adresse."
-  },
-  "accountbar": {
-    "xvgbalance": "XVG BEHOLDNING",
-    "xvgusd": "XVG I {currency}",
-    "xvgprice": "XVG PRIS"
-  },
-  "footer": {
-    "wallet": "Officiel Verge Pung",
-    "debug_information": "Debug Information",
-    "donate": "Donér",
-    "credits": "Credits"
-  },
-  "statistics": {
-    "title": "Prisstatistik",
-    "price": "Pris",
-    "cap": "Market Cap",
-    "hourchange": "1 time ændring",
-    "daychange": "24 timer ændring",
-    "cmc": "CMC Position",
-    "chart": "7-døgnsdiagram"
+    "header": {
+      "connection": "Forbindelse(r)",
+      "synced": "Synk.",
+      "notsyncing": "Ikke synkroniseret",
+      "menu": {
+        "wallet": "Pung",
+        "addressbook": "Adressebog",
+        "settings": "Indstillinger",
+        "blockchain_explorer": "Blockchain Explorer"
+      },
+      "unlocked": "Åbnet",
+      "locked": "Låst",
+      "on": "TIL",
+      "off": "FRA"
+    },
+    "unlock": {
+      "title": "Lås din pung op",
+      "inputTitle": "Kodeord",
+      "info": "Sørg for at ingen kan se din kode.",
+      "button": "Lås op"
+    },
+    "credits": {
+      "development": "Udvikling",
+      "design": "Design",
+      "translation": "Oversættelser",
+      "contributorButton": "Se alle bidragsydere"
+    },
+    "sendPanel": {
+      "recipient": "Modtageradresse",
+      "xvgAddress": "XVG Adresse",
+      "fundwarning":
+        "Sørg for KUN at indtaste en XVG adresse, ellers risikere du transaktionen går tabt.",
+      "addressLabel": "Label",
+      "labelInfo":
+        "Indtast en label for denne adresse hvis du vil tilføje den til din adressebog.",
+      "amount": "Beløb",
+      "amountInfo": "Transaktionsgebyr, 0.1 XVG",
+      "xvgUSD": "XVG i {currency}",
+      "balanceXVG": "Beholdning in XVG",
+      "sendButton": "Send XVG",
+      "walletAfterTransaction": "Din XVG beholdning efter transaktionen:",
+      "sendWarning":
+        "Venligst dobbelttjek at XVG adressen du har indtastet er korrekt. Verge Currency kan ikke holdes ansvarlig for tab af XVG, der går tabt på grund af forkert adresse."
+    },
+    "accountbar": {
+      "xvgbalance": "XVG BEHOLDNING",
+      "xvgusd": "XVG I {currency}",
+      "xvgprice": "XVG PRIS"
+    },
+    "footer": {
+      "wallet": "Officiel Verge Pung",
+      "debug_information": "Debug Information",
+      "donate": "Donér",
+      "credits": "Credits"
+    },
+    "statistics": {
+      "title": "Prisstatistik",
+      "price": "Pris",
+      "cap": "Market Cap",
+      "hourchange": "1 time ændring",
+      "daychange": "24 timer ændring",
+      "cmc": "CMC Position",
+      "chart": "7-døgnsdiagram"
+    }
   }
 }

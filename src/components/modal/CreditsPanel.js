@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components'
 
 import Modal from '../Modal'
 import React from 'react'
-import T from 'i18n-react'
 import github from '../../assets/images/github.png'
+import { translate, Trans } from 'react-i18next'
 
 const centerStyle = css`
   display: flex;
@@ -30,8 +30,7 @@ const CenterContainer = styled.div`
 `
 
 const ContributorButton = styled.button`
-  ${centerStyle} 
-  width: 223px;
+  ${centerStyle} width: 223px;
   height: 44px;
   border-radius: 4px;
   background-color: #25292e;
@@ -53,41 +52,54 @@ const GithubImage = styled.img`
 	margin-right: 15px;
 `
 
+const devNames = [
+  'Justin, @justinvendetta',
+  'Marvin, @marpme_',
+  'Swen, @swenvanzanten',
+]
+
+const designNames = ['Hassan, @waveon3', 'Swen, @swenvanzanten']
+
+const translateNames = ['Marvin, @marpme_']
 const CreditsPanel = props => (
   <Modal {...props} title="Credits">
     <Row style={{ marginBottom: '10px' }}>
       <Col md="3">
-        <TitleItem>{T.translate('credits.development')}</TitleItem>
+        <TitleItem>
+          <Trans i18nKey={'credits.development'} />
+        </TitleItem>
       </Col>
       <Col md="9">
-        <NameItem>Justin, @justinvendetta</NameItem>
-        <NameItem>Marvin, @marpme_</NameItem>
-        <NameItem>Swen, @swenvanzanten</NameItem>
+        {devNames.map((e, key) => <NameItem key={key}>{e}</NameItem>)}
       </Col>
     </Row>
     <Row style={{ marginBottom: '10px' }}>
       <Col md="3">
-        <TitleItem>{T.translate('credits.design')}</TitleItem>
+        <TitleItem>
+          <Trans i18nKey={'credits.design'} />
+        </TitleItem>
       </Col>
       <Col md="9">
-        <NameItem>Hassan, @waveon3</NameItem>
+        {designNames.map((e, key) => <NameItem key={key}>{e}</NameItem>)}
       </Col>
     </Row>
     <Row>
       <Col md="3">
-        <TitleItem>{T.translate('credits.translation')}</TitleItem>
+        <TitleItem>
+          <Trans i18nKey={'credits.translation'} />
+        </TitleItem>
       </Col>
       <Col md="9">
-        <NameItem>Marvin, @marpme_ (English/German)</NameItem>
+        {translateNames.map((e, key) => <NameItem key={key}>{e}</NameItem>)}
       </Col>
     </Row>
 
     <CenterContainer>
       <ContributorButton>
-        <GithubImage /> {T.translate('credits.contributorButton')}
+        <GithubImage /> <Trans i18nKey={'credits.contributorButton'} />
       </ContributorButton>
     </CenterContainer>
   </Modal>
 )
 
-export default CreditsPanel
+export default translate('translations')(CreditsPanel)

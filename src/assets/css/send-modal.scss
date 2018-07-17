@@ -1,3 +1,30 @@
+.send-modal > div.modal-content > div.modal-body {
+  min-height: 518px;
+}
+
+.send-modal.send-modal-balance-to-low > div.modal-content > div.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-modal.send-modal-balance-to-low > div.modal-content > div.modal-body > p {
+  margin-bottom: 0;
+}
+
+.no-balance-title {
+  color: #b0c1c8;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+.no-balance-subtitle {
+  color: #cbd9df;
+  font-size: 15px;
+  text-align: center;
+}
+
 .balance-title {
   color: #476b84;
   font-size: 6px;
