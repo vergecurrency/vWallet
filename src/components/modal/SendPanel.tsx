@@ -1,17 +1,21 @@
-import { Col, Row } from 'reactstrap'
 import { inject, observer } from 'mobx-react'
 
 import Modal from '../Modal'
-import Send from 'react-material-icon-svg/dist/SendIcon'
-import ScaleBalance from 'react-material-icon-svg/dist/ScaleBalanceIcon'
+import AmountInput from '../transaction/AmountInput'
+import BalanceBar from '../transaction/BalanceBar'
+import SendTransactionButton from '../transaction/SendTransactionButton'
+import SendIcon from 'react-material-icon-svg/dist/SendIcon'
+import ScaleBalanceIcon from 'react-material-icon-svg/dist/ScaleBalanceIcon'
 import * as React from 'react'
 import { translate, Trans } from 'react-i18next'
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import { CoinStatsStore } from '../../stores/CoinStatsStore'
 import { SettingsStore } from '../../stores/SettingsStore'
 import { i18n } from '../../../node_modules/@types/i18next'
+import SendState from '../../utils/SendState'
+import Fee from '../../utils/Fee'
 
-const FEE = 0.1
+const FEE = Fee
 
 interface SendPanelProps {
   address?: string
@@ -21,13 +25,6 @@ interface SendPanelProps {
   open: boolean
   toggle: (() => void) & ((event: Event) => void)
   i18n?: i18n
-}
-
-enum SendState {
-  OPEN,
-  SENDING,
-  DONE,
-  ERROR,
 }
 
 interface SendPanelState {
@@ -59,17 +56,8 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
     return this.props.CoinStatsStore!.priceWithCurrency
   }
 
-  amountChanged(e) {
-    const input = parseFloat(e.target.value) || 0
-    input <= this.getBalance() && input >= 0
-      ? this.setState({ amount: parseFloat(e.target.value) })
-      : null
-  }
-
-  sendMax() {
-    this.setState({
-      amount: this.props.AccountInformationStore!.getBalance - FEE,
-    })
+  amountChanged(amount) {
+    this.setState({ amount })
   }
 
   sendTransaction() {
@@ -124,7 +112,7 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
           title={this.props.i18n!.t('sendPanel.title') as string}
           className="send-modal send-modal-balance-to-low"
         >
-          <ScaleBalance
+          <ScaleBalanceIcon
             width={100}
             height={100}
             fill="#d6dee2"
@@ -169,97 +157,27 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
         <p className="form-input-help">
           <Trans i18nKey={'sendPanel.labelInfo'} />
         </p>
-        <label className="form-label">
-          <Trans i18nKey={'sendPanel.amount'} />
-        </label>
-        <div className="form-input-group">
-          <div className="form-input-group-prepend">XVG</div>
-          <div className="form-input-group-max-section">
-            <button
-              className="form-input-group-max-button"
-              type="button"
-              onClick={this.sendMax.bind(this)}
-            >
-              <Trans i18nKey={'sendPanel.sendMax'} />
-            </button>
-          </div>
-          <input
-            className="form-input"
-            value={this.state.amount}
-            onChange={this.amountChanged.bind(this)}
-            placeholder={
-              this.props.i18n!.t('sendPanel.amountplaceholder') as string
-            }
-            type="number"
-          />
-        </div>
-        <div
-          className="form-input-helpers"
-          style={{
-            marginBottom: '1rem',
-          }}
-        >
-          <div>
-            <Trans i18nKey={'sendPanel.amountInfo'} />
-          </div>
-          <div>
-            <Trans i18nKey={'sendPanel.walletAfterTransaction'} />{' '}
-            <b>
-              {(this.getBalance() - this.state.amount - FEE).toLocaleString(
-                this.getLocaleId(),
-              )}{' '}
-              XVG
-            </b>
-          </div>
-        </div>
+        <AmountInput
+          amount={this.state.amount}
+          amountChanged={this.amountChanged.bind(this)}
+        />
         <div className="form-separator" />
-        <div style={{ marginBottom: '20px' }}>
-          <Row>
-            <Col md="5">
-              <div className="balance-title">
-                {this.props.i18n!.t('sendPanel.xvgUSD', {
-                  currency: this.props.SettingsStore!.getCurrency,
-                })}
-              </div>
-              <div className="balance-value">
-                ${(this.getBalance() * this.getPrice()).toLocaleString(
-                  this.getLocaleId(),
-                )}
-              </div>
-            </Col>
-            <Col md="7">
-              <div className="balance-title">
-                <Trans i18nKey={'sendPanel.balanceXVG'} />
-              </div>
-              <div className="balance-value">
-                {this.getBalance().toLocaleString(this.getLocaleId())} XVG
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <button className="btn btn-lg" onClick={() => this.sendTransaction()}>
-          <Send
+        <BalanceBar />
+        <SendTransactionButton
+          label={this.props.i18n!.t('sendPanel.sendButton')}
+          status={this.state.status}
+          amount={this.state.amount}
+          price={this.getPrice()}
+          localeId={this.getLocaleId()}
+          error={this.state.error}
+          onClick={this.sendTransaction.bind(this)}
+        >
+          <SendIcon
             width={22}
             height={22}
             style={{ fill: '#fff', marginRight: '5px' }}
           />
-          {this.state.status === SendState.OPEN &&
-            `${this.props.i18n!.t('sendPanel.sendButton')}${' '}
-          ${
-            this.state.amount
-              ? `${this.state.amount.toLocaleString(
-                  this.getLocaleId(),
-                )} XVG ($${(this.state.amount * this.getPrice()).toLocaleString(
-                  this.getLocaleId(),
-                )}) + ${FEE.toLocaleString(this.getLocaleId())} XVG Fee`
-              : ''
-          }`}
-          {this.state.status === SendState.SENDING &&
-            this.props.i18n!.t('sendPanel.sending')}
-          {this.state.status === SendState.ERROR && this.state.error}
-          {this.state.status === SendState.DONE &&
-            this.props.i18n!.t('sendPanel.sent')}
-        </button>
+        </SendTransactionButton>
         <p className="form-input-help send-disclaimer">
           <Trans i18nKey={'sendPanel.sendWarning'} />
         </p>
