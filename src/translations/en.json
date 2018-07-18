@@ -154,6 +154,16 @@
         "Send only XVG to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit.",
       "addressCopyConfirm": "XVG Address copied!"
     },
+    "donatePanel": {
+      "title": "Donate",
+      "donationXvgAddress": "Donation XVG Address",
+      "donationXvgAddressHelp": "Your XVG donation gets send to this address.",
+      "descriptionHead":
+        "At Verge we are always striving to achieve new heights and deliver products or software implementations that are requested by the community.",
+      "descriptionFoot":
+        "Listening to our community members and taking in feedback is not only one of the core founding principles of Verge, but it is inherent in our open-source nature.",
+      "donateXvg": "Donate XVG"
+    },
     "accountbar": {
       "xvgbalance": "XVG BALANCE",
       "xvgusd": "XVG IN {{currency}}",
