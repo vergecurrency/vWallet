@@ -82,7 +82,7 @@ class DebugPanel extends React.Component<{
               type,
             ).map(({ key, value }) => {
               return value ? (
-                <div className="debug-information-row">
+                <div className="debug-information-row" key={key}>
                   <div className="debug-information-row-title">
                     <Trans i18nKey={`debug.${key}`} />
                   </div>
@@ -91,7 +91,7 @@ class DebugPanel extends React.Component<{
               ) : null
             })
             return (
-              <div className="debug-information-section">
+              <div className="debug-information-section" key={type}>
                 <div className="debug-information-section-title">
                   <div className="debug-information-section-title-icon">
                     {this.mapCategoryToIcon(type)}

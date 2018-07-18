@@ -4,8 +4,10 @@ import { inject, observer } from 'mobx-react'
 
 import CreditsPanel from './modal/CreditsPanel'
 import { SettingsStore } from '../stores/SettingsStore'
+import { AccountInformationStore } from '../stores/AccountInformationStore'
 import { shell } from 'electron'
 import { translate, Trans } from 'react-i18next'
+import { Tooltip } from 'reactstrap'
 import styledComponents from 'styled-components'
 import DebugPanel from './modal/DebugPanel'
 import DonatePanel from './modal/DonatePanel'
@@ -21,12 +23,14 @@ const FooterVersion = styledComponents.div`
 
 interface FooterProps {
   SettingsStore?: SettingsStore
+  AccountInformationStore?: AccountInformationStore
 }
 
 interface FooterState {
   credits: boolean
   debugWindow: boolean
   donateModal: boolean
+  tooltipDonateOpen: boolean
 }
 
 class Footer extends React.Component<FooterProps, FooterState> {
@@ -36,6 +40,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
       credits: false,
       debugWindow: false,
       donateModal: false,
+      tooltipDonateOpen: false,
     }
 
     this.toggle = this.toggle.bind(this)
@@ -50,7 +55,17 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   toggleDonate(item: 'donateModal' = 'donateModal') {
-    return () => this.setState({ [item]: !this.state[item] })
+    return () => {
+      if (this.props.AccountInformationStore!.unlocked) {
+        this.setState({ [item]: !this.state[item] })
+      }
+    }
+  }
+
+  toggleDonateTooltip() {
+    this.setState({
+      tooltipDonateOpen: !this.state.tooltipDonateOpen,
+    })
   }
 
   openLatestRelease() {
@@ -91,7 +106,18 @@ class Footer extends React.Component<FooterProps, FooterState> {
           >
             <Trans i18nKey={'footer.debug_information'} />
           </FooterText>
+          {!this.props.AccountInformationStore!.unlocked &&
+            <Tooltip
+              placement="top"
+              target="donate-xvg"
+              isOpen={this.state.tooltipDonateOpen}
+              toggle={this.toggleDonateTooltip.bind(this)}
+            >
+              <Trans i18nKey={'unlock.title'} />
+            </Tooltip>
+          }
           <FooterText
+            id="donate-xvg"
             className="col-md-1 text-right clicky"
             onClick={this.toggleDonate('donateModal')}
           >
@@ -109,4 +135,4 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 }
 
-export default translate()(inject('SettingsStore')(observer(Footer)))
+export default translate()(inject('SettingsStore', 'AccountInformationStore')(observer(Footer)))

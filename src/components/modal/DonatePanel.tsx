@@ -4,6 +4,7 @@ import SendState from '../../utils/SendState'
 import AmountInput from '../transaction/AmountInput'
 import BalanceBar from '../transaction/BalanceBar'
 import SendTransactionButton from '../transaction/SendTransactionButton'
+import NoBalancePanel from './NoBalancePanel'
 import GiftIcon from 'react-material-icon-svg/dist/GiftIcon'
 import { inject, observer } from 'mobx-react'
 import { translate, Trans } from 'react-i18next'
@@ -11,6 +12,7 @@ import { CoinStatsStore } from '../../stores/CoinStatsStore'
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import { SettingsStore } from '../../stores/SettingsStore'
 import { i18n } from 'i18next'
+import Fee from '../../utils/Fee'
 
 const XVG_DONATION_ADDRESS = 'D7KV88Zg2XNHUtX1DYhMsoHRz1RG9xGSmM'
 
@@ -46,6 +48,10 @@ class DonatePanel extends React.Component<DonatePanelInterface, DonatePanelState
 
   amountChanged(amount) {
     this.setState({ amount })
+  }
+
+  balanceToLow() {
+    return (this.props.AccountInformationStore!.getBalance - Fee) <= 0
   }
 
   sendTransaction() {
@@ -85,6 +91,16 @@ class DonatePanel extends React.Component<DonatePanelInterface, DonatePanelState
   }
 
   render() {
+    if (this.balanceToLow()) {
+      return (
+        <NoBalancePanel
+          {...this.props}
+          title={this.props.i18n!.t('donatePanel.title') as string}
+          className="donate-modal"
+        />
+      )
+    }
+
     return (
       <Modal
         {...this.props}
