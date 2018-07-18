@@ -106,7 +106,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
           >
             <Trans i18nKey={'footer.debug_information'} />
           </FooterText>
-          {!this.props.AccountInformationStore!.unlocked &&
+          {!this.props.AccountInformationStore!.unlocked && (
             <Tooltip
               placement="top"
               target="donate-xvg"
@@ -115,7 +115,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
             >
               <Trans i18nKey={'unlock.title'} />
             </Tooltip>
-          }
+          )}
           <FooterText
             id="donate-xvg"
             className="col-md-1 text-right clicky"
@@ -135,4 +135,6 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 }
 
-export default translate()(inject('SettingsStore', 'AccountInformationStore')(observer(Footer)))
+export default translate()(
+  inject('SettingsStore', 'AccountInformationStore')(observer(Footer)),
+)
