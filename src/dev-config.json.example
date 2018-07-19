@@ -1,6 +1,6 @@
 {
   "rpcusername": "kyon",
-  "rpcpassword": "lolcat"
+  "rpcpassword": "lolcat",
 
   "clientDriver": "mock",
 
