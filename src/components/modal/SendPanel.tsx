@@ -3,9 +3,9 @@ import { inject, observer } from 'mobx-react'
 import Modal from '../Modal'
 import AmountInput from '../transaction/AmountInput'
 import BalanceBar from '../transaction/BalanceBar'
+import NoBalancePanel from './NoBalancePanel'
 import SendTransactionButton from '../transaction/SendTransactionButton'
 import SendIcon from 'react-material-icon-svg/dist/SendIcon'
-import ScaleBalanceIcon from 'react-material-icon-svg/dist/ScaleBalanceIcon'
 import * as React from 'react'
 import { translate, Trans } from 'react-i18next'
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
@@ -107,21 +107,11 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
 
     if (this.balanceToLow()) {
       return (
-        <Modal
+        <NoBalancePanel
           {...props}
           title={this.props.i18n!.t('sendPanel.title') as string}
-          className="send-modal send-modal-balance-to-low"
-        >
-          <ScaleBalanceIcon
-            width={100}
-            height={100}
-            fill="#d6dee2"
-          />
-          <p className="no-balance-title">{this.props.i18n!.t('sendPanel.notEnoughBalance')}</p>
-          <p className="no-balance-subtitle">
-            {this.props.i18n!.t('sendPanel.notEnoughBalanceDescription')}
-          </p>
-        </Modal>
+          className="send-modal"
+        />
       )
     }
 
