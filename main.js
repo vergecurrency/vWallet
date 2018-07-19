@@ -67,7 +67,7 @@ let createTorProcess = path => {
       path + 'tor/mac/tor',
       [
         '-f',
-        'build/tor/torrc'
+        path + 'tor/torrc'
       ],
       {
         stdio: ['inherit', 'inherit', 'inherit', 'ipc']
@@ -82,11 +82,8 @@ if (process.env.NODE_ENV === 'dev') {
   torProcess = createTorProcess('./build/')
   log.info('VERGE Process running @ ', torProcess.pid, ' pid')
 } else {
-  log.info('Creating the verge deamon - prod')
-  createProc(process.resourcesPath + '/VERGEd')
-  log.info('Starting tor...')
-  torProcess = createTorProcess(process.resourcesPath)
-  log.info('VERGE Process running @ ', torProcess.pid, ' pid')
+  // createProc(process.resourcesPath + '/VERGEd')
+  torProcess = createTorProcess(process.resourcesPath + '/build/')
 }
 
 function createWindow() {
