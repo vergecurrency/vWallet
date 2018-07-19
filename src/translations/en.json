@@ -1,164 +1,189 @@
 {
-  "account-bar": {
-    "receive": "Receive",
-    "send": "Send"
-  },
-  "receive": {
-    "title": "Receive Verge",
-    "generate": "Press to generate",
-    "address": "Generate Address:"
-  },
-  "debug": {
-    "types": {
-      "General": "General",
-      "Network": "Network",
-      "Scripts": "Hashes/Mining",
-      "Pool": "Pool"
+  "translations": {
+    "account-bar": {
+      "receive": "Receive",
+      "send": "Send"
     },
-    "title": "Debug Information",
-    "version": "Version",
-    "protocolversion": "Protocol Version",
-    "walletversion": "Daemon version",
-    "balance": "Balance",
-    "blocks": "Blocks",
-    "moneysupply": "Money supply",
-    "connections": "Connection(s)",
-    "ip": "IP address",
-    "pow_algo": "Current algorithm",
-    "difficulty": "Current difficulty",
-    "difficulty_x17": "X17 difficulty",
-    "difficulty_scrypt": "Scrypt difficulty",
-    "difficulty_groestl": "Groestl difficulty",
-    "difficulty_lyra2re": "Lyra2re difficulty",
-    "difficulty_blake": "Blake difficulty",
-    "keypoololdest": "Oldest keypool",
-    "keypoolsize": "Size keypool",
-    "paytxfee": "Transaction fee",
-    "highestBlock": "Highest block (peers)"
-  },
-  "transaction": {
-    "list": "Transaction List",
-    "summary": "Summary for",
-    "loading": "Loading ...",
-    "searchplaceholder": "Search for address or amount",
-    "item": {
-      "receive": "Received",
-      "sent": "Sent",
-      "fee": "Paid fees",
-      "details": "details",
-      "close": "close",
-      "address": "Address",
-      "blockhash": "Blockhash",
-      "txid": "TXID",
-      "confirmations": "confirmations",
-      "amount": "Amount",
-      "time": "Time sent",
-      "timereceived": "Time received",
-      "outofsync": "Confirmations: Out of sync",
-      "more": "Further information:",
-      "opentransaction": "Open Transaction",
-      "openblock": "Open Block"
-    }
-  },
-  "settings": {
-    "title": "Settings Overview",
-    "explaination": "Explaination",
-    "keymap": "Keymap Overview",
-    "usage": "Usage",
-    "shortkey": {
-      "quicksend": {
-        "name": "Quick Send",
-        "usage": "Opens the transaction form to send XVG."
+    "debug": {
+      "types": {
+        "General": "General",
+        "Network": "Network",
+        "Scripts": "Hashes/Mining",
+        "Pool": "Pool"
       },
-      "hideinformation": {
-        "name": "Show/Hide personal Information",
-        "usage":
-          "Hides all personal data, like transactions, balance etc. and replaces them with placeholders."
-      },
-      "lockwallet": {
-        "name": "Lock Wallet",
-        "usage":
-          "This locks your wallet, which means that you won`t be able to perform some of the offered options until you enter your password again (send XVG etc.)."
+      "title": "Debug Information",
+      "version": "Version",
+      "protocolversion": "Protocol Version",
+      "walletversion": "Daemon version",
+      "balance": "Balance",
+      "blocks": "Blocks",
+      "moneysupply": "Money supply",
+      "connections": "Connection(s)",
+      "ip": "IP address",
+      "pow_algo": "Current algorithm",
+      "difficulty": "Current difficulty",
+      "difficulty_x17": "X17 difficulty",
+      "difficulty_scrypt": "Scrypt difficulty",
+      "difficulty_groestl": "Groestl difficulty",
+      "difficulty_lyra2re": "Lyra2re difficulty",
+      "difficulty_blake": "Blake difficulty",
+      "keypoololdest": "Oldest keypool",
+      "keypoolsize": "Size keypool",
+      "paytxfee": "Transaction fee",
+      "highestBlock": "Highest block (peers)"
+    },
+    "transaction": {
+      "noTransactionsTitle": "No transactions received yet",
+      "noTransactionsSubtitle": "Open the {{buyGuide}} or {{receive}}",
+      "buyXvgGuide": "buy XVG guide",
+      "receiveXvg": "receive XVG",
+      "list": "Transaction List",
+      "summary": "Summary for",
+      "loading": "Loading ...",
+      "searchplaceholder": "Search for address or amount",
+      "item": {
+        "receive": "Received",
+        "sent": "Sent",
+        "fee": "Paid fees",
+        "details": "details",
+        "close": "close",
+        "address": "Address",
+        "blockhash": "Blockhash",
+        "txid": "TXID",
+        "confirmations": "confirmations",
+        "amount": "Amount",
+        "time": "Time sent",
+        "timereceived": "Time received",
+        "outofsync": "Confirmations: Out of sync",
+        "more": "Further information:",
+        "opentransaction": "Open Transaction",
+        "openblock": "Open Block"
       }
     },
-    "region": {
-      "name": "Region",
-      "explain": "This switches language to the chosen one. Choose wisely."
+    "settings": {
+      "title": "Settings Overview",
+      "explaination": "Explaination",
+      "keymap": "Keymap Overview",
+      "usage": "Usage",
+      "shortkey": {
+        "quicksend": {
+          "name": "Quick Send",
+          "usage": "Opens the transaction form to send XVG."
+        },
+        "hideinformation": {
+          "name": "Show/Hide personal Information",
+          "usage":
+            "Hides all personal data, like transactions, balance etc. and replaces them with placeholders."
+        },
+        "lockwallet": {
+          "name": "Lock Wallet",
+          "usage":
+            "This locks your wallet, which means that you won`t be able to perform some of the offered options until you enter your password again (send XVG etc.)."
+        }
+      },
+      "region": {
+        "name": "Region",
+        "explain": "This switches language to the chosen one. Choose wisely."
+      },
+      "currency": {
+        "name": "Currency",
+        "explain":
+          "This switches the currency your wallet is calculated for. For example: it switches currencies formats from USD to EUR"
+      }
     },
-    "currency": {
-      "name": "Currency",
-      "explain":
-        "This switches the currency your wallet is calculated for. For example: it switches currencies formats from USD to EUR"
+    "header": {
+      "connection": "Connection(s)",
+      "synced": "synced",
+      "notsyncing": "not syncing",
+      "menu": {
+        "wallet": "Wallet",
+        "addressbook": "Addressbook",
+        "settings": "Settings",
+        "blockchain_explorer": "Blockchain Explorer"
+      },
+      "unlocked": "unlocked",
+      "locked": "locked",
+      "on": "ON",
+      "off": "OFF",
+      "loading": "Loading ..."
+    },
+    "unlock": {
+      "title": "Unlock your wallet",
+      "inputTitle": "Passphrase",
+      "info": "Make sure that nobody can see your input.",
+      "button": "Unlock",
+      "wrongpass": " The password you entered was incorrect."
+    },
+    "credits": {
+      "development": "Development",
+      "design": "Design",
+      "translation": "Translation",
+      "contributorButton": "See all contributors"
+    },
+    "sendPanel": {
+      "title": "Send XVG",
+      "recipient": "Recipient Address",
+      "xvgAddress": "XVG Address",
+      "fundwarning":
+        "Please ONLY enter a XVG address. Funds will be lost otherwise.",
+      "addressLabel": "Label",
+      "labelInfo":
+        "Enter a label for this address to add it in your addressbook.",
+      "amount": "Amount",
+      "amountInfo": "Transaction fee, 0.1 XVG",
+      "xvgUSD": "XVG in {{currency}}",
+      "balanceXVG": "Balance in XVG",
+      "sendButton": "Send XVG",
+      "walletAfterTransaction": "Your wallet balance after the transaction:",
+      "sendWarning":
+        "Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets.",
+      "sending": "Sending your transaction",
+      "sent": "Transaction sent!",
+      "amountplaceholder": "Enter amount",
+      "labelPlaceholder": "Example: Johns Wallet Address",
+      "sendMax": "Send Max",
+      "notEnoughBalance": "Not enough balance",
+      "notEnoughBalanceDescription":
+        "You do not have enough balance to send any XVG.\nPlease increase you're balance."
+    },
+    "receivePanel": {
+      "title": "Receive XVG",
+      "address": "Deposit Address",
+      "generate": "Hit the refresh button to generate a new XVG address",
+      "disclaimer":
+        "Send only XVG to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit.",
+      "addressCopyConfirm": "XVG Address copied!"
+    },
+    "donatePanel": {
+      "title": "Donate",
+      "donationXvgAddress": "Donation XVG Address",
+      "donationXvgAddressHelp": "Your XVG donation gets send to this address.",
+      "descriptionHead":
+        "At Verge we are always striving to achieve new heights and deliver products or software implementations that are requested by the community.",
+      "descriptionFoot":
+        "Listening to our community members and taking in feedback is not only one of the core founding principles of Verge, but it is inherent in our open-source nature.",
+      "donateXvg": "Donate XVG"
+    },
+    "accountbar": {
+      "xvgbalance": "XVG BALANCE",
+      "xvgusd": "XVG IN {{currency}}",
+      "xvgprice": "XVG PRICE",
+      "unlock": "Unlock your wallet!"
+    },
+    "footer": {
+      "wallet": "Official Verge Wallet",
+      "debug_information": "Debug Information",
+      "donate": "Donate",
+      "credits": "Credits"
+    },
+    "statistics": {
+      "title": "Price Statistics",
+      "price": "Price",
+      "cap": "Market Cap",
+      "hourchange": "1 hour change",
+      "daychange": "24 hour change",
+      "cmc": "CMC Position",
+      "chart": "7-days Chart"
     }
-  },
-  "header": {
-    "connection": "Connection(s)",
-    "synced": "synced",
-    "notsyncing": "not syncing",
-    "menu": {
-      "wallet": "Wallet",
-      "addressbook": "Addressbook",
-      "settings": "Settings",
-      "blockchain_explorer": "Blockchain Explorer"
-    },
-    "unlocked": "unlocked",
-    "locked": "locked",
-    "on": "ON",
-    "off": "OFF",
-    "loading": "Loading ..."
-  },
-  "unlock": {
-    "title": "Unlock your wallet",
-    "inputTitle": "Passphrase",
-    "info": "Make sure that nobody can see your input.",
-    "button": "Unlock",
-    "wrongpass": " The password you entered was incorrect."
-  },
-  "credits": {
-    "development": "Development",
-    "design": "Design",
-    "translation": "Translation",
-    "contributorButton": "See all Contributor"
-  },
-  "sendPanel": {
-    "title": "Send Verge",
-    "recipient": "Recipient Address",
-    "fundwarning":
-      "Please ONLY enter an XVG address. Funds will be lost otherwise.",
-    "addressLabel": "Label",
-    "labelInfo":
-      "Enter a label for this address to add it in your addressbook.",
-    "amount": "Amount",
-    "amountInfo": "Transaction fee, 0.1 XVG",
-    "xvgUSD": "XVG in {currency}",
-    "balanceXVG": "Balance in XVG",
-    "sendButton": "Send",
-    "walletAfterTransaction": "Your wallet balance after the transaction:",
-    "sendWarning":
-      "Doublecheck that the wallet address is correct. Verge Currency cannot be held accountable for loss of XVG sent to wrong wallets.",
-    "sending": "Sending your transaction",
-    "sent": "Transaction sent!",
-    "amountplaceholder": "Enter amount",
-    "labelPlaceholder": "Example: Johns Wallet Address"
-  },
-  "accountbar": {
-    "xvgbalance": "XVG BALANCE",
-    "xvgusd": "XVG IN {currency}",
-    "xvgprice": "XVG PRICE"
-  },
-  "footer": {
-    "wallet": "Official Verge Wallet",
-    "debug_information": "Debug Information",
-    "donate": "Donate",
-    "credits": "Credits"
-  },
-  "statistics": {
-    "title": "Price Statistics",
-    "price": "Price",
-    "cap": "Market Cap",
-    "hourchange": "1 hour change",
-    "daychange": "24 hour change",
-    "cmc": "CMC Position",
-    "chart": "7-days Chart"
   }
 }

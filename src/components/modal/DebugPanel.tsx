@@ -1,31 +1,10 @@
 import * as React from 'react'
-import { Container, Row, Col } from 'reactstrap'
 import { observer, inject } from 'mobx-react'
 import Modal from '../Modal'
-import i18nReact from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
-import styledComponents from 'styled-components'
-
-const InfoBlock = styledComponents.div`
-  margin-bottom: 35px;
-`
-const InfoHeader = styledComponents.div`
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding-bottom: 15px;
-`
-
-const InfoHeaderIcon = styledComponents.div`
-  margin-right: 10px;
-  display: inline-flex;
-`
-
-const InfoHeaderTitle = styledComponents.div`
-  font-weight: 900;
-  font-size: 20px;
-`
+import { i18n } from '../../../node_modules/@types/i18next'
 
 enum DebugCategory {
   GENERAL = 'General',
@@ -38,6 +17,7 @@ class DebugPanel extends React.Component<{
   open: boolean
   toggle: () => void
   AccountInformationStore?: AccountInformationStore
+  i18n: i18n
 }> {
   createNewAddress() {
     this.setState({
@@ -75,18 +55,18 @@ class DebugPanel extends React.Component<{
   mapCategoryToIcon(category: DebugCategory) {
     switch (category) {
       case DebugCategory.GENERAL:
-        return <i className="fas fa-info" />
+        return <i className="fas fa-info-circle fa-fw" />
       case DebugCategory.NETWORK:
-        return <i className="fas fa-users" />
+        return <i className="fas fa-users fa-fw" />
       case DebugCategory.POOL:
-        return <i className="fab fa-cloudscale" />
+        return <i className="fab fa-cloudscale fa-fw" />
       case DebugCategory.SCRIPTS:
-        return <i className="fas fa-code" />
+        return <i className="fas fa-code fa-fw" />
     }
   }
 
   render() {
-    const title: string = i18nReact.translate('debug.title') as string
+    const title: string = this.props.i18n.t('debug.title') as string
     const types = [
       DebugCategory.GENERAL,
       DebugCategory.NETWORK,
@@ -94,48 +74,42 @@ class DebugPanel extends React.Component<{
       DebugCategory.POOL,
     ]
     return (
-      <Modal
-        {...this.props}
-        title={title}
-        style={{ maxWidth: '630px', width: '630px' }}
-      >
-        <Container style={{ color: '#000' }}>
+      <Modal {...this.props} title={title}>
+        <div style={{ color: '#1d2830' }}>
           {types.map(type => {
             const infos = this.mapValuesToCategory(
               this.props.AccountInformationStore!.debugPanelInformation,
               type,
             ).map(({ key, value }) => {
               return value ? (
-                <Row>
-                  <Col md={4}>{i18nReact.translate(`debug.${key}`)}: </Col>
-                  <Col md={8}>{value}</Col>
-                </Row>
+                <div className="debug-information-row" key={key}>
+                  <div className="debug-information-row-title">
+                    <Trans i18nKey={`debug.${key}`} />
+                  </div>
+                  <div className="debug-information-row-value">{value}</div>
+                </div>
               ) : null
             })
             return (
-              <InfoBlock>
-                <Row>
-                  <InfoHeader>
-                    <Col md={3}>
-                      <InfoHeaderIcon>
-                        {this.mapCategoryToIcon(type)}
-                      </InfoHeaderIcon>
-                    </Col>
-                    <Col>
-                      <InfoHeaderTitle>
-                        {i18nReact.translate(`debug.types.${type}`)}:
-                      </InfoHeaderTitle>
-                    </Col>
-                  </InfoHeader>
-                </Row>
+              <div className="debug-information-section" key={type}>
+                <div className="debug-information-section-title">
+                  <div className="debug-information-section-title-icon">
+                    {this.mapCategoryToIcon(type)}
+                  </div>
+                  <div>
+                    <Trans i18nKey={`debug.types.${type}`} />
+                  </div>
+                </div>
                 {infos}
-              </InfoBlock>
+              </div>
             )
           })}
-        </Container>
+        </div>
       </Modal>
     )
   }
 }
 
-export default inject('AccountInformationStore')(observer(DebugPanel))
+export default translate('translations')(
+  inject('AccountInformationStore')(observer(DebugPanel)),
+)

@@ -4,10 +4,13 @@ import { inject, observer } from 'mobx-react'
 
 import CreditsPanel from './modal/CreditsPanel'
 import { SettingsStore } from '../stores/SettingsStore'
+import { AccountInformationStore } from '../stores/AccountInformationStore'
 import { shell } from 'electron'
-import i18nReact from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
+import { Tooltip } from 'reactstrap'
 import styledComponents from 'styled-components'
 import DebugPanel from './modal/DebugPanel'
+import DonatePanel from './modal/DonatePanel'
 
 const FooterText = styledComponents.div`
   textalign: 'center';
@@ -20,11 +23,14 @@ const FooterVersion = styledComponents.div`
 
 interface FooterProps {
   SettingsStore?: SettingsStore
+  AccountInformationStore?: AccountInformationStore
 }
 
 interface FooterState {
   credits: boolean
   debugWindow: boolean
+  donateModal: boolean
+  tooltipDonateOpen: boolean
 }
 
 class Footer extends React.Component<FooterProps, FooterState> {
@@ -33,6 +39,8 @@ class Footer extends React.Component<FooterProps, FooterState> {
     this.state = {
       credits: false,
       debugWindow: false,
+      donateModal: false,
+      tooltipDonateOpen: false,
     }
 
     this.toggle = this.toggle.bind(this)
@@ -44,6 +52,20 @@ class Footer extends React.Component<FooterProps, FooterState> {
 
   toggleWindow(item: 'debugWindow' = 'debugWindow') {
     return () => this.setState({ [item]: !this.state[item] })
+  }
+
+  toggleDonate(item: 'donateModal' = 'donateModal') {
+    return () => {
+      if (this.props.AccountInformationStore!.unlocked) {
+        this.setState({ [item]: !this.state[item] })
+      }
+    }
+  }
+
+  toggleDonateTooltip() {
+    this.setState({
+      tooltipDonateOpen: !this.state.tooltipDonateOpen,
+    })
   }
 
   openLatestRelease() {
@@ -65,31 +87,47 @@ class Footer extends React.Component<FooterProps, FooterState> {
           toggle={this.toggleWindow('debugWindow')}
           open={this.state.debugWindow}
         />
+        <DonatePanel
+          toggle={this.toggleDonate('donateModal')}
+          open={this.state.donateModal}
+        />
         <div className="row">
           <FooterVersion
             className="col-md-8"
             onClick={this.openLatestRelease.bind(this)}
           >
             <span className="clicky">
-              {i18nReact.translate('footer.wallet')} v{
-                SettingsStore!.appVersion
-              }
+              <Trans i18nKey={'footer.wallet'} /> v{SettingsStore!.appVersion}
             </span>
           </FooterVersion>
           <FooterText
             className="col-md-2 text-right clicky"
             onClick={this.toggleWindow('debugWindow')}
           >
-            {i18nReact.translate('footer.debug_information')}
+            <Trans i18nKey={'footer.debug_information'} />
           </FooterText>
-          <FooterText className="col-md-1 text-right clicky">
-            {i18nReact.translate('footer.donate')}
+          {!this.props.AccountInformationStore!.unlocked && (
+            <Tooltip
+              placement="top"
+              target="donate-xvg"
+              isOpen={this.state.tooltipDonateOpen}
+              toggle={this.toggleDonateTooltip.bind(this)}
+            >
+              <Trans i18nKey={'unlock.title'} />
+            </Tooltip>
+          )}
+          <FooterText
+            id="donate-xvg"
+            className="col-md-1 text-right clicky"
+            onClick={this.toggleDonate('donateModal')}
+          >
+            <Trans i18nKey={'footer.donate'} />
           </FooterText>
           <FooterText
             className="col-md-1 text-right clicky"
             onClick={this.toggle('credits')}
           >
-            {i18nReact.translate('footer.credits')}
+            <Trans i18nKey={'footer.credits'} />
           </FooterText>
         </div>
       </div>
@@ -97,4 +135,6 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 }
 
-export default inject('SettingsStore')(observer(Footer))
+export default translate()(
+  inject('SettingsStore', 'AccountInformationStore')(observer(Footer)),
+)

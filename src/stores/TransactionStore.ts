@@ -5,6 +5,7 @@ import { action, computed, decorate, observable } from 'mobx'
 import VergeClient from './VergeClient'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
 import electronLog from 'electron-log'
+import VergeCacheStore from './VergeCacheStore'
 
 const hash = (transaction: TransactionView) =>
   `${transaction.txid}#${transaction.category}#${transaction.address}#${
@@ -20,6 +21,15 @@ export class TransactionStore {
   transactions: Map<string, TransactionView> = new Map()
   loadingFinished: boolean = false
   search: string = ''
+  receivedTransactions: boolean = VergeCacheStore.get(
+    'receivedTransactions',
+    false,
+  )
+
+  constructor() {
+    // Force no transactions shown...
+    // VergeCacheStore.set('receivedTransactions', false)
+  }
 
   addTransactions = (transactions: Transaction[] = []) => {
     transactions.forEach((transaction: Transaction) => {
@@ -31,6 +41,11 @@ export class TransactionStore {
       })
     })
     this.loadingFinished = true
+  }
+
+  setReceivedTransactions = (bool: boolean) => {
+    VergeCacheStore.set('receivedTransactions', bool)
+    this.receivedTransactions = bool
   }
 
   setVisibility(txid, category, address, timereceived, hide) {
@@ -75,6 +90,10 @@ export class TransactionStore {
     if (this.transactions.size > 0) {
       this.loadingFinished = true
     }
+  }
+
+  get getReceivedTransactionsStatus(): boolean {
+    return this.receivedTransactions
   }
 
   get getTransactionCount() {
@@ -155,6 +174,9 @@ decorate(TransactionStore, {
   lastTenTransaction: computed,
   monthlyOutput: computed,
   monthlyIncome: computed,
+  receivedTransactions: observable,
+  setReceivedTransactions: action,
+  getReceivedTransactionsStatus: computed,
 })
 
 const store = new TransactionStore()

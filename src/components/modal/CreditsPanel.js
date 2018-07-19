@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components'
 
 import Modal from '../Modal'
 import React from 'react'
-import T from 'i18n-react'
 import github from '../../assets/images/github.png'
+import { translate, Trans } from 'react-i18next'
 
 const centerStyle = css`
   display: flex;
@@ -14,15 +14,15 @@ const centerStyle = css`
 
 const TitleItem = styled.span`
   color: #476b84;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
 `
 
 const NameItem = styled.div`
   color: #647e90;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1.5em;
+  line-height: 2em;
 `
 
 const CenterContainer = styled.div`
@@ -30,18 +30,19 @@ const CenterContainer = styled.div`
 `
 
 const ContributorButton = styled.button`
-  ${centerStyle} width: 253px;
-  height: 62px;
+  ${centerStyle} width: 223px;
+  height: 44px;
   border-radius: 4px;
   background-color: #25292e;
   border: 0;
   box-shadow: none;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 29.02px;
   text-align: center;
-  margin-top: 35px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 `
 
 const GithubImage = styled.img`
@@ -51,42 +52,54 @@ const GithubImage = styled.img`
 	margin-right: 15px;
 `
 
+const devNames = [
+  'Justin, @justinvendetta',
+  'Marvin, @marpme_',
+  'Swen, @swenvanzanten',
+]
+
+const designNames = ['Hassan, @waveon3', 'Swen, @swenvanzanten']
+
+const translateNames = ['Marvin, @marpme_']
 const CreditsPanel = props => (
   <Modal {...props} title="Credits">
-    <Row>
-      <Col md="6">
-        <TitleItem>{T.translate('credits.development')}</TitleItem>
+    <Row style={{ marginBottom: '10px' }}>
+      <Col md="3">
+        <TitleItem>
+          <Trans i18nKey={'credits.development'} />
+        </TitleItem>
       </Col>
-      <Col md="6">
-        <NameItem>Justin, @justinvendetta</NameItem>
-        <NameItem>Marvin, @marpme_</NameItem>
-      </Col>
-    </Row>
-    <hr />
-    <Row>
-      <Col md="6">
-        <TitleItem>{T.translate('credits.design')}</TitleItem>
-      </Col>
-      <Col md="6">
-        <NameItem>Hassan, @waveon3</NameItem>
+      <Col md="9">
+        {devNames.map((e, key) => <NameItem key={key}>{e}</NameItem>)}
       </Col>
     </Row>
-    <hr />
-    <Row>
-      <Col md="6">
-        <TitleItem>{T.translate('credits.translation')}</TitleItem>
+    <Row style={{ marginBottom: '10px' }}>
+      <Col md="3">
+        <TitleItem>
+          <Trans i18nKey={'credits.design'} />
+        </TitleItem>
       </Col>
-      <Col md="6">
-        <NameItem>Marvin, @marpme_ (English/German)</NameItem>
+      <Col md="9">
+        {designNames.map((e, key) => <NameItem key={key}>{e}</NameItem>)}
+      </Col>
+    </Row>
+    <Row>
+      <Col md="3">
+        <TitleItem>
+          <Trans i18nKey={'credits.translation'} />
+        </TitleItem>
+      </Col>
+      <Col md="9">
+        {translateNames.map((e, key) => <NameItem key={key}>{e}</NameItem>)}
       </Col>
     </Row>
 
     <CenterContainer>
       <ContributorButton>
-        <GithubImage /> {T.translate('credits.contributorButton')}
+        <GithubImage /> <Trans i18nKey={'credits.contributorButton'} />
       </ContributorButton>
     </CenterContainer>
   </Modal>
 )
 
-export default CreditsPanel
+export default translate('translations')(CreditsPanel)

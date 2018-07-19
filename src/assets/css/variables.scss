@@ -1,8 +1,11 @@
 $border-radius: 0.3em;
 
-$form-input-box-shadow: 0 0 8px #ececec inset;
-$form-input-box-shadow-hover: 0 0 8px #9ec9ec inset;
+$form-input-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.09);
+$form-input-box-shadow-hover: inset 0 0 4px #9ec9ec;
 $form-input-box-shadow-focus: 0 0 5px 0.2rem rgba(0, 123, 255, 0.05);
-$form-input-border: 1px solid #d0d0d0;
+$form-input-border: 1px solid #dcdcdc;
+$form-input-border-radius: $border-radius;
+$form-input-color: #6a6a6a;
+$form-input-placeholder-color: #9e9e9e;
 
 $border-bottom: 1px solid #efefef;

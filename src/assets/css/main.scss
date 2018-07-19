@@ -3,9 +3,13 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 @import 'variables';
+@import 'animation';
 @import 'fonts';
 @import 'basic';
 @import 'button';
+@import 'modal';
+@import 'tooltip';
+@import 'form';
 @import 'app-title-bar';
 @import 'burger-menu';
 @import 'account-bar';
@@ -18,8 +22,15 @@
 @import 'fa/fa-regular';
 @import 'fa/fa-solid';
 
+@import 'tour';
 @import 'home-page';
 @import 'settings-page';
+
+@import 'send-modal';
+@import 'receive-modal';
+@import 'no-balance-panel';
+@import 'debug-information-modal';
+@import 'donate-modal';
 
 body {
   position: absolute;
@@ -73,13 +84,6 @@ a:hover {
   &.chart {
     border-bottom: none;
   }
-}
-
-.modal-content {
-  background-color: transparent !important;
-  border: none !important;
-  color: white !important;
-  opacity: 1 !important;
 }
 
 .close {
@@ -203,14 +207,6 @@ input[type='number']::-webkit-outer-spin-button {
 
 .mydrop {
   min-width: 25em !important;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: center !important;
-  justify-items: center !important;
-  align-items: center !important;
-  align-content: center !important;
 }
 
 button.close {
