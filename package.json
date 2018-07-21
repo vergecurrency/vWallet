@@ -20,6 +20,7 @@
     "dmg": {
       "title": "Verge",
       "background": "build/background.png",
+      "icon": "build/VolumeIcon.icns",
       "iconSize": 120,
       "contents": [
         {
