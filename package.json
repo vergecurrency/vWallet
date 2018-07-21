@@ -5,6 +5,7 @@
   "author": "VERGE Currency Team <contact@vergecurrency.com>",
   "build": {
     "appId": "org.verge.electronwallet",
+    "productName": "Verge",
     "files": [
       "dist/",
       "main.js",
@@ -13,7 +14,13 @@
       "build/icon.ico",
       "build/VERGEd"
     ],
+    "extraResources": [
+      "build/tor/"
+    ],
     "dmg": {
+      "title": "Verge",
+      "background": "build/background.png",
+      "iconSize": 120,
       "contents": [
         {
           "x": 130,
@@ -28,9 +35,9 @@
       ]
     },
     "mac": {
-      "category": "your.vergecurrency.wallet.finance",
+      "category": "public.app-category.finance",
       "target": [
-        "zip"
+        "dmg"
       ]
     },
     "win": {
