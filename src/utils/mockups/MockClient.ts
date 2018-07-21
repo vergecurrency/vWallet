@@ -18,10 +18,12 @@ class MockClient extends Client {
   constructor(credentials) {
     super(credentials)
 
-    const info = JSON.parse(localStorage.info)
+    if (localStorage && localStorage.info) {
+      const info = JSON.parse(localStorage.info)
 
-    this.unlocked = info.unlocked
-    this.isunlocked = info.isunlocked
+      this.unlocked = info.unlocked
+      this.isunlocked = info.isunlocked
+    }
   }
 
   unlockWallet(passphrase: any, timeout?: number): Promise<boolean> {
