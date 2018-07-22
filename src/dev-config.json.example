@@ -5,6 +5,7 @@
   "clientDriver": "mock",
 
   "mockData": {
+    "showWarning": true,
     "balance": 3333,
     "passphrase": "unlock",
     "transactions": [

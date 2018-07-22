@@ -4,7 +4,7 @@ const url = require('url')
 const childProcess = require('child_process')
 const { autoUpdater } = require('electron-updater')
 const log = require('electron-log')
-
+const { platform } = require('os')
 //autoUpdater.logger = log
 //autoUpdater.logger.transports.file.level = 'info'
 
@@ -30,7 +30,57 @@ const auth = { pass: generator(), user: generator(), loadingProgress: 0 }
 global.sharedObj = auth
 
 let vergeProcess
-let torProcess
+let torProcessManager = {
+  tor: null,
+
+  /**
+   * Start the tor process.
+   *
+   * @param {string} executablePath
+   * @returns void
+   */
+  startProcess(executablePath) {
+    this.tor = childProcess.spawn(
+      `${executablePath}tor/${this.executable()}`,
+      [
+        '-f',
+        `${executablePath}tor/torrc`,
+      ],
+      {
+        stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
+      }
+    )
+  },
+
+  /**
+   * Kill the tor process.
+   *
+   * @returns void
+   */
+  killProcess() {
+    if (this.tor) {
+      process.kill(this.tor.pid)
+    }
+  },
+
+  /**
+   * Get the correct executable tor binary for the current system.
+   *
+   * @returns {string}
+   */
+  executable() {
+    // const platform = platform()
+    switch (platform()) {
+      case 'darwin':
+        return 'darwin/tor'
+      case 'win32':
+        return 'win32/tor.exe'
+      default:
+        log.error(`The tor version for your operating system hasn't been implemented yet.`)
+    }
+  }
+}
+
 
 let createProc = processPath => {
   vergeProcess = childProcess.spawn(
@@ -62,28 +112,15 @@ let createProc = processPath => {
   })
 }
 
-let createTorProcess = path => {
-    return childProcess.spawn(
-      path + 'tor/mac/tor',
-      [
-        '-f',
-        path + 'tor/torrc'
-      ],
-      {
-        stdio: ['inherit', 'inherit', 'inherit', 'ipc']
-      }
-    )
-}
-
 if (process.env.NODE_ENV === 'dev') {
   log.info('Creating the verge deamon - dev')
   // createProc('./build/VERGEd')
   log.info('Starting tor...')
-  torProcess = createTorProcess('./build/')
-  log.info('VERGE Process running @ ', torProcess.pid, ' pid')
+  torProcessManager.startProcess('./build/')
+  log.info('VERGE Process running')
 } else {
   // createProc(process.resourcesPath + '/VERGEd')
-  torProcess = createTorProcess(process.resourcesPath + '/build/')
+  torProcessManager.startProcess(process.resourcesPath + '/build/')
 }
 
 function createWindow() {
@@ -130,7 +167,7 @@ function createWindow() {
     }
 
     log.log('Killing tor process')
-    process.kill(torProcess.pid)
+    torProcessManager.killProcess()
 
     mainWindow = null
   })

@@ -19,3 +19,12 @@
 #electron-app-title-bar.darwin .window-controls {
   display: none;
 }
+
+.mocking-warning {
+  background-color: #dc3545;
+  display: flex;
+  justify-content: center;
+  padding: 2px;
+  font-size: 10px;
+  font-weight: 400;
+}
