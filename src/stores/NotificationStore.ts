@@ -65,7 +65,9 @@ export class NotificationStore {
    * @returns void
    */
   public removeNotification(notification: INotification) {
-    this.notifications = this.notifications.filter(not => not.title !== notification.title)
+    this.notifications = this.notifications.filter(
+      not => not.title !== notification.title,
+    )
   }
 }
 
