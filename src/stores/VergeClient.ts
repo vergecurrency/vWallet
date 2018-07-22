@@ -1,4 +1,6 @@
 import { Client } from 'verge-node-typescript'
+import MockClient from '../utils/mockups/MockClient'
+import electronLog from 'electron-log'
 
 const { remote } = require('electron')
 
@@ -8,10 +10,26 @@ const MODE = remote.getGlobal('process').env
 
 let client: Client
 
-if (MODE === 'dev') {
-  const { rpcusername: user, rpcpassword: pass } = require('../dev-config.json')
+function getClientByDriver(driver: String = '') {
+  switch (driver) {
+    case 'mock':
+      electronLog.log(`Using Mock Client`)
+      return MockClient
+    case 'deamon':
+    default:
+      electronLog.log(`Using Deamon Client`)
+      return Client
+  }
+}
 
-  client = new Client({
+if (MODE === 'dev') {
+  const {
+    rpcusername: user,
+    rpcpassword: pass,
+    clientDriver: driver,
+  } = require('../dev-config.json')
+  const clientClass = getClientByDriver(driver)
+  client = new clientClass({
     user,
     pass,
   })

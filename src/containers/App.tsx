@@ -11,11 +11,31 @@ import { TitleBar } from 'electron-react-titlebar'
 import { SettingsStore } from '../stores/SettingsStore'
 import { platform } from 'os'
 
+const { remote } = require('electron')
+
+const MODE = remote.getGlobal('process').env
+  ? remote.getGlobal('process').env.NODE_ENV
+  : 'prod'
+
+let showMockingWarning = false
+if (MODE === 'dev') {
+  const {
+    clientDriver: clientDriver,
+    mockData: mockData,
+  } = require('./../dev-config.json')
+  showMockingWarning = clientDriver === 'mock' && mockData.showWarning
+}
+
 class App extends React.Component<{ SettingsStore?: SettingsStore }> {
   render() {
     return (
       <div className="main-layer">
         <TitleBar menu={[]} className={platform()} />
+        {showMockingWarning && (
+          <div className="mocking-warning">
+            Your using mocking data. Don't send any xvg to this wallet!
+          </div>
+        )}
         <Header />
         <AccountBar />
         <ContentContainer>{this.props.children}</ContentContainer>

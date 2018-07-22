@@ -5,6 +5,7 @@
   "author": "VERGE Currency Team <contact@vergecurrency.com>",
   "build": {
     "appId": "org.verge.electronwallet",
+    "productName": "Verge",
     "files": [
       "dist/",
       "main.js",
@@ -13,7 +14,14 @@
       "build/icon.ico",
       "build/VERGEd"
     ],
+    "extraResources": [
+      "build/tor/"
+    ],
     "dmg": {
+      "title": "Verge",
+      "background": "build/background.png",
+      "icon": "build/VolumeIcon.icns",
+      "iconSize": 120,
       "contents": [
         {
           "x": 130,
@@ -28,9 +36,9 @@
       ]
     },
     "mac": {
-      "category": "your.vergecurrency.wallet.finance",
+      "category": "public.app-category.finance",
       "target": [
-        "zip"
+        "dmg"
       ]
     },
     "win": {
@@ -75,9 +83,9 @@
     "publishDist": "yarn clean && yarn run build && electron-builder -p always",
     "test": "jest --watch",
     "test-ci": "jest",
-    "prod": "NODE_ENV=prod webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
-    "dev": "NODE_ENV=dev webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
-    "build": "NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
+    "prod": "cross-env NODE_ENV=prod webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+    "build": "cross-env NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --overwrite",
     "prettify": "prettier --config .prettierrc.js --write src/**/*",
@@ -112,7 +120,7 @@
     "babel-register": "^6.26.0",
     "chalk": "^2.3.0",
     "concurrently": "^3.5.1",
-    "cross-env": "^5.1.3",
+    "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.4",
     "css-loader": "^0.28.11",
     "detect-port": "^1.2.2",
