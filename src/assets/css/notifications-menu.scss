@@ -1,0 +1,109 @@
+.notifications-dropdown-menu {
+  min-width: 25em !important;
+  padding: 0;
+  margin: 0;
+  margin-top: 26px;
+}
+
+.notifications-dropdown-menu:before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin: 0;
+  top: -8px;
+  left: 25px;
+  position: absolute;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+}
+
+.notifications-list {
+  min-height: 250px;
+}
+
+.notifications-list-empty {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.notifications-list-empty-icon {
+  font-size: 60px;
+}
+
+.notifications-list-empty-description {
+  color: #b0c1c8;
+  font-weight: 500;
+  font-size: 26px;
+}
+
+.notification-item {
+  display: flex;
+  padding: 10px 0;
+}
+
+.notification-item.new {
+  background-color: #dcf0fd;
+}
+
+.notification-item:not(:last-child) {
+  border-bottom: $border-bottom;
+}
+
+.notification-item:first-child {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.notification-item:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.notification-item-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  padding: 0 25px;
+}
+
+.notification-item-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.05);
+}
+
+.notification-item-body {
+  flex-grow: 1;
+}
+
+.notification-item-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #003b54;
+}
+
+.notification-item-description {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6c9dbf;
+}
+
+.notification-item-meta {
+  font-size: 13px;
+  font-weight: 200;
+}
+
+.notification-item-remove {
+  padding: 7px 20px;
+}

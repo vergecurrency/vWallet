@@ -1,44 +1,11 @@
 import * as React from 'react'
 
 import Achievement from '../../icons/Achievement'
-import { Col } from 'reactstrap'
 import Moment from 'react-moment'
 import PriceChart from '../../icons/PriceChart'
 import PriceTag from '../../icons/PriceTag'
-import styled from 'styled-components'
-
-const RowHover = styled.div`
-  /*box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);*/
-  ${(props: { first?: boolean }) =>
-    props.first ? '' : 'border-top: 1px solid hsla(0, 0%, 0%, 0.15);'}
-  /*border-top: 6px solid hsla(${props => props.color}, 78%, 38%, 1);*/
-  margin-bottom: 10px !important;
-  padding-top: 10px !important;
-  padding-left: -15px !important;
-  padding-right: -15px !important;
-`
-
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 800;
-`
-
-const Icon = styled.div`
-  display: inline-flex;
-  padding: 10px;
-  height: 40px;
-  width: 40px;
-  background: linear-gradient(
-    hsla(${props => props.color}, 75%, 25%, 1),
-    hsla(${props => props.color}, 75%, 65%, 1)
-  );
-  border-radius: 50%;
-`
-
-const SubTitle = styled.div`
-  font-size: 14px;
-  font-weight: 300;
-`
+import CloseIcon from 'react-material-icon-svg/dist/CloseIcon'
+import NotificationStore from '../../stores/NotificationStore'
 
 const perStep = 360 / 3
 const getColor = (type: string) => {
@@ -50,52 +17,55 @@ const getColor = (type: string) => {
 }
 
 const getIcon = type => {
-  if (type === 'price') {
-    return <PriceTag width={20} height={20} style={{ fill: '#fff' }} />
+  switch (type) {
+    case 'price':
+      return <PriceTag width={20} height={20} style={{ fill: '#fff' }} />
+    case 'cap':
+      return <PriceChart width={20} height={20} style={{ fill: '#fff' }} />
+    case 'personal':
+      return <Achievement width={20} height={20} style={{ fill: '#fff' }} />
+    default:
+      return null
   }
-  if (type === 'cap') {
-    return <PriceChart width={20} height={20} style={{ fill: '#fff' }} />
-  }
-  if (type === 'personal') {
-    return <Achievement width={20} height={20} style={{ fill: '#fff' }} />
-  }
-  return null
 }
-const NotificationLayer = ({
-  type,
-  title,
-  inner,
-  timeOfOccurance,
-  first,
-}: INotification) => (
-  <RowHover className="row" color={getColor(type)} first={first}>
-    <Col
-      md="3"
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
-        justifyItems: 'center',
-      }}
-    >
-      <Icon color={getColor(type)}>{getIcon(type)}</Icon>
-    </Col>
-    <Col md="9">
-      <Title>{title}</Title>
-      <SubTitle>{inner}</SubTitle>
-      <span
-        style={{
-          fontSize: '14px',
-          fontWeight: 200,
-        }}
-      >
-        <Moment unix fromNow>
-          {timeOfOccurance}
-        </Moment>
-      </span>
-    </Col>
-  </RowHover>
-)
 
-export default NotificationLayer
+class NotificationTile extends React.Component<INotification> {
+  render() {
+    return (
+      <div className="notification-item">
+        <div className="notification-item-icon-wrapper">
+          <div
+            className="notification-item-icon"
+            style={{
+              background: `linear-gradient(
+            hsla(${ getColor(this.props.type) }, 55%, 45%, 1),
+            hsla(${ getColor(this.props.type) }, 75%, 65%, 1)
+          )`,
+            }}
+          >
+            {getIcon(this.props.type)}
+          </div>
+        </div>
+        <div className="notification-item-body">
+          <div className="notification-item-title">{this.props.title}</div>
+          <div className="notification-item-description">{this.props.inner}</div>
+          <div className="notification-item-meta">
+            <Moment unix fromNow>
+              {this.props.timeOfOccurance}
+            </Moment>
+          </div>
+        </div>
+        <div className="notification-item-remove">
+          <CloseIcon
+            onClick={() => NotificationStore.removeNotification(this.props)}
+            style={{ fill: '#6c9dbf' }}
+            width={18}
+            height={18}
+          />
+        </div>
+      </div>
+    )
+  }
+}
+
+export default NotificationTile

@@ -12,6 +12,7 @@
 @import 'form';
 @import 'app-title-bar';
 @import 'burger-menu';
+@import 'notifications-menu';
 @import 'account-bar';
 @import 'content-container';
 @import 'footer';
@@ -205,10 +206,6 @@ input[type='number']::-webkit-outer-spin-button {
   stroke-linejoin: round;
 }
 
-.mydrop {
-  min-width: 25em !important;
-}
-
 button.close {
   // margin: 0px !important;
 
@@ -249,4 +246,8 @@ button.close {
 
 .padding-bottom {
   padding-bottom: 45px;
+}
+
+.dropdown-menu {
+  box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.24);
 }

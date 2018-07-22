@@ -3,5 +3,4 @@ interface INotification {
   title: string
   inner: string
   timeOfOccurance: number
-  first?: boolean
 }
