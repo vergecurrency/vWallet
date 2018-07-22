@@ -19,8 +19,11 @@ const MODE = remote.getGlobal('process').env
 
 let showMockingWarning = false
 if (MODE === 'dev') {
-  const { clientDriver: clientDriver, mockData: mockData } = require('./../dev-config.json')
-  showMockingWarning = (clientDriver === 'mock' && mockData.showWarning)
+  const {
+    clientDriver: clientDriver,
+    mockData: mockData,
+  } = require('./../dev-config.json')
+  showMockingWarning = clientDriver === 'mock' && mockData.showWarning
 }
 
 class App extends React.Component<{ SettingsStore?: SettingsStore }> {
@@ -28,11 +31,11 @@ class App extends React.Component<{ SettingsStore?: SettingsStore }> {
     return (
       <div className="main-layer">
         <TitleBar menu={[]} className={platform()} />
-        {showMockingWarning &&
+        {showMockingWarning && (
           <div className="mocking-warning">
             Your using mocking data. Don't send any xvg to this wallet!
           </div>
-        }
+        )}
         <Header />
         <AccountBar />
         <ContentContainer>{this.props.children}</ContentContainer>
