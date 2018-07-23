@@ -42,6 +42,8 @@
       "loading": "Loading ...",
       "searchplaceholder": "Search for address or amount",
       "item": {
+        "copy": "Click to copy",
+        "copied": "Successful copied",
         "receive": "Received",
         "sent": "Sent",
         "fee": "Paid fees",
