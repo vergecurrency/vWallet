@@ -2,7 +2,9 @@ import * as React from 'react'
 import { translate, Trans } from 'react-i18next'
 import * as moment from 'moment'
 import * as styled from 'styled-components'
-
+const { clipboard, shell } = require('electron')
+import { Tooltip } from 'reactstrap'
+import { settings } from '../../settings'
 import { inject, observer } from 'mobx-react'
 
 import ArrowDown from '../../icons/ArrowDown'
@@ -15,6 +17,7 @@ import Timer from '../../icons/Timer'
 import { TransactionStore } from '../../stores/TransactionStore'
 import { fadeIn } from 'react-animations'
 import { i18n } from '../../../node_modules/@types/i18next'
+import Copy from '../../icons/Copy'
 
 const TextContainer = styled.default.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
@@ -131,6 +134,11 @@ interface Props {
 }
 
 class Transaction extends React.Component<Props> {
+  state: { tooltip: boolean; copied: boolean } = {
+    tooltip: false,
+    copied: false,
+  }
+
   getType(amount: number, category: string, fee) {
     if (amount !== 0) {
       return category.includes('receive')
@@ -147,6 +155,19 @@ class Transaction extends React.Component<Props> {
 
   isNew() {
     return this.props.time + 90 * 60 - moment().unix() > 0
+  }
+
+  setTooltip() {
+    this.setState({ tooltip: !this.state.tooltip })
+  }
+
+  copyAddressToClipboard() {
+    clipboard.writeText(this.props.address)
+    this.setState({ copied: true })
+
+    setTimeout(() => {
+      this.setState({ copied: false })
+    }, 750)
   }
 
   render() {
@@ -169,6 +190,7 @@ class Transaction extends React.Component<Props> {
       time = 0,
       txid = '',
       hide = false,
+      blockhash = '',
       TransactionStore,
     }: Props = this.props
 
@@ -289,7 +311,26 @@ class Transaction extends React.Component<Props> {
               {category.includes('receive') ? '+' : '-'}
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="Row">
-              {category.includes('receive') ? 'to' : 'from'} {address}
+              {category.includes('receive') ? 'to' : 'from'} {address}{' '}
+              <Copy
+                id={txid}
+                height={15}
+                width={15}
+                style={{ fill: 'rgba(100,100,100, 0.5)', paddingTop: '4px' }}
+                onClick={this.copyAddressToClipboard.bind(this)}
+              />
+              <Tooltip
+                placement="top"
+                isOpen={this.state.tooltip}
+                target={txid}
+                toggle={this.setTooltip.bind(this)}
+              >
+                {this.state.copied ? (
+                  <Trans i18nKey="transaction.item.copied" />
+                ) : (
+                  <Trans i18nKey="transaction.item.copy" />
+                )}
+              </Tooltip>
             </TransactionDetailsFooter>
             <SubTransactionDetails className="Row">
               <TransactionDetailProp className="col-md-6">
@@ -324,11 +365,21 @@ class Transaction extends React.Component<Props> {
                   style={{ fill: 'rgba(100,100,100, 0.7)', marginRight: '7px' }}
                 />{' '}
                 <Trans i18nKey={'transaction.item.more'} />
-                <ExternalLinks href="#">
+                <ExternalLinks
+                  href="#"
+                  onClick={() => {
+                    shell.openExternal(`${settings.TRANSACTION_LINK}${txid}`)
+                  }}
+                >
                   <Trans i18nKey={'transaction.item.opentransaction'} />
                 </ExternalLinks>
                 {' · '}
-                <ExternalLinks href="#">
+                <ExternalLinks
+                  href="#"
+                  onClick={() => {
+                    shell.openExternal(`${settings.BLOCK_LINK}${blockhash}`)
+                  }}
+                >
                   <Trans i18nKey={'transaction.item.openblock'} />
                 </ExternalLinks>
               </TransactionDetailProp>
