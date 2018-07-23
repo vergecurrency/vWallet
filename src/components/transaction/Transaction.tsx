@@ -2,9 +2,9 @@ import * as React from 'react'
 import { translate, Trans } from 'react-i18next'
 import * as moment from 'moment'
 import * as styled from 'styled-components'
-const { clipboard } = require('electron')
+const { clipboard, shell } = require('electron')
 import { Tooltip } from 'reactstrap'
-
+import { settings } from '../../settings'
 import { inject, observer } from 'mobx-react'
 
 import ArrowDown from '../../icons/ArrowDown'
@@ -190,6 +190,7 @@ class Transaction extends React.Component<Props> {
       time = 0,
       txid = '',
       hide = false,
+      blockhash = '',
       TransactionStore,
     }: Props = this.props
 
@@ -364,11 +365,21 @@ class Transaction extends React.Component<Props> {
                   style={{ fill: 'rgba(100,100,100, 0.7)', marginRight: '7px' }}
                 />{' '}
                 <Trans i18nKey={'transaction.item.more'} />
-                <ExternalLinks href="#">
+                <ExternalLinks
+                  href="#"
+                  onClick={() => {
+                    shell.openExternal(`${settings.TRANSACTION_LINK}${txid}`)
+                  }}
+                >
                   <Trans i18nKey={'transaction.item.opentransaction'} />
                 </ExternalLinks>
                 {' · '}
-                <ExternalLinks href="#">
+                <ExternalLinks
+                  href="#"
+                  onClick={() => {
+                    shell.openExternal(`${settings.BLOCK_LINK}${blockhash}`)
+                  }}
+                >
                   <Trans i18nKey={'transaction.item.openblock'} />
                 </ExternalLinks>
               </TransactionDetailProp>
