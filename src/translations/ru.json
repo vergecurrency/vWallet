@@ -34,7 +34,8 @@
     },
     "transaction": {
       "noTransactionsTitle": "Переводов не поступало",
-      "noTransactionsSubtitle": "Открыть {{Руководство по покупке}} или {{принять платеж}}",
+      "noTransactionsSubtitle":
+        "Открыть {{Руководство по покупке}} или {{принять платеж}}",
       "buyXvgGuide": "Руководство по покупке XVG",
       "receiveXvg": "принять XVG",
       "list": "Список транзакций",
@@ -120,7 +121,8 @@
       "development": "Разработка",
       "design": "Дизайн",
       "translation": "Перевод",
-      "contributorButton": "Просмотр всех участников, внесших вклад в развитие проекта"
+      "contributorButton":
+        "Просмотр всех участников, внесших вклад в развитие проекта"
     },
     "sendPanel": {
       "title": "Перевести XVG",
@@ -159,7 +161,8 @@
     "donatePanel": {
       "title": "Пожертвовать",
       "donationXvgAddress": "XVG Адрес для Пожертвований",
-      "donationXvgAddressHelp": "Ваше XVG Пожертвование будет отправлено на этот адрес.",
+      "donationXvgAddressHelp":
+        "Ваше XVG Пожертвование будет отправлено на этот адрес.",
       "descriptionHead":
         "В Verge, мы всегда стараемся достигать новых высот и предоставлять программные реализации, которые востребованы сообществом.",
       "descriptionFoot":
