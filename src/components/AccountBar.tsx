@@ -64,6 +64,29 @@ class AccountBar extends React.Component<AccountBarProps, AccountBarState> {
     })
   }
 
+  handleKeyPress=(event)=> {
+
+    // 83 for "ctrl/cmd + s"
+    // 72 for "ctrl/cmd + h"
+    if (event.keyCode === 83 && (event.ctrlKey || event.metaKey) && this.isUnlocked()) {
+      this.toggleSend();
+    } else if (event.keyCode === 72 && (event.ctrlKey || event.metaKey)) {
+      alert("Show Hide Info");
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+  
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+  }
+
+  isUnlocked() {
+    return this.props.AccountInformationStore!.unlocked
+  }
+
   render() {
     const formatter = new Intl.NumberFormat(
       VergeCacheStore.get('locale', 'en-US'),

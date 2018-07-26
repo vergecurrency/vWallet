@@ -122,6 +122,27 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     return this.props.AccountInformationStore!.unlocked
   }
 
+  handleKeyPress=(event)=> {
+
+    // 76 for "ctrl/cmd + l"
+    if (event.keyCode === 76 && (event.ctrlKey || event.metaKey)) {
+      if (!this.isUnlocked()) {
+        this.toggleUnlock();
+      }
+      else {
+        this.props.AccountInformationStore!.lockWallet();
+      }
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+  
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+  }
+
   render() {
     return (
       <div className="container-fluid topbar">
