@@ -15,4 +15,8 @@ export default [
     name: 'Nederlands',
     localeId: 'nl',
   },
+  {
+    name: 'Russian',
+    localeId: 'ru',
+  },
 ]
