@@ -13,6 +13,7 @@ import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import { SettingsStore } from '../../stores/SettingsStore'
 import { i18n } from 'i18next'
 import Fee from '../../utils/Fee'
+import ISendPanel from './ISendPanel'
 
 const XVG_DONATION_ADDRESS = 'D7KV88Zg2XNHUtX1DYhMsoHRz1RG9xGSmM'
 
@@ -29,13 +30,17 @@ interface DonatePanelState {
   amount: number
   status: SendState
   error: string | null
+  address: string
+  label: string
 }
 
-class DonatePanel extends React.Component<DonatePanelInterface, DonatePanelState> {
+class DonatePanel extends ISendPanel<DonatePanelInterface, DonatePanelState> {
   state = {
     amount: 0,
     status: SendState.OPEN,
     error: null,
+    address: '',
+    label: '',
   }
 
   getLocaleId() {
@@ -51,43 +56,7 @@ class DonatePanel extends React.Component<DonatePanelInterface, DonatePanelState
   }
 
   balanceToLow() {
-    return (this.props.AccountInformationStore!.getBalance - Fee) <= 0
-  }
-
-  sendTransaction() {
-    const { amount } = this.state
-    const { AccountInformationStore } = this.props
-
-    if (!amount || !AccountInformationStore) return
-
-    this.setState({ status: SendState.SENDING, error: null })
-    setTimeout(() => {
-      AccountInformationStore.sendTransaction(XVG_DONATION_ADDRESS, amount)
-        .then(() => {
-          setTimeout(() => {
-            this.setState({ status: SendState.DONE })
-            setTimeout(() => {
-              this.props.toggle()
-              this.setState({
-                amount: 0,
-                status: SendState.OPEN,
-              })
-            }, 1000)
-          }, 500)
-        })
-        .catch(e => {
-          this.setState({
-            status: SendState.ERROR,
-            error: JSON.parse(e).error.message,
-          })
-          setTimeout(() => {
-            this.setState({
-              status: SendState.OPEN,
-              error: null,
-            })
-          }, 2500)
-        })
-    }, 1000)
+    return this.props.AccountInformationStore!.getBalance - Fee <= 0
   }
 
   render() {
@@ -110,23 +79,22 @@ class DonatePanel extends React.Component<DonatePanelInterface, DonatePanelState
         <p className="donate-description donate-description-larger">
           <Trans i18nKey="donatePanel.descriptionHead" />
         </p>
-        <p  className="donate-description">
+        <p className="donate-description">
           <Trans i18nKey="donatePanel.descriptionFoot" />
         </p>
         <div className="form-separator" />
         <label className="form-label">
           <Trans i18nKey="donatePanel.donationXvgAddress" />
         </label>
-        <input
-          className="form-input"
-          value={XVG_DONATION_ADDRESS}
-          disabled
-        />
+        <input className="form-input" value={XVG_DONATION_ADDRESS} disabled />
         <p className="form-input-help">
           <Trans i18nKey="donatePanel.donationXvgAddressHelp" />
         </p>
-        <AmountInput amount={this.state.amount} amountChanged={this.amountChanged.bind(this)}/>
-        <div className="form-separator"/>
+        <AmountInput
+          amount={this.state.amount}
+          amountChanged={this.amountChanged.bind(this)}
+        />
+        <div className="form-separator" />
         <BalanceBar />
         <div style={{ marginBottom: '15px' }}>
           <SendTransactionButton
@@ -136,7 +104,13 @@ class DonatePanel extends React.Component<DonatePanelInterface, DonatePanelState
             price={this.getPrice()}
             localeId={this.getLocaleId()}
             error={this.state.error}
-            onClick={this.sendTransaction.bind(this)}
+            onClick={() => {
+              this.sendTransaction(
+                XVG_DONATION_ADDRESS,
+                this.state.amount,
+                this.props.AccountInformationStore!,
+              )
+            }}
           >
             <GiftIcon
               width={22}

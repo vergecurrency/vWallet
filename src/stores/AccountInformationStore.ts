@@ -55,7 +55,7 @@ export class AccountInformationStore {
     }, 10000)
   }
 
-  sendTransaction(vergeAddress, amount) {
+  sendTransaction(vergeAddress: string, amount: number) {
     return VergeClient.sendToAddress(vergeAddress, amount)
   }
 
