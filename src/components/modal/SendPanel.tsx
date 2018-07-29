@@ -14,6 +14,7 @@ import { SettingsStore } from '../../stores/SettingsStore'
 import { i18n } from '../../../node_modules/@types/i18next'
 import SendState from '../../utils/SendState'
 import Fee from '../../utils/Fee'
+import ISendPanel from './ISendPanel'
 
 const FEE = Fee
 
@@ -35,7 +36,7 @@ interface SendPanelState {
   status: SendState
 }
 
-class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
+class SendPanel extends ISendPanel<SendPanelProps, SendPanelState> {
   state = {
     amount: 0,
     address: this.props.address || '',
@@ -60,46 +61,8 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
     this.setState({ amount })
   }
 
-  sendTransaction() {
-    const { address, amount } = this.state
-    const { AccountInformationStore } = this.props
-
-    if (!address || !amount || !AccountInformationStore) return
-
-    this.setState({ status: SendState.SENDING, error: null })
-    setTimeout(() => {
-      AccountInformationStore.sendTransaction(address, amount)
-        .then(() => {
-          setTimeout(() => {
-            this.setState({ status: SendState.DONE })
-            setTimeout(() => {
-              this.props.toggle()
-              this.setState({
-                amount: 0,
-                address: '',
-                label: '',
-                status: SendState.OPEN,
-              })
-            }, 1000)
-          }, 500)
-        })
-        .catch(e => {
-          this.setState({
-            status: SendState.ERROR,
-            error: JSON.parse(e).error.message,
-          })
-          setTimeout(() => {
-            this.setState({
-              status: SendState.OPEN,
-              error: null,
-            })
-          }, 2500)
-        })
-    }, 1000)
-  }
-
   balanceToLow() {
-    return (this.getBalance() - FEE) <= 0
+    return this.getBalance() - FEE <= 0
   }
 
   render() {
@@ -160,7 +123,13 @@ class SendPanel extends React.Component<SendPanelProps, SendPanelState> {
           price={this.getPrice()}
           localeId={this.getLocaleId()}
           error={this.state.error}
-          onClick={this.sendTransaction.bind(this)}
+          onClick={() => {
+            this.sendTransaction(
+              this.state.address,
+              this.state.amount,
+              this.props.AccountInformationStore!,
+            )
+          }}
         >
           <SendIcon
             width={22}
