@@ -14,10 +14,10 @@
       "title": "Debug Information",
       "version": "Version",
       "protocolversion": "Protocol Version",
-      "walletversion": "Daemon version",
+      "walletversion": "Daemon Version",
       "balance": "Balance",
       "blocks": "Blocks",
-      "moneysupply": "Money supply",
+      "moneysupply": "Money Supply",
       "connections": "Connection(s)",
       "ip": "IP address",
       "pow_algo": "Current algorithm",
@@ -35,24 +35,24 @@
     "transaction": {
       "noTransactionsTitle": "No transactions received yet",
       "noTransactionsSubtitle": "Open the {{buyGuide}} or {{receive}}",
-      "buyXvgGuide": "buy XVG guide",
-      "receiveXvg": "receive XVG",
+      "buyXvgGuide": "Buy XVG Guide",
+      "receiveXvg": "Receive XVG",
       "list": "Transaction List",
       "summary": "Summary for",
       "loading": "Loading ...",
       "searchplaceholder": "Search for address or amount",
       "item": {
         "copy": "Click to copy",
-        "copied": "Successful copied",
+        "copied": "Successfully copied",
         "receive": "Received",
         "sent": "Sent",
         "fee": "Paid fees",
-        "details": "details",
-        "close": "close",
+        "details": "Details",
+        "close": "Close",
         "address": "Address",
         "blockhash": "Blockhash",
         "txid": "TXID",
-        "confirmations": "confirmations",
+        "confirmations": "Confirmations",
         "amount": "Amount",
         "time": "Time sent",
         "timereceived": "Time received",
@@ -64,7 +64,7 @@
     },
     "settings": {
       "title": "Settings Overview",
-      "explaination": "Explaination",
+      "explaination": "Explanation",
       "keymap": "Keymap Overview",
       "usage": "Usage",
       "shortkey": {
@@ -95,11 +95,11 @@
     },
     "header": {
       "connection": "Connection(s)",
-      "synced": "synced",
-      "notsyncing": "not syncing",
+      "synced": "Synced",
+      "notsyncing": "Not syncing",
       "menu": {
         "wallet": "Wallet",
-        "addressbook": "Addressbook",
+        "addressbook": "Address Book",
         "settings": "Settings",
         "blockchain_explorer": "Blockchain Explorer"
       },
@@ -130,7 +130,7 @@
         "Please ONLY enter a XVG address. Funds will be lost otherwise.",
       "addressLabel": "Label",
       "labelInfo":
-        "Enter a label for this address to add it in your addressbook.",
+        "Enter a label for this address to add it in your address book.",
       "amount": "Amount",
       "amountInfo": "Transaction fee, 0.1 XVG",
       "xvgUSD": "XVG in {{currency}}",
@@ -185,7 +185,7 @@
       "hourchange": "1 hour change",
       "daychange": "24 hour change",
       "cmc": "CMC Position",
-      "chart": "7-days Chart"
+      "chart": "7-day Chart"
     }
   }
 }
