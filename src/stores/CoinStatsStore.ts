@@ -1,6 +1,6 @@
 import { computed, decorate, observable } from 'mobx'
 
-import VergeCacheStore from '../stores/VergeCacheStore'
+import VergeCacheStore from './VergeCacheStore'
 import electronLog from 'electron-log'
 
 const torRequest = require('tor-request')

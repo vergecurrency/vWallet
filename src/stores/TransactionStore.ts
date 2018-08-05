@@ -6,6 +6,7 @@ import VergeClient from './VergeClient'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
 import electronLog from 'electron-log'
 import VergeCacheStore from './VergeCacheStore'
+import IContact from './addressbook/IContact'
 
 const hash = (transaction: TransactionView) =>
   `${transaction.txid}#${transaction.category}#${transaction.address}#${
@@ -157,6 +158,10 @@ export class TransactionStore {
       )
       .reduce((sum, { amount }) => sum + amount, 0.0)
   }
+
+  transactionsForContact(contact: IContact) {
+    return []
+  }
 }
 
 decorate(TransactionStore, {
@@ -177,6 +182,7 @@ decorate(TransactionStore, {
   receivedTransactions: observable,
   setReceivedTransactions: action,
   getReceivedTransactionsStatus: computed,
+  transactionsForContact: action,
 })
 
 const store = new TransactionStore()
