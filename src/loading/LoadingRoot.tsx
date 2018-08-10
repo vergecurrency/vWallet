@@ -85,10 +85,9 @@ class LoadingRoot extends React.Component<{
     const mylove = this.props.CoinStatsStore!.getUpdatedStats.price
     return (
       <Container
-        className={[
-          'splash',
-          vergeFamSplashes[randomSplashIndex].splash,
-        ].join(' ')}
+        className={['splash', vergeFamSplashes[randomSplashIndex].splash].join(
+          ' ',
+        )}
         fluid={true}
         style={{ backgroundColor: '#121c29', height: '576px' }}
       >
@@ -122,7 +121,10 @@ class LoadingRoot extends React.Component<{
                 entire #VERGE community!
               </Thanks>
               <Artwork>
-                Artwork by <Artist>{ vergeFamSplashes[randomSplashIndex].contributer }</Artist>
+                Artwork by{' '}
+                <Artist>
+                  {vergeFamSplashes[randomSplashIndex].contributer}
+                </Artist>
               </Artwork>
             </Col>
             <Col
