@@ -50,16 +50,34 @@ const Artist = styledComponents.span`
   color: #a5adb6;
 `
 
+const vergeFamSplashes = [
+  {
+    splash: 'splash-1',
+    contributer: 'CryptoFan @EngardeMedia',
+  },
+  {
+    splash: 'splash-2',
+    contributer: 'Abigail @KillerReich',
+  },
+  {
+    splash: 'splash-3',
+    contributer: 'sturdy.cookie @sturdycookie',
+  },
+  {
+    splash: 'splash-4',
+    contributer: 'sturdy.cookie @sturdycookie',
+  },
+]
+
+const randomSplashIndex = Math.floor(Math.random() * vergeFamSplashes.length)
+
 class LoadingRoot extends React.Component<{
   CoinStatsStore?: CoinStatsStore
   SettingsStore?: SettingsStore
 }> {
   componentDidUpdate() {
-    // console.warn('We got updated!')
     if (this.props.CoinStatsStore!.getUpdatedStats.price) {
       ipcRenderer.send('finalized-loading')
-    } else {
-      // console.error('wrong')
     }
   }
 
@@ -67,7 +85,10 @@ class LoadingRoot extends React.Component<{
     const mylove = this.props.CoinStatsStore!.getUpdatedStats.price
     return (
       <Container
-        className="splashy"
+        className={[
+          'splash',
+          vergeFamSplashes[randomSplashIndex].splash,
+        ].join(' ')}
         fluid={true}
         style={{ backgroundColor: '#121c29', height: '576px' }}
       >
@@ -101,7 +122,7 @@ class LoadingRoot extends React.Component<{
                 entire #VERGE community!
               </Thanks>
               <Artwork>
-                Artwork by <Artist>Community Member @marpme_</Artist>
+                Artwork by <Artist>{ vergeFamSplashes[randomSplashIndex].contributer }</Artist>
               </Artwork>
             </Col>
             <Col

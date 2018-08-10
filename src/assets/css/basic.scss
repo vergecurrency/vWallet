@@ -147,9 +147,24 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.splashy {
-  background-image: url('../images/splash@x2.jpg');
-  background-size: cover; /* <------ */
+.splash {
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.splash-1 {
+  background-image: url('../images/splashes/splash_1.jpg');
+}
+
+.splash-2 {
+  background-image: url('../images/splashes/splash_2.jpg');
+}
+
+.splash-3 {
+  background-image: url('../images/splashes/splash_3.jpg');
+}
+
+.splash-4 {
+  background-image: url('../images/splashes/splash_4.jpg');
 }
