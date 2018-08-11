@@ -93,6 +93,27 @@ $header-height: 50px;
         box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.09);
       }
     }
+    .quick-action {
+      .quick-action-item {
+        display: inline-flex;
+        border-radius: 1em;
+        height: 25px;
+        width: 45%;
+        background-color: #0095c1;
+        padding: 4px;
+        padding-left: 10px;
+        align-items: center;
+        box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.09);
+        .action-item {
+          margin-left: 10px;
+          color: #fff;
+          font-weight: 400;
+        }
+        &.next {
+          margin-left: 15px;
+        }
+      }
+    }
   }
   div.transactions {
     .lastest-transactions {
@@ -105,7 +126,7 @@ $header-height: 50px;
       border-radius: 0.2em;
       box-shadow: 0 0 2px 1px rgba(80, 80, 80, 0.1);
       overflow: scroll;
-      max-height: 240px;
+      max-height: 212px;
     }
   }
 

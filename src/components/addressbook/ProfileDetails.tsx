@@ -4,6 +4,8 @@ import Avatar from 'react-avatar'
 import { observer, inject } from 'mobx-react'
 import { TransactionStore } from '../../stores/TransactionStore'
 import Transaction from '../transaction/Transaction'
+import Copy from '../../icons/Copy'
+import Send from '../../icons/Send'
 
 class ProfileDetails extends React.Component<{
   contact: IContact
@@ -72,8 +74,18 @@ class ProfileDetails extends React.Component<{
             round={true}
           />
           <div>
-            <h2>{this.props.contact.name}</h2>
+            <h2>{this.props.contact.name}</h2>{' '}
             <p className="address">{this.props.contact.address}</p>
+            <div className="quick-action">
+              <div className="quick-action-item">
+                <Send width={16} height={16} fill={'#fff'} />{' '}
+                <span className="action-item">{'Send Money'}</span>
+              </div>
+              <div className="quick-action-item next">
+                <Copy width={16} height={16} fill={'#fff'} />{' '}
+                <span className="action-item">{'Copy address'}</span>
+              </div>
+            </div>
           </div>
         </div>
         <div className="transactions">
