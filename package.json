@@ -124,7 +124,7 @@
     "cross-spawn": "^6.0.4",
     "css-loader": "^0.28.11",
     "detect-port": "^1.2.2",
-    "electron": "^2.0.2",
+    "electron": "^3.0.0-beta.4",
     "electron-builder": "^20.10.0",
     "electron-devtools-installer": "^2.2.3",
     "electron-packager": "^12.0.1",
