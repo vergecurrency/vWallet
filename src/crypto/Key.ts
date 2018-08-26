@@ -1,5 +1,5 @@
 // nodejs module - https://nodejs.org/api/crypto.html
-import { createECDH, randomBytes, ECDH, createHmac, createHash } from 'crypto'
+import { createECDH, randomBytes, ECDH, createHash } from 'crypto'
 import * as Base58 from 'bs58'
 // create curve sepcification based on our coin.
 const ecdh: ECDH = createECDH('secp256k1')
