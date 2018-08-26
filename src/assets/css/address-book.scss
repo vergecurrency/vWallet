@@ -19,6 +19,16 @@ $header-height: 50px;
     }
   }
 
+  .text-container {
+    overflow: hidden;
+  }
+
+  .name-detail {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
   .divider {
     border-right: $divider-border;
   }

@@ -14,9 +14,13 @@ export default class ProfileListItem extends React.Component<{
         onClick={this.props.toggle(this.props.contact.id)}
       >
         <div className="col-md-3">
-          <Avatar name={this.props.contact.name} size="35" round={true} />
+          <Avatar
+            name={this.props.contact.getShortenedName()}
+            size="35"
+            round={true}
+          />
         </div>
-        <div className="col-md-9">
+        <div className="col-md-9 name-detail">
           <span className="firstname">{this.props.contact.name}</span>
         </div>
       </div>

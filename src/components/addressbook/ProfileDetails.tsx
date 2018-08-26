@@ -23,7 +23,7 @@ class ProfileDetails extends React.Component<{
           <div className="profile-view">
             <Avatar
               className="avatar"
-              name={this.props.contact.name}
+              name={this.props.contact.getShortenedName()}
               size="75"
               round={true}
             />
@@ -69,23 +69,25 @@ class ProfileDetails extends React.Component<{
         <div className="profile-view">
           <Avatar
             className="avatar"
-            name={this.props.contact.name}
+            name={this.props.contact.getShortenedName()}
             size="75"
             round={true}
           />
-          <div>
-            <h2>{this.props.contact.name}</h2>{' '}
+          <div className="text-container">
+            <h2 className="name-detail">{this.props.contact.name}</h2>{' '}
             <p className="address">{this.props.contact.address}</p>
-            <div className="quick-action">
-              <div className="quick-action-item">
-                <Send width={16} height={16} fill={'#fff'} />{' '}
-                <span className="action-item">{'Send Money'}</span>
+            {this.props.contact.address !== '' ? (
+              <div className="quick-action">
+                <div className="quick-action-item">
+                  <Send width={16} height={16} fill={'#fff'} />{' '}
+                  <span className="action-item">{'Send Money'}</span>
+                </div>
+                <div className="quick-action-item next">
+                  <Copy width={16} height={16} fill={'#fff'} />{' '}
+                  <span className="action-item">{'Copy address'}</span>
+                </div>
               </div>
-              <div className="quick-action-item next">
-                <Copy width={16} height={16} fill={'#fff'} />{' '}
-                <span className="action-item">{'Copy address'}</span>
-              </div>
-            </div>
+            ) : null}
           </div>
         </div>
         <div className="transactions">

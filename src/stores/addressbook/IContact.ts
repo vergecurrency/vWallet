@@ -14,4 +14,6 @@ export default interface IContact {
   setName: (name: string) => void
 
   setAddress: (address: string) => void
+
+  getShortenedName: () => string
 }

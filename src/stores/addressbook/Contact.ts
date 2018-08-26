@@ -28,4 +28,16 @@ export default class Contact implements IContact {
   setAddress(address: string) {
     this.address = address
   }
+
+  getShortenedName(): string {
+    const words = this.name.split(' ')
+
+    // max lenght of avatar name two words
+    if (words.length >= 2) {
+      return `${words[0]} ${words[1]}`
+    }
+
+    // else we can return the normal name :)
+    return this.name
+  }
 }

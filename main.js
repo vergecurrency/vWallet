@@ -42,13 +42,10 @@ let torProcessManager = {
   startProcess(executablePath) {
     this.tor = childProcess.spawn(
       `${executablePath}tor/${this.executable()}`,
-      [
-        '-f',
-        `${executablePath}tor/torrc`,
-      ],
+      ['-f', `${executablePath}tor/torrc`],
       {
         stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
-      }
+      },
     )
   },
 
@@ -59,7 +56,11 @@ let torProcessManager = {
    */
   killProcess() {
     if (this.tor) {
-      process.kill(this.tor.pid)
+      try {
+        process.kill(this.tor.pid)
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
 
@@ -76,11 +77,12 @@ let torProcessManager = {
       case 'win32':
         return 'win32/tor.exe'
       default:
-        log.error(`The tor version for your operating system hasn't been implemented yet.`)
+        log.error(
+          `The tor version for your operating system hasn't been implemented yet.`,
+        )
     }
-  }
+  },
 }
-
 
 let createProc = processPath => {
   vergeProcess = childProcess.spawn(
