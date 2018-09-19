@@ -1,7 +1,7 @@
 import * as bip39 from 'bip39'
 import * as bip32 from 'bip32'
-import * as crypto from '../src/crypto/Key'
-import Network from '../src/crypto/Network'
+import * as crypto from '../../src/crypto/Key'
+import Network from '../../src/crypto/Network'
 
 const generateAddressFromPubKey = pubKey => {
   const pubKeyHash = crypto.getPublicKeyHash(pubKey)
