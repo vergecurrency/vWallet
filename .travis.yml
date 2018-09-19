@@ -16,7 +16,7 @@ install:
 
 script:
   - mv ./src/dev-config.json.example ./src/dev-config.json
-  - yarn test
+  - yarn test-ci
   - yarn dist
 
 before_cache:
