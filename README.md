@@ -22,9 +22,10 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 
 * Language: Typescript + Javascript
 * Frameworks: Electron, React, NodeJS
-* communication standard: RPC (internally handled)
-  * port: 20102 (standard RPC)
-  * limited to: 127.0.0.1
+* communication standard: RPC / JSON HTTP Calls (internally handled)
+  * For RPC:
+     * port: 20102
+     * limited to: 127.0.0.1
 * Mining is not and will not be supported by this wallet!
 * No `Test-Net connection` support at the moment
 
