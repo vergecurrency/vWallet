@@ -1,7 +1,6 @@
 import * as Client from 'bitcore-wallet-client'
 import settings from '../settings'
 import * as fs from 'fs'
-import * as os from 'os'
 import * as torRequest from 'tor-request'
 import * as path from 'path'
 import { app } from 'electron'
