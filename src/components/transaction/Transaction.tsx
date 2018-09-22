@@ -4,7 +4,7 @@ import * as moment from 'moment'
 import * as styled from 'styled-components'
 const { clipboard, shell } = require('electron')
 import { Tooltip } from 'reactstrap'
-import { settings } from '../../settings'
+import settings from '../../settings'
 import { inject, observer } from 'mobx-react'
 
 import ArrowDown from '../../icons/ArrowDown'
@@ -139,6 +139,15 @@ class Transaction extends React.Component<Props> {
     copied: false,
   }
 
+  private xvgFormatter: Intl.NumberFormat = new Intl.NumberFormat(
+    this.props.SettingsStore.getLocale,
+    {
+      minimumSignificantDigits: 1,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 4,
+    },
+  )
+
   getType(amount: number, category: string, fee) {
     if (amount !== 0) {
       return category.includes('receive')
@@ -171,15 +180,6 @@ class Transaction extends React.Component<Props> {
   }
 
   render() {
-    const xvgFormatter: Intl.NumberFormat = new Intl.NumberFormat(
-      this.props.SettingsStore.getLocale,
-      {
-        minimumSignificantDigits: 1,
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 4,
-      },
-    )
-
     const {
       address = '',
       amount = 0,
@@ -269,10 +269,7 @@ class Transaction extends React.Component<Props> {
                 }}
               >
                 {category.includes('receive') ? '+' : '-'}
-                {Math.abs(amount + fee)
-                  .toFixed(3)
-                  .toLocaleString()}{' '}
-                XVG
+                {this.xvgFormatter.format(Math.abs(amount + fee))} XVG
               </span>
             </div>
             <TextContainer>
@@ -307,7 +304,7 @@ class Transaction extends React.Component<Props> {
               {moment.unix(time).fromNow()}
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="Row">
-              XVG {xvgFormatter.format(Math.abs(amount + fee))}{' '}
+              XVG {this.xvgFormatter.format(Math.abs(amount + fee))}{' '}
               {category.includes('receive') ? '+' : '-'}
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="Row">

@@ -197,6 +197,7 @@
   "dependencies": {
     "@types/i18next": "^8.4.4",
     "@types/i18next-browser-languagedetector": "^2.0.1",
+    "@types/invariant": "^2.2.29",
     "@types/prop-types": "^15.5.3",
     "@types/react-dom": "^16.0.5",
     "@types/react-toastify": "^4.0.0",
@@ -206,6 +207,7 @@
     "bip32": "^1.0.2",
     "bip39": "^2.5.0",
     "bitcoinjs-lib": "^4.0.1",
+    "bitcore-wallet-client": "^6.7.5",
     "bitrate": "^1.0.4",
     "bootstrap": "^4.1.0",
     "bs58": "^4.0.1",
@@ -222,6 +224,7 @@
     "i18n-react": "^0.6.4",
     "i18next": "^11.3.6",
     "i18next-browser-languagedetector": "^2.2.0",
+    "invariant": "^2.2.4",
     "loglevel": "^1.6.1",
     "menubar": "^5.2.3",
     "mobx": "^4.2.0",

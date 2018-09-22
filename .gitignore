@@ -1,6 +1,8 @@
 node_modules/
 *npm-debug.log
 *.DS_Store
+
+test/assets/*.dat
 dist/
 builds/
 coverage/
