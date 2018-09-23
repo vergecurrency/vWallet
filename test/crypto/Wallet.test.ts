@@ -1,12 +1,5 @@
 import { VergeLightClient } from '../../src/crypto/Wallet'
-import * as Client from 'bitcore-wallet-client'
-import settings from '../../src/settings'
-
-const exampleBackend = new Client({
-  baseUrl: settings.BITPAY_WALLET.BWS_INSTANCE_URL,
-  verbose: settings.BITPAY_WALLET.VERBOSE,
-  doNotVerifyPayPro: true,
-})
+import { bwsClientMock } from '../mocks/BWSClientMock'
 
 it('should fail if passphrase is empty', () => {
   const client = new VergeLightClient({})
@@ -16,7 +9,7 @@ it('should fail if passphrase is empty', () => {
 })
 
 it('should fail if passphrase is empty', async () => {
-  const client = new VergeLightClient(exampleBackend)
+  const client = new VergeLightClient(bwsClientMock)
 
   const data = await client.createNewWallet('mypass')
   expect(data).toBeDefined()
