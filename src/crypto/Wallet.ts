@@ -66,7 +66,7 @@ export class VergeLightClient {
     invariant(!!passphrase, 'No Empty passphrase allowed')
     // check that we aren't mindlessly overwriting wallets
     invariant(
-      this.isWalletAlreadyExistent(),
+      !this.isWalletAlreadyExistent(),
       'Existing wallet can`t be overriden!',
     )
     // creates a new wallet with all data (privKey,Mnemonic ...)
@@ -89,13 +89,26 @@ export class VergeLightClient {
           // check if we received errors
           invariant(!err, `Error happend while creating wallet: ${err}`)
 
-          fs.writeFileSync(this.walletPath, this.client.export())
+          this.exportEncryptedWalletToFile(passphrase)
+
           return resolve({
             mnemonic: this.client.credentials.mnemonic,
           })
         },
       )
     })
+  }
+
+  exportEncryptedWalletToFile(passphrase: string) {
+    // when encryption is off for now, then keep state the same after wards
+    if (!this.client.isPrivKeyEncrypted()) {
+      this.client.encryptPrivateKey(passphrase)
+      fs.writeFileSync(this.walletPath, this.client.export())
+      this.client.decryptPrivateKey(passphrase)
+    } else {
+      // otherwise just write it and keep it locked.
+      fs.writeFileSync(this.walletPath, this.client.export())
+    }
   }
 
   /**
@@ -113,7 +126,7 @@ export class VergeLightClient {
     invariant(!!passphrase, `Passphrase is required and can't be emtpy`)
     // check that we aren't mindlessly overwriting wallets
     invariant(
-      this.isWalletAlreadyExistent(),
+      !this.isWalletAlreadyExistent(),
       'Existing wallet can`t be overriden!',
     )
 
