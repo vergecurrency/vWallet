@@ -15,12 +15,16 @@ install:
   - yarn
 
 script:
+  - npm install codecov -g
   - mv ./src/dev-config.json.example ./src/dev-config.json
   - yarn test-ci
   - yarn dist
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
+
+after_success:
+  - codecov
 
 deploy:
   provider: releases
