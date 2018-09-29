@@ -1,6 +1,5 @@
 # VERGE Electron Wallet
-
-## The new verge prototype wallet build with electron ❤️
+_The new verge prototype wallet built with electron_ ❤️
 
 _This wallet has no connection to the original **electrum** wallet, it is exclusively designed and developed for VERGE currency. Still it's open source._
 
