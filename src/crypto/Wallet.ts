@@ -33,6 +33,10 @@ export class VergeLightClient {
   constructor(client) {
     this.client = client
     this.walletPath = path.join(getUserDataPath(), settings.WALLET_PATH_NAME)
+
+    if (this.isWalletAlreadyExistent()) {
+      this.client.import(fs.readFileSync(this.walletPath).toString())
+    }
   }
 
   /**
@@ -42,7 +46,7 @@ export class VergeLightClient {
    * (best check for start up a wallet)
    */
   public isWalletReady(): boolean {
-    return this.client.isComplete()
+    return Boolean(this.client.isComplete())
   }
 
   /**
@@ -51,7 +55,7 @@ export class VergeLightClient {
    * Kinda like a locked/unlocked check
    */
   public isWalletLocked(): boolean {
-    return this.client.isPrivKeyEncrypted()
+    return Boolean(this.client.isPrivKeyEncrypted())
   }
 
   public isWalletAlreadyExistent(): boolean {
