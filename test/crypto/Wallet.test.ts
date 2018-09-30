@@ -29,7 +29,9 @@ describe('[Component] Wallet management system', () => {
     expect(data).toBeDefined()
     expect(data.mnemonic).toBeDefined()
     expect(typeof data.mnemonic).toBe('string')
+    expect(data.mnemonic.split(' ').length).toBe(12)
     expect(fs.existsSync(TEST_WALLET_PATH)).toBe(true)
+    throw new Error()
   })
 
   test('should fail if passphrase is empty', async () => {
@@ -39,7 +41,7 @@ describe('[Component] Wallet management system', () => {
     expect(client.isWalletLocked()).toBe(false)
     expect(client.isWalletAlreadyExistent()).toBe(false)
 
-    const data = await client.createNewWallet('mypass')
+    await client.createNewWallet('mypass')
 
     expect(client.isWalletReady()).toBe(true)
     expect(client.isWalletLocked()).toBe(false)

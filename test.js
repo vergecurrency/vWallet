@@ -12,8 +12,8 @@ var client = new Client({
 
 // CREATE A BRAND NEW WALLET
 // WITH MNEMONIC AND SAVING IT LOCALLY (ENCRYPTED)
-/*
-client.seedFromRandomWithMnemonic({
+
+/*client.seedFromRandomWithMnemonic({
   coin: 'btc',
   network: 'testnet',
   passphrase: 'lolol',
@@ -32,10 +32,10 @@ client.createWallet(
     client.encryptPrivateKey('lolol')
     fs.writeFileSync('irene.dat', client.export())
   },
-)
-*/
+)*/
 
 // GET CURRENT BALANCE
+
 /*
 client.import(fs.readFileSync('irene.dat').toString())
 client.getBalance({}, (err, balance) => {
@@ -45,7 +45,6 @@ client.getBalance({}, (err, balance) => {
 */
 
 // GET NEW ADDRESS GENERATED
-
 /*
 client.import(fs.readFileSync('irene.dat').toString())
 client.createAddress({}, (err, address) => {
@@ -131,8 +130,25 @@ client.getTxProposals({}, (err, proposals) => {
 */
 
 // GET TX HISTORY
-client.import(fs.readFileSync('irene.dat').toString())
+
+/*client.import(fs.readFileSync('irene.dat').toString())
 client.getTxHistory({ limit: 10 }, (err, history) => {
   console.error(err)
   console.log(history)
+})*/
+
+// RESTORE MY OLDER KEYS
+/*const words =
+  'thumb domain struggle fat olive hub congress actress funny network sea make'
+client.seedFromMnemonic(words, {
+  passphrase: 'lolol',
+  account: 0,
+  network: 'testnet',
 })
+console.log(client.credentials.xPrivKey)
+
+client.import(fs.readFileSync('irene.dat').toString())
+client.decryptPrivateKey('lolol')
+console.log(client.credentials.xPrivKey)
+console.log(client.credentials.mnemonic)
+*/

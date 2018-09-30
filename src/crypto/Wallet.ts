@@ -5,6 +5,8 @@ import * as torRequest from 'tor-request'
 import * as path from 'path'
 import { app } from 'electron'
 import { randomBytes } from 'crypto'
+import { Balance } from './Balance'
+import { Address } from './Address'
 const invariant = require('invariant')
 
 const getUserDataPath = () => {
@@ -78,7 +80,7 @@ export class VergeLightClient {
       passphrase,
       coin: settings.COIN,
       network: settings.NETWORK,
-      account: 0, // account zero, we won't support multiple acc
+      account: settings.DEFAULT_ACCOUNT, // account zero, we won't support multiple acc
     })
 
     return new Promise(resolve => {
@@ -115,6 +117,25 @@ export class VergeLightClient {
     }
   }
 
+  public getBalance(): Promise<Balance> {
+    return new Promise((resolve, reject) => {
+      // no options needed for our wallet
+      client.getBalance({}, (err, balance: Balance) => {
+        reject(err)
+        resolve(balance)
+      })
+    })
+  }
+
+  public getAddress(): Promise<Address> {
+    return new Promise((resolve, reject) => {
+      client.createAddress({}, (err, address: Address) => {
+        reject(err)
+        resolve(address)
+      })
+    })
+  }
+
   /**
    * Restores a wallet with a given mnmoic
    * Basic restoring of keys and additional information
@@ -122,10 +143,10 @@ export class VergeLightClient {
    * No transactions or Balances or used Addresses
    * Those have to be synced afterwards manually.
    */
-  public restoreWalletFromMnemoic(
+  public async restoreWalletFromMnemoic(
     mnemonic: string,
     passphrase: string,
-  ): Promise<CreatedWalletData> {
+  ): Promise<boolean> {
     invariant(!!mnemonic, `Mnemonic is required and can't be emtpy`)
     invariant(!!passphrase, `Passphrase is required and can't be emtpy`)
     // check that we aren't mindlessly overwriting wallets
@@ -134,8 +155,20 @@ export class VergeLightClient {
       'Existing wallet can`t be overriden!',
     )
 
-    // TODO: TO BE IMPLEMENTED
-    return Promise.resolve({} as CreatedWalletData)
+    try {
+      await client.seedFromMnemonic(mnemonic, {
+        passphrase,
+        account: settings.DEFAULT_ACCOUNT,
+        network: settings.NETWORK,
+      })
+      return true
+    } catch (e) {
+      throw new Error(
+        'Your mnemonic/passphrase wasn`t recognized correctly.\n' +
+          'Either it is in a wrong language or you have left our some words.\n' +
+          'Please also check your passphrase.',
+      )
+    }
   }
 }
 
