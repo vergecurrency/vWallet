@@ -1,9 +1,12 @@
 node_modules/
 *npm-debug.log
 *.DS_Store
+
+test/assets/*.dat
 dist/
 builds/
 coverage/
 
 src/dev-config.json
 blockchain.zip
+irene.dat
