@@ -7,6 +7,8 @@ import { app } from 'electron'
 import { randomBytes } from 'crypto'
 import { Balance } from './Balance'
 import { Address } from './Address'
+import { WalletTransaction } from './Transaction'
+import { OutgoingTransaction } from './OutgoingTransaction'
 const invariant = require('invariant')
 
 const getUserDataPath = () => {
@@ -134,6 +136,92 @@ export class VergeLightClient {
         resolve(address)
       })
     })
+  }
+
+  public getTransactionHistory(
+    limit: number = 10,
+  ): Promise<WalletTransaction[]> {
+    return new Promise((resolve, reject) => {
+      client.getTxHistory({ limit }, (err, history) => {
+        if (err) return reject(err)
+
+        resolve(history as WalletTransaction[])
+      })
+    })
+  }
+
+  /**
+   * Creates, proposes and broadcasts a transaction when requesting it
+   * @param passphrase your personal passphrase
+   * @param address the crypto address to send your address to
+   * @param amount the amount of your transaction in XVG (will be multiplied to sats automatically)
+   */
+  public sendTransaction(
+    passphrase: string,
+    address: string,
+    amount: number,
+  ): Promise<OutgoingTransaction> {
+    invariant(
+      !this.isWalletReady(),
+      'You can`t send a transaction without setting up your wallet first.',
+    )
+
+    invariant(
+      !this.isWalletLocked(),
+      'You wallet should be already unlocked, Please restart the client.',
+    )
+
+    return new Promise((resolve, reject) =>
+      this.client.createTxProposal(
+        {
+          outputs: [
+            {
+              toAddress: address,
+              amount: amount * 100000000,
+              message: '', // not used. bullshit. we are a currency not a note transfer :)
+            },
+          ],
+          message: '', // no also here, we don't support messages
+          feePerKb: 2000, // TODO: check fee per KB to reach 0.1XVG properly
+        },
+        (createError, txp) => {
+          if (createError) {
+            return reject(createError)
+          }
+
+          // SIGN PROPOSAL
+          //
+          client.publishTxProposal({ txp }, (publishError, processedTxp) => {
+            if (createError) {
+              return reject(publishError)
+            }
+
+            if (!publishError) {
+              // BROADCAST PROPOSAL
+              client.signTxProposal(
+                processedTxp,
+                passphrase,
+                (signingError, stxp) => {
+                  if (signingError) {
+                    return reject(signingError)
+                  }
+
+                  client.broadcastTxProposal(
+                    processedTxp,
+                    (boradcastErr, tx) => {
+                      if (boradcastErr) {
+                        return reject(boradcastErr)
+                      }
+                      return resolve(tx as OutgoingTransaction)
+                    },
+                  )
+                },
+              )
+            }
+          })
+        },
+      ),
+    )
   }
 
   /**
