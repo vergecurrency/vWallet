@@ -41,12 +41,15 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 > ... coming soon!
 
 
-##Points of contact for security issues
+## Contact for security issues
 
 ```
 marvin [at] vergecoreteam [dot] com
 PGP fingerprint = BF69 B353 14A3 2460 98DF A027 7BC8 0E91 B80F C8CE
 ```
+
+Please make sure, when submitting critical things to use, to **encrypt and sign** your message, that we can make sure
+who we are talking to and that nobody is able to sniff our messages. Thank you.
 
 ## Manual Wallet Setup (development)
 
