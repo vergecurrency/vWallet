@@ -20,7 +20,7 @@ const settings: {
   WALLET_PATH_NAME: 'wallet.dat',
   // TODO: Switch to HTTPS
   BITPAY_WALLET: {
-    BWS_INSTANCE_URL: 'http://104.248.128.165:3232/bws/api',
+    BWS_INSTANCE_URL: 'http://garagenet.internet-box.ch:3232/bws/api',
     VERBOSE: false,
   },
 }

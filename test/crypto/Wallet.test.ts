@@ -31,7 +31,6 @@ describe('[Component] Wallet management system', () => {
     expect(typeof data.mnemonic).toBe('string')
     expect(data.mnemonic.split(' ').length).toBe(12)
     expect(fs.existsSync(TEST_WALLET_PATH)).toBe(true)
-    throw new Error()
   })
 
   test('should fail if passphrase is empty', async () => {
