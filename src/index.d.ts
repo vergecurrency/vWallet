@@ -4,3 +4,4 @@ declare module '*.json' {
   export default value
 }
 declare module 'invariant'
+declare module 'electron-store'
