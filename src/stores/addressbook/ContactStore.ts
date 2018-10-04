@@ -3,9 +3,10 @@ import { action, computed, observable } from 'mobx'
 // import VergeCacheStore from '../VergeCacheStore'
 import IContact from './IContact'
 import Contact from './Contact'
+import { IObservableArray } from 'mobx/lib/types/observablearray'
 
 export class ContactStore {
-  contacts: IContact[] = observable.array(
+  contacts: IObservableArray<IContact> = observable.array(
     [
       new Contact('Marvin Piekarek', 'DQzawfix9gWQpbhWBwhNgJQCVbtfUkdFYJ'),
       new Contact('Swen van Zanten', 'DPK7q2UHUNEeCphh1vnMjYgpEyawfmNngD'),
@@ -26,9 +27,7 @@ export class ContactStore {
 
   @action
   removeContact(removeContact: IContact): void {
-    this.contacts = this.contacts.filter(
-      contact => contact.id === removeContact.id,
-    )
+    this.contacts.remove(removeContact)
     // VergeCacheStore.set('contacts', this.contacts)
   }
 
@@ -38,7 +37,7 @@ export class ContactStore {
   }
 
   @computed
-  get allContacts(): IContact[] {
+  get allContacts(): IObservableArray<IContact> {
     return this.contacts
   }
 }

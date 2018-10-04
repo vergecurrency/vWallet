@@ -57,6 +57,18 @@ class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
             >
               {this.state.editing ? 'Save' : 'Edit'}
             </button>
+            <button
+              disabled={this.state.selection == null}
+              onClick={() => {
+                if (this.state.selection) {
+                  this.props.ContactStore!.removeContact(this.state.selection)
+                  this.setState({ selection: null })
+                }
+              }}
+              className="left-edit"
+            >
+              Delete
+            </button>
           </div>
         </div>
         <div className="row">
