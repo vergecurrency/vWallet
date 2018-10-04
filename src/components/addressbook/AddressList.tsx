@@ -1,12 +1,16 @@
 import * as React from 'react'
 import ProfileListItem from './ProfileListItem'
+import { translate, Trans } from 'react-i18next'
 import { inject, observer } from 'mobx-react'
 import { ContactStore } from '../../stores/addressbook/ContactStore'
 import ProfileDetails from './ProfileDetails'
 import IContact from '../../stores/addressbook/IContact'
 import Contact from '../../stores/addressbook/Contact'
 
-class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
+class AddressList extends React.Component<{
+  ContactStore?: ContactStore
+  t: (text: string) => string
+}> {
   state: {
     selection: IContact | null
     editing: boolean
@@ -42,7 +46,9 @@ class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
       <div className="addressbook">
         <div className="row header">
           <div className="col-md-3 divider">
-            <span>Contacts</span>{' '}
+            <span>
+              <Trans i18nKey={'addressPanel.contacts'} />
+            </span>
             <div className="add-button" onClick={this.addNewContact.bind(this)}>
               +
             </div>
@@ -55,7 +61,11 @@ class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
               }}
               className="left-edit"
             >
-              {this.state.editing ? 'Save' : 'Edit'}
+              {this.state.editing ? (
+                <Trans i18nKey={'addressPanel.save'} />
+              ) : (
+                <Trans i18nKey={'addressPanel.edit'} />
+              )}
             </button>
             <button
               disabled={this.state.selection == null}
@@ -67,7 +77,7 @@ class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
               }}
               className="left-edit"
             >
-              Delete
+              <Trans i18nKey={'addressPanel.delete'} />
             </button>
           </div>
         </div>
@@ -76,7 +86,7 @@ class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
             <input
               className="search-input"
               type="text"
-              placeholder="Search Contact..."
+              placeholder={this.props.t('addressPanel.searchContact')}
             />
           </div>
         </div>
@@ -105,4 +115,6 @@ class AddressList extends React.Component<{ ContactStore?: ContactStore }> {
   }
 }
 
-export default inject('ContactStore')(observer(AddressList))
+export default translate('translations')(
+  inject('ContactStore')(observer(AddressList)),
+)

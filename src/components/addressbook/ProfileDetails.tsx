@@ -1,6 +1,7 @@
 import * as React from 'react'
 import IContact from '../../stores/addressbook/IContact'
 import Avatar from 'react-avatar'
+import { translate, Trans } from 'react-i18next'
 import { observer, inject } from 'mobx-react'
 import { TransactionStore } from '../../stores/TransactionStore'
 import Transaction from '../transaction/Transaction'
@@ -11,6 +12,7 @@ class ProfileDetails extends React.Component<{
   contact: IContact
   editing: boolean
   TransactionStore?: TransactionStore
+  t: (text: string) => string
 }> {
   headerProfile(edit: boolean = false) {}
 
@@ -32,19 +34,22 @@ class ProfileDetails extends React.Component<{
                 className={this.props.editing ? 'name edit' : ''}
                 value={this.props.contact.name}
                 onChange={e => this.props.contact.setName(e.target.value)}
-                placeholder="Contacts name"
+                placeholder={this.props.t('addressPanel.contactName')}
               />
               <br />
               <input
                 className="address"
                 value={this.props.contact.address}
-                placeholder="Contacts address"
+                placeholder={this.props.t('addressPanel.contactAddress')}
                 onChange={e => this.props.contact.setAddress(e.target.value)}
               />
             </div>
           </div>
           <div className="transactions">
-            <p className="lastest-transactions">Latest Transactions:</p>
+            <Trans
+              className="lastest-transactions"
+              i18nKey={'addressPanel.latestTransactions'}
+            />
             <div className="transaction-items">
               {this.props.TransactionStore!.lastTenTransaction.map(
                 transaction => (
@@ -80,18 +85,24 @@ class ProfileDetails extends React.Component<{
               <div className="quick-action">
                 <div className="quick-action-item">
                   <Send width={16} height={16} fill={'#fff'} />{' '}
-                  <span className="action-item">{'Send Money'}</span>
+                  <span className="action-item">
+                    <Trans i18nKey={'addressPanel.sendMoney'} />
+                  </span>
                 </div>
                 <div className="quick-action-item next">
                   <Copy width={16} height={16} fill={'#fff'} />{' '}
-                  <span className="action-item">{'Copy address'}</span>
+                  <span className="action-item">
+                    <Trans i18nKey={'addressPanel.copyAddress'} />
+                  </span>
                 </div>
               </div>
             ) : null}
           </div>
         </div>
         <div className="transactions">
-          <p className="lastest-transactions">Latest Transactions:</p>
+          <p className="lastest-transactions">
+            <Trans i18nKey={'addressPanel.latestTransactions'} />
+          </p>
           <div className="transaction-items">
             {this.props.TransactionStore!.lastTenTransaction.map(
               transaction => (
@@ -112,4 +123,6 @@ class ProfileDetails extends React.Component<{
   }
 }
 
-export default inject('TransactionStore')(observer(ProfileDetails))
+export default translate('translations')(
+  inject('TransactionStore')(observer(ProfileDetails)),
+)
