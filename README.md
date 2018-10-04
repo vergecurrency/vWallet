@@ -1,6 +1,5 @@
 # VERGE Electron Wallet
-
-## The new verge prototype wallet build with electron ❤️
+_The new verge prototype wallet built with electron_ ❤️
 
 _This wallet has no connection to the original **electrum** wallet, it is exclusively designed and developed for VERGE currency. Still it's open source._
 
@@ -22,9 +21,10 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 
 * Language: Typescript + Javascript
 * Frameworks: Electron, React, NodeJS
-* communication standard: RPC (internally handled)
-  * port: 20102 (standard RPC)
-  * limited to: 127.0.0.1
+* communication standard: RPC / JSON HTTP Calls (internally handled)
+  * For RPC:
+     * port: 20102
+     * limited to: 127.0.0.1
 * Mining is not and will not be supported by this wallet!
 * No `Test-Net connection` support at the moment
 
@@ -39,6 +39,17 @@ _This wallet has no connection to the original **electrum** wallet, it is exclus
 ## Wallet Installation Guide
 
 > ... coming soon!
+
+
+## Contact for security issues
+
+```
+marvin [at] vergecoreteam [dot] com
+PGP fingerprint = BF69 B353 14A3 2460 98DF A027 7BC8 0E91 B80F C8CE
+```
+
+Please make sure, when submitting critical things to use, to **encrypt and sign** your message, that we can make sure
+who we are talking to and that nobody is able to sniff our messages. Thank you.
 
 ## Manual Wallet Setup (development)
 

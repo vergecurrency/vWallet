@@ -3,23 +3,28 @@ dist: trusty
 language: node_js
 matrix:
   include:
-  - os: osx
-  - os: linux
-    services: docker
-    language: generic
+    - os: osx
+    - os: linux
+      services: docker
+      language: generic
 
 node_js:
   - '8'
 
 install:
   - yarn
-  
+
 script:
+  - npm install codecov -g
   - mv ./src/dev-config.json.example ./src/dev-config.json
+  - yarn test-ci
   - yarn dist
-  
+
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
+
+after_success:
+  - codecov
 
 deploy:
   provider: releases
