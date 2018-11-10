@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react'
 
 import { CoinStatsStore } from '../stores/CoinStatsStore'
 import { Line as LineChart } from 'react-chartjs-2'
+import { logger } from '../utils/Logger'
 
 const tr = require('tor-request')
 
@@ -54,7 +55,7 @@ class PriceUpdater extends React.Component<PriceUpdaterProps> {
             ),
           })
         } else {
-          console.error(err)
+          logger.error(err)
         }
       },
     )

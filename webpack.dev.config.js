@@ -77,14 +77,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'loading.html',
     }),
-    new HtmlWebpackPlugin({
-      filename: 'status.html',
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
   ],
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: OUTPUT_DIR,
     stats: {

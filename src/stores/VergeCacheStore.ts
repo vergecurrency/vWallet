@@ -1,6 +1,6 @@
-import * as electronStore from 'electron-store'
+const electronStore = require('electron-store')
 
-const vergeCacheStore: any = new electronStore({
+export const vergeCacheStore = new electronStore({
   encryptionKey: Buffer.from('vergecurrency'),
 })
 

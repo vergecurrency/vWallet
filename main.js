@@ -2,11 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 const childProcess = require('child_process')
-const { autoUpdater } = require('electron-updater')
-const log = require('electron-log')
 const { platform } = require('os')
-//autoUpdater.logger = log
-//autoUpdater.logger.transports.file.level = 'info'
 
 let mainWindow
 let loadingWindow
@@ -42,13 +38,10 @@ let torProcessManager = {
   startProcess(executablePath) {
     this.tor = childProcess.spawn(
       `${executablePath}tor/${this.executable()}`,
-      [
-        '-f',
-        `${executablePath}tor/torrc`,
-      ],
+      ['-f', `${executablePath}tor/torrc`],
       {
         stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
-      }
+      },
     )
   },
 
@@ -76,11 +69,12 @@ let torProcessManager = {
       case 'win32':
         return 'win32/tor.exe'
       default:
-        log.error(`The tor version for your operating system hasn't been implemented yet.`)
+        console.error(
+          `The tor version for your operating system hasn't been implemented yet.`,
+        )
     }
-  }
+  },
 }
-
 
 let createProc = processPath => {
   vergeProcess = childProcess.spawn(
@@ -95,7 +89,7 @@ let createProc = processPath => {
       stdio: ['inherit', 'pipe', 'inherit'],
     },
   )
-  log.info('VERGE Process running @ ', vergeProcess.pid + 1, ' pid')
+  console.info('VERGE Process running @ ', vergeProcess.pid + 1, ' pid')
   const readable = vergeProcess.stdout
   //vergeProcess.unref()
   readable.on('readable', () => {
@@ -107,17 +101,17 @@ let createProc = processPath => {
         const [number] = chunkString.match(loadRegex)
         auth.loadingProgress = number
       }
-      log.log('loading progress: ', auth.loadingProgress, '%')
+      console.log('loading progress: ', auth.loadingProgress, '%')
     }
   })
 }
 
 if (process.env.NODE_ENV === 'dev') {
-  log.info('Creating the verge deamon - dev')
+  console.info('Creating the verge deamon - dev')
   // createProc('./build/VERGEd')
-  log.info('Starting tor...')
+  console.info('Starting tor...')
   torProcessManager.startProcess('./build/')
-  log.info('VERGE Process running')
+  console.info('VERGE Process running')
 } else {
   // createProc(process.resourcesPath + '/VERGEd')
   torProcessManager.startProcess(process.resourcesPath + '/build/')
@@ -159,14 +153,14 @@ function createWindow() {
   })
 
   mainWindow.on('closed', () => {
-    log.log('Killing verge process')
+    console.log('Killing verge process')
     while (vergeProcess && !vergeProcess.killed) {
       try {
         process.kill(vergeProcess.pid + 1, 'SIGINT')
       } catch (e) {}
     }
 
-    log.log('Killing tor process')
+    console.log('Killing tor process')
     torProcessManager.killProcess()
 
     mainWindow = null
@@ -219,10 +213,10 @@ function createLoadingWindow() {
 }
 
 app.on('ready', function() {
-  autoUpdater
+  /*autoUpdater
     .checkForUpdatesAndNotify()
     .then(value => {
-      log.info(
+      console.info(
         `Checking update - Info: ${(value &&
           value.updateInfo.stagingPercentage) ||
           -1}%`,
@@ -233,10 +227,11 @@ app.on('ready', function() {
       createWindow()
     })
     .catch(e => {
-      // log.error(e)
       createLoadingWindow()
       createWindow()
-    })
+    })*/
+  createLoadingWindow()
+  createWindow()
 })
 
 app.on('window-all-closed', () => {
