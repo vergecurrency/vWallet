@@ -8,15 +8,6 @@ const myFormat = winston.format.printf(info => {
 export const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
-  transports: [
-    new winston.transports.File({
-      filename: `${remote.app.getAppPath()}/error.log`,
-      level: 'error',
-    }),
-    new winston.transports.File({
-      filename: `${remote.app.getAppPath()}/combined.log`,
-    }),
-  ],
 })
 
 //
@@ -32,6 +23,24 @@ if (process.env.NODE_ENV !== 'production') {
         myFormat,
       ),
       level: 'info',
+    }),
+  )
+}
+
+if (
+  process.env.NODE_ENV === 'production' ||
+  process.env.NODE_ENV === 'development'
+) {
+  logger.add(
+    new winston.transports.File({
+      filename: `${remote.app.getAppPath()}/error.log`,
+      level: 'error',
+    }),
+  )
+
+  logger.add(
+    new winston.transports.File({
+      filename: `${remote.app.getAppPath()}/combined.log`,
     }),
   )
 }
