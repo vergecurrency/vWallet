@@ -340,10 +340,10 @@ export class VergeLightClient {
           }
         })
       } else {
-        client.startScan({}, () => {
+        /*client.startScan({}, () => {
           logger.info('Scan triggered')
           this.isScanning = true
-        })
+        })*/
       }
     })
   }

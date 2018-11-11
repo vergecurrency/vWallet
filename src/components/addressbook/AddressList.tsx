@@ -40,8 +40,12 @@ class AddressList extends React.Component<{
     this.setState({ editing: true })
   }
 
+  filterContacts(e: React.ChangeEvent<HTMLInputElement>) {
+    const searchTerm = e.target.value
+    this.props.ContactStore!.setSearchTerm(searchTerm)
+  }
+
   render() {
-    console.log(this.props.ContactStore)
     return (
       <div className="addressbook">
         <div className="row header">
@@ -87,6 +91,8 @@ class AddressList extends React.Component<{
               className="search-input"
               type="text"
               placeholder={this.props.t('addressPanel.searchContact')}
+              value={this.props.ContactStore!.filterTerm}
+              onChange={this.filterContacts.bind(this)}
             />
           </div>
         </div>
