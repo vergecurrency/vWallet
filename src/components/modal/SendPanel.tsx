@@ -45,7 +45,7 @@ class SendPanel extends ISendPanel<SendPanelProps, SendPanelState> {
     status: SendState.OPEN,
     error: null,
   }
-
+ 
   getLocaleId() {
     return this.props.SettingsStore!.getLocale
   }

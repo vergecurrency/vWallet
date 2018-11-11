@@ -31,6 +31,12 @@ class ProfileDetails extends React.Component<{
     this.setState({ renderSendPanel: !this.state.renderSendPanel })
   }
 
+  getTransactionForContact() {
+    return this.props.TransactionStore!.lastTenTransaction.filter(
+      transaction => transaction.address === this.props.contact.address,
+    )
+  }
+
   clickCopyAddress() {
     clipboard.writeText(this.props.contact.address)
     this.setState({ copied: true })
@@ -89,7 +95,7 @@ class ProfileDetails extends React.Component<{
         </div>
       )
     }
-
+    const transactions = this.getTransactionForContact()
     return (
       <div>
         {this.state.renderSendPanel ? (
@@ -142,9 +148,9 @@ class ProfileDetails extends React.Component<{
           <p className="lastest-transactions">
             <Trans i18nKey={'addressPanel.latestTransactions'} />
           </p>
-          <div className="transaction-items">
-            {this.props.TransactionStore!.lastTenTransaction.map(
-              transaction => (
+          {transactions.length > 0 ? (
+            <div className="transaction-items">
+              {transactions.map(transaction => (
                 <div
                   className="row transaction-list-item"
                   key={`${transaction.txid}#${transaction.category}#${
@@ -153,9 +159,11 @@ class ProfileDetails extends React.Component<{
                 >
                   <Transaction {...transaction} />
                 </div>
-              ),
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <Trans i18nKey={'addressPanel.notransaction'} />
+          )}
         </div>
       </div>
     )
