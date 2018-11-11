@@ -52,7 +52,11 @@ let torProcessManager = {
    */
   killProcess() {
     if (this.tor) {
-      process.kill(this.tor.pid)
+      try {
+        process.kill(this.tor.pid)
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
 

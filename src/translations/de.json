@@ -1,5 +1,17 @@
 {
   "translations": {
+    "addressPanel": {
+      "edit": "Ändern",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "latestTransactions": "Letze Transaktionen:",
+      "sendMoney": "Sende Verge",
+      "copyAddress": "Kopiere Adresse",
+      "contactName": "Kontakt Name",
+      "contactAddress": "Kontakt Adresse",
+      "contacts": "Kontakte",
+      "searchContact": "Suche Kontakt"
+    },
     "tour": {
       "welcome": {
         "hello": "Hallo <1>Kollege.</1>",

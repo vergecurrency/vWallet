@@ -20,6 +20,7 @@ const FEE = Fee
 
 interface SendPanelProps {
   address?: string
+  label?: string
   AccountInformationStore?: AccountInformationStore
   CoinStatsStore?: CoinStatsStore
   SettingsStore?: SettingsStore
@@ -40,11 +41,11 @@ class SendPanel extends ISendPanel<SendPanelProps, SendPanelState> {
   state = {
     amount: 0,
     address: this.props.address || '',
-    label: '',
+    label: this.props.label || '',
     status: SendState.OPEN,
     error: null,
   }
-
+ 
   getLocaleId() {
     return this.props.SettingsStore!.getLocale
   }

@@ -6,6 +6,7 @@ import VergeClient from './VergeClient'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
 
 import VergeCacheStore from './VergeCacheStore'
+import IContact from './addressbook/IContact'
 import { logger } from '../utils/Logger'
 
 const hash = (transaction: TransactionView) =>
@@ -151,6 +152,10 @@ export class TransactionStore {
       )
       .reduce((sum, { amount }) => sum + amount, 0.0)
   }
+
+  transactionsForContact(contact: IContact) {
+    return []
+  }
 }
 
 decorate(TransactionStore, {
@@ -171,6 +176,7 @@ decorate(TransactionStore, {
   receivedTransactions: observable,
   setReceivedTransactions: action,
   getReceivedTransactionsStatus: computed,
+  transactionsForContact: action,
 })
 
 const store = new TransactionStore()

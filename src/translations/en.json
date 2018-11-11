@@ -1,5 +1,17 @@
 {
   "translations": {
+    "addressPanel": {
+      "edit": "Edit",
+      "save": "Save",
+      "delete": "Delete",
+      "latestTransactions": "Latest Transactions:",
+      "sendMoney": "Send Money",
+      "copyAddress": "Copy Address",
+      "contactName": "Contact Name",
+      "contactAddress": "Contact Address",
+      "contacts": "Contacts",
+      "searchContact": "Search Contact"
+    },
     "account-bar": {
       "receive": "Receive",
       "send": "Send"

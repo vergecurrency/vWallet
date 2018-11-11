@@ -61,6 +61,7 @@ const devNames = [
 const designNames = ['Hassan, @waveon3', 'Swen, @swenvanzanten']
 
 const translateNames = ['Marvin, @marpme_']
+
 const CreditsPanel = props => (
   <Modal {...props} title="Credits">
     <Row style={{ marginBottom: '10px' }}>
