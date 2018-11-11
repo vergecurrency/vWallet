@@ -15,9 +15,7 @@ export default class ProfileListItem extends React.Component<{
       >
         <div className="col-md-3">
           <Avatar
-            name={
-              this.props.contact ? this.props.contact.getShortenedName() : ''
-            }
+            name={this.props.contact.getShortenedName()}
             size="35"
             round={true}
           />

@@ -7,6 +7,8 @@ import { TransactionStore } from '../../stores/TransactionStore'
 import Transaction from '../transaction/Transaction'
 import Copy from '../../icons/Copy'
 import Send from '../../icons/Send'
+import { clipboard } from 'electron'
+import SendPanel from '../modal/SendPanel'
 
 class ProfileDetails extends React.Component<{
   contact: IContact
@@ -14,9 +16,28 @@ class ProfileDetails extends React.Component<{
   TransactionStore?: TransactionStore
   t: (text: string) => string
 }> {
+  state = {
+    copied: false,
+    renderSendPanel: false,
+  }
+
   headerProfile(edit: boolean = false) {}
 
-  callToAction() {}
+  clickSendMoney() {
+    this.setState({ renderSendPanel: true })
+  }
+
+  toggelSendPanel() {
+    this.setState({ renderSendPanel: !this.state.renderSendPanel })
+  }
+
+  clickCopyAddress() {
+    clipboard.writeText(this.props.contact.address)
+    this.setState({ copied: true })
+    setInterval(() => {
+      this.setState({ copied: false })
+    }, 1500)
+  }
 
   render() {
     if (this.props.editing) {
@@ -71,6 +92,14 @@ class ProfileDetails extends React.Component<{
 
     return (
       <div>
+        {this.state.renderSendPanel ? (
+          <SendPanel
+            address={this.props.contact.address}
+            label={this.props.contact.name}
+            open={this.state.renderSendPanel}
+            toggle={this.toggelSendPanel.bind(this)}
+          />
+        ) : null}
         <div className="profile-view">
           <Avatar
             className="avatar"
@@ -83,16 +112,26 @@ class ProfileDetails extends React.Component<{
             <p className="address">{this.props.contact.address}</p>
             {this.props.contact.address !== '' ? (
               <div className="quick-action">
-                <div className="quick-action-item">
+                <div
+                  className="quick-action-item"
+                  onClick={this.clickSendMoney.bind(this)}
+                >
                   <Send width={16} height={16} fill={'#fff'} />{' '}
                   <span className="action-item">
                     <Trans i18nKey={'addressPanel.sendMoney'} />
                   </span>
                 </div>
-                <div className="quick-action-item next">
+                <div
+                  className="quick-action-item next"
+                  onClick={this.clickCopyAddress.bind(this)}
+                >
                   <Copy width={16} height={16} fill={'#fff'} />{' '}
                   <span className="action-item">
-                    <Trans i18nKey={'addressPanel.copyAddress'} />
+                    {this.state.copied ? (
+                      <Trans i18nKey={'addressPanel.copied'} />
+                    ) : (
+                      <Trans i18nKey={'addressPanel.copyAddress'} />
+                    )}
                   </span>
                 </div>
               </div>
