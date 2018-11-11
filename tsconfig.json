@@ -6,10 +6,10 @@
       }
     ],
     "moduleResolution": "node",
-    "module": "esnext",
-    "target": "es6",
+    "module": "commonjs",
+    "target": "es2016",
     "jsx": "react",
-    "lib": ["dom", "es6", "dom.iterable", "scripthost"],
+    "lib": ["dom", "es7", "dom.iterable", "scripthost"],
     "types": [],
 
     "alwaysStrict": true,

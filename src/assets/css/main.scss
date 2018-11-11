@@ -41,7 +41,7 @@ body {
 
   overflow: hidden;
 
-  background-color: #09121A;
+  background-color: #09121a;
   color: #fff;
 
   font-family: 'AvenirNext', Helvetica, sans-serif !important;
@@ -207,6 +207,8 @@ input[type='number']::-webkit-outer-spin-button {
 
 .mydrop {
   min-width: 25em !important;
+  top: 19px !important;
+  left: -100px !important;
 }
 
 button.close {

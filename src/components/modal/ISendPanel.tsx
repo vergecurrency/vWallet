@@ -32,7 +32,7 @@ export default abstract class ISendPanel<
         .catch(e => {
           this.setState({
             status: SendState.ERROR,
-            error: JSON.parse(e).error.message,
+            error: e,
           })
           setTimeout(() => {
             this.setState({

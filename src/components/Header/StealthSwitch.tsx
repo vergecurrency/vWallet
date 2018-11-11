@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import { SettingsStore } from '../../stores/SettingsStore'
-import T from 'i18n-react'
 
 interface StealthSwitchProps {
   SettingsStore?: SettingsStore
@@ -34,8 +33,8 @@ export default class StealthSwitch extends React.Component<StealthSwitchProps> {
             }}
           >
             {this.props.SettingsStore!.getDarkTheme
-              ? 'Stealth ' + T.translate('header.on')
-              : 'Stealth ' + T.translate('header.off')}
+              ? 'Stealth ' + 'header.on'
+              : 'Stealth ' + 'header.off'}
           </span>
         </label>
       </div>

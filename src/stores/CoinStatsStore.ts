@@ -1,7 +1,7 @@
 import { computed, decorate, observable } from 'mobx'
 
 import VergeCacheStore from '../stores/VergeCacheStore'
-import electronLog from 'electron-log'
+import { logger } from '../utils/Logger'
 
 const torRequest = require('tor-request')
 
@@ -34,7 +34,7 @@ export class CoinStatsStore {
         this.info = { ...this.info, ...info }
         this.loadingFinished = true
       })
-      .catch(electronLog.error)
+      .catch(logger.error)
 
     setInterval(() => {
       this.getCoinStats()
@@ -42,7 +42,7 @@ export class CoinStatsStore {
           this.info = { ...this.info, ...info }
           this.loadingFinished = true
         })
-        .catch(electronLog.error)
+        .catch(logger.error)
     }, 30000)
   }
 

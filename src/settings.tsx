@@ -20,8 +20,10 @@ const settings: {
   WALLET_PATH_NAME: 'wallet.dat',
   // TODO: Switch to HTTPS
   BITPAY_WALLET: {
-    BWS_INSTANCE_URL: 'http://garagenet.internet-box.ch:3232/bws/api',
-    VERBOSE: false,
+    // BWS_INSTANCE_URL: 'https://usxvglw.vergecoreteam.com/bws/api',
+    // BWS_INSTANCE_URL: 'https://garagenet.internet-box.ch/bws/api',
+    BWS_INSTANCE_URL: 'https://load.vergecoreteam.com/bws/api',
+    VERBOSE: true,
   },
 }
 

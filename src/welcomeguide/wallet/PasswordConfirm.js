@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Step from '../Step'
 import { Link } from 'react-router-dom'
 import crypto from 'crypto'
+import Wallet from '../../crypto/Wallet'
 
 const NewButton = styled.button`
   width: 192px;
@@ -15,7 +16,7 @@ const NewButton = styled.button`
   font-size: 27px;
   font-weight: 500;
   line-height: 33.78px;
-`;
+`
 
 const DisabledButton = styled.button`
   width: 192px;
@@ -28,7 +29,7 @@ const DisabledButton = styled.button`
   font-size: 27px;
   font-weight: 400;
   line-height: 33.78px;
-`;
+`
 
 const PasswordHint = styled.div`
   color: #506f89;
@@ -37,7 +38,7 @@ const PasswordHint = styled.div`
   font-weight: 100;
   line-height: 30px;
   margin-top: 30px;
-`;
+`
 
 export default class ConfirmPassword extends React.Component {
   constructor(props) {
@@ -74,7 +75,14 @@ export default class ConfirmPassword extends React.Component {
           {fullfillsRequirements ? (
             <Link
               to={{
-                pathname: '/buyhelp'
+                pathname: '/buyhelp',
+              }}
+              onClick={async () => {
+                if (fullfillsRequirements) {
+                  const result = await Wallet.createNewWallet(
+                    this.state.confirm,
+                  )
+                }
               }}
             >
               <NewButton>Continue</NewButton>
@@ -85,10 +93,11 @@ export default class ConfirmPassword extends React.Component {
         </div>
         <PasswordHint>
           This password is very important. If you lock your wallet, and you
-          forgot your password,<br /> you won’t be able to unlock it, which
-          means your funds are locked.
+          forgot your password,
+          <br /> you won’t be able to unlock it, which means your funds are
+          locked.
         </PasswordHint>
       </Step>
-    );
+    )
   }
 }
