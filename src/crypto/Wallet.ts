@@ -1,29 +1,19 @@
 import * as Client from 'bitcore-wallet-client'
 import settings from '../settings'
-import * as fs from 'fs'
-import * as torRequest from 'tor-request'
-import * as path from 'path'
-import { app } from 'electron'
 import { randomBytes } from 'crypto'
 import { Balance } from './Balance'
 import { Address } from './Address'
 import { WalletTransaction } from './Transaction'
 import { OutgoingTransaction } from './OutgoingTransaction'
+import VergeCacheStore from '../stores/VergeCacheStore'
+import { BWSNotification } from './BWSNotification'
+import { logger } from '../utils/Logger'
 const invariant = require('invariant')
-
-const getUserDataPath = () => {
-  if (!app) {
-    return path.resolve(__dirname, '../../test/assets')
-  }
-
-  return app.getPath('userData')
-}
 
 const client = new Client({
   baseUrl: settings.BITPAY_WALLET.BWS_INSTANCE_URL,
   verbose: settings.BITPAY_WALLET.VERBOSE,
   doNotVerifyPayPro: true,
-  request: torRequest,
 })
 
 interface CreatedWalletData {
@@ -32,14 +22,16 @@ interface CreatedWalletData {
 
 export class VergeLightClient {
   private readonly client: any
-  private readonly walletPath: string
+  private readonly KEY: string = 'WALLET'
+  private password: string
+  private scannedErrors: number[] = []
+  private isScanning: boolean = true
 
   constructor(client) {
     this.client = client
-    this.walletPath = path.join(getUserDataPath(), settings.WALLET_PATH_NAME)
 
     if (this.isWalletAlreadyExistent()) {
-      this.client.import(fs.readFileSync(this.walletPath).toString())
+      this.client.import(VergeCacheStore.get(this.KEY))
     }
   }
 
@@ -63,7 +55,7 @@ export class VergeLightClient {
   }
 
   public isWalletAlreadyExistent(): boolean {
-    return fs.existsSync(this.walletPath)
+    return typeof VergeCacheStore.get(this.KEY) === 'string'
   }
 
   /**
@@ -111,19 +103,45 @@ export class VergeLightClient {
     // when encryption is off for now, then keep state the same after wards
     if (!this.client.isPrivKeyEncrypted()) {
       this.client.encryptPrivateKey(passphrase)
-      fs.writeFileSync(this.walletPath, this.client.export())
+      VergeCacheStore.set(this.KEY, this.client.export())
       this.client.decryptPrivateKey(passphrase)
     } else {
       // otherwise just write it and keep it locked.
-      fs.writeFileSync(this.walletPath, this.client.export())
+      VergeCacheStore.set(this.KEY, this.client.export())
+    }
+  }
+
+  async unlock(passphrase: string): Promise<boolean> {
+    try {
+      // when encryption is off for now, then keep state the same after wards
+      if (this.client.isPrivKeyEncrypted()) {
+        this.client.decryptPrivateKey(passphrase)
+        this.password = passphrase
+        return !this.client.isPrivKeyEncrypted()
+      }
+    } catch (e) {
+      return false
+    }
+
+    return true
+  }
+
+  lock() {
+    if (!this.client.isPrivKeyEncrypted()) {
+      this.client.encryptPrivateKey(this.password)
+      delete this.password
     }
   }
 
   public getBalance(): Promise<Balance> {
     return new Promise((resolve, reject) => {
+      if (this.isScanning) {
+        reject('Scanning wallet.')
+      }
       // no options needed for our wallet
       client.getBalance({}, (err, balance: Balance) => {
-        reject(err)
+        if (err) reject(err)
+
         resolve(balance)
       })
     })
@@ -131,10 +149,20 @@ export class VergeLightClient {
 
   public getAddress(): Promise<Address> {
     return new Promise((resolve, reject) => {
-      client.createAddress({}, (err, address: Address) => {
-        reject(err)
-        resolve(address)
-      })
+      if (this.isScanning) {
+        reject('Scanning wallet.')
+      }
+
+      client.createAddress(
+        { ignoreMaxGap: true },
+        (error, address: Address) => {
+          if (error) {
+            logger.error(error)
+            reject(error)
+          }
+          return resolve(address)
+        },
+      )
     })
   }
 
@@ -142,6 +170,10 @@ export class VergeLightClient {
     limit: number = 10,
   ): Promise<WalletTransaction[]> {
     return new Promise((resolve, reject) => {
+      if (this.isScanning) {
+        reject('Scanning wallet.')
+      }
+
       client.getTxHistory({ limit }, (err, history) => {
         if (err) return reject(err)
 
@@ -150,28 +182,91 @@ export class VergeLightClient {
     })
   }
 
+  public checkIfReady(): Promise<{
+    isReady: boolean
+    notifications: BWSNotification[]
+  }> {
+    return new Promise((resolve, reject) => {
+      client.getNotifications(
+        {},
+        (errors, notifications: BWSNotification[]) => {
+          if (errors) {
+            return reject(errors)
+          }
+
+          const notificationsfiltered = notifications.filter(
+            notification =>
+              notification.type === 'ScanFinished' &&
+              !this.scannedErrors.includes(notification.id),
+          )
+
+          this.scannedErrors = [
+            ...this.scannedErrors,
+            ...notificationsfiltered.map(n => n.id),
+          ]
+
+          if (
+            notificationsfiltered.length > 0 &&
+            notificationsfiltered[0] &&
+            notificationsfiltered[0].data &&
+            notificationsfiltered[0].data.result === 'error'
+          ) {
+            client.startScan({}, () => {})
+            this.isScanning = true
+            resolve({
+              isReady: false,
+              notifications: this.filterShownNotifications(notifications),
+            })
+            return
+          }
+
+          resolve({
+            notifications: this.filterShownNotifications(notifications),
+            isReady: true,
+          })
+          this.isScanning = false
+        },
+      )
+    })
+  }
+
+  private filterShownNotifications(
+    notifications: BWSNotification[],
+  ): BWSNotification[] {
+    return notifications.filter(
+      notification =>
+        !notification.type.includes('NewBlock') ||
+        (!notification.type.includes('ScanFinished') ||
+          notification.data.result !== 'error'),
+    )
+  }
+
   /**
    * Creates, proposes and broadcasts a transaction when requesting it
    * @param passphrase your personal passphrase
    * @param address the crypto address to send your address to
    * @param amount the amount of your transaction in XVG (will be multiplied to sats automatically)
    */
-  public sendTransaction(
-    passphrase: string,
+  sendTransaction(
     address: string,
     amount: number,
   ): Promise<OutgoingTransaction> {
+    /*this.unlock(passphrase)
     invariant(
       !this.isWalletReady(),
       'You can`t send a transaction without setting up your wallet first.',
-    )
+    )*/
 
     invariant(
-      !this.isWalletLocked(),
-      'You wallet should be already unlocked, Please restart the client.',
+      this.password,
+      'Something wrong, you should be unlocked by now already ...',
     )
 
-    return new Promise((resolve, reject) =>
+    return new Promise((resolve, reject) => {
+      if (this.isScanning) {
+        reject('Scanning wallet.')
+      }
+
       this.client.createTxProposal(
         {
           outputs: [
@@ -200,7 +295,7 @@ export class VergeLightClient {
               // BROADCAST PROPOSAL
               client.signTxProposal(
                 processedTxp,
-                passphrase,
+                this.password,
                 (signingError, stxp) => {
                   if (signingError) {
                     return reject(signingError)
@@ -220,8 +315,52 @@ export class VergeLightClient {
             }
           })
         },
-      ),
-    )
+      )
+    })
+  }
+
+  public async rescanWallet() {
+    client.getStatus((error, status) => {
+      if (error && error.code && error.code.includes('NOTAUTHORIZED')) {
+        client.recreateWallet(err => {
+          if (err) {
+            logger.error(err)
+          } else {
+            client.getStatus((statusErr, status) => {
+              if (statusErr) {
+                logger.error(statusErr)
+              } else {
+                logger.info('Status: ', status)
+                client.startScan({}, () => {
+                  logger.info('Scan triggered')
+                  this.isScanning = true
+                })
+              }
+            })
+          }
+        })
+      } else {
+        client.startScan({}, () => {
+          logger.info('Scan triggered')
+          this.isScanning = true
+        })
+      }
+    })
+  }
+
+  public getStatus(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.isScanning) {
+        reject('Scanning wallet.')
+      }
+      client.getStatus((error, status) => {
+        if (error) {
+          return reject(error)
+        }
+
+        return resolve(status)
+      })
+    })
   }
 
   /**
@@ -235,8 +374,8 @@ export class VergeLightClient {
     mnemonic: string,
     passphrase: string,
   ): Promise<boolean> {
-    invariant(!!mnemonic, `Mnemonic is required and can't be emtpy`)
-    invariant(!!passphrase, `Passphrase is required and can't be emtpy`)
+    invariant(!!mnemonic, 'Mnemonic is required and can´t be emtpy')
+    invariant(!!passphrase, 'Passphrase is required and can´t be emtpy')
     // check that we aren't mindlessly overwriting wallets
     invariant(
       !this.isWalletAlreadyExistent(),

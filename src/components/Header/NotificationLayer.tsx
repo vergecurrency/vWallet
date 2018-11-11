@@ -12,7 +12,7 @@ const NotificationLayer = ({
       <NotificationTile
         key={`${notification.timeOfOccurance}#${notification.type}`}
         {...notification}
-        first={index == 0}
+        first={index === 0}
       />
     ))}
   </div>

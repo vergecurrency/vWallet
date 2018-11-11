@@ -41,16 +41,14 @@ const createProgressSteps = step => {
 
     return (
       <div key={item.link}>
-        {index < selectedStepIndex &&
-          selectedStep.returnable && (
-            <Link to={item.link}>{progressCircle(areIdentical)}</Link>
-          )}
-        {index < selectedStepIndex &&
-          !selectedStep.returnable && (
-            <div className="tour-progress-circle-done">
-              {progressCircle(areIdentical)}
-            </div>
-          )}
+        {index < selectedStepIndex && selectedStep.returnable && (
+          <Link to={item.link}>{progressCircle(areIdentical)}</Link>
+        )}
+        {index < selectedStepIndex && !selectedStep.returnable && (
+          <div className="tour-progress-circle-done">
+            {progressCircle(areIdentical)}
+          </div>
+        )}
         {index >= selectedStepIndex && progressCircle(areIdentical)}
       </div>
     )

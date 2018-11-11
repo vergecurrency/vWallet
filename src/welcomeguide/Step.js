@@ -82,7 +82,9 @@ class Step extends React.Component {
           <div className="tour-verge-logo">
             <img src={logo} width="125px" />
           </div>
-          <div className="tour-progress">{createProgressSteps(step)}</div>
+          {step ? (
+            <div className="tour-progress">{createProgressSteps(step)}</div>
+          ) : null}
         </div>
       </div>
     )

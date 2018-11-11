@@ -1,6 +1,8 @@
 import { Client } from 'verge-node-typescript'
 import MockClient from '../utils/mockups/MockClient'
-import electronLog from 'electron-log'
+
+import { VergeBitpayClient } from './VergeBitpayClient'
+import { logger } from '../utils/Logger'
 
 const { remote } = require('electron')
 
@@ -13,11 +15,14 @@ let client: Client
 function getClientByDriver(driver: String = '') {
   switch (driver) {
     case 'mock':
-      electronLog.log(`Using Mock Client`)
+      logger.info('Using Mock Client')
       return MockClient
+    case 'light':
+      logger.info('Using Light Client')
+      return VergeBitpayClient
     case 'deamon':
     default:
-      electronLog.log(`Using Deamon Client`)
+      logger.info('Using Deamon Client')
       return Client
   }
 }

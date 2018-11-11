@@ -10,3 +10,6 @@ coverage/
 src/dev-config.json
 blockchain.zip
 irene.dat
+
+combined.log
+error.log

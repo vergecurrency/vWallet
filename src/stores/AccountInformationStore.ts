@@ -1,88 +1,112 @@
-import { computed, decorate, observable, action } from 'mobx'
+import { computed, observable, action } from 'mobx'
 
 import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
-import electronLog from 'electron-log'
-import { remote } from 'electron'
-import VergeClient from './VergeClient'
 
-const getAccountInfo = () =>
-  VergeClient.getInfo()
-    .then(info =>
-      VergeClient.getPeerInfo().then(peers => {
-        const highestBlock = Math.max(...peers.map(peer => peer.startingheight))
-        return VergeClient.unlockWallet('a')
-          .then(() => ({ ...info, highestBlock, unlocked: true }))
-          .catch(e => {
-            return {
-              ...info,
-              highestBlock,
-              unlocked: e.includes('already unlocked'),
-            }
-          })
-      }),
-    )
-    .catch(electronLog.error)
+import VergeClient from './VergeClient'
+import Wallet from '../crypto/Wallet'
+import { Balance } from '../crypto/Balance'
+import { BWSNotification } from '../crypto/BWSNotification'
+import { logger } from '../utils/Logger'
 
 interface Info extends WalletInfo {
   highestBlock: number
   unlocked?: boolean
   loadingProgress: number
+  isReady: boolean
   isunlocked: boolean
 }
 
 export class AccountInformationStore {
-  info: Info = <Info>{}
+  @observable.struct
+  info: Info = {} as Info
+
+  @observable
+  notifications: INotification[] = []
 
   constructor() {
     setInterval(() => {
-      getAccountInfo()
-        .then(info => {
+      Wallet.getBalance()
+        .then((status: Balance) => {
           this.info = {
             ...this.info,
-            ...info,
-            loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
+            balance: status.availableAmount / 100000,
           }
-          localStorage.info = JSON.stringify(this.info)
-          electronLog.log('Updated wallet information successfully.')
         })
-        .catch(() => {
-          this.info = {
-            ...this.info,
-            loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
-          }
-          electronLog.warn('Couldn`t fetch wallet information')
+        .catch(e => logger.error(e.message))
+    }, 15_000)
+
+    setInterval(() => {
+      Wallet.checkIfReady()
+        .then(({ isReady, notifications }) => {
+          this.info.isReady = isReady
+          this.notifications = this.mapNotifications(notifications)
         })
-    }, 10000)
+        .catch(e => logger.error(e.message))
+    }, 5_000)
   }
 
   sendTransaction(vergeAddress: string, amount: number) {
-    return VergeClient.sendToAddress(vergeAddress, amount)
+    return Wallet.sendTransaction(vergeAddress, amount)
   }
 
-  unlockWallet(password) {
-    return VergeClient.unlockWallet(password)
+  mapNotifications(notifications: BWSNotification[]): INotification[] {
+    return notifications
+      .map(notification => ({
+        type: notification.type,
+        title: notification.type,
+        timeOfOccurance: notification.createdOn,
+        inner: notification.data.result,
+      }))
+      .sort((a, b) => a.timeOfOccurance - b.timeOfOccurance)
   }
 
+  @action
+  async unlockWallet(password) {
+    const unlocked = await Wallet.unlock(password)
+    if (unlocked) {
+      this.info = { ...this.info, unlocked, isunlocked: unlocked }
+
+      Wallet.rescanWallet()
+    }
+
+    return unlocked
+  }
+
+  @action
   lockWallet() {
-    return VergeClient.walletLock()
+    if (!Wallet.isWalletLocked()) {
+      Wallet.lock()
+      this.info.unlocked = false
+      this.info.isunlocked = false
+    }
+
+    return true
   }
 
-  addOldInfo(info: Info) {
-    this.info = info
+  get resolveLastFourNotifications(): INotification[] {
+    if (this.notifications.length <= 4) {
+      return this.notifications
+    }
+
+    return (this.notifications && this.notifications.slice(0, 3)) || []
   }
 
+  @computed
   get getUpdatedInfo() {
     return this.info
   }
 
+  @computed
   get getBalance() {
     return this.info.balance || 0
   }
 
-  get unlocked() {
-    return this.info.isunlocked || this.info.unlocked || false
+  @computed
+  get unlocked(): boolean {
+    return !Wallet.isWalletLocked() || false
   }
 
+  @computed
   get debugPanelInformation() {
     const keys = Object.keys(this.info)
     const values = keys.map(key => ({ key, value: this.info[key] }))
@@ -92,19 +116,12 @@ export class AccountInformationStore {
   receiveNewAddress(): Promise<String> {
     return VergeClient.getNewAddress()
   }
+
+  isPrepared(): boolean {
+    return Wallet.isWalletAlreadyExistent()
+  }
 }
 
-decorate(AccountInformationStore, {
-  info: observable.struct,
-  addOldInfo: action,
-  getUpdatedInfo: computed,
-  getBalance: computed,
-  unlocked: computed,
-})
 const store = new AccountInformationStore()
-
-try {
-  store.addOldInfo(JSON.parse(localStorage.info) || {})
-} catch (e) {}
 
 export default store

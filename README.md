@@ -3,7 +3,8 @@ _The new verge prototype wallet built with electron_ ❤️
 
 _This wallet has no connection to the original **electrum** wallet, it is exclusively designed and developed for VERGE currency. Still it's open source._
 
-[![VergeCurrency](https://raw.githubusercontent.com/vergecurrency/vergecurrency.com/master/static/img/verge-github-badge.png)](https://github.com/vergecurrency/vergecurrency.com)
+[![VergeCurrency](https://raw.githubusercontent.com/vergecurrency/vergecurrency.com/master/static/img/verge-github-badge.png)](https://github.com/vergecurrency/vergecurrency.com) 
+[![Known Vulnerabilities](https://snyk.io/test/github/vergecurrency/vWallet/badge.svg)](https://snyk.io/test/github/vergecurrency/vWallet)
 
 #### Testing/Coverage Development: 
 

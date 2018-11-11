@@ -8,6 +8,15 @@ const generateAddressFromPubKey = pubKey => {
   return crypto.createAddress(pubKeyHash, Network.verge.pubKeyHash)
 }
 
+/*test('generate an address without using BIPS', () => {
+  const privateKeyBuffer = crypto.generateRandomSeed()
+  const pubKeyBuffer = crypto.getPublicKeyFromPrivateKey(privateKeyBuffer)
+  const pubKeyHash = crypto.getPublicKeyHash(pubKeyBuffer)
+  // pubKeyHash (number): 0x1e
+  const address = crypto.createAddress(pubKeyHash, Network.verge.pubKeyHash)
+  console.log(address)
+})*/
+
 test('generates the correct seed lengths', () => {
   expect(crypto.generateRandomSeed().length).toBe(32)
 })

@@ -4,14 +4,13 @@ import { action, computed, decorate, observable } from 'mobx'
 
 import VergeClient from './VergeClient'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
-import electronLog from 'electron-log'
+
 import VergeCacheStore from './VergeCacheStore'
 import IContact from './addressbook/IContact'
+import { logger } from '../utils/Logger'
 
 const hash = (transaction: TransactionView) =>
-  `${transaction.txid}#${transaction.category}#${transaction.address}#${
-    transaction.timereceived
-  }`
+  `${transaction.txid}#${transaction.category}#${transaction.address}`
 
 interface TransactionView extends Transaction {
   hide?: boolean
@@ -26,11 +25,6 @@ export class TransactionStore {
     'receivedTransactions',
     false,
   )
-
-  constructor() {
-    // Force no transactions shown...
-    // VergeCacheStore.set('receivedTransactions', false)
-  }
 
   addTransactions = (transactions: Transaction[] = []) => {
     transactions.forEach((transaction: Transaction) => {
@@ -85,7 +79,7 @@ export class TransactionStore {
   }
 
   setTransactions(transactionMap: Map<string, TransactionView>) {
-    electronLog.log(`Successfully loaded ${transactionMap.size} transactions`)
+    logger.info(`Successfully loaded ${transactionMap.size} transactions`)
     this.transactions = transactionMap
 
     if (this.transactions.size > 0) {
@@ -141,7 +135,7 @@ export class TransactionStore {
       .filter(
         ({ timereceived, category }) =>
           moment.unix(timereceived).isSame(new Date(), 'month') &&
-          category.includes('send'),
+          category.includes('sent'),
       )
       .reduce(
         (sum, { amount, fee }) => (fee ? sum + amount + fee : sum + amount),
@@ -186,28 +180,16 @@ decorate(TransactionStore, {
 })
 
 const store = new TransactionStore()
-try {
-  store.setTransactions(
-    (new Map(JSON.parse(localStorage.myMap)) as Map<string, TransactionView>) ||
-      (new Map() as Map<string, TransactionView>),
-  )
-} catch (e) {}
 
 setInterval(() => {
-  VergeClient.getTransactionList(1000)
+  VergeClient.getTransactionList(20)
     .then(transactions => {
       store.addTransactions(transactions)
-      electronLog.log('Fetched new transactions')
+      logger.info('Fetched new transactions')
     })
     .catch(() => {
-      electronLog.warn('Failed fetching new transactions')
+      logger.warn('Failed fetching new transactions')
     })
-}, 10000)
+}, 30_000)
 
-setInterval(() => {
-  localStorage.transactions = JSON.stringify(
-    Array.from(store.getTransactionList),
-  )
-  electronLog.log('Saved newly transactions into localstorage')
-}, 10000)
 export default store

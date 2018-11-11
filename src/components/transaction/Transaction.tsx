@@ -3,7 +3,7 @@ import { translate, Trans } from 'react-i18next'
 import * as moment from 'moment'
 import * as styled from 'styled-components'
 const { clipboard, shell } = require('electron')
-import { Tooltip } from 'reactstrap'
+// import { Tooltip } from 'reactstrap'
 import settings from '../../settings'
 import { inject, observer } from 'mobx-react'
 
@@ -17,7 +17,6 @@ import Timer from '../../icons/Timer'
 import { TransactionStore } from '../../stores/TransactionStore'
 import { fadeIn } from 'react-animations'
 import { i18n } from '../../../node_modules/@types/i18next'
-import Copy from '../../icons/Copy'
 
 const TextContainer = styled.default.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
@@ -29,7 +28,7 @@ const TransactionIcon = styled.default.div`
   border-radius: 52%;
   height: 32px;
   width: 32px;
-  background-color: ${(props: any) => (!props.up ? '#00917a' : '#dc2b3d')};
+  background-color: ${(props: any) => props.color};
   .arrow-down,
   .arrow-up {
     stroke-width: 3px;
@@ -122,7 +121,7 @@ interface Props {
   address: string
   fee: number
   blockhash: string
-  category: 'receive' | 'send'
+  category: 'receive' | 'send' | ''
   confirmations: number
   time: number
   timereceived: number
@@ -150,9 +149,17 @@ class Transaction extends React.Component<Props> {
 
   getType(amount: number, category: string, fee) {
     if (amount !== 0) {
-      return category.includes('receive')
-        ? this.props.i18n!.t('transaction.item.receive')
-        : this.props.i18n!.t('transaction.item.sent')
+      if (category.includes('receive')) {
+        return this.props.i18n!.t('transaction.item.receive')
+      }
+
+      if (category.includes('sent')) {
+        return this.props.i18n!.t('transaction.item.sent')
+      }
+
+      if (category.includes('moved')) {
+        return this.props.i18n!.t('transaction.item.moved')
+      }
     }
 
     if ((!amount || amount === 0) && fee < 0) {
@@ -160,6 +167,13 @@ class Transaction extends React.Component<Props> {
     }
 
     return this.props.i18n!.t('transaction.item.unknown')
+  }
+
+  getColor(category) {
+    if (category.includes('receive')) return '#00917a'
+    if (category.includes('moved')) return '#a9a9a9'
+
+    return '#dc2b3d'
   }
 
   isNew() {
@@ -238,14 +252,20 @@ class Transaction extends React.Component<Props> {
           </div>
           <CenterDiv className="col-md-1">
             {category.includes('receive') ? (
-              <TransactionIcon>
+              <TransactionIcon {...{ color: this.getColor(category) }}>
                 <ArrowUp width={18} height={18} />
               </TransactionIcon>
-            ) : (
-              <TransactionIcon {...{ up: true }}>
+            ) : null}
+            {category.includes('sent') ? (
+              <TransactionIcon {...{ color: this.getColor(category) }}>
                 <ArrowDown width={18} height={18} />
               </TransactionIcon>
-            )}
+            ) : null}
+            {category.includes('moved') ? (
+              <TransactionIcon {...{ color: this.getColor(category) }}>
+                <ArrowDown width={18} height={18} />
+              </TransactionIcon>
+            ) : null}
           </CenterDiv>
           <div
             className={'col-md-9'}
@@ -255,7 +275,7 @@ class Transaction extends React.Component<Props> {
               alignItems: 'flex-end',
               justifyContent: 'center',
               fontWeight: 500,
-              color: category.includes('receive') ? '#00917a' : '#dc2b3d',
+              color: this.getColor(category),
               letterSpacing: '1px',
               paddingTop: '7px',
               paddingBottom: '7px',
@@ -268,8 +288,15 @@ class Transaction extends React.Component<Props> {
                   fontWeight: 500,
                 }}
               >
-                {category.includes('receive') ? '+' : '-'}
-                {this.xvgFormatter.format(Math.abs(amount + fee))} XVG
+                {category.includes('moved')
+                  ? `${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`
+                  : category.includes('receive')
+                    ? `+ ${this.xvgFormatter.format(
+                        Math.abs(amount + fee),
+                      )} XVG`
+                    : `- ${this.xvgFormatter.format(
+                        Math.abs(amount + fee),
+                      )} XVG`}
               </span>
             </div>
             <TextContainer>
@@ -300,7 +327,8 @@ class Transaction extends React.Component<Props> {
         {!hide ? (
           <TransactionDetails className="trans-details">
             <TransactionDetailsHeader className="Row">
-              {this.getType(amount, category, fee)} transaction{' · '}
+              {this.getType(amount, category, fee)} transaction
+              {' · '}
               {moment.unix(time).fromNow()}
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="Row">
@@ -309,25 +337,6 @@ class Transaction extends React.Component<Props> {
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="Row">
               {category.includes('receive') ? 'to' : 'from'} {address}{' '}
-              <Copy
-                id={txid}
-                height={15}
-                width={15}
-                style={{ fill: 'rgba(100,100,100, 0.5)', paddingTop: '4px' }}
-                onClick={this.copyAddressToClipboard.bind(this)}
-              />
-              <Tooltip
-                placement="top"
-                isOpen={this.state.tooltip}
-                target={txid}
-                toggle={this.setTooltip.bind(this)}
-              >
-                {this.state.copied ? (
-                  <Trans i18nKey="transaction.item.copied" />
-                ) : (
-                  <Trans i18nKey="transaction.item.copy" />
-                )}
-              </Tooltip>
             </TransactionDetailsFooter>
             <SubTransactionDetails className="Row">
               <TransactionDetailProp className="col-md-6">
