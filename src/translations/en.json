@@ -10,7 +10,9 @@
       "contactName": "Contact Name",
       "contactAddress": "Contact Address",
       "contacts": "Contacts",
-      "searchContact": "Search Contact"
+      "searchContact": "Search Contact",
+      "copied": "Address copied",
+      "notransaction": "There are no transactions made, yet."
     },
     "account-bar": {
       "receive": "Receive",
