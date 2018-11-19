@@ -64,7 +64,6 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "precommit": "yarn run prettify",
     "postinstall": "electron-builder install-app-deps",
     "dist": "yarn clean && yarn run build && electron-builder",
     "publishDist": "yarn clean && yarn run build && electron-builder -p always",
