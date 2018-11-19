@@ -7,7 +7,6 @@ dist/
 builds/
 coverage/
 
-src/dev-config.json
 blockchain.zip
 irene.dat
 
