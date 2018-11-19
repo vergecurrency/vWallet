@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 const childProcess = require('child_process')
@@ -112,12 +112,10 @@ let createProc = processPath => {
 
 if (process.env.NODE_ENV === 'dev') {
   console.info('Creating the verge deamon - dev')
-  // createProc('./build/VERGEd')
   console.info('Starting tor...')
   torProcessManager.startProcess('./build/')
   console.info('VERGE Process running')
 } else {
-  // createProc(process.resourcesPath + '/VERGEd')
   torProcessManager.startProcess(process.resourcesPath + '/build/')
 }
 
@@ -151,10 +149,6 @@ function createWindow() {
     })
   }
   mainWindow.loadURL(indexPath)
-
-  mainWindow.once('finalized-loading', () => {
-    mainWindow.show()
-  })
 
   mainWindow.on('closed', () => {
     console.log('Killing verge process')
@@ -202,13 +196,13 @@ function createLoadingWindow() {
 
   loadingWindow.once('ready-to-show', () => {
     loadingWindow.show()
-  })
 
-  ipcMain.once('finalized-loading', () => {
-    loadingWindow.close()
-    loadingWindow = null
+    setTimeout(() => {
+      loadingWindow.close()
+      loadingWindow = null
 
-    mainWindow.show()
+      mainWindow.show()
+    }, 5000)
   })
 
   loadingWindow.on('closed', function() {

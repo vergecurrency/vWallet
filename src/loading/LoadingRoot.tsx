@@ -7,7 +7,6 @@ import { inject, observer } from 'mobx-react'
 import { CoinStatsStore } from '../stores/CoinStatsStore'
 import LoadingIcon from '../components/LoadingIcon'
 import { SettingsStore } from '../stores/SettingsStore'
-import { ipcRenderer } from 'electron'
 import styledComponents from 'styled-components'
 
 const Verge = styledComponents.span`
@@ -75,12 +74,6 @@ class LoadingRoot extends React.Component<{
   CoinStatsStore?: CoinStatsStore
   SettingsStore?: SettingsStore
 }> {
-  componentDidUpdate() {
-    if (this.props.CoinStatsStore!.getUpdatedStats.price) {
-      ipcRenderer.send('finalized-loading')
-    }
-  }
-
   render() {
     const mylove = this.props.CoinStatsStore!.getUpdatedStats.price
     return (
