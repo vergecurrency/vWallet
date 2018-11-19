@@ -1,5 +1,13 @@
 {
   "translations": {
+    "tour": {
+      "welcome": {
+        "hello": "Hello <1>fella.</1>",
+        "prepare": "Let's create your personal Verge wallet",
+        "create": "Create new Wallet",
+        "restore": "Restore old wallet"
+      }
+    },
     "addressPanel": {
       "edit": "Edit",
       "save": "Save",
