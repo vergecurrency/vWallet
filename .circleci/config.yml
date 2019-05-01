@@ -24,9 +24,9 @@ jobs:
             - node_modules
           key: dependency-cache-{{ checksum "package.json" }}
       - persist_to_workspace:
-        root: ~/repo
+        root: "~"
         paths:
-          - "."
+          - repo
 
   build:
     <<: *default-setup
