@@ -24,36 +24,36 @@ jobs:
             - node_modules
           key: dependency-cache-{{ checksum "package.json" }}
       - persist_to_workspace:
-        root: "~"
-        paths:
-          - repo
+          root: "."
+          paths:
+            - "."
 
   build:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: ~/repo
+        at: .
       - run: yarn build
 
   packaging:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: ~/repo
+        at: .
       - run: yarn package
 
   prettify-check:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: ~/repo
+        at: .
       - run: yarn prettify-check
 
   test:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: ~/repo
+        at: .
       - run: yarn test-ci
       - store_test_results:
         path: ./junit.xml
