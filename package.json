@@ -80,9 +80,6 @@
   },
   "dependencies": {
     "@types/winston": "^2.4.4",
-    "bip32": "^1.0.2",
-    "bip39": "^2.5.0",
-    "bitcore-wallet-client": "6.7.5",
     "bootstrap": "^4.1.0",
     "bs58": "^4.0.1",
     "chart.js": "^2.7.2",
@@ -111,6 +108,7 @@
     "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-beta.3",
     "request": "^2.88.0",
+    "request-progress": "^3.0.0",
     "socks-proxy-agent": "4.0.1",
     "styled-components": "^3.3.2",
     "tor-request": "^2.1.1",

@@ -5,7 +5,7 @@ import { logger } from '../utils/Logger'
 
 const torRequest = require('tor-request')
 
-torRequest.setTorAddress('localhost', 9089)
+torRequest.setTorAddress('localhost', 9090)
 
 interface CoinStats {
   price: number
@@ -43,7 +43,7 @@ export class CoinStatsStore {
           this.loadingFinished = true
         })
         .catch(logger.error)
-    }, 30000)
+    },          30000)
   }
 
   getCoinStats(): Promise<CoinStats | null> {

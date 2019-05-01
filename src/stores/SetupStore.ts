@@ -1,12 +1,8 @@
 import { action, computed, decorate, observable } from 'mobx'
-
-import VergeClient from './VergeClient'
-import { VergeBitpayClient } from './VergeBitpayClient'
+import VergeCacheStore from './VergeCacheStore'
 
 export class SetupStore {
-  setupOpen: boolean = (VergeClient as VergeBitpayClient)
-    .getWallet()
-    .isWalletReady()
+  setupOpen: boolean = VergeCacheStore.set('setupOpen', true)
 
   constructor() {
     // Force wallet welcome...

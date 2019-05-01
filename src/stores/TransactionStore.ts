@@ -190,6 +190,6 @@ setInterval(() => {
     .catch(() => {
       logger.warn('Failed fetching new transactions')
     })
-}, 30_000)
+},          5_000)
 
 export default store

@@ -3,9 +3,6 @@ import { computed, observable, action } from 'mobx'
 import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
 
 import VergeClient from './VergeClient'
-import Wallet from '../crypto/Wallet'
-import { Balance } from '../crypto/Balance'
-import { BWSNotification } from '../crypto/BWSNotification'
 import { logger } from '../utils/Logger'
 
 interface Info extends WalletInfo {
@@ -25,48 +22,29 @@ export class AccountInformationStore {
 
   constructor() {
     setInterval(() => {
-      Wallet.getBalance()
-        .then((status: Balance) => {
+      VergeClient.getInfo()
+        .then((info: WalletInfo) => {
           this.info = {
             ...this.info,
-            balance: status.availableAmount / 100000,
+            ...info,
+            balance: info.balance,
           }
-        })
-        .catch(e => logger.error(e.message))
-    }, 15_000)
 
-    setInterval(() => {
-      Wallet.checkIfReady()
-        .then(({ isReady, notifications }) => {
-          this.info.isReady = isReady
-          this.notifications = this.mapNotifications(notifications)
+          this.info.isReady = true
         })
         .catch(e => logger.error(e.message))
-    }, 5_000)
+    },          2500)
   }
 
   sendTransaction(vergeAddress: string, amount: number) {
-    return Wallet.sendTransaction(vergeAddress, amount)
-  }
-
-  mapNotifications(notifications: BWSNotification[]): INotification[] {
-    return notifications
-      .map(notification => ({
-        type: notification.type,
-        title: notification.type,
-        timeOfOccurance: notification.createdOn,
-        inner: notification.data.result,
-      }))
-      .sort((a, b) => a.timeOfOccurance - b.timeOfOccurance)
+    return VergeClient.sendToAddress(vergeAddress, amount)
   }
 
   @action
   async unlockWallet(password) {
-    const unlocked = await Wallet.unlock(password)
+    const unlocked = await VergeClient.unlockWallet(password)
     if (unlocked) {
       this.info = { ...this.info, unlocked, isunlocked: unlocked }
-
-      Wallet.rescanWallet()
     }
 
     return unlocked
@@ -74,11 +52,10 @@ export class AccountInformationStore {
 
   @action
   lockWallet() {
-    if (!Wallet.isWalletLocked()) {
-      Wallet.lock()
+    VergeClient.walletLock().then(() => {
       this.info.unlocked = false
       this.info.isunlocked = false
-    }
+    })
 
     return true
   }
@@ -103,7 +80,7 @@ export class AccountInformationStore {
 
   @computed
   get unlocked(): boolean {
-    return !Wallet.isWalletLocked() || false
+    return !this.info.isunlocked || false
   }
 
   @computed
@@ -118,7 +95,7 @@ export class AccountInformationStore {
   }
 
   isPrepared(): boolean {
-    return Wallet.isWalletAlreadyExistent()
+    return true // Always prep'd
   }
 }
 

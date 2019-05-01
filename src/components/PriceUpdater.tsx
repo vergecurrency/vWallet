@@ -9,7 +9,7 @@ import { logger } from '../utils/Logger'
 
 const tr = require('tor-request')
 
-tr.setTorAddress('localhost', 9089)
+tr.setTorAddress('localhost', 9090)
 
 interface PriceUpdaterProps {
   CoinStatsStore?: CoinStatsStore
@@ -17,7 +17,7 @@ interface PriceUpdaterProps {
 
 const COIN_MULTIPLIER = 100000000000
 
-const createDataset = function(entries) {
+const createDataset = function (entries) {
   if (!entries) {
     return {}
   }

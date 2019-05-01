@@ -1,7 +1,6 @@
 import { Client } from 'verge-node-typescript'
 import MockClient from '../utils/mockups/MockClient'
 
-import { VergeBitpayClient } from './VergeBitpayClient'
 import { logger } from '../utils/Logger'
 
 const { remote } = require('electron')
@@ -17,22 +16,19 @@ function getClientByDriver(driver: String = '') {
     case 'mock':
       logger.info('Using Mock Client')
       return MockClient
-    case 'light':
-      logger.info('Using Light Client')
-      return VergeBitpayClient
     case 'deamon':
     default:
       logger.info('Using Deamon Client')
       return Client
   }
 }
+const {
+  rpcusername: user,
+  rpcpassword: pass,
+  clientDriver: driver,
+} = require('../dev-config.json')
 
-if (MODE === 'dev') {
-  const {
-    rpcusername: user,
-    rpcpassword: pass,
-    clientDriver: driver,
-  } = require('../dev-config.json')
+if (MODE === 'dev' && driver === 'mock') {
   const clientClass = getClientByDriver(driver)
   client = new clientClass({
     user,

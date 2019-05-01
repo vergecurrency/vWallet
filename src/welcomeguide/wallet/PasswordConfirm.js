@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Step from '../Step'
 import { Link } from 'react-router-dom'
 import crypto from 'crypto'
-import Wallet from '../../crypto/Wallet'
 
 const NewButton = styled.button`
   width: 192px;
@@ -76,13 +75,6 @@ export default class ConfirmPassword extends React.Component {
             <Link
               to={{
                 pathname: '/buyhelp',
-              }}
-              onClick={async () => {
-                if (fullfillsRequirements) {
-                  const result = await Wallet.createNewWallet(
-                    this.state.confirm,
-                  )
-                }
               }}
             >
               <NewButton>Continue</NewButton>
