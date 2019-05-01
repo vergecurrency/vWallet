@@ -39,7 +39,7 @@ jobs:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: "."
+          at: "."
       - run: yarn package
 
   prettify-check:
@@ -53,7 +53,7 @@ jobs:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: "."
+          at: "."
       - run: yarn test-ci
       - store_test_results:
         path: ./junit.xml
