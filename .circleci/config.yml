@@ -4,9 +4,9 @@
 #
 
 default-setup: &default-setup
-  - docker:
+  docker:
     - image: circleci/node:10.15
-  - working_directory: ~/repo
+  working_directory: ~/repo
 
 version: 2
 jobs:
