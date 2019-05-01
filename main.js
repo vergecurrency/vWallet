@@ -79,6 +79,9 @@ function createWindow() {
     icon: __dirname + '/verge.ico',
     resizable: true,
     fullscreenable: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   let indexPath
@@ -125,6 +128,9 @@ function createLoadingWindow() {
     resizable: false,
     fullscreenable: false,
     transparent: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   let indexPath
