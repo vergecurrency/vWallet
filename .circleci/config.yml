@@ -40,7 +40,7 @@ jobs:
     steps:
       - attach_workspace:
           at: "."
-      - run: sudo apt-get install wine64
+      - run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32 
       - run: yarn package
 
   prettify-check:
