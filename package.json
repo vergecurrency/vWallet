@@ -75,7 +75,7 @@
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --overwrite",
     "prettify": "prettier --config .prettierrc.js --write src/**/*",
-    "prettify-check": "prettier --check .prettierrc.js src/**/*",
+    "prettify-check": "prettier --check --config=.prettierrc.js src/**/*",
     "eslintfixdry": "eslint --fix-dry-run src/**/*.js",
     "clean": "rimraf dist"
   },
