@@ -32,19 +32,16 @@
         },
         "hideinformation": {
           "name": "Vis/skjul personlig information",
-          "usage":
-            "Skjuler al personlig data som transaktioner, beholdninger m.m. og erstatter dem med pladsholdere."
+          "usage": "Skjuler al personlig data som transaktioner, beholdninger m.m. og erstatter dem med pladsholdere."
         },
         "lockwallet": {
           "name": "Lås pung",
-          "usage":
-            "Låser din pung/wallet, hvilket betyder at du ikke vil være i stand til at sende XVG samt flere funktioner, indtil du indtaster dit kodeord."
+          "usage": "Låser din pung/wallet, hvilket betyder at du ikke vil være i stand til at sende XVG samt flere funktioner, indtil du indtaster dit kodeord."
         }
       },
       "region": {
         "name": "Region",
-        "explain":
-          "Vælg region, for at få vist din XVG beholding i din lokale valuta og decimal seperering."
+        "explain": "Vælg region, for at få vist din XVG beholding i din lokale valuta og decimal seperering."
       }
     },
     "header": {
@@ -77,19 +74,16 @@
     "sendPanel": {
       "recipient": "Modtageradresse",
       "xvgAddress": "XVG Adresse",
-      "fundwarning":
-        "Sørg for KUN at indtaste en XVG adresse, ellers risikere du transaktionen går tabt.",
+      "fundwarning": "Sørg for KUN at indtaste en XVG adresse, ellers risikere du transaktionen går tabt.",
       "addressLabel": "Label",
-      "labelInfo":
-        "Indtast en label for denne adresse hvis du vil tilføje den til din adressebog.",
+      "labelInfo": "Indtast en label for denne adresse hvis du vil tilføje den til din adressebog.",
       "amount": "Beløb",
       "amountInfo": "Transaktionsgebyr, 0.1 XVG",
       "xvgUSD": "XVG i {{currency}}",
       "balanceXVG": "Beholdning in XVG",
       "sendButton": "Send XVG",
       "walletAfterTransaction": "Din XVG beholdning efter transaktionen:",
-      "sendWarning":
-        "Venligst dobbelttjek at XVG adressen du har indtastet er korrekt. Verge Currency kan ikke holdes ansvarlig for tab af XVG, der går tabt på grund af forkert adresse."
+      "sendWarning": "Venligst dobbelttjek at XVG adressen du har indtastet er korrekt. Verge Currency kan ikke holdes ansvarlig for tab af XVG, der går tabt på grund af forkert adresse."
     },
     "accountbar": {
       "xvgbalance": "XVG BEHOLDNING",

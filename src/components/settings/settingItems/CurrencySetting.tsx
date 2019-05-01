@@ -75,13 +75,15 @@ export class CurrencySetting extends React.Component<
                 >
                   {locale.currency}{' '}
                   <em>
-                    ({new Intl.NumberFormat(locale.locale, {
+                    (
+                    {new Intl.NumberFormat(locale.locale, {
                       style: 'currency',
                       currency: locale.currency,
                       minimumFractionDigits: 2,
                       // the default value for minimumFractionDigits depends on the currency
                       // and is usually already 2
-                    }).format(1234567.089)})
+                    }).format(1234567.089)}
+                    )
                   </em>
                 </DropdownItem>
               ))}

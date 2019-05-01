@@ -22,12 +22,10 @@ class NoBalancePanel extends React.Component<NoBalancePanelProps> {
         title={this.props.title}
         className={`no-balance-modal ${this.props.className}`}
       >
-        <ScaleBalanceIcon
-          width={100}
-          height={100}
-          fill="#d6dee2"
-        />
-        <p className="no-balance-title">{this.props.i18n!.t('sendPanel.notEnoughBalance')}</p>
+        <ScaleBalanceIcon width={100} height={100} fill="#d6dee2" />
+        <p className="no-balance-title">
+          {this.props.i18n!.t('sendPanel.notEnoughBalance')}
+        </p>
         <p className="no-balance-subtitle">
           {this.props.i18n!.t('sendPanel.notEnoughBalanceDescription')}
         </p>
@@ -36,6 +34,4 @@ class NoBalancePanel extends React.Component<NoBalancePanelProps> {
   }
 }
 
-export default translate()(
-  observer(NoBalancePanel),
-)
+export default translate()(observer(NoBalancePanel))

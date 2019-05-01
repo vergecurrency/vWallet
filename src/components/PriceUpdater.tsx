@@ -17,7 +17,7 @@ interface PriceUpdaterProps {
 
 const COIN_MULTIPLIER = 100000000000
 
-const createDataset = function (entries) {
+const createDataset = function(entries) {
   if (!entries) {
     return {}
   }

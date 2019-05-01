@@ -40,19 +40,16 @@
         },
         "hideinformation": {
           "name": "Verstecken/Zeigen von persönlichen Daten",
-          "usage":
-            "Versteckt all persönliche Informationen, wie zum Beispiel Transaktionen, Guthaben etc und ersetzt diese mit Platzhalter."
+          "usage": "Versteckt all persönliche Informationen, wie zum Beispiel Transaktionen, Guthaben etc und ersetzt diese mit Platzhalter."
         },
         "lockwallet": {
           "name": "Wallet sperren",
-          "usage":
-            "Diese Operation sperrt dein Wallet und vermeidet die Verwendung von einigen Funktionen bis Sie nochmal ihr Passwort eingeben."
+          "usage": "Diese Operation sperrt dein Wallet und vermeidet die Verwendung von einigen Funktionen bis Sie nochmal ihr Passwort eingeben."
         }
       },
       "region": {
         "name": "Region/Sprache",
-        "explain":
-          "Dies wechselt die Region nicht nur die Sprache. Darunter fällt unteranderem auch die Währung."
+        "explain": "Dies wechselt die Region nicht nur die Sprache. Darunter fällt unteranderem auch die Währung."
       }
     },
     "header": {

@@ -18,9 +18,12 @@ interface AmountInputState {
   amount: number
 }
 
-class AmountInput extends React.Component<AmountInputInterface, AmountInputState> {
+class AmountInput extends React.Component<
+  AmountInputInterface,
+  AmountInputState
+> {
   state: {
-    amount: 0,
+    amount: 0
   }
 
   getLocaleId() {
@@ -41,7 +44,7 @@ class AmountInput extends React.Component<AmountInputInterface, AmountInputState
 
   amountChanged(e) {
     const input = parseFloat(e.target.value) || 0
-    if (input <= (this.getBalance() - Fee) && input >= 0) {
+    if (input <= this.getBalance() - Fee && input >= 0) {
       this.props.amountChanged(parseFloat(e.target.value))
     }
   }

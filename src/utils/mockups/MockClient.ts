@@ -90,7 +90,8 @@ class MockClient extends Client {
   getNewAddress(): Promise<string> {
     return new Promise((respond, reject) => {
       let text = ''
-      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+      const possible =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
       for (let i = 0; i < 34; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))

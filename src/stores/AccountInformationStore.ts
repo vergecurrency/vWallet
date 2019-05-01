@@ -33,7 +33,7 @@ export class AccountInformationStore {
           this.info.isReady = true
         })
         .catch(e => logger.error(e.message))
-    },          2500)
+    }, 2500)
   }
 
   sendTransaction(vergeAddress: string, amount: number) {

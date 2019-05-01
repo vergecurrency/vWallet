@@ -16,32 +16,34 @@ interface SendTransactionButtonInterface {
   i18n?: i18n
 }
 
-class SendTransactionButton extends React.Component<SendTransactionButtonInterface> {
-  render () {
+class SendTransactionButton extends React.Component<
+  SendTransactionButtonInterface
+> {
+  render() {
     return (
       <button className="btn btn-lg" onClick={this.props.onClick.bind(this)}>
         {this.props.children}
         {this.props.status === SendState.OPEN &&
-        `${this.props.label}${' '}
+          `${this.props.label}${' '}
           ${
-          this.props.amount
-            ? `${this.props.amount.toLocaleString(
-            this.props.localeId,
-            )} XVG ($${(this.props.amount * this.props.price).toLocaleString(
-            this.props.localeId,
-            )}) + ${Fee.toLocaleString(this.props.localeId)} XVG Fee`
-            : ''
+            this.props.amount
+              ? `${this.props.amount.toLocaleString(
+                  this.props.localeId,
+                )} XVG ($${(
+                  this.props.amount * this.props.price
+                ).toLocaleString(this.props.localeId)}) + ${Fee.toLocaleString(
+                  this.props.localeId,
+                )} XVG Fee`
+              : ''
           }`}
         {this.props.status === SendState.SENDING &&
-        this.props.i18n!.t('sendPanel.sending')}
+          this.props.i18n!.t('sendPanel.sending')}
         {this.props.status === SendState.ERROR && this.props.error}
         {this.props.status === SendState.DONE &&
-        this.props.i18n!.t('sendPanel.sent')}
+          this.props.i18n!.t('sendPanel.sent')}
       </button>
     )
   }
 }
 
-export default translate()(
-  observer(SendTransactionButton),
-)
+export default translate()(observer(SendTransactionButton))

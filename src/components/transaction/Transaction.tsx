@@ -291,12 +291,8 @@ class Transaction extends React.Component<Props> {
                 {category.includes('moved')
                   ? `${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`
                   : category.includes('receive')
-                    ? `+ ${this.xvgFormatter.format(
-                        Math.abs(amount + fee),
-                      )} XVG`
-                    : `- ${this.xvgFormatter.format(
-                        Math.abs(amount + fee),
-                      )} XVG`}
+                  ? `+ ${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`
+                  : `- ${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`}
               </span>
             </div>
             <TextContainer>

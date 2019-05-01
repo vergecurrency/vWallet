@@ -47,7 +47,7 @@ class BalanceBar extends React.Component<BalanceBarInterface> {
               />
             </div>
             <div className="balance-value">
-              {formatter.format((this.getBalance() * this.getPrice()))}
+              {formatter.format(this.getBalance() * this.getPrice())}
             </div>
           </Col>
           <Col md="7">
