@@ -32,28 +32,28 @@ jobs:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: .
+          at: "."
       - run: yarn build
 
   packaging:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: .
+        at: "."
       - run: yarn package
 
   prettify-check:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: .
+          at: "."
       - run: yarn prettify-check
 
   test:
     <<: *default-setup
     steps:
       - attach_workspace:
-        at: .
+        at: "."
       - run: yarn test-ci
       - store_test_results:
         path: ./junit.xml
