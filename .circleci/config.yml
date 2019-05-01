@@ -56,7 +56,7 @@ jobs:
           at: "."
       - run: yarn test-ci
       - store_test_results:
-        path: ./junit.xml
+            path: ./junit.xml
 
 workflows:
   version: 2
