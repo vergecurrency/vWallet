@@ -91,7 +91,7 @@ export class AccountInformationStore {
   }
 
   receiveNewAddress(): Promise<String> {
-    return VergeClient.getNewAddress()
+    return VergeClient.getNewStealthAddress()
   }
 
   isPrepared(): boolean {
