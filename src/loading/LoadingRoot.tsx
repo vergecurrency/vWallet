@@ -75,7 +75,7 @@ const randomSplashIndex = Math.floor(Math.random() * vergeFamSplashes.length)
 class LoadingRoot extends React.Component<{
   CoinStatsStore?: CoinStatsStore
   SettingsStore?: SettingsStore
-  AccountInformationStore?: AccountInformationStore,
+  AccountInformationStore?: AccountInformationStore
 }> {
   render() {
     const vergeStatus = this.props.AccountInformationStore!.getUpdatedInfo
