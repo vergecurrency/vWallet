@@ -1,4 +1,4 @@
-import { Client } from 'verge-node-typescript'
+import { Client } from '../vClient'
 import MockClient from '../utils/mockups/MockClient'
 
 import { logger } from '../utils/Logger'

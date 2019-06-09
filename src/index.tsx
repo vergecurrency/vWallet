@@ -20,8 +20,8 @@ render(
   document.getElementById('root'),
 )
 
-if (module && module.hot) {
-  module.hot.accept('./containers/Root', () => {
+if (module && (module as any).hot) {
+   (module as any).hot.accept('./containers/Root', () => {
     const NextRoot = require('./containers/Root') // eslint-disable-line global-require
     render(
       <AppContainer>

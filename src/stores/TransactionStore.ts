@@ -3,7 +3,7 @@ import * as moment from 'moment'
 import { action, computed, decorate, observable } from 'mobx'
 
 import VergeClient from './VergeClient'
-import { Transaction } from 'verge-node-typescript/dist/Transaction'
+import { Transaction } from '../vClient/Transaction'
 
 import VergeCacheStore from './VergeCacheStore'
 import IContact from './addressbook/IContact'
@@ -190,6 +190,6 @@ setInterval(() => {
     .catch(() => {
       logger.warn('Failed fetching new transactions')
     })
-}, 5_000)
+},          5_000)
 
 export default store

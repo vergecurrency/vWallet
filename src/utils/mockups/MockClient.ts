@@ -1,7 +1,7 @@
-import { Transaction } from 'verge-node-typescript/dist/Transaction'
-import { Client } from 'verge-node-typescript'
-import { Peer } from 'verge-node-typescript/dist/Peer'
-import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
+import { Transaction } from '../../vClient/Transaction'
+import { Client } from '../../vClient'
+import { Peer } from '../../vClient/Peer'
+import { WalletInfo } from '../../vClient/WalletInfo'
 
 const { mockData: mockData } = require('../../dev-config.json')
 

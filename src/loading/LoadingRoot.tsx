@@ -8,6 +8,8 @@ import { CoinStatsStore } from '../stores/CoinStatsStore'
 import LoadingIcon from '../components/LoadingIcon'
 import { SettingsStore } from '../stores/SettingsStore'
 import styledComponents from 'styled-components'
+import { AccountInformationStore } from '../stores/AccountInformationStore'
+const { ipcRenderer } = require('electron')
 
 const Verge = styledComponents.span`
   color: #5dacc5;
@@ -73,9 +75,14 @@ const randomSplashIndex = Math.floor(Math.random() * vergeFamSplashes.length)
 class LoadingRoot extends React.Component<{
   CoinStatsStore?: CoinStatsStore
   SettingsStore?: SettingsStore
+  AccountInformationStore?: AccountInformationStore,
 }> {
   render() {
-    const mylove = this.props.CoinStatsStore!.getUpdatedStats.price
+    const vergeStatus = this.props.AccountInformationStore!.getUpdatedInfo
+      .blocks
+    if (vergeStatus) {
+      ipcRenderer.send('loading-finished')
+    }
     return (
       <Container
         className={['splash', vergeFamSplashes[randomSplashIndex].splash].join(
@@ -84,7 +91,9 @@ class LoadingRoot extends React.Component<{
         fluid={true}
         style={{ backgroundColor: '#121c29', height: '576px' }}
       >
-        <span style={{ position: 'absolute', left: '-1000px' }}>{mylove}</span>
+        <span style={{ position: 'absolute', left: '-1000px' }}>
+          {vergeStatus}
+        </span>
         <Row />
         <div
           style={{
@@ -99,14 +108,14 @@ class LoadingRoot extends React.Component<{
           }}
         >
           <Row>
-            <Col sm="3" style={{}}>
+            <Col sm="3">
               <Header>Official</Header>
               <Title>
                 <Verge>Verge</Verge> Core Wallet
               </Title>
               <Header>version v{this.props.SettingsStore!.appVersion}</Header>
             </Col>
-            <Col sm="6" style={{}}>
+            <Col sm="6">
               <Thanks>
                 Special thanks to Sunerok, CryptoRekt, Marpme, Waveon3, MKinney,
                 BearSylla, Hypermist, Pallas1, FuzzBawls, BuZz, glodfinch,
@@ -151,4 +160,8 @@ class LoadingRoot extends React.Component<{
   }
 }
 
-export default inject('CoinStatsStore', 'SettingsStore')(observer(LoadingRoot))
+export default inject(
+  'CoinStatsStore',
+  'SettingsStore',
+  'AccountInformationStore',
+)(observer(LoadingRoot))

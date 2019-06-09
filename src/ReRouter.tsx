@@ -10,7 +10,7 @@ import EnterPassword from './welcomeguide/wallet/EnterPassword'
 import { AccountInformationStore } from './stores/AccountInformationStore'
 
 class ReRouter extends React.Component<{
-  AccountInformationStore?: AccountInformationStore
+  AccountInformationStore?: AccountInformationStore,
 }> {
   render() {
     const { AccountInformationStore, ...rest } = this.props

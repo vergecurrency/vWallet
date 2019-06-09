@@ -1,6 +1,6 @@
 import { computed, observable, action } from 'mobx'
 
-import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
+import { WalletInfo } from '../vClient/WalletInfo'
 
 import VergeClient from './VergeClient'
 import { logger } from '../utils/Logger'
@@ -33,7 +33,7 @@ export class AccountInformationStore {
           this.info.isReady = true
         })
         .catch(e => logger.error(e.message))
-    }, 2500)
+    },          2500)
   }
 
   sendTransaction(vergeAddress: string, amount: number) {
@@ -91,7 +91,7 @@ export class AccountInformationStore {
   }
 
   receiveNewAddress(): Promise<String> {
-    return VergeClient.getNewStealthAddress()
+    return VergeClient.getNewAddress()
   }
 
   isPrepared(): boolean {
