@@ -31,18 +31,16 @@ let createProc = processPath => {
   vergeProcess = childProcess.spawn(
     processPath,
     [
-      '-daemon',
       '-server=1',
       `-rpcuser=${auth.user}`,
-      `-rpcpassword=${auth.pass}`,
-      '-printtoconsole',
+      `-rpcpassword=${auth.pass}`
     ],
     {
       stdio: ['inherit', 'pipe', 'inherit'],
     },
   )
 
-  console.info('VERGE Process running @ ', vergeProcess.pid + 1, ' pid')
+  console.info('VERGE Process running @ ', vergeProcess.pid, ' pid')
   const readable = vergeProcess.stdout
 
   readable.on('readable', () => {
@@ -54,7 +52,6 @@ let createProc = processPath => {
         const [number] = chunkString.match(loadRegex)
         auth.loadingProgress = number
       }
-      console.log('loading progress: ', auth.loadingProgress, '%')
     }
   })
 }
@@ -104,15 +101,15 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     console.log('Killing verge process')
-
-    ps.kill(vergeProcess.pid + 1, 'SIGKILL', function (err) {
+    ps.kill(vergeProcess.pid, 'SIGKILL', (err) => {
       if (err) {
         throw new Error(err);
-      }
-      else {
-        console.log(`Process with pid ${vergeProcess.pid + 1} has been killed!`);
+      } else {
+        isAlive = false
+        console.log(`Process with pid ${vergeProcess.pid} has been killed!`);
       }
     });
+
     mainWindow = null
   })
 }
