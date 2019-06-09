@@ -1,7 +1,8 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 const childProcess = require('child_process')
+const ps = require('ps-node');
 
 let mainWindow
 let loadingWindow
@@ -103,17 +104,15 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     console.log('Killing verge process')
-    while (vergeProcess && !vergeProcess.killed) {
-      try {
-        process.kill(vergeProcess.pid + 1, 'SIGINT')
-      } catch (e) {
-        if (e.code === 'ESRCH') {
-          vergeProcess = null
-        }
-        console.error(e)
-      }
-    }
 
+    ps.kill(vergeProcess.pid + 1, 'SIGKILL', function (err) {
+      if (err) {
+        throw new Error(err);
+      }
+      else {
+        console.log(`Process with pid ${vergeProcess.pid + 1} has been killed!`);
+      }
+    });
     mainWindow = null
   })
 }
@@ -153,20 +152,20 @@ function createLoadingWindow() {
   loadingWindow.once('ready-to-show', () => {
     loadingWindow.show()
 
-    setTimeout(() => {
+    ipcMain.once('loading-finished', () => {
       loadingWindow.close()
       loadingWindow = null
 
       mainWindow.show()
-    }, 5000)
+    })
   })
 
-  loadingWindow.on('closed', function() {
+  loadingWindow.on('closed', function () {
     loadingWindow = null
   })
 }
 
-app.on('ready', function() {
+app.on('ready', function () {
   /*autoUpdater
     .checkForUpdatesAndNotify()
     .then(value => {
