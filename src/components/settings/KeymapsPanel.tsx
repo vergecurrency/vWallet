@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as uuid from 'uuid'
-import AppleKeyboardCommand from 'react-material-icon-svg/dist/AppleKeyboardCommandIcon'
+import AppleKeyboardCommand from 'react-material-icon-svg/dist/AppleKeyboardCommand'
 import Keymap from './keymaps/Keymap'
 import { SettingsStore } from '../../stores/SettingsStore'
 import { translate, Trans } from 'react-i18next'

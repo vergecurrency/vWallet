@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ScaleBalanceIcon from 'react-material-icon-svg/dist/ScaleBalanceIcon'
+import ScaleBalanceIcon from 'react-material-icon-svg/dist/ScaleBalance'
 import { i18n } from 'i18next'
 import { observer } from 'mobx-react'
 import { translate } from 'react-i18next'

@@ -102,7 +102,7 @@
     "react-chartjs-2": "^2.7.2",
     "react-dom": "^16.2.0",
     "react-i18next": "^7.8.1",
-    "react-material-icon-svg": "^1.5.1",
+    "react-material-icon-svg": "^3.0.0",
     "react-moment": "^0.7.0",
     "react-popover": "^0.5.7",
     "react-router": "^4.2.0",

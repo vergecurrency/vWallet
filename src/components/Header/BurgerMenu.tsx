@@ -6,11 +6,11 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap'
-import Menu from 'react-material-icon-svg/dist/MenuIcon'
-import Wallet from 'react-material-icon-svg/dist/WalletIcon'
-import Addressbook from 'react-material-icon-svg/dist/BookOpenPageVariantIcon'
-import Settings from 'react-material-icon-svg/dist/SettingsIcon'
-import BlockchainExplorer from 'react-material-icon-svg/dist/OpenInNewIcon'
+import Menu from 'react-material-icon-svg/dist/Menu'
+import Wallet from 'react-material-icon-svg/dist/Wallet'
+import Addressbook from 'react-material-icon-svg/dist/BookOpenPageVariant'
+import Settings from 'react-material-icon-svg/dist/Settings'
+import BlockchainExplorer from 'react-material-icon-svg/dist/OpenInNew'
 import { Link } from 'react-router-dom'
 import { shell } from 'electron'
 
