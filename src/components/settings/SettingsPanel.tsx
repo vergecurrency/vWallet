@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { inject, observer } from 'mobx-react'
 
-import SettingsOutline from 'react-material-icon-svg/dist/SettingsOutlineIcon'
+import SettingsOutline from 'react-material-icon-svg/dist/SettingsOutline'
 import CurrencySetting from './settingItems/CurrencySetting'
 import RegionSetting from './settingItems/RegionSetting'
 import { SettingsStore } from '../../stores/SettingsStore'

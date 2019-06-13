@@ -9,7 +9,7 @@ import { SettingsStore } from '../stores/SettingsStore'
 import { translate, Trans } from 'react-i18next'
 import { fadeIn } from 'react-animations'
 import PriceUpdater from '../components/PriceUpdater'
-import ChartLineIcon from 'react-material-icon-svg/dist/ChartLineIcon'
+import ChartLineIcon from 'react-material-icon-svg/dist/ChartLine'
 const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9090)

@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import BurgerMenu from './BurgerMenu'
-import Lock from 'react-material-icon-svg/dist/LockIcon'
+import Lock from 'react-material-icon-svg/dist/Lock'
 import Logout from '../../icons/Logout'
 import Notification from '../../icons/Notification'
 import NotificationLayer from './NotificationLayer'
@@ -14,8 +14,8 @@ import { translate } from 'react-i18next'
 import { i18n } from '../../../node_modules/@types/i18next'
 import UnlockPanel from '../modal/UnlockPanel'
 import { Link } from 'react-router-dom'
-import WifiIcon from 'react-material-icon-svg/dist/WifiIcon'
-import WifiOffIcon from 'react-material-icon-svg/dist/WifiOffIcon'
+import WifiIcon from 'react-material-icon-svg/dist/Wifi'
+import WifiOffIcon from 'react-material-icon-svg/dist/WifiOff'
 
 interface HeaderState {
   dropdownOpen: boolean
