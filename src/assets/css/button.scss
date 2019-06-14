@@ -1,0 +1,52 @@
+$btn-font-size: 14px;
+
+$dropdown-toggle-background: transparent;
+$dropdown-toggle-color: rgb(91, 90, 90);
+
+.btn {
+  font-size: $btn-font-size;
+}
+
+.btn.focus, .btn:focus {
+  box-shadow: $form-input-box-shadow-focus;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-toggle,
+.show > .btn-secondary.dropdown-toggle,
+.btn-secondary.dropdown-toggle:not(:disabled):not(.disabled):active,
+.dropdown-toggle:hover {
+  background-color: $dropdown-toggle-background;
+  color: $dropdown-toggle-color;
+  border: $form-input-border;
+  box-shadow: $form-input-box-shadow;
+}
+
+.show > .btn-secondary.dropdown-toggle,
+.show > .btn-secondary.dropdown-toggle:focus,
+.btn-secondary.dropdown-toggle:not(:disabled):not(.disabled):active,
+.dropdown-toggle:hover {
+  box-shadow: $form-input-box-shadow-hover;
+}
+
+.btn-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #00b8dc;
+  border: 0;
+  color: #ffffff;
+  font-size: $btn-font-size;
+  font-weight: 500;
+  padding: 14px;
+}

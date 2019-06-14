@@ -1,0 +1,35 @@
+@mixin setting {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 65px;
+}
+
+.setting {
+  @include setting;
+}
+
+.setting-keymap {
+  @include setting;
+  height: 50px;
+}
+
+.setting-label {
+  color: #476b84;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.setting-description {
+  color: #647e90;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.setting-keymap-command {
+  color: #647e90;
+  font-size: 15px;
+  font-weight: 100;
+  text-transform: uppercase;
+}

@@ -1,106 +1,85 @@
-import { Button, Col, Container, Input, Row } from "reactstrap";
-import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
 
-import Modal from "../Modal";
-import T from "i18n-react";
-import styled from "styled-components";
-
-const Title = styled.p`
-  color: #476b84;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 20px;
-`;
-
-const InputHandler = styled.input`
-  box-shadow: ${props => {
-    console.log(props);
-    return props.unlocked
-      ? "inset 0 1px 4px rgba(0, 0, 0, 0.09)"
-      : "inset 0 0px 4px rgba(220,43,61,0.5);";
-  }};
-  border-radius: 3px;
-  border: 1px solid
-    ${props => (props.unlocked ? "#dcdcdc" : "rgba(220,43,61,1);")};
-  color: #9e9e9e;
-  font-size: 14px;
-  font-style: italic;
-  height: 45px;
-  padding: 15px;
-`;
-
-const FalseInputHandler = styled.p`
-  color: rgba(220, 43, 61, 1);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 30px;
-  font-style: italic;
-`;
-
-const SubTitle = styled.p`
-  color: #909090;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 30px;
-`;
-const UnlockButton = styled.button`
-  width: 460px;
-  height: 62px;
-  border-radius: 4px;
-  background-color: #00b8dc;
-  border: 0;
-  box-shadow: none;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 29.02px;
-`;
+import Modal from '../Modal'
+import UnlockIcon from 'react-material-icon-svg/dist/LockOpen'
+import { translate, Trans } from 'react-i18next'
 
 class Unlock extends Component {
   state = {
-    password: "",
-    unlocked: true
-  };
+    password: '',
+    unlocked: true,
+  }
+
+  unlocking(e) {
+    e.preventDefault()
+    this.props.AccountInformationStore.unlockWallet(this.state.password)
+      .then(unlocked => {
+        this.setState({ unlocked, password: '' })
+        if (unlocked) this.props.toggle()
+      })
+      .catch(() => {
+        this.setState({ unlocked: false, password: '' })
+      })
+  }
+
+  modalToggled() {
+    this.props.toggle()
+    this.setState({ unlocked: true, password: '' })
+  }
 
   render() {
     return (
-      <Modal {...this.props} title={T.translate("unlock.title")}>
-        <Title>{T.translate("unlock.inputTitle")}</Title>
-        <InputHandler
-          unlocked={this.state.unlocked}
-          type="password"
-          id="passphrase"
-          style={{ width: "460px" }}
-          value={this.state.password}
-          onChange={e =>
-            this.setState({ unlocked: true, password: e.target.value })
-          }
-        />
-        {this.state.unlocked ? (
-          <SubTitle>{T.translate("unlock.info")}</SubTitle>
-        ) : (
-          <FalseInputHandler>
-            The password you entered was incorrect.
-          </FalseInputHandler>
-        )}
-        <UnlockButton
-          onClick={() =>
-            this.props.AccountInformationStore.unlockWallet(this.state.password)
-              .then(unlocked => {
-                this.setState({ unlocked, password: "" });
-                if (unlocked) this.props.toggle();
-              })
-              .catch(error => {
-                this.setState({ unlocked: false, password: "" });
-              })
-          }
-        >
-          {T.translate("unlock.button")}
-        </UnlockButton>
+      <Modal
+        {...this.props}
+        title={this.props.i18n.t('unlock.title')}
+        toggle={this.modalToggled.bind(this)}
+      >
+        <form onSubmit={this.unlocking.bind(this)}>
+          <label className="form-label" htmlFor="passphrase">
+            <Trans i18nKey={'unlock.inputTitle'} />
+          </label>
+          <input
+            id="passphrase"
+            className={
+              this.state.unlocked
+                ? 'form-input'
+                : 'form-input form-input-invalid animation-shake'
+            }
+            type="password"
+            value={this.state.password}
+            onChange={e =>
+              this.setState({ unlocked: true, password: e.target.value })
+            }
+          />
+          {this.state.unlocked ? (
+            <p className="form-input-help">
+              <Trans i18nKey={'unlock.info'} />
+            </p>
+          ) : (
+            <p className="form-input-help form-input-help-invalid">
+              <Trans i18nKey={'unlock.wrongpass'} />
+            </p>
+          )}
+          <button
+            className="btn-lg"
+            type="submit"
+            onClick={this.unlocking.bind(this)}
+            style={{
+              marginBottom: '15px',
+            }}
+          >
+            <UnlockIcon
+              width={22}
+              height={22}
+              style={{ fill: '#fff', marginRight: '5px' }}
+            />
+            <Trans i18nKey={'unlock.button'} />
+          </button>
+        </form>
       </Modal>
-    );
+    )
   }
 }
 
-export default inject("AccountInformationStore")(observer(Unlock));
+export default translate()(inject('AccountInformationStore')(observer(Unlock)))

@@ -1,5 +1,5 @@
-import './assets/css/main.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/css/main.scss'
 
 import * as React from 'react'
 
@@ -9,7 +9,7 @@ import { render } from 'react-dom'
 
 // Since we are using HtmlWebpackPlugin WITHOUT a template,
 // we should create our own root node in the body element before rendering into it
-let root = document.createElement('div')
+const root = document.createElement('div')
 root.id = 'root'
 document.body.appendChild(root)
 
@@ -17,17 +17,17 @@ render(
   <AppContainer>
     <Root />
   </AppContainer>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 
-if (module && module.hot) {
-  module.hot.accept('./containers/Root', () => {
+if (module && (module as any).hot) {
+   (module as any).hot.accept('./containers/Root', () => {
     const NextRoot = require('./containers/Root') // eslint-disable-line global-require
     render(
       <AppContainer>
         <NextRoot />
       </AppContainer>,
-      document.getElementById('root')
+      document.getElementById('root'),
     )
   })
 }

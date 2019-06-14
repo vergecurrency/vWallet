@@ -1,8 +1,10 @@
 import * as React from 'react'
-import * as T from 'i18n-react'
+import { translate, Trans } from 'react-i18next'
 import * as moment from 'moment'
 import * as styled from 'styled-components'
-
+const { clipboard, shell } = require('electron')
+// import { Tooltip } from 'reactstrap'
+import settings from '../../settings'
 import { inject, observer } from 'mobx-react'
 
 import ArrowDown from '../../icons/ArrowDown'
@@ -14,7 +16,7 @@ import { SettingsStore } from '../../stores/SettingsStore'
 import Timer from '../../icons/Timer'
 import { TransactionStore } from '../../stores/TransactionStore'
 import { fadeIn } from 'react-animations'
-import { isNull } from 'util'
+import { i18n } from '../../../node_modules/@types/i18next'
 
 const TextContainer = styled.default.div`
   color: ${props => (props.theme.light ? '#999999;' : '#7193ae;')};
@@ -26,7 +28,7 @@ const TransactionIcon = styled.default.div`
   border-radius: 52%;
   height: 32px;
   width: 32px;
-  background-color: ${(props: any) => (!props.up ? '#00917a' : '#dc2b3d')};
+  background-color: ${(props: any) => props.color};
   .arrow-down,
   .arrow-up {
     stroke-width: 3px;
@@ -46,30 +48,27 @@ const fadeInAnimation = styled.keyframes`
 const ContainerClicky = styled.default.div`
   cursor: pointer;
   animation: 1s ${fadeInAnimation};
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
-  border-radius: 5px 5px;
 `
 
 const TransactionDetails = styled.default.div`
   animation: 1s ${fadeInAnimation};
   padding-left: 8px;
   margin: 10px 0px;
+  font-weight: normal;
+  font-size: 80%;
 `
 
 const TransactionDetailsHeader = styled.default.div`
-  font-weight: 800;
   font-size: 14px;
-  font-style: bold;
+  font-style: 500;
 `
 const TransactionDetailsFooter = styled.default.div`
-  font-weight: 800;
   font-size: 12px;
 `
 
 const TransactionDetailsMoney = styled.default.div`
   margin-top: 2px;
   margin-bottom: 2px;
-  font-weight: 800;
   font-size: 18px;
   color: #000;
 `
@@ -86,19 +85,15 @@ const SubTransactionDetails = styled.default.div`
 `
 
 const SubTransactionFurtherDetails = styled.default.div`
-  margin-top: 5px;
   padding-top: 5px;
-  border-top: 1px solid rgba(100, 100, 100, 0.07);
+  border-bottom: 1px solid rgba(100, 100, 100, 0.07);
   padding-left: 23px;
   padding-right: 15px;
   margin-left: -23px;
   margin-right: -15px;
-  padding-bottom: 4px;
   text-align: left;
   background-color: rgba(100, 100, 100, 0.07);
   margin-bottom: -10px;
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
 `
 
 const TransactionDetailProp = styled.default.div`
@@ -113,10 +108,6 @@ const ExternalLinks = styled.default.a`
 `
 
 const RoundedTransaction = styled.default.div`
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
   padding: 6px 10px;
   border-bottom: 1px solid rgba(100, 100, 100, 0.07);
   &:hover {
@@ -128,9 +119,9 @@ interface Props {
   amount: number
   account: string
   address: string
-  fee: string
+  fee: number
   blockhash: string
-  category: 'receive' | 'send'
+  category: 'receive' | 'send' | ''
   confirmations: number
   time: number
   timereceived: number
@@ -138,37 +129,71 @@ interface Props {
   hide: boolean
   TransactionStore: TransactionStore
   SettingsStore: SettingsStore
+  i18n?: i18n
 }
 
 class Transaction extends React.Component<Props> {
+  state: { tooltip: boolean; copied: boolean } = {
+    tooltip: false,
+    copied: false,
+  }
+
+  private xvgFormatter: Intl.NumberFormat = new Intl.NumberFormat(
+    this.props.SettingsStore.getLocale,
+    {
+      minimumSignificantDigits: 1,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 4,
+    },
+  )
+
   getType(amount: number, category: string, fee) {
     if (amount !== 0) {
-      return category.includes('receive')
-        ? T.default.translate('transaction.item.receive')
-        : T.default.translate('transaction.item.sent')
+      if (category.includes('receive')) {
+        return this.props.i18n!.t('transaction.item.receive')
+      }
+
+      if (category.includes('sent')) {
+        return this.props.i18n!.t('transaction.item.sent')
+      }
+
+      if (category.includes('moved')) {
+        return this.props.i18n!.t('transaction.item.moved')
+      }
     }
 
     if ((!amount || amount === 0) && fee < 0) {
-      return T.default.translate('transaction.item.fee')
+      return this.props.i18n!.t('transaction.item.fee')
     }
 
-    return T.default.translate('transaction.item.unknown')
+    return this.props.i18n!.t('transaction.item.unknown')
+  }
+
+  getColor(category) {
+    if (category.includes('receive')) return '#00917a'
+    if (category.includes('moved')) return '#a9a9a9'
+
+    return '#dc2b3d'
   }
 
   isNew() {
-    return this.props.timereceived + 90 * 60 - moment().unix() > 0
+    return this.props.time + 90 * 60 - moment().unix() > 0
+  }
+
+  setTooltip() {
+    this.setState({ tooltip: !this.state.tooltip })
+  }
+
+  copyAddressToClipboard() {
+    clipboard.writeText(this.props.address)
+    this.setState({ copied: true })
+
+    setTimeout(() => {
+      this.setState({ copied: false })
+    }, 750)
   }
 
   render() {
-    const xvgFormatter: Intl.NumberFormat = new Intl.NumberFormat(
-      this.props.SettingsStore.getLocale,
-      {
-        minimumSignificantDigits: 1,
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 4,
-      },
-    )
-
     const {
       address = '',
       amount = 0,
@@ -176,37 +201,41 @@ class Transaction extends React.Component<Props> {
       category = '',
       confirmations = 0,
       timereceived = 0,
+      time = 0,
       txid = '',
       hide = false,
+      blockhash = '',
       TransactionStore,
     }: Props = this.props
 
     return (
-      <ContainerClicky
-        className="container"
-        onClick={() => {
-          TransactionStore.setVisibility(
-            txid,
-            category,
-            address,
-            timereceived,
-            !hide,
-          )
-        }}
-      >
-        <RoundedTransaction className="row">
+      <ContainerClicky className="container-fluid">
+        <RoundedTransaction
+          className="row"
+          onClick={() => {
+            TransactionStore.setVisibility(
+              txid,
+              category,
+              address,
+              timereceived,
+              !hide,
+            )
+          }}
+        >
           <div
             className="col-md-1"
             style={{
-              textAlign: 'center',
               fontWeight: 500,
               fontSize: '13px',
-              paddingTop: '5px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'column',
+              justifyContent: 'center',
             }}
           >
             <TextContainer>
               {moment
-                .unix(timereceived)
+                .unix(time)
                 .format('MMM')
                 .toUpperCase()}
             </TextContainer>
@@ -218,50 +247,59 @@ class Transaction extends React.Component<Props> {
                 color: '#cacaca',
               }}
             >
-              {moment.unix(timereceived).format('DD')}
+              {moment.unix(time).format('DD')}
             </TextContainer>
           </div>
           <CenterDiv className="col-md-1">
             {category.includes('receive') ? (
-              <TransactionIcon>
+              <TransactionIcon {...{ color: this.getColor(category) }}>
                 <ArrowUp width={18} height={18} />
               </TransactionIcon>
-            ) : (
-              <TransactionIcon {...{ up: true }}>
+            ) : null}
+            {category.includes('sent') ? (
+              <TransactionIcon {...{ color: this.getColor(category) }}>
                 <ArrowDown width={18} height={18} />
               </TransactionIcon>
-            )}
+            ) : null}
+            {category.includes('moved') ? (
+              <TransactionIcon {...{ color: this.getColor(category) }}>
+                <ArrowDown width={18} height={18} />
+              </TransactionIcon>
+            ) : null}
           </CenterDiv>
-          {this.isNew() ? <TextContainer className="col-md-1" /> : isNull}
           <div
-            className={this.isNew() ? 'col-md-8' : 'col-md-9'}
+            className={'col-md-9'}
             style={{
-              fontWeight: 'bold',
-              color: category.includes('receive') ? '#00917a' : '#dc2b3d',
-              textAlign: 'right',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+              fontWeight: 500,
+              color: this.getColor(category),
               letterSpacing: '1px',
-              fontSize: '22px',
+              paddingTop: '7px',
+              paddingBottom: '7px',
             }}
           >
             <div>
               <span
                 style={{
                   fontSize: '20px',
-                  fontWeight: 400,
+                  fontWeight: 500,
                 }}
               >
-                {category.includes('receive') ? '+' : '-'}
-                {Math.abs(amount)
-                  .toFixed(3)
-                  .toLocaleString()}{' '}
-                XVG
+                {category.includes('moved')
+                  ? `${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`
+                  : category.includes('receive')
+                  ? `+ ${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`
+                  : `- ${this.xvgFormatter.format(Math.abs(amount + fee))} XVG`}
               </span>
             </div>
             <TextContainer>
               <span
                 style={{
                   fontSize: '12px',
-                  fontWeight: 500,
+                  fontWeight: 'normal',
                   letterSpacing: '1px',
                 }}
               >
@@ -273,7 +311,6 @@ class Transaction extends React.Component<Props> {
           <div
             className="col-md-1"
             style={{
-              textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -282,18 +319,20 @@ class Transaction extends React.Component<Props> {
             <ArrowPop height={36} hide={hide} />
           </div>
         </RoundedTransaction>
+
         {!hide ? (
           <TransactionDetails className="trans-details">
             <TransactionDetailsHeader className="Row">
-              {this.getType(amount, category, fee)} transaction{' · '}
-              {moment.unix(timereceived).fromNow()}
+              {this.getType(amount, category, fee)} transaction
+              {' · '}
+              {moment.unix(time).fromNow()}
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="Row">
-              XVG {xvgFormatter.format(Math.abs(amount))}{' '}
+              XVG {this.xvgFormatter.format(Math.abs(amount + fee))}{' '}
               {category.includes('receive') ? '+' : '-'}
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="Row">
-              {category.includes('receive') ? 'to' : 'from'} {address}
+              {category.includes('receive') ? 'to' : 'from'} {address}{' '}
             </TransactionDetailsFooter>
             <SubTransactionDetails className="Row">
               <TransactionDetailProp className="col-md-6">
@@ -302,7 +341,11 @@ class Transaction extends React.Component<Props> {
                   width={15}
                   style={{ fill: 'rgba(100,100,100, 0.5)', marginRight: '7px' }}
                 />{' '}
-                {confirmations} confirmations
+                {confirmations > 0
+                  ? `${confirmations} ${this.props.i18n!.t(
+                      'transaction.item.confirmations',
+                    )}`
+                  : this.props.i18n!.t('transaction.item.outofsync')}
               </TransactionDetailProp>
               <TransactionDetailProp className="col-md-6">
                 <Timer
@@ -313,7 +356,7 @@ class Transaction extends React.Component<Props> {
                     marginRight: '7px',
                   }}
                 />{' '}
-                {moment.unix(timereceived).format('MMMM Do YYYY, h:mm:ss a')}
+                {moment.unix(time).format('MMMM Do YYYY, h:mm:ss a')}
               </TransactionDetailProp>
             </SubTransactionDetails>
             <SubTransactionFurtherDetails className="Row">
@@ -323,10 +366,24 @@ class Transaction extends React.Component<Props> {
                   width={15}
                   style={{ fill: 'rgba(100,100,100, 0.7)', marginRight: '7px' }}
                 />{' '}
-                Further Information:
-                <ExternalLinks href="#">Open Transaction</ExternalLinks>
+                <Trans i18nKey={'transaction.item.more'} />
+                <ExternalLinks
+                  href="#"
+                  onClick={() => {
+                    shell.openExternal(`${settings.TRANSACTION_LINK}${txid}`)
+                  }}
+                >
+                  <Trans i18nKey={'transaction.item.opentransaction'} />
+                </ExternalLinks>
                 {' · '}
-                <ExternalLinks href="#">Open Block</ExternalLinks>
+                <ExternalLinks
+                  href="#"
+                  onClick={() => {
+                    shell.openExternal(`${settings.BLOCK_LINK}${blockhash}`)
+                  }}
+                >
+                  <Trans i18nKey={'transaction.item.openblock'} />
+                </ExternalLinks>
               </TransactionDetailProp>
             </SubTransactionFurtherDetails>
           </TransactionDetails>
@@ -336,6 +393,6 @@ class Transaction extends React.Component<Props> {
   }
 }
 
-export default inject('TransactionStore', 'SettingsStore')(
-  observer(Transaction),
+export default translate()(
+  inject('TransactionStore', 'SettingsStore')(observer(Transaction)),
 )

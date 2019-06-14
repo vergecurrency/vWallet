@@ -1,22 +1,12 @@
-'use strict'
-
-// Import parts of electron to use
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
-const menubar = require('menubar')
 const childProcess = require('child_process')
-const { autoUpdater } = require('electron-updater')
+const ps = require('ps-node');
 
-autoUpdater.logger = require('electron-log')
-autoUpdater.logger.transports.file.level = 'info'
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let loadingWindow
 
-// Keep a reference for dev mode
 let dev = false
 if (
   process.defaultApp ||
@@ -26,74 +16,72 @@ if (
   dev = true
 }
 
-console.log(process.resourcesPath + '/Verge.app/Contents/MacOS/Verge')
-let createProc = () => {
-  let sp = childProcess.spawn(
-    process.resourcesPath + '/Verge.app/Contents/MacOS/Verge',
-    [
-      '-deamon',
-      '-rpcuser kyon',
-      '-rpcpassword lolcat',
-      '-rpcallowip "127.0.0.1"',
-      '-printtoconsole',
-    ],
-  )
-  sp.unref()
-  sp.on('error', err => {
-    console.log('failed to start process', err)
-  })
-  sp.on('exit', (code, signal) => {
-    console.log(`child process exited with code ${code}`)
-    createProc()
-  })
+const generator = () =>
+  Math.random()
+    .toString(36)
+    .slice(-8)
 
-  sp.on('message', (message, signal) => {
-    console.log(`Message: ${message}`)
-    createProc()
+const auth = { pass: generator(), user: generator(), loadingProgress: 0 }
+
+global.sharedObj = auth
+
+let vergeProcess
+
+let createProc = processPath => {
+  vergeProcess = childProcess.spawn(
+    processPath,
+    [
+      '-server=1',
+      `-rpcuser=${auth.user}`,
+      `-rpcpassword=${auth.pass}`
+    ],
+    {
+      stdio: ['inherit', 'pipe', 'inherit'],
+    },
+  )
+
+  console.info('VERGE Process running @ ', vergeProcess.pid, ' pid')
+  const readable = vergeProcess.stdout
+
+  readable.on('readable', () => {
+    let chunk
+    while (null !== (chunk = readable.read())) {
+      const loadRegex = /\d+/
+      const chunkString = chunk.toString()
+      if (chunkString.includes('Loading block index')) {
+        const [number] = chunkString.match(loadRegex)
+        auth.loadingProgress = number
+      }
+    }
   })
 }
 
-// if (!dev) createProc();
-
-function createTrayIcon() {
-  let indexPath
-  if (dev && process.argv.indexOf('--noDevServer') === -1) {
-    indexPath = url.format({
-      protocol: 'http:',
-      host: 'localhost:8080',
-      pathname: 'status.html',
-      slashes: true,
-    })
-  } else {
-    indexPath = url.format({
-      protocol: 'file:',
-      pathname: path.join(__dirname, 'dist', 'status.html'),
-      slashes: true,
-    })
-  }
-  var mb = menubar({
-    index: indexPath,
-    tooltip: 'VERGE Wallet',
-  })
-
-  mb.on('ready', function ready() {
-    console.log('app is ready')
-  })
+if (process.env.NODE_ENV === 'dev') {
+  console.info('Creating the verge deamon - dev')
+  console.info('Starting tor...')
+  createProc('./build/verged')
+  console.info('VERGE Process running')
+} else {
+  createProc(process.resourcesPath + '/build/')
 }
 
 function createWindow() {
-  // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 768,
+    minWidth: 1200,
+    minHeight: 768,
     show: false,
     frame: false,
+    titleBarStyle: 'hiddenInset',
     icon: __dirname + '/verge.ico',
-    resizable: false,
-    fullscreenable: false,
+    resizable: true,
+    fullscreenable: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
-  // and load the index.html of the app.
   let indexPath
   if (dev && process.argv.indexOf('--noDevServer') === -1) {
     indexPath = url.format({
@@ -111,34 +99,22 @@ function createWindow() {
   }
   mainWindow.loadURL(indexPath)
 
-  // Don't show until we are ready and loaded
-  /*mainWindow.once('ready-to-show', () => {
-		mainWindow.show()
-		// Open the DevTools automatically if developing
-		if (dev) {
-			mainWindow.webContents.openDevTools()
-		}
-	})*/
+  mainWindow.on('closed', () => {
+    console.log('Killing verge process')
+    ps.kill(vergeProcess.pid, 'SIGKILL', (err) => {
+      if (err) {
+        throw new Error(err);
+      } else {
+        isAlive = false
+        console.log(`Process with pid ${vergeProcess.pid} has been killed!`);
+      }
+    });
 
-  mainWindow.once('finalized-loading', () => {
-    mainWindow.show()
-    // Open the DevTools automatically if developing
-    /*if (dev) {
-			mainWindow.webContents.openDevTools()
-		}*/
-  })
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null
   })
 }
 
 function createLoadingWindow() {
-  // Create the browser window.
   loadingWindow = new BrowserWindow({
     width: 825,
     height: 576,
@@ -148,9 +124,11 @@ function createLoadingWindow() {
     resizable: false,
     fullscreenable: false,
     transparent: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
-  // and load the index.html of the app.
   let indexPath
   if (dev && process.argv.indexOf('--noDevServer') === -1) {
     indexPath = url.format({
@@ -168,65 +146,51 @@ function createLoadingWindow() {
   }
   loadingWindow.loadURL(indexPath)
 
-  // Don't show until we are ready and loaded
   loadingWindow.once('ready-to-show', () => {
     loadingWindow.show()
-    // Open the DevTools automatically if developing
-    /*if (dev) {
-			loadingWindow.webContents.openDevTools()
-		}*/
+
+    ipcMain.once('loading-finished', () => {
+      loadingWindow.close()
+      loadingWindow = null
+
+      mainWindow.show()
+    })
   })
 
-  ipcMain.once('finalized-loading', () => {
-    console.warn('triggered event :)')
-    loadingWindow.close()
-    loadingWindow = null
-
-    mainWindow.show()
-  })
-
-  // Emitted when the window is closed.
-  loadingWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
+  loadingWindow.on('closed', function () {
     loadingWindow = null
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-  autoUpdater
+app.on('ready', function () {
+  /*autoUpdater
     .checkForUpdatesAndNotify()
     .then(value => {
-      console.log('UPDATE: ', value && value.updateInfo.stagingPercentage)
-      return false
+      console.info(
+        `Checking update - Info: ${(value &&
+          value.updateInfo.stagingPercentage) ||
+          -1}%`,
+      )
     })
     .then(() => {
       createLoadingWindow()
       createWindow()
     })
-    .catch(console.error)
-  // createTrayIcon()
+    .catch(e => {
+      createLoadingWindow()
+      createWindow()
+    })*/
+  createLoadingWindow()
+  createWindow()
 })
 
-// Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  app.quit()
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createLoadingWindow()
     createWindow()
-    createTrayIcon()
   }
 })

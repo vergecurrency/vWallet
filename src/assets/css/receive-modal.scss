@@ -1,0 +1,50 @@
+.receive-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.receive-qr-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  height: 183px;
+}
+
+.receive-qr-code-panel {
+  height: 183px;
+  box-shadow: rgb(181, 181, 181) 0 0 40px 0;
+  border-radius: .9rem;
+}
+
+.receive-qr-code {
+  border-radius: .5rem;
+}
+
+.receive-address-copied-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.receive-address-copied-check {
+  background-color: seagreen;
+  color: white;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #235d3c;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px 0 #28a745;
+}
+
+.receive-address-copied-label {
+  color: #616161;
+  font-size: 18px;
+  font-weight: 400;
+}

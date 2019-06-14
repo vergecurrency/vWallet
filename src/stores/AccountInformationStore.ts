@@ -1,80 +1,104 @@
-import { computed, decorate, observable } from 'mobx'
+import { computed, observable, action } from 'mobx'
 
-import { Client } from 'verge-node-typescript'
-import { WalletInfo } from 'verge-node-typescript/dist/WalletInfo'
-import electronLog from 'electron-log'
+import { WalletInfo } from '../vClient/WalletInfo'
 
-const vergeClient = new Client({ user: 'kyon', pass: 'lolcat' })
-
-const getAccountInfo = () =>
-  vergeClient
-    .getInfo()
-    .then(info =>
-      vergeClient.getPeerInfo().then(peers => {
-        const highestBlock = Math.max(...peers.map(peer => peer.startingheight))
-        return vergeClient
-          .unlockWallet('a')
-          .then(() => ({ ...info, highestBlock, unlocked: true }))
-          .catch(e => {
-            return {
-              ...info,
-              highestBlock,
-              unlocked: e.includes('already unlocked'),
-            }
-          })
-      }),
-    )
-    .catch(electronLog.error)
+import VergeClient from './VergeClient'
+import { logger } from '../utils/Logger'
 
 interface Info extends WalletInfo {
   highestBlock: number
   unlocked?: boolean
+  loadingProgress: number
+  isReady: boolean
+  isunlocked: boolean
 }
 
 export class AccountInformationStore {
-  info: Info = <Info>{}
+  @observable.struct
+  info: Info = {} as Info
+
+  @observable
+  notifications: INotification[] = []
 
   constructor() {
     setInterval(() => {
-      getAccountInfo()
-        .then(info => {
-          this.info = { ...this.info, ...info }
+      VergeClient.getInfo()
+        .then((info: WalletInfo) => {
+          this.info = {
+            ...this.info,
+            ...info,
+            balance: info.balance,
+          }
+
+          this.info.isReady = true
         })
-        .catch(electronLog.error)
-    }, 1000)
+        .catch(e => logger.error(e.message))
+    }, 2500)
   }
 
-  sendTransaction(vergeAddress, amount) {
-    return vergeClient.sendToAddress(vergeAddress, amount)
+  sendTransaction(vergeAddress: string, amount: number) {
+    return VergeClient.sendToAddress(vergeAddress, amount)
   }
 
-  unlockWallet(password) {
-    return vergeClient.unlockWallet(password)
+  @action
+  async unlockWallet(password) {
+    const unlocked = await VergeClient.unlockWallet(password)
+    if (unlocked) {
+      this.info = { ...this.info, unlocked, isunlocked: unlocked }
+    }
+
+    return unlocked
   }
 
+  @action
   lockWallet() {
-    return vergeClient.walletLock()
+    VergeClient.walletLock().then(() => {
+      this.info.unlocked = false
+      this.info.isunlocked = false
+    })
+
+    return true
   }
 
+  get resolveLastFourNotifications(): INotification[] {
+    if (this.notifications.length <= 4) {
+      return this.notifications
+    }
+
+    return (this.notifications && this.notifications.slice(0, 3)) || []
+  }
+
+  @computed
   get getUpdatedInfo() {
     return this.info
   }
 
+  @computed
   get getBalance() {
     return this.info.balance || 0
   }
 
-  get unlocked() {
-    return this.info.unlocked || false
+  @computed
+  get unlocked(): boolean {
+    return !this.info.isunlocked || false
+  }
+
+  @computed
+  get debugPanelInformation() {
+    const keys = Object.keys(this.info)
+    const values = keys.map(key => ({ key, value: this.info[key] }))
+    return values
+  }
+
+  receiveNewAddress(): Promise<String> {
+    return VergeClient.getNewAddress()
+  }
+
+  isPrepared(): boolean {
+    return true // Always prep'd
   }
 }
 
-decorate(AccountInformationStore, {
-  info: observable.struct,
-  getUpdatedInfo: computed,
-  getBalance: computed,
-  unlocked: computed,
-})
-
 const store = new AccountInformationStore()
+
 export default store

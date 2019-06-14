@@ -1,0 +1,78 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+
+default-setup: &default-setup
+  docker:
+    - image: circleci/node:10.15
+  working_directory: ~/repo
+
+version: 2
+jobs:
+  prepare:
+    <<: *default-setup
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "package.json" }}
+            - dependency-cache-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependency-cache-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: "."
+          paths:
+            - "."
+
+  build:
+    <<: *default-setup
+    steps:
+      - attach_workspace:
+          at: "."
+      - run: yarn build
+
+  packaging:
+    <<: *default-setup
+    steps:
+      - attach_workspace:
+          at: "."
+      - run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32 
+      - run: yarn package
+
+  prettify-check:
+    <<: *default-setup
+    steps:
+      - attach_workspace:
+          at: "."
+      - run: yarn prettify-check
+
+  test:
+    <<: *default-setup
+    steps:
+      - attach_workspace:
+          at: "."
+      - run: yarn test-ci
+      - store_test_results:
+            path: ./junit.xml
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - prepare
+      - build:
+          requires:
+            - prepare
+      - packaging:
+          requires:
+            - prepare
+      - prettify-check:
+          requires:
+            - prepare
+      - test:
+          requires:
+            - prepare

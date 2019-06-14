@@ -1,10 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Step from "../Step";
-import { Link } from "react-router-dom";
-import CheckCircle from "../../icons/CheckCircle";
-import CrossCircle from "../../icons/CrossCircle";
-import crypto from "crypto";
+import React from 'react'
+import styled from 'styled-components'
+import Step from '../Step'
+import { Link } from 'react-router-dom'
+import crypto from 'crypto'
 
 const NewButton = styled.button`
   width: 192px;
@@ -15,9 +13,9 @@ const NewButton = styled.button`
   border: none;
   height: 78px;
   font-size: 27px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 33.78px;
-`;
+`
 
 const DisabledButton = styled.button`
   width: 192px;
@@ -30,85 +28,44 @@ const DisabledButton = styled.button`
   font-size: 27px;
   font-weight: 400;
   line-height: 33.78px;
-`;
-
-const PasswordField = styled.input`
-  width: 600px;
-  height: 78px;
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: #9ba8ab;
-  font-family: "Avenir Next";
-  font-size: 28px;
-  font-style: italic;
-  line-height: 78px;
-  padding-left: 40px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  margin-right: 30px;
-`;
-
-const PasswordHelper = styled.div`
-  display: flex;
-  margin-left: 190px;
-  margin-top: 30px;
-`;
-
-const Tip = styled.span`
-  color: #506f89;
-  font-size: 16px;
-  font-style: italic;
-  margin-left: 11px;
-  margin-right: 30px;
-`;
+`
 
 const PasswordHint = styled.div`
   color: #506f89;
-  font-size: 20px;
+  font-size: 16px;
   font-style: italic;
+  font-weight: 100;
   line-height: 30px;
   margin-top: 30px;
-`;
-
-const checkLength = pass => pass.length >= 8;
-
-const checkUpperLowerCase = pass => /[a-z]+/.test(pass) && /[A-Z]+/.test(pass);
-
-const checkForSpecial = pass =>
-  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pass);
-
-const checkedOrNot = (func, pass) =>
-  func(pass) ? (
-    <CheckCircle width="24px" height="24px" />
-  ) : (
-    <CrossCircle width="24px" height="24px" />
-  );
+`
 
 export default class ConfirmPassword extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { confirm: "", ...props.history.location.state };
+    super(props)
+    this.state = { confirm: '', ...props.history.location.state }
   }
 
   updateConfirm(e) {
-    this.setState({ confirm: e.target.value });
+    this.setState({ confirm: e.target.value })
   }
 
   render() {
     const fullfillsRequirements =
       crypto
-        .createHash("sha256")
+        .createHash('sha256')
         .update(this.state.confirm)
-        .digest("base64") === this.state.password;
+        .digest('base64') === this.state.password
+
     return (
       <Step
-        title={"Confirm your password."}
-        subtitle={"Enter your password again."}
+        title={'Confirm your password.'}
+        subtitle={'Enter your password again.'}
         small
-        history={this.props.history}
+        step="/wallet/create/confirm"
       >
         <div>
-          <PasswordField
+          <input
+            className="tour-input"
             type="password"
             placeholder="Enter a strong password"
             value={this.state.confirm}
@@ -117,21 +74,22 @@ export default class ConfirmPassword extends React.Component {
           {fullfillsRequirements ? (
             <Link
               to={{
-                pathname: "/buyhelp"
+                pathname: '/buyhelp',
               }}
             >
-              <NewButton>Contiune</NewButton>
+              <NewButton>Continue</NewButton>
             </Link>
           ) : (
-            <DisabledButton>Contiune</DisabledButton>
+            <DisabledButton>Continue</DisabledButton>
           )}
         </div>
         <PasswordHint>
           This password is very important. If you lock your wallet, and you
-          forgot your password,<br /> you won’t be able to unlock it, which
-          means your funds are locked.
+          forgot your password,
+          <br /> you won’t be able to unlock it, which means your funds are
+          locked.
         </PasswordHint>
       </Step>
-    );
+    )
   }
 }

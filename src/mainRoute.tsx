@@ -5,8 +5,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import App from './containers/App'
 import HomePage from './containers/HomePage'
 import SettingsPage from './containers/SettingsPage'
-
-const RedirectHome = () => <Redirect to="/" />
+import AddressbookPage from './containers/AdressbookPage'
 
 const WrapWithApp = Site => {
   const AppWrapper = () => (
@@ -22,7 +21,8 @@ const MainRoute = () => (
   <Switch>
     <Route exact path="/" component={WrapWithApp(HomePage)} />
     <Route exact path="/settings" component={WrapWithApp(SettingsPage)} />
-    <Route component={WrapWithApp(RedirectHome)} />
+    <Route exact path="/addressbook" component={WrapWithApp(AddressbookPage)} />
+    <Redirect to="/" />
   </Switch>
 )
 

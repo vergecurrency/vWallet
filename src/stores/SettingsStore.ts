@@ -2,7 +2,9 @@ import { action, computed, decorate, observable } from 'mobx'
 
 import VergeCacheStore from './VergeCacheStore'
 
-const CURRENT_VERSION = require('electron').remote.app.getVersion()
+import { remote } from 'electron'
+import i18n from '../translations/i18n'
+const CURRENT_VERSION = remote.app.getVersion()
 
 export class SettingsStore {
   name: string = VergeCacheStore.get('name', 'English')
@@ -11,6 +13,10 @@ export class SettingsStore {
   localeId: string = VergeCacheStore.get('localeId', 'en')
   darkTheme: boolean = VergeCacheStore.get('darkTheme', false)
   version: string = CURRENT_VERSION
+
+  constructor() {
+    i18n.changeLanguage(this.localeId)
+  }
 
   setSettingOption({ key, value }: { key: string; value: any }) {
     VergeCacheStore.set(key, value)

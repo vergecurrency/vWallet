@@ -1,6 +1,16 @@
 node_modules/
 *npm-debug.log
 *.DS_Store
+
+test/assets/*.dat
 dist/
 builds/
 coverage/
+
+blockchain.zip
+irene.dat
+
+combined.log
+error.log
+
+junit.xml

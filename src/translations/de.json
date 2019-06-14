@@ -1,46 +1,67 @@
 {
-  "account-bar": {
-    "receive": "Empfangen",
-    "send": "Senden"
-  },
-  "transaction": {
-    "list": "Transaktions Liste",
-    "confirmations": "Bestätigungen"
-  },
-  "settings": {
-    "title": "Einstellungen",
-    "explaination": "Erklärung",
-    "keymap": "Schnelltasten",
-    "usage": "Nutzung",
-    "shortkey": {
-      "quicksend": {
-        "name": "schnelles Senden",
-        "usage": "Öffnet die Transaktions Form um XVG senden zu können."
-      },
-      "hideinformation": {
-        "name": "Verstecken/Zeigen von persönlichen Daten",
-        "usage":
-          "Versteckt all persönliche Informationen, wie zum Beispiel Transaktionen, Guthaben etc und ersetzt diese mit Platzhalter."
-      },
-      "lockwallet": {
-        "name": "Wallet sperren",
-        "usage":
-          "Diese Operation sperrt dein Wallet und vermeidet die Verwendung von einigen Funktionen bis Sie nochmal ihr Passwort eingeben."
+  "translations": {
+    "addressPanel": {
+      "edit": "Ändern",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "latestTransactions": "Letze Transaktionen:",
+      "sendMoney": "Sende Verge",
+      "copyAddress": "Kopiere Adresse",
+      "contactName": "Kontakt Name",
+      "contactAddress": "Kontakt Adresse",
+      "contacts": "Kontakte",
+      "searchContact": "Suche Kontakt"
+    },
+    "tour": {
+      "welcome": {
+        "hello": "Hallo <1>Kollege.</1>",
+        "prepare": "Lass uns deine XVG Wallet einrichten.",
+        "create": "Neue Wallet erstellen",
+        "restore": "Alte Wallet wiederherstellen"
       }
     },
-    "region": {
-      "name": "Region/Sprache",
-      "explain":
-        "Dies wechselt die Region nicht nur die Sprache. Darunter fällt unteranderem auch die Währung."
-    }
-  },
-  "header": {
-    "connection": "Verbindung(en)",
-    "synced": "synced",
-    "notsyncing": "not syncing",
-    "menu": {
-      "wallet": "Wallet",
-      "settings": "Einstellungen"
+    "account-bar": {
+      "receive": "Empfangen",
+      "send": "Senden"
+    },
+    "transaction": {
+      "list": "Transaktions Liste",
+      "confirmations": "Bestätigungen"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "explaination": "Erklärung",
+      "keymap": "Schnelltasten",
+      "usage": "Nutzung",
+      "shortkey": {
+        "quicksend": {
+          "name": "schnelles Senden",
+          "usage": "Öffnet die Transaktions Form um XVG senden zu können."
+        },
+        "hideinformation": {
+          "name": "Verstecken/Zeigen von persönlichen Daten",
+          "usage": "Versteckt all persönliche Informationen, wie zum Beispiel Transaktionen, Guthaben etc und ersetzt diese mit Platzhalter."
+        },
+        "lockwallet": {
+          "name": "Wallet sperren",
+          "usage": "Diese Operation sperrt dein Wallet und vermeidet die Verwendung von einigen Funktionen bis Sie nochmal ihr Passwort eingeben."
+        }
+      },
+      "region": {
+        "name": "Region/Sprache",
+        "explain": "Dies wechselt die Region nicht nur die Sprache. Darunter fällt unteranderem auch die Währung."
+      }
+    },
+    "header": {
+      "connection": "Verbindung(en)",
+      "synced": "synced",
+      "notsyncing": "not syncing",
+      "menu": {
+        "wallet": "Wallet",
+        "addressbook": "Adressbuch",
+        "settings": "Einstellungen",
+        "blockchain_explorer": "Blockchain Explorer"
+      }
     }
   }
 }

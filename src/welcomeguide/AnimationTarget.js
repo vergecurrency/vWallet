@@ -1,22 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const Title = styled.p`
-  color: #fcf1eb;
-  font-weight: 500;
-  font-size: 25px;
-  margin-top: -40px;
-`
-
-const AnimatedImage = styled.img`
-  width: 400px;
-  height: auto;
-`
 
 const AnimationTarget = ({ image, text }) => (
-  <div>
-    <AnimatedImage src={image} />
-    <Title>{text}</Title>
+  <div className="tour-animation-container animation-fade">
+    <img src={image} className="tour-animation-img" />
+    <p className="tour-animation-title">{text}</p>
   </div>
 )
 

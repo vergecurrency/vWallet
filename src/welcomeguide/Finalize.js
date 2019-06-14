@@ -1,7 +1,5 @@
 import React from 'react'
 import Step from './Step'
-import { Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import Chart from '../assets/images/intronanimations/chart.gif'
 import CheckMark from '../assets/images/intronanimations/checkmark.gif'
@@ -23,14 +21,18 @@ class Finalize extends React.Component {
       this.setState({ id: this.state.id + 1 })
       if (this.state.id > this.state.END) {
         // mark setup as done!
-        this.props.SetupStore.setSetup(false)
+        this.props.SetupStore.setSetup(true)
+        // Redirect to the wallet.
+        window.location.href = '/index.html#/'
+        // Remove the interval.
+        clearInterval(this.interval)
       }
     }, 2000)
   }
 
   render() {
     return (
-      <Step>
+      <Step step="/finalize">
         {this.state.id === 0 ? (
           <AnimatedTarget image={Customize} text="Creating Wallet ..." />
         ) : null}
@@ -46,14 +48,9 @@ class Finalize extends React.Component {
         {this.state.id === 4 ? (
           <AnimatedTarget image={CheckMark} text="Done! Welcome." />
         ) : null}
-        {this.state.id === 5 ? <Redirect to="/" /> : null}
       </Step>
     )
   }
-}
-
-Finalize.propTypes = {
-  SetupStore: PropTypes.any,
 }
 
 export default inject('SetupStore')(observer(Finalize))

@@ -2,30 +2,65 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-@import "fonts";
-@import "highchart";
-@import "basic";
-@import "appbar";
-@import "normalize";
+@import 'variables';
+@import 'animation';
+@import 'fonts';
+@import 'basic';
+@import 'button';
+@import 'modal';
+@import 'tooltip';
+@import 'form';
+@import 'app-title-bar';
+@import 'burger-menu';
+@import 'account-bar';
+@import 'content-container';
+@import 'address-book';
+@import 'footer';
+@import 'panel';
+@import 'normalize';
+@import 'fa/fontawesome';
+@import 'fa/fa-brands';
+@import 'fa/fa-regular';
+@import 'fa/fa-solid';
+
+@import 'tour';
+@import 'home-page';
+@import 'settings-page';
+
+@import 'send-modal';
+@import 'receive-modal';
+@import 'no-balance-panel';
+@import 'debug-information-modal';
+@import 'donate-modal';
 
 body {
-  background-color: #152f36;
-  color: #fff;
-  //height: 700px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
-  font-family: "AvenirNextLTW01Regular", Helvetica, sans-serif !important;
+  overflow: hidden;
+
+  background-color: #09121a;
+  color: #fff;
+
+  font-family: 'AvenirNext', Helvetica, sans-serif !important;
+  font-weight: 500;
+}
+
+.main-layer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 .logo {
-  content: url("../images/verge-logo-white.png");
-}
-
-.big-button {
-  padding: 5% 5%;
-  border: 2px solid #fff;
-  min-width: 150px;
-  border-radius: 5px;
-  color: #fff;
+  content: url('../images/verge-logo-white.png');
 }
 
 .transaction-list {
@@ -33,7 +68,7 @@ body {
   bottom: 50px;
   left: 40px;
   width: 670px;
-  height: 450px;
+  height: 440px;
   border-radius: 7px;
   background-color: #ffffff;
   color: #003b54 !important;
@@ -44,7 +79,7 @@ body {
   border-bottom: #f2f2f2 solid 1px;
   color: #476b84;
   .info {
-    font-weight: 700;
+    font-weight: 500;
   }
 
   &.chart {
@@ -52,54 +87,8 @@ body {
   }
 }
 
-.trans-counter {
-  position: relative;
-  left: -12px;
-  bottom: 12px;
-  height: 25px;
-  width: 25px;
-  border-radius: 20px;
-  box-shadow: 0 0 29px rgba(0, 3, 10, 0.14);
-  background-color: #1dc9f3;
-  text-align: center;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 400;
-  vertical-align: middle;
-  line-height: 25px;
-}
-
-.modal-content {
-  background-color: transparent !important;
-  border: none !important;
-  color: white !important;
-  opacity: 1 !important;
-}
-
 .close {
   text-shadow: transparent;
-}
-
-#app,
-.account-bar {
-  max-height: 200px;
-  min-height: 200px;
-  padding-top: 35px;
-  background-color: #00b8dc;
-  background-image: linear-gradient(
-    -86deg,
-    #1db6dc 0%,
-    #1db6dc 20%,
-    #25c5ed 46%,
-    #0fa2c6 75%,
-    #0fa2c6 100%
-  );
-}
-
-.content-container {
-  height: 475px;
-  border: 1px solid #d3d9dd;
-  background-color: #e7ebee;
 }
 
 .topbar {
@@ -133,24 +122,10 @@ body {
   position: absolute;
   top: 243px;
   left: 755px;
-  height: 450px;
+  height: 440px;
   width: 400px !important;
   background-color: #fff;
   border-radius: 7px;
-}
-
-.footer {
-  font-size: 13px;
-  font-weight: 500;
-  background-color: transparent;
-  color: #a7b6c1;
-  position: absolute;
-  bottom: 25px;
-  left: 30px;
-}
-
-.footer-block {
-  margin: 10px 0;
 }
 
 .switch {
@@ -204,11 +179,11 @@ input,
 button,
 textarea,
 :focus {
-  outline: none; // You should add some other style for :focus to help UX/a11y
+  outline: none !important; // You should add some other style for :focus to help UX/a11y
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -233,4 +208,48 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mydrop {
   min-width: 25em !important;
+  top: 19px !important;
+  left: -100px !important;
+}
+
+button.close {
+  // margin: 0px !important;
+
+  > span {
+    text-shadow: none;
+  }
+}
+
+.buttonInside {
+  input {
+    padding: 7px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+    width: 195%;
+  }
+
+  button#showPassword {
+    position: relative;
+    outline: none;
+    border: none;
+    top: -33px;
+    left: 360px;
+    text-align: center;
+    font-weight: 500;
+    padding: 2px;
+    background: transparent;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+}
+
+.clicky {
+  cursor: pointer;
+}
+
+.padding-bottom {
+  padding-bottom: 45px;
 }

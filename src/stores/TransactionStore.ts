@@ -2,15 +2,15 @@ import * as moment from 'moment'
 
 import { action, computed, decorate, observable } from 'mobx'
 
-import { Client } from 'verge-node-typescript'
-import { Transaction } from 'verge-node-typescript/dist/Transaction'
+import VergeClient from './VergeClient'
+import { Transaction } from '../vClient/Transaction'
+
+import VergeCacheStore from './VergeCacheStore'
+import IContact from './addressbook/IContact'
+import { logger } from '../utils/Logger'
 
 const hash = (transaction: TransactionView) =>
-  `${transaction.txid}#${transaction.category}#${transaction.address}#${
-    transaction.timereceived
-  }`
-
-const client = new Client({ user: 'kyon', pass: 'lolcat' })
+  `${transaction.txid}#${transaction.category}#${transaction.address}`
 
 interface TransactionView extends Transaction {
   hide?: boolean
@@ -21,6 +21,10 @@ export class TransactionStore {
   transactions: Map<string, TransactionView> = new Map()
   loadingFinished: boolean = false
   search: string = ''
+  receivedTransactions: boolean = VergeCacheStore.get(
+    'receivedTransactions',
+    false,
+  )
 
   addTransactions = (transactions: Transaction[] = []) => {
     transactions.forEach((transaction: Transaction) => {
@@ -32,6 +36,11 @@ export class TransactionStore {
       })
     })
     this.loadingFinished = true
+  }
+
+  setReceivedTransactions = (bool: boolean) => {
+    VergeCacheStore.set('receivedTransactions', bool)
+    this.receivedTransactions = bool
   }
 
   setVisibility(txid, category, address, timereceived, hide) {
@@ -67,6 +76,19 @@ export class TransactionStore {
 
   setSearch(e) {
     this.search = e.target.value
+  }
+
+  setTransactions(transactionMap: Map<string, TransactionView>) {
+    logger.info(`Successfully loaded ${transactionMap.size} transactions`)
+    this.transactions = transactionMap
+
+    if (this.transactions.size > 0) {
+      this.loadingFinished = true
+    }
+  }
+
+  get getReceivedTransactionsStatus(): boolean {
+    return this.receivedTransactions
   }
 
   get getTransactionCount() {
@@ -113,7 +135,7 @@ export class TransactionStore {
       .filter(
         ({ timereceived, category }) =>
           moment.unix(timereceived).isSame(new Date(), 'month') &&
-          category.includes('send'),
+          category.includes('sent'),
       )
       .reduce(
         (sum, { amount, fee }) => (fee ? sum + amount + fee : sum + amount),
@@ -130,6 +152,10 @@ export class TransactionStore {
       )
       .reduce((sum, { amount }) => sum + amount, 0.0)
   }
+
+  transactionsForContact(contact: IContact) {
+    return []
+  }
 }
 
 decorate(TransactionStore, {
@@ -139,6 +165,7 @@ decorate(TransactionStore, {
   addTransactions: action,
   setVisibility: action,
   setSearch: action,
+  setTransactions: action,
   getTransactionCount: computed,
   loaded: computed,
   getTransactionList: computed,
@@ -146,18 +173,23 @@ decorate(TransactionStore, {
   lastTenTransaction: computed,
   monthlyOutput: computed,
   monthlyIncome: computed,
+  receivedTransactions: observable,
+  setReceivedTransactions: action,
+  getReceivedTransactionsStatus: computed,
+  transactionsForContact: action,
 })
 
 const store = new TransactionStore()
 
-client.getTransactionList(100).then(transactions => {
-  store.addTransactions(transactions)
-})
-
 setInterval(() => {
-  client.getTransactionList(100).then(transactions => {
-    store.addTransactions(transactions)
-  })
-}, 10000)
+  VergeClient.getTransactionList(20)
+    .then(transactions => {
+      store.addTransactions(transactions)
+      logger.info('Fetched new transactions')
+    })
+    .catch(() => {
+      logger.warn('Failed fetching new transactions')
+    })
+}, 5_000)
 
 export default store

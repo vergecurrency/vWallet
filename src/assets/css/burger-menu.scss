@@ -1,0 +1,70 @@
+$burger-menu-dropdown-menu-traingle-size: 8px;
+
+$burger-menu-dropdown-menu-item-padding: 8px 30px;
+
+$burger-menu-dropdown-menu-item-font-size: .9rem;
+$burger-menu-dropdown-menu-item-color: #75A0B2;
+$burger-menu-dropdown-menu-item-color-hover: darken($burger-menu-dropdown-menu-item-color, 10);
+$burger-menu-dropdown-menu-item-color-active: #003B53;
+$burger-menu-dropdown-menu-item-background-color-active: #f8f9fa;
+
+$burger-menu-dropdown-menu-item-icon-margin: 12px;
+$burger-menu-dropdown-menu-item-icon-height: 22px;
+$burger-menu-dropdown-menu-item-icon-width: 22px;
+
+.burger-menu-dropdown-menu {
+  padding: 1rem 0;
+  min-width: 280px;
+  margin: 0;
+  margin-top: -3px;
+}
+
+.burger-menu-dropdown-menu:before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin: 0;
+  top: -$burger-menu-dropdown-menu-traingle-size;
+  left: 20px;
+  position: absolute;
+  border-left: $burger-menu-dropdown-menu-traingle-size solid transparent;
+  border-right: $burger-menu-dropdown-menu-traingle-size solid transparent;
+  border-bottom: $burger-menu-dropdown-menu-traingle-size solid white;
+}
+
+.burger-menu-dropdown-menu .dropdown-item {
+  padding: $burger-menu-dropdown-menu-item-padding;
+  display: flex;
+  align-items: center;
+  font-size: $burger-menu-dropdown-menu-item-font-size;
+  font-weight: normal;
+  color: $burger-menu-dropdown-menu-item-color;
+}
+
+.burger-menu-dropdown-menu .dropdown-item:hover {
+  color: $burger-menu-dropdown-menu-item-color-hover;
+}
+
+.burger-menu-dropdown-menu .dropdown-item:active {
+  color: $burger-menu-dropdown-menu-item-color-active;
+  font-weight: 500;
+  background-color: $burger-menu-dropdown-menu-item-background-color-active;
+}
+
+.burger-menu-dropdown-menu .dropdown-item > svg {
+  margin-right: $burger-menu-dropdown-menu-item-icon-margin;
+  color: $burger-menu-dropdown-menu-item-color;
+  fill: $burger-menu-dropdown-menu-item-color;
+  height: $burger-menu-dropdown-menu-item-icon-height;
+  width: $burger-menu-dropdown-menu-item-icon-width;
+}
+
+.burger-menu-dropdown-menu .dropdown-item:hover > svg {
+  color: $burger-menu-dropdown-menu-item-color-hover;
+  fill: $burger-menu-dropdown-menu-item-color-hover;
+}
+
+.burger-menu-dropdown-menu .dropdown-item:active > svg {
+  color: $burger-menu-dropdown-menu-item-color-active;
+  fill: $burger-menu-dropdown-menu-item-color-active;
+}

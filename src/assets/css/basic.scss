@@ -83,25 +83,6 @@ LOADING SPINNER
 }
 
 /*
-SCROLLBAR
-*/
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: rgb(199, 199, 199);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-/*
 STEALTH SWITCH 
 */
 
@@ -166,9 +147,24 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.splashy {
-  background-image: url('../images/splash@x2.jpg');
-  background-size: cover; /* <------ */
+.splash {
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.splash-1 {
+  background-image: url('../images/splashes/splash_1.jpg');
+}
+
+.splash-2 {
+  background-image: url('../images/splashes/splash_2.jpg');
+}
+
+.splash-3 {
+  background-image: url('../images/splashes/splash_3.jpg');
+}
+
+.splash-4 {
+  background-image: url('../images/splashes/splash_4.jpg');
 }

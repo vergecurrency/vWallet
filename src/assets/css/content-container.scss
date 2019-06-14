@@ -1,0 +1,33 @@
+$content-container-background: #e7ebee;
+$content-container-border: 1px solid #d3d9dd;
+
+$content-container-wrapper-margin-top: -61px;
+$content-container-wrapper-side-padding: 45px;
+
+.content-container {
+  display: flex;
+  flex-grow: 1;
+  background-color: $content-container-background;
+  border: $content-container-border;
+}
+
+.content-container-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: $content-container-wrapper-margin-top;
+  padding: 0 $content-container-wrapper-side-padding;
+}
+
+.content-container-wrapper-full {
+  justify-content: space-between;
+}
+
+.content-container-row {
+  display: flex;
+  width: 100%;
+}
+
+.content-container-row-grow {
+  flex-grow: 1;
+}
