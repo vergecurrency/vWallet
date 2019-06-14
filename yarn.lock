@@ -11468,10 +11468,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-material-icon-svg@^1.5.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/react-material-icon-svg/-/react-material-icon-svg-1.8.1.tgz#facf7b0b36a866c54f49f28474cdf026e1eb8557"
-  integrity sha512-7pjfXe/OaEyJqGZTCinZboet15amptVylWct8r9XrJYDFR5SJfLv9OsnnLmkvlwgeR0XRvvKG4/VHtc3lBHjLA==
+react-material-icon-svg@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-material-icon-svg/-/react-material-icon-svg-3.0.0.tgz#91c970968f3ae36f96f6d9242e58df6a3144d251"
+  integrity sha512-O48Ddy37b7p9z7ZwwRsp4sWhtTXqTL8LD+NZ7rO4aclF68PNWMFPaFBY+GhzHEqjE/FIpexV8QXHmdKKDc2Cww==
 
 react-moment@^0.7.0:
   version "0.7.9"

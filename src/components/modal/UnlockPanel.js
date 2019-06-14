@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
 import Modal from '../Modal'
-import UnlockIcon from 'react-material-icon-svg/dist/LockOpenIcon'
+import UnlockIcon from 'react-material-icon-svg/dist/LockOpen'
 import { translate, Trans } from 'react-i18next'
 
 class Unlock extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { shell } from 'electron'
 
-import ScaleBalance from 'react-material-icon-svg/dist/ScaleBalanceIcon'
+import ScaleBalance from 'react-material-icon-svg/dist/ScaleBalance'
 import ArrowDown from '../../icons/ArrowDown'
 import ArrowUp from '../../icons/ArrowUp'
 import Loading from '../../icons/Loading'
