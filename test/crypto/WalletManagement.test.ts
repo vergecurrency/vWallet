@@ -52,7 +52,6 @@ test('gets correct fullPath with given name', () => {
 
   expect(manager.getFullPath()).toBeDefined()
   expect(manager.getFullPath()).toContain(`assets/test${randomName}.json`)
-  expect(manager.getFullPath()).toContain('vWallet')
 
   const randomPath = path.resolve(__dirname, `../assets/test${randomName}.json`)
   fs.unlinkSync(randomPath)
