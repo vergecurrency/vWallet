@@ -184,7 +184,7 @@ export class VergeLightClient {
 
   public checkIfReady(): Promise<{
     isReady: boolean
-    notifications: BWSNotification[],
+    notifications: BWSNotification[]
   }> {
     return new Promise((resolve, reject) => {
       client.getNotifications(
