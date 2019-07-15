@@ -112,7 +112,7 @@ class AddressList extends React.Component<{
                   <Trans i18nKey={'addressPanel.delete'} />
                 </button>
               </div>
-              <div className="header"></div>
+              <div className="gap"></div>
               {this.state.selection ? (
                 <div className="flex-grow-1">
                   <ProfileDetails cla

@@ -32,6 +32,10 @@ $search-input-height: 50px;
     border-right: $divider-border;
   }
 
+  .gap{
+    height: $header-height / 2;
+  }
+
   .divider-bottom {
     border-bottom: $divider-border;
   }
