@@ -114,7 +114,7 @@ class AddressList extends React.Component<{
               </div>
               <div className="gap"></div>
               {this.state.selection ? (
-                <div className="flex-grow-1">
+                <div className="flex-grow-1 pl-4">
                   <ProfileDetails cla
                     editing={this.state.editing}
                     contact={this.state.selection}
