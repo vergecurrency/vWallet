@@ -10,7 +10,7 @@ export default class ProfileListItem extends React.Component<{
   render() {
     return (
       <div
-        className={`row profile-item ${this.props.selection ? 'selected' : ''}`}
+        className={`profile-item row ${this.props.selection ? 'selected' : ''}`}
         onClick={this.props.toggle(this.props.contact.id)}
       >
         <div className="col-md-3">

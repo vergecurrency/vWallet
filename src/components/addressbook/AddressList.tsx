@@ -49,7 +49,7 @@ class AddressList extends React.Component<{
     return (
       <div className="addressbook h-100">
         <div className="row h-100">
-          <div className="col-3">
+          <div className="col-md-3">
             <div className="h-100 d-flex flex-column">
               <div className="row divider-bottom header justify-content-between">
                 <div></div>
@@ -69,8 +69,8 @@ class AddressList extends React.Component<{
                   onChange={this.filterContacts.bind(this)}
                 />
               </div>
-              <div className="row  p-0 m-0 flex-grow-1">
-                <div className="profile-list w-100">
+              <div className="row flex-grow-1">
+                <div className="profile-list container-fluid w-100">
                   {this.props.ContactStore!.allContacts.map(contact => (
                     <ProfileListItem
                       contact={contact}
@@ -83,7 +83,7 @@ class AddressList extends React.Component<{
               </div>
             </div>
           </div>
-          <div className="col-9 p-0 m-0 details-view">
+          <div className="col-md-9 p-0 m-0 details-view">
             <div className="h-100 d-flex flex-column">
               <div className="header divider-bottom justify-content-center">
                 <button
