@@ -124,11 +124,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             open={this.state.modal}
             toggle={this.toggleUnlock.bind(this)}
           />
-          <div className="pr-2">    <BurgerMenu
+          <div className="pl-4">    <BurgerMenu
             dropdownOpen={this.state.dropdownOpen}
             toggle={this.toggle.bind(this)}
           /></div>
-          <div className="pr-2">
+          <div className="pl-2">
             <img
               className="logo center-block"
               style={{
