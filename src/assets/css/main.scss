@@ -33,6 +33,15 @@
 @import 'debug-information-modal';
 @import 'donate-modal';
 
+$theme-colors: (
+  "primary": #0074d9,
+  "secondary": #0074d9,
+  "dark" : #09121a,
+  "white": #ffffff,
+  "light": #f2f2f2,
+  "danger": #ff4136,
+);
+
 body {
   position: absolute;
   top: 0;
@@ -43,7 +52,7 @@ body {
   overflow: hidden;
 
   background-color: #09121a;
-  color: #fff;
+  color: theme-color("white");
 
   font-family: 'AvenirNext', Helvetica, sans-serif !important;
   font-weight: 500;
@@ -60,7 +69,7 @@ a:hover {
 }
 
 .logo {
-  content: url('../images/verge-logo-white.png');
+  content: url('../images/verge-color-white_logo.png');
 }
 
 .transaction-list {
@@ -70,7 +79,7 @@ a:hover {
   width: 670px;
   height: 440px;
   border-radius: 7px;
-  background-color: #ffffff;
+  background-color:  theme-color("white");
   color: #003b54 !important;
 }
 
@@ -93,6 +102,7 @@ a:hover {
 
 .topbar {
   background-color: #07121b;
+  height: 60px;
 }
 
 #root {
@@ -124,7 +134,7 @@ a:hover {
   left: 755px;
   height: 440px;
   width: 400px !important;
-  background-color: #fff;
+  background-color: theme-color("white");
   border-radius: 7px;
 }
 
@@ -192,7 +202,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .arrow-down {
   fill: none;
-  stroke: #ffffff;
+  stroke: theme-color("white");
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -200,7 +210,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .arrow-up {
   fill: none;
-  stroke: #ffffff;
+  stroke: theme-color("white");
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
