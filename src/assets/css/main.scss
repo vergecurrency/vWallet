@@ -33,15 +33,6 @@
 @import 'debug-information-modal';
 @import 'donate-modal';
 
-$theme-colors: (
-  "primary": #0074d9,
-  "secondary": #0074d9,
-  "dark" : #09121a,
-  "white": #ffffff,
-  "light": #f2f2f2,
-  "danger": #ff4136,
-);
-
 body {
   position: absolute;
   top: 0;
@@ -52,7 +43,7 @@ body {
   overflow: hidden;
 
   background-color: #09121a;
-  color: theme-color("white");
+  color: #fff;
 
   font-family: 'AvenirNext', Helvetica, sans-serif !important;
   font-weight: 500;
@@ -79,7 +70,7 @@ a:hover {
   width: 670px;
   height: 440px;
   border-radius: 7px;
-  background-color:  theme-color("white");
+  background-color: #ffffff;
   color: #003b54 !important;
 }
 
@@ -102,7 +93,6 @@ a:hover {
 
 .topbar {
   background-color: #07121b;
-  height: 60px;
 }
 
 #root {
@@ -134,7 +124,7 @@ a:hover {
   left: 755px;
   height: 440px;
   width: 400px !important;
-  background-color: theme-color("white");
+  background-color: #fff;
   border-radius: 7px;
 }
 
@@ -202,7 +192,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .arrow-down {
   fill: none;
-  stroke: theme-color("white");
+  stroke: #ffffff;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -210,7 +200,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .arrow-up {
   fill: none;
-  stroke: theme-color("white");
+  stroke: #ffffff;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
