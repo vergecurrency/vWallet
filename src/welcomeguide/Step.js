@@ -1,6 +1,6 @@
 import React from 'react'
 import { TitleBar } from 'electron-react-titlebar'
-import logo from '../assets/images/verge-logo-white.png'
+import logo from '../assets/images/verge-color-white_logo.png'
 import createProgressSteps from './ProgressBar'
 import { platform } from 'os'
 import { observer, inject } from 'mobx-react'

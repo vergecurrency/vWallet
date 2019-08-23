@@ -7,7 +7,7 @@ class Addressbook extends React.Component {
   render() {
     return (
       <AbstractPage>
-        <div className="container-fluid panel">
+        <div className="container-fluid h-100 panel">
           <AddressList />
         </div>
       </AbstractPage>

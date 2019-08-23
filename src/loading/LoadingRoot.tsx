@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as vergeLogo from '../assets/images/verge-logo-white.png'
+import * as vergeLogo from '../assets/images/verge-color-white_logo.png'
 
 import { Col, Container, Row } from 'reactstrap'
 import { inject, observer } from 'mobx-react'

@@ -1,16 +1,14 @@
 $header-height: 50px;
+$search-input-height: 50px;
 
 .addressbook {
-  max-height: 455px;
   min-height: 455px;
   color: rgba(0, 0, 0, 0.8);
 
   .header {
     min-height: $header-height;
     line-height: $header-height;
-    text-align: center;
-    box-shadow: 0 0 2px 1px rgba(80, 80, 80, 0.1);
-
+    
     .add-button {
       float: right;
       color: $button-color;
@@ -34,31 +32,32 @@ $header-height: 50px;
     border-right: $divider-border;
   }
 
+  .gap{
+    height: $header-height / 2;
+  }
+
   .divider-bottom {
     border-bottom: $divider-border;
   }
 
   .search-input {
     border: none;
-    height: 50px;
+    width: 100%;
+    height: $search-input-height;
     background: transparent;
   }
   .profile-list {
-    max-height: 350px;
     min-height: 350px;
-    overflow: scroll;
+    overflow-x: none;
+    overflow-y: scroll;
   }
 
   .details-view {
-    display: flex;
-    align-content: center;
-
     .left-edit {
       border: 0;
       background: none;
       box-shadow: none;
       border-radius: 0px;
-      float: left;
       color: $button-color;
 
       &:disabled {
@@ -68,7 +67,6 @@ $header-height: 50px;
   }
 
   .profile-view {
-    margin-top: -25px;
     display: flex;
     color: rgba(0, 0, 0, 0.8);
 
@@ -146,6 +144,7 @@ $header-height: 50px;
     margin-bottom: 5px;
     height: 45px;
     line-height: 45px;
+    color: rgba(0, 0, 0, 0.8);
     color: rgba(0, 0, 0, 0.8);
     &.selected {
       background: rgba(7, 90, 127, 0.2);
