@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Step from '../Step'
 import { Link } from 'react-router-dom'
 import crypto from 'crypto'
+import Wallet from '../../crypto/Wallet'
 
 const NewButton = styled.button`
   width: 192px;
@@ -76,12 +77,19 @@ export default class ConfirmPassword extends React.Component {
               to={{
                 pathname: '/buyhelp',
               }}
+              onClick={async () => {
+                if (fullfillsRequirements) {
+                  await Wallet.createNewWallet(
+                    this.state.confirm,
+                  )
+                }
+              }}
             >
               <NewButton>Continue</NewButton>
             </Link>
           ) : (
-            <DisabledButton>Continue</DisabledButton>
-          )}
+              <DisabledButton>Continue</DisabledButton>
+            )}
         </div>
         <PasswordHint>
           This password is very important. If you lock your wallet, and you

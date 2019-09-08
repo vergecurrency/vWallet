@@ -5,6 +5,9 @@
         "name": "typescript-styled-plugin"
       }
     ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "es2016",
@@ -34,8 +37,7 @@
     "src/**/*.jsx",
     "src/**/*.png",
     "src/**/*.svg",
-    "src/**/*.scss",
-    "node_modules/@types/**/*.d.ts"
+    "src/**/*.scss"
   ],
   "exclude": ["dist"]
 }

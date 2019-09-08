@@ -7,13 +7,13 @@ const settings: {
   WALLET_PATH_NAME: string
   BITPAY_WALLET: {
     BWS_INSTANCE_URL: string
-    VERBOSE: boolean
-  }
+    VERBOSE: boolean,
+  },
 } = {
   // TODO: CHANGE TO XVG
-  COIN: 'btc',
+  COIN: 'xvg',
   // TODO: CHANGE TO MAIN NET
-  NETWORK: 'testnet',
+  NETWORK: 'livenet',
   DEFAULT_ACCOUNT: 0,
   TRANSACTION_LINK: 'https://verge-blockchain.info/tx/',
   BLOCK_LINK: 'https://verge-blockchain.info/block/',
@@ -21,8 +21,10 @@ const settings: {
   // TODO: Switch to HTTPS
   BITPAY_WALLET: {
     // BWS_INSTANCE_URL: 'https://usxvglw.vergecoreteam.com/bws/api',
-    // BWS_INSTANCE_URL: 'https://garagenet.internet-box.ch/bws/api',
-    BWS_INSTANCE_URL: 'https://load.vergecoreteam.com/bws/api',
+    // BWS_INSTANCE_URL: 'https://garagenet.internet-box.ch/vws/api',
+    // BWS_INSTANCE_URL: 'https://load.vergecoreteam.com/bws/api',
+    // BWS_INSTANCE_URL: 'https://vws.vergecurrency.network/vws/api',
+    BWS_INSTANCE_URL: 'http://localhost:3232/vws/api',
     VERBOSE: true,
   },
 }

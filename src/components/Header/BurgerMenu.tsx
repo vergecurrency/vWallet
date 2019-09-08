@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { translate, Trans } from 'react-i18next'
+const { getCurrentWindow } = require('electron').remote
 import {
   Dropdown,
   DropdownToggle,
@@ -8,14 +9,21 @@ import {
 } from 'reactstrap'
 import Menu from 'react-material-icon-svg/dist/Menu'
 import Wallet from 'react-material-icon-svg/dist/Wallet'
-import Addressbook from 'react-material-icon-svg/dist/BookOpenPageVariant'
+import BookOpenPageVariant from 'react-material-icon-svg/dist/BookOpenPageVariant'
+import DeleteForever from 'react-material-icon-svg/dist/DeleteForever'
 import Settings from 'react-material-icon-svg/dist/Settings'
-import BlockchainExplorer from 'react-material-icon-svg/dist/OpenInNew'
+import OpenInNew from 'react-material-icon-svg/dist/OpenInNew'
 import { Link } from 'react-router-dom'
 import { shell } from 'electron'
+import VergeCacheStore from '../../stores/VergeCacheStore'
 
-const openBlockExplorer = function() {
+const openBlockExplorer = function () {
   shell.openExternal('https://verge-blockchain.info/')
+}
+
+const unlinkWallet = function () {
+  VergeCacheStore.delete('WALLET')
+  getCurrentWindow().reload()
 }
 
 const BurgerMenu = props => (
@@ -49,7 +57,7 @@ const BurgerMenu = props => (
       </Link>
       <Link to="/addressbook">
         <DropdownItem>
-          <Addressbook />
+          <BookOpenPageVariant />
           <Trans i18nKey={'header.menu.addressbook'} />
         </DropdownItem>
       </Link>
@@ -61,8 +69,14 @@ const BurgerMenu = props => (
       </Link>
       <a onClick={openBlockExplorer}>
         <DropdownItem>
-          <BlockchainExplorer />
+          <OpenInNew />
           <Trans i18nKey={'header.menu.blockchain_explorer'} />
+        </DropdownItem>
+      </a>
+      <a onClick={unlinkWallet}>
+        <DropdownItem>
+          <DeleteForever />
+          <Trans i18nKey={'header.menu.unlink_wallet'} />
         </DropdownItem>
       </a>
     </DropdownMenu>

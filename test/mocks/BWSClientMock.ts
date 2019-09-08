@@ -1,4 +1,4 @@
-import * as Client from 'bitcore-wallet-client'
+import * as Client from 'verge-wallet-client'
 import settings from '../../src/settings'
 
 /**

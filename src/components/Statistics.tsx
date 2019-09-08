@@ -9,7 +9,7 @@ import { SettingsStore } from '../stores/SettingsStore'
 import { translate, Trans } from 'react-i18next'
 import { fadeIn } from 'react-animations'
 import PriceUpdater from '../components/PriceUpdater'
-import ChartLineIcon from 'react-material-icon-svg/dist/ChartLine'
+import ChartLine from 'react-material-icon-svg/dist/ChartLine'
 const tr = require('tor-request')
 
 tr.setTorAddress('localhost', 9090)
@@ -107,7 +107,7 @@ class Statistics extends React.Component<StatisticsProps> {
         <div className="statistic-title-container">
           <TopContainer className="row">
             <TransactionTitle>
-              <ChartLineIcon
+              <ChartLine
                 width={30}
                 height={30}
                 style={{ fill: '#003b54', marginRight: '10px' }}

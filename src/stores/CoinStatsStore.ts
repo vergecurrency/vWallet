@@ -3,9 +3,9 @@ import { computed, decorate, observable } from 'mobx'
 import VergeCacheStore from '../stores/VergeCacheStore'
 import { logger } from '../utils/Logger'
 
-const torRequest = require('tor-request')
+const torRequest = require('request')
 
-torRequest.setTorAddress('localhost', 9090)
+// torRequest.setTorAddress('localhost', 9090)
 
 interface CoinStats {
   price: number
@@ -43,7 +43,7 @@ export class CoinStatsStore {
           this.loadingFinished = true
         })
         .catch(logger.error)
-    }, 30000)
+    },          30000)
   }
 
   getCoinStats(): Promise<CoinStats | null> {

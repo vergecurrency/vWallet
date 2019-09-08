@@ -1,4 +1,4 @@
-import * as Client from 'bitcore-wallet-client'
+import * as Client from 'verge-wallet-client'
 import settings from '../settings'
 import { randomBytes } from 'crypto'
 import { Balance } from './Balance'
@@ -84,7 +84,7 @@ export class VergeLightClient {
         randomBytes(128).toString('hex'),
         1, // N
         1, // M
-        { network: settings.NETWORK },
+        { network: settings.NETWORK, coin: settings.COIN },
         err => {
           // check if we received errors
           invariant(!err, `Error happend while creating wallet: ${err}`)
