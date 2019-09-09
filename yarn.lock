@@ -2356,24 +2356,8 @@ bip39@^3.0.2:
     pbkdf2 "^3.0.9"
     randombytes "^2.0.1"
 
-bitcore-lib-cash@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/bitcore-lib-cash/-/bitcore-lib-cash-8.0.0.tgz#72d2d3dd661c47149db35e68ff42ae06b4a32725"
-  integrity sha512-cmaO5frGRZECzbD9b7zitbfCbNcSj+aAuA53kv5BxqE8U6OAXkzJ+23KyKrecDS8qDhJEiArLk6T+m6uuqt/kA==
-  dependencies:
-    bitcore-lib "^8.0.0"
-    bn.js "=4.11.8"
-    bs58 "=4.0.1"
-    buffer-compare "=1.1.1"
-    elliptic "=6.4.0"
-    inherits "=2.0.1"
-    lodash "=4.17.4"
-    phantomjs-prebuilt "^2.1.16"
-
-bitcore-lib-cash@8.1.1:
+"bitcore-lib-cash@file:bitcore/packages/bitcore-lib-cash":
   version "8.1.1"
-  resolved "https://registry.yarnpkg.com/bitcore-lib-cash/-/bitcore-lib-cash-8.1.1.tgz#9b610d0d14b247c083f81a7ca30b82737ef6adec"
-  integrity sha512-1yI8T87SL0/jCGvIqC8LH7bbe6Y22nob4jN6dW3QIrTWq8cr+aC9bFkpq/E5FDokX+nuVAHSmIjOlMu+xBvQRw==
   dependencies:
     bitcore-lib "^8.1.1"
     bn.js "=4.11.8"
@@ -2383,19 +2367,7 @@ bitcore-lib-cash@8.1.1:
     inherits "=2.0.1"
     lodash "=4.17.11"
 
-bitcore-lib@8.1.1:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-8.1.1.tgz#ba9e142a1fdf0b181729658010da2c0784546a80"
-  integrity sha512-YyzpyKtwBIeOUu55oqltfk3/Uz8SYi1ayWq3JnaoGSzR4BNpD54sYejv2gZ5TuDe4KwBqvA2C5X1zkPBtlkGhQ==
-  dependencies:
-    bn.js "=4.11.8"
-    bs58 "^4.0.1"
-    buffer-compare "=1.1.1"
-    elliptic "=6.4.0"
-    inherits "=2.0.1"
-    lodash "=4.17.11"
-
-bitcore-lib@^8.0.0, bitcore-lib@^8.1.1:
+bitcore-lib@^8.1.0, bitcore-lib@^8.1.1:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-8.6.0.tgz#d7fc7c1815916f2914a3feb04227d5d10830e0d5"
   integrity sha512-fEMx2WeHRQGaGy72CBO8RQu7Eunl2MgUfrBVEOVX2qcQtfvtYTVE4KK7L7CPlJcD8YUPZYaWKOMBTVBiB8B8Bg==
@@ -2408,20 +2380,27 @@ bitcore-lib@^8.0.0, bitcore-lib@^8.1.1:
     inherits "=2.0.1"
     lodash "=4.17.15"
 
-bitcore-mnemonic@8.1.1:
+"bitcore-lib@file:bitcore/packages/bitcore-lib":
   version "8.1.1"
-  resolved "https://registry.yarnpkg.com/bitcore-mnemonic/-/bitcore-mnemonic-8.1.1.tgz#f3d970e0e6f20e32708060960806ae630a6bd722"
-  integrity sha512-F9R+PKN6m8jDikmNbuD7yp47vdyWcNYGdu9jokiNW46VOm5E+HJM41BiIJdUIVeY9mf+U8T7URq6Knr985NVTg==
+  dependencies:
+    bn.js "=4.11.8"
+    bs58 "^4.0.1"
+    buffer-compare "=1.1.1"
+    elliptic "=6.4.0"
+    inherits "=2.0.1"
+    lodash "=4.17.11"
+    scryptsy "^2.0.0"
+
+"bitcore-mnemonic@file:bitcore/packages/bitcore-mnemonic":
+  version "8.1.1"
   dependencies:
     bitcore-lib "^8.1.1"
     unorm "^1.4.1"
 
-bitcore-stealth@0.0.2:
+"bitcore-stealth@file:bitcore/packages/bitcore-stealth":
   version "0.0.2"
-  resolved "https://registry.yarnpkg.com/bitcore-stealth/-/bitcore-stealth-0.0.2.tgz#c05eeb5100a3457c858c9b0e01763f6c0c2447c7"
-  integrity sha512-ETu1AjhLRaiNd23Ri/ADpifN3ImQEEVkvopOcmHpixI+IAyjmuOxdolJ2+ffqNhRqmTTeMQkpY51q69izU1HPA==
   dependencies:
-    bitcore-lib-cash "8.0.0"
+    bitcore-lib "^8.1.0"
     lodash "^4.17.11"
 
 bl@^1.0.0:
@@ -2655,17 +2634,17 @@ browserslist@^4.4.1:
     electron-to-chromium "^1.3.247"
     node-releases "^1.1.29"
 
-bs58@=4.0.1, bs58@^4.0.0, bs58@^4.0.1:
+bs58@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bs58/-/bs58-2.0.1.tgz#55908d58f1982aba2008fa1bed8f91998a29bf8d"
+  integrity sha1-VZCNWPGYKrogCPob7Y+RmYopv40=
+
+bs58@^4.0.0, bs58@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/bs58/-/bs58-4.0.1.tgz#be161e76c354f6f788ae4071f63f34e8c4f0a42a"
   integrity sha1-vhYedsNU9veIrkBx9j806MTwpCo=
   dependencies:
     base-x "^3.0.2"
-
-bs58@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bs58/-/bs58-2.0.1.tgz#55908d58f1982aba2008fa1bed8f91998a29bf8d"
-  integrity sha1-VZCNWPGYKrogCPob7Y+RmYopv40=
 
 bs58check@<3.0.0, bs58check@^2.1.1:
   version "2.1.2"
@@ -6079,15 +6058,6 @@ fs-extra@6.0.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-1.0.0.tgz#cd3ce5f7e7cb6145883fcae3191e9877f8587950"
-  integrity sha1-zTzl9+fLYUWIP8rjGR6Yd/hYeVA=
-  dependencies:
-    graceful-fs "^4.1.2"
-    jsonfile "^2.1.0"
-    klaw "^1.0.0"
-
 fs-extra@^4.0.0, fs-extra@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.3.tgz#0d852122e5bc5beb453fb028e9c0c9bf36340c94"
@@ -6698,14 +6668,6 @@ hash.js@^1.0.0, hash.js@^1.0.3:
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
-
-hasha@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/hasha/-/hasha-2.2.0.tgz#78d7cbfc1e6d66303fe79837365984517b2f6ee1"
-  integrity sha1-eNfL/B5tZjA/55g3NlmEUXsvbuE=
-  dependencies:
-    is-stream "^1.0.1"
-    pinkie-promise "^2.0.0"
 
 he@1.2.x:
   version "1.2.0"
@@ -8472,11 +8434,6 @@ just-extend@^4.0.2:
   resolved "https://registry.yarnpkg.com/just-extend/-/just-extend-4.0.2.tgz#f3f47f7dfca0f989c55410a7ebc8854b07108afc"
   integrity sha512-FrLwOgm+iXrPV+5zDU6Jqu4gCRXbWEQg2O3SKONsWE4w7AXFRkryS53bpWdaL9cNol+AmR3AEYz6kn+o0fCPnw==
 
-kew@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/kew/-/kew-0.7.0.tgz#79d93d2d33363d6fdd2970b335d9141ad591d79b"
-  integrity sha1-edk9LTM2PW/dKXCzNdkUGtWR15s=
-
 keyv@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"
@@ -8896,11 +8853,6 @@ lodash@=4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
-lodash@=4.17.4:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-  integrity sha1-eCA6TRwyiuHYbcpkYONptX9AVa4=
 
 log-symbols@^1.0.2:
   version "1.0.2"
@@ -10550,21 +10502,6 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-phantomjs-prebuilt@^2.1.16:
-  version "2.1.16"
-  resolved "https://registry.yarnpkg.com/phantomjs-prebuilt/-/phantomjs-prebuilt-2.1.16.tgz#efd212a4a3966d3647684ea8ba788549be2aefef"
-  integrity sha1-79ISpKOWbTZHaE6ouniFSb4q7+8=
-  dependencies:
-    es6-promise "^4.0.3"
-    extract-zip "^1.6.5"
-    fs-extra "^1.0.0"
-    hasha "^2.2.0"
-    kew "^0.7.0"
-    progress "^1.1.8"
-    request "^2.81.0"
-    request-progress "^2.0.1"
-    which "^1.2.10"
-
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -11199,11 +11136,6 @@ progress-stream@^1.1.0:
   dependencies:
     speedometer "~0.1.2"
     through2 "~0.2.3"
-
-progress@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
-  integrity sha1-4mDHj2Fhzdmw5WzD4Khd4Xx6V74=
 
 progress@^2.0.0:
   version "2.0.3"
@@ -12060,13 +11992,6 @@ replace-ext@1.0.0:
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
   integrity sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
 
-request-progress@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/request-progress/-/request-progress-2.0.1.tgz#5d36bb57961c673aa5b788dbc8141fdf23b44e08"
-  integrity sha1-XTa7V5YcZzqlt4jbyBQf3yO0Tgg=
-  dependencies:
-    throttleit "^1.0.0"
-
 request-progress@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/request-progress/-/request-progress-3.0.0.tgz#4ca754081c7fec63f505e4faa825aa06cd669dbe"
@@ -12431,6 +12356,11 @@ scryptsy@^1.2.0:
   integrity sha1-oyJfpLJST4AnAHYeKFW987LZIWM=
   dependencies:
     pbkdf2 "^3.0.3"
+
+scryptsy@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/scryptsy/-/scryptsy-2.1.0.tgz#8d1e8d0c025b58fdd25b6fa9a0dc905ee8faa790"
+  integrity sha512-1CdSqHQowJBnMAFyPEBRfqag/YP9OF394FV+4YREIJX4ljD7OxvQRDayyoyyCk+senRjSkP6VnUNQmVQqB6g7w==
 
 scss-tokenizer@^0.2.3:
   version "0.2.3"
@@ -14467,17 +14397,15 @@ verge-node-typescript@0.0.17:
     global "^4.3.2"
     typescript "^2.8.1"
 
-verge-wallet-client@8.1.1:
-  version "8.1.2"
-  resolved "https://registry.yarnpkg.com/verge-wallet-client/-/verge-wallet-client-8.1.2.tgz#b936eacd928cb3af7cf538dffe443c25a77041b6"
-  integrity sha512-XliJUU5yR7ybfpHGonX9Zr8dPhxO/KhnYgvxNF2VYnKGROf/pyTH+TFQvxL4wmTDKWxmk7NpgG//12aUOtoPjQ==
+"verge-wallet-client@file:./bitcore/packages/bitcore-wallet-client":
+  version "8.1.1"
   dependencies:
     async "^0.9.0"
     bip38 "^1.3.0"
-    bitcore-lib "8.1.1"
-    bitcore-lib-cash "8.1.1"
-    bitcore-mnemonic "8.1.1"
-    bitcore-stealth "0.0.2"
+    bitcore-lib "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-lib"
+    bitcore-lib-cash "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-lib-cash"
+    bitcore-mnemonic "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-mnemonic"
+    bitcore-stealth "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-stealth"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.11"
     preconditions "^2.2.1"

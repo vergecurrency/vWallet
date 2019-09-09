@@ -7,6 +7,7 @@ import Wallet from '../crypto/Wallet'
 import { Balance } from '../crypto/Balance'
 import { BWSNotification } from '../crypto/BWSNotification'
 import { logger } from '../utils/Logger'
+import { Constants } from '../Constanst'
 
 interface Info extends WalletInfo {
   highestBlock: number
@@ -14,6 +15,30 @@ interface Info extends WalletInfo {
   loadingProgress: number
   isReady: boolean
   isunlocked: boolean
+}
+
+const checkReadiness: (acccountInfo: AccountInformationStore) => void = (
+  acccountInfo: AccountInformationStore,
+) => {
+  Wallet.checkIfReady()
+    .then(({ isReady, notifications }) => {
+      acccountInfo.info.isReady = isReady
+      acccountInfo.notifications = acccountInfo.mapNotifications(notifications)
+    })
+    .catch(e => logger.error(e.message))
+}
+
+const checkBalances: (acccountInfo: AccountInformationStore) => void = (
+  acccountInfo: AccountInformationStore,
+) => {
+  Wallet.getBalance()
+    .then((status: Balance) => {
+      acccountInfo.info = {
+        ...acccountInfo.info,
+        balance: status.availableAmount / Constants.satoshiDivider,
+      }
+    })
+    .catch(e => logger.error(e.message))
 }
 
 export class AccountInformationStore {
@@ -24,25 +49,15 @@ export class AccountInformationStore {
   notifications: INotification[] = []
 
   constructor() {
-    setInterval(() => {
-      Wallet.getBalance()
-        .then((status: Balance) => {
-          this.info = {
-            ...this.info,
-            balance: status.availableAmount / 100000,
-          }
-        })
-        .catch(e => logger.error(e.message))
-    },          15_000)
+    checkBalances(this)
+    checkReadiness(this)
 
     setInterval(() => {
-      Wallet.checkIfReady()
-        .then(({ isReady, notifications }) => {
-          this.info.isReady = isReady
-          this.notifications = this.mapNotifications(notifications)
-        })
-        .catch(e => logger.error(e.message))
-    },          5_000)
+      checkBalances(this)
+    }, Constants.walletBalanceFetchInterval)
+    setInterval(() => {
+      checkReadiness(this)
+    }, Constants.walletNotificationFetchInterval)
   }
 
   sendTransaction(vergeAddress: string, amount: number) {

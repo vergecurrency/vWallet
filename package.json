@@ -64,7 +64,7 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps && cd bitcore && npm install",
     "dist": "yarn clean && yarn run build && electron-builder",
     "publishDist": "yarn clean && yarn run build && electron-builder -p always",
     "test": "jest --watch",
@@ -117,7 +117,7 @@
     "tor-request": "^2.1.1",
     "uuid": "^3.2.1",
     "verge-node-typescript": "0.0.17",
-    "verge-wallet-client": "8.1.2",
+    "verge-wallet-client": "file:./bitcore/packages/bitcore-wallet-client",
     "winston": "^3.1.0"
   },
   "devDependencies": {

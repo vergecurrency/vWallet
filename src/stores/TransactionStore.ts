@@ -33,6 +33,7 @@ export class TransactionStore {
         hide: true,
         ...oldTransaction,
         ...transaction,
+        amount: transaction.amount * 100,
       })
     })
     this.loadingFinished = true

@@ -8,6 +8,7 @@ import { OutgoingTransaction } from './OutgoingTransaction'
 import VergeCacheStore from '../stores/VergeCacheStore'
 import { BWSNotification } from './BWSNotification'
 import { logger } from '../utils/Logger'
+import { Constants } from '../Constanst'
 const invariant = require('invariant')
 
 const client = new Client({
@@ -251,12 +252,6 @@ export class VergeLightClient {
     address: string,
     amount: number,
   ): Promise<OutgoingTransaction> {
-    /*this.unlock(passphrase)
-    invariant(
-      !this.isWalletReady(),
-      'You can`t send a transaction without setting up your wallet first.',
-    )*/
-
     invariant(
       this.password,
       'Something wrong, you should be unlocked by now already ...',
@@ -272,12 +267,10 @@ export class VergeLightClient {
           outputs: [
             {
               toAddress: address,
-              amount: amount * 100000000,
+              amount: amount * Constants.satoshiDivider,
               message: '', // not used. bullshit. we are a currency not a note transfer :)
             },
           ],
-          message: '', // no also here, we don't support messages
-          feePerKb: 2000, // TODO: check fee per KB to reach 0.1XVG properly
         },
         (createError, txp) => {
           if (createError) {

@@ -23,8 +23,8 @@ const settings: {
     // BWS_INSTANCE_URL: 'https://usxvglw.vergecoreteam.com/bws/api',
     // BWS_INSTANCE_URL: 'https://garagenet.internet-box.ch/vws/api',
     // BWS_INSTANCE_URL: 'https://load.vergecoreteam.com/bws/api',
-    // BWS_INSTANCE_URL: 'https://vws.vergecurrency.network/vws/api',
-    BWS_INSTANCE_URL: 'http://localhost:3232/vws/api',
+    BWS_INSTANCE_URL: 'https://vws.vergecurrency.network/vws/api',
+    // BWS_INSTANCE_URL: 'http://localhost:3232/vws/api',
     VERBOSE: true,
   },
 }
