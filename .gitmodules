@@ -1,0 +1,3 @@
+[submodule "bitcore"]
+	path = bitcore
+	url = https://github.com/vergecurrency/bitcore.git
