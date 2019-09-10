@@ -17,11 +17,11 @@ import { Link } from 'react-router-dom'
 import { shell } from 'electron'
 import VergeCacheStore from '../../stores/VergeCacheStore'
 
-const openBlockExplorer = function () {
+const openBlockExplorer = function() {
   shell.openExternal('https://verge-blockchain.info/')
 }
 
-const unlinkWallet = function () {
+const unlinkWallet = function() {
   VergeCacheStore.delete('WALLET')
   getCurrentWindow().reload()
 }

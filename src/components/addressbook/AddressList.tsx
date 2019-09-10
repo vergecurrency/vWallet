@@ -56,9 +56,12 @@ class AddressList extends React.Component<{
                 <span>
                   <Trans i18nKey={'addressPanel.contacts'} />
                 </span>
-                <div className="add-button pr-3" onClick={this.addNewContact.bind(this)}>
+                <div
+                  className="add-button pr-3"
+                  onClick={this.addNewContact.bind(this)}
+                >
                   +
-                    </div>
+                </div>
               </div>
               <div className="row w-100 p-0 m-0">
                 <input
@@ -96,14 +99,16 @@ class AddressList extends React.Component<{
                   {this.state.editing ? (
                     <Trans i18nKey={'addressPanel.save'} />
                   ) : (
-                      <Trans i18nKey={'addressPanel.edit'} />
-                    )}
+                    <Trans i18nKey={'addressPanel.edit'} />
+                  )}
                 </button>
                 <button
                   disabled={this.state.selection == null}
                   onClick={() => {
                     if (this.state.selection) {
-                      this.props.ContactStore!.removeContact(this.state.selection)
+                      this.props.ContactStore!.removeContact(
+                        this.state.selection,
+                      )
                       this.setState({ selection: null })
                     }
                   }}
@@ -115,7 +120,8 @@ class AddressList extends React.Component<{
               <div className="gap"></div>
               {this.state.selection ? (
                 <div className="flex-grow-1 container-fluid">
-                  <ProfileDetails cla
+                  <ProfileDetails
+                    cla
                     editing={this.state.editing}
                     contact={this.state.selection}
                   />
@@ -124,7 +130,7 @@ class AddressList extends React.Component<{
             </div>
           </div>
         </div>
-      </div >
+      </div>
     )
   }
 }

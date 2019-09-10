@@ -7,8 +7,8 @@ const settings: {
   WALLET_PATH_NAME: string
   BITPAY_WALLET: {
     BWS_INSTANCE_URL: string
-    VERBOSE: boolean,
-  },
+    VERBOSE: boolean
+  }
 } = {
   // TODO: CHANGE TO XVG
   COIN: 'xvg',

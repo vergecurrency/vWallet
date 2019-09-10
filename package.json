@@ -75,8 +75,8 @@
     "build": "cross-env NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --overwrite",
-    "prettify": "prettier --config .prettierrc.js --write src/**/*.{ts,tsx,json}",
-    "prettify-check": "prettier --list-different --config=.prettierrc.js src/**/*.{ts,tsx,json}",
+    "prettify": "prettier --config .prettierrc.js --write src/*.{ts,tsx,json} src/**/*.{ts,tsx,json} src/**/**/*.{ts,tsx,json}",
+    "prettify-check": "prettier --list-different --config=.prettierrc.js src/*.{ts,tsx,json} src/**/*.{ts,tsx,json} src/**/**/*.{ts,tsx,json}",
     "eslintfixdry": "eslint --fix-dry-run src/**/*.js",
     "clean": "rimraf dist"
   },

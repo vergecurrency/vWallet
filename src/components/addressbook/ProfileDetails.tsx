@@ -82,9 +82,7 @@ class ProfileDetails extends React.Component<{
                 transaction => (
                   <div
                     className="row transaction-list-item"
-                    key={`${transaction.txid}#${transaction.category}#${
-                      transaction.address
-                    }#${transaction.timereceived}`}
+                    key={`${transaction.txid}#${transaction.category}#${transaction.address}#${transaction.timereceived}`}
                   >
                     <Transaction {...transaction} />
                   </div>
@@ -153,9 +151,7 @@ class ProfileDetails extends React.Component<{
               {transactions.map(transaction => (
                 <div
                   className="row transaction-list-item"
-                  key={`${transaction.txid}#${transaction.category}#${
-                    transaction.address
-                  }#${transaction.timereceived}`}
+                  key={`${transaction.txid}#${transaction.category}#${transaction.address}#${transaction.timereceived}`}
                 >
                   <Transaction {...transaction} />
                 </div>

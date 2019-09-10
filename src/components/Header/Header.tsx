@@ -82,18 +82,18 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     ) {
       return this.props.AccountInformationStore!.info.loadingProgress
         ? `${this.props.i18n!.t('header.loading') as string} ${
-        this.props.AccountInformationStore!.info.loadingProgress
-        }%`
+            this.props.AccountInformationStore!.info.loadingProgress
+          }%`
         : (this.props.i18n!.t('header.loading') as string)
     }
 
     return this.props.AccountInformationStore!.info &&
       this.props.AccountInformationStore!.info.blocks
       ? `${Number(
-        (this.props.AccountInformationStore!.info.blocks /
-          this.props.AccountInformationStore!.info.highestBlock) *
-        100,
-      ).toFixed(2)} % ${this.props.i18n!.t('header.synced') as string}`
+          (this.props.AccountInformationStore!.info.blocks /
+            this.props.AccountInformationStore!.info.highestBlock) *
+            100,
+        ).toFixed(2)} % ${this.props.i18n!.t('header.synced') as string}`
       : (this.props.i18n!.t('header.notsyncing') as string)
   }
 
@@ -124,10 +124,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             open={this.state.modal}
             toggle={this.toggleUnlock.bind(this)}
           />
-          <div className="pl-4">    <BurgerMenu
-            dropdownOpen={this.state.dropdownOpen}
-            toggle={this.toggle.bind(this)}
-          /></div>
+          <div className="pl-4">
+            {' '}
+            <BurgerMenu
+              dropdownOpen={this.state.dropdownOpen}
+              toggle={this.toggle.bind(this)}
+            />
+          </div>
           <div className="pl-2">
             <img
               className="logo center-block"
@@ -184,8 +187,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 }}
               >
                 Notification
+              </div>
             </div>
-            </div></div>
+          </div>
           <div className="pr-5">
             <div
               style={{
@@ -204,8 +208,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 {!this.props.AccountInformationStore!.info.isReady ? (
                   <WifiOffIcon style={{ fill: '#467698' }} />
                 ) : (
-                    <WifiIcon style={{ fill: '#467698' }} />
-                  )}
+                  <WifiIcon style={{ fill: '#467698' }} />
+                )}
               </span>
               <div
                 style={{
@@ -218,7 +222,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                   ? (this.props.i18n!.t('header.loading') as string)
                   : (this.props.i18n!.t('header.synced') as string)}
               </div>
-            </div></div>
+            </div>
+          </div>
           <div className="pr-5">
             <Link
               to={'/logout'}
@@ -239,8 +244,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 {this.isUnlocked() ? (
                   <Logout style={{ fill: '#467698' }} />
                 ) : (
-                    <Lock style={{ fill: '#467698' }} />
-                  )}
+                  <Lock style={{ fill: '#467698' }} />
+                )}
               </span>
               <div
                 style={{
@@ -254,7 +259,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                   : (this.props.i18n!.t('header.locked') as string)}
               </div>
             </Link>
-            </div>
+          </div>
         </div>
       </div>
     )
