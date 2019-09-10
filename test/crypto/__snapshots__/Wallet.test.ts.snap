@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Component] Wallet management system should fail if passphrase is empty 1`] = `"No Empty passphrase allowed"`;
+
+exports[`[Component] Wallet management system should stop creating a new wallet, if one already exists 1`] = `"Existing wallet can\`t be overriden!"`;

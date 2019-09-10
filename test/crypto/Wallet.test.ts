@@ -1,7 +1,5 @@
 import { VergeLightClient } from '../../src/crypto/Wallet'
 import { bwsClientMock } from '../mocks/BWSClientMock'
-import * as fs from 'fs'
-import * as path from 'path'
 import VergeCacheStore from '../../src/stores/VergeCacheStore'
 
 describe('[Component] Wallet management system', () => {
@@ -38,10 +36,25 @@ describe('[Component] Wallet management system', () => {
     expect(client.isWalletLocked()).toBe(false)
     expect(client.isWalletAlreadyExistent()).toBe(false)
 
+    expect(() =>
+      client.createNewWallet(undefined),
+    ).toThrowErrorMatchingSnapshot()
+
+    expect(client.isWalletReady()).toBe(false)
+    expect(client.isWalletLocked()).toBe(false)
+    expect(client.isWalletAlreadyExistent()).toBe(false)
+  })
+
+  test('should stop creating a new wallet, if one already exists', async () => {
+    const client = new VergeLightClient(bwsClientMock())
     await client.createNewWallet('mypass')
 
     expect(client.isWalletReady()).toBe(true)
     expect(client.isWalletLocked()).toBe(false)
     expect(client.isWalletAlreadyExistent()).toBe(true)
+
+    expect(() =>
+      client.createNewWallet('newwalletpassword'),
+    ).toThrowErrorMatchingSnapshot()
   })
 })

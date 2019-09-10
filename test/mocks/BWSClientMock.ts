@@ -1,10 +1,10 @@
-import * as Client from 'verge-wallet-client'
+import * as Client from '../../bitcore/packages/bitcore-wallet-client'
 import settings from '../../src/settings'
 
 /**
  * Spoofing that we created a new wallet :)
  */
-Client.prototype.createWallet = function (
+Client.prototype.createWallet = function(
   walletname,
   name,
   n,
