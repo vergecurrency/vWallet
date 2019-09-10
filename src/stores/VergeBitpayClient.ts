@@ -3,6 +3,8 @@ import Wallet, { VergeLightClient } from '../crypto/Wallet'
 import { Peer } from 'verge-node-typescript/dist/Peer'
 import { Transaction } from 'verge-node-typescript/dist/Transaction'
 import { logger } from '../utils/Logger'
+import { Constants } from '../Constanst'
+import { didPayFee } from '../crypto/Transaction'
 
 export class VergeBitpayClient {
   async unlock(
@@ -50,28 +52,28 @@ export class VergeBitpayClient {
       return transationHistory.reduce((allTransactions, transaction) => {
         return [
           ...allTransactions,
-          ...transaction.outputs.map(
-            txOutput =>
-              ({
-                txid: transaction.txid,
-                /**
-                 * the output number
-                 */
-                vout: '',
-                account: transaction.creatorName,
-                address: txOutput.address,
-                category: transaction.action,
-                amount: txOutput.amount / 100000000,
-                confirmations: transaction.confirmations,
-                blockhash: '',
-                blocktime: 0,
-                blockindex: 0,
-                time: transaction.time,
-                timereceived: transaction.time,
-              } as Transaction),
-          ),
+          {
+            txid: transaction.txid,
+            /**
+             * the output number
+             */
+            vout: '',
+            account: transaction.creatorName,
+            address: transaction.addressTo,
+            category: transaction.action,
+            amount: transaction.amount / Constants.satoshiDivider,
+            fee: didPayFee(transaction)
+              ? transaction.fees / Constants.satoshiDivider
+              : 0,
+            confirmations: transaction.confirmations,
+            blockhash: '',
+            blocktime: 0,
+            blockindex: 0,
+            time: transaction.time,
+            timereceived: transaction.time,
+          } as Transaction,
         ]
-      },                              [])
+      }, [])
     } catch (e) {
       logger.error(e)
       return []

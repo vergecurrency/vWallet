@@ -1,4 +1,4 @@
-import * as Client from 'verge-wallet-client'
+import * as Client from '../../bitcore/packages/bitcore-wallet-client/'
 import settings from '../settings'
 import { randomBytes } from 'crypto'
 import { Balance } from './Balance'
@@ -280,7 +280,7 @@ export class VergeLightClient {
           // SIGN PROPOSAL
           //
           client.publishTxProposal({ txp }, (publishError, processedTxp) => {
-            if (createError) {
+            if (publishError) {
               return reject(publishError)
             }
 

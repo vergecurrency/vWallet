@@ -2367,7 +2367,7 @@ bip39@^3.0.2:
     inherits "=2.0.1"
     lodash "=4.17.11"
 
-bitcore-lib@^8.1.0, bitcore-lib@^8.1.1:
+bitcore-lib@^8.1.1:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-8.6.0.tgz#d7fc7c1815916f2914a3feb04227d5d10830e0d5"
   integrity sha512-fEMx2WeHRQGaGy72CBO8RQu7Eunl2MgUfrBVEOVX2qcQtfvtYTVE4KK7L7CPlJcD8YUPZYaWKOMBTVBiB8B8Bg==
@@ -2394,13 +2394,13 @@ bitcore-lib@^8.1.0, bitcore-lib@^8.1.1:
 "bitcore-mnemonic@file:bitcore/packages/bitcore-mnemonic":
   version "8.1.1"
   dependencies:
-    bitcore-lib "^8.1.1"
+    bitcore-lib "file:../../Library/Caches/Yarn/v4/npm-bitcore-mnemonic-8.1.1-50e0f324-8b58-470d-bea9-0fb0551a78c2-1568035194329/node_modules/bitcore-lib"
     unorm "^1.4.1"
 
 "bitcore-stealth@file:bitcore/packages/bitcore-stealth":
   version "0.0.2"
   dependencies:
-    bitcore-lib "^8.1.0"
+    bitcore-lib "file:../../Library/Caches/Yarn/v4/npm-bitcore-stealth-0.0.2-2e96420f-c60e-4d68-8067-a7b40be33b93-1568035194330/node_modules/bitcore-lib"
     lodash "^4.17.11"
 
 bl@^1.0.0:
@@ -14402,10 +14402,10 @@ verge-node-typescript@0.0.17:
   dependencies:
     async "^0.9.0"
     bip38 "^1.3.0"
-    bitcore-lib "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-lib"
-    bitcore-lib-cash "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-lib-cash"
-    bitcore-mnemonic "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-mnemonic"
-    bitcore-stealth "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-b98ea6f0-a19b-4c9d-bddb-e594db4e738c-1567968518103/node_modules/bitcore-stealth"
+    bitcore-lib "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-cfd307c4-a3b6-413f-a51c-a2c5481ff6d7-1568035194303/node_modules/bitcore-lib"
+    bitcore-lib-cash "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-cfd307c4-a3b6-413f-a51c-a2c5481ff6d7-1568035194303/node_modules/bitcore-lib-cash"
+    bitcore-mnemonic "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-cfd307c4-a3b6-413f-a51c-a2c5481ff6d7-1568035194303/node_modules/bitcore-mnemonic"
+    bitcore-stealth "file:../../Library/Caches/Yarn/v4/npm-verge-wallet-client-8.1.1-cfd307c4-a3b6-413f-a51c-a2c5481ff6d7-1568035194303/node_modules/bitcore-stealth"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.11"
     preconditions "^2.2.1"

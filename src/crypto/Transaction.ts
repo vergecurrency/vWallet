@@ -4,12 +4,13 @@ export interface Output {
   message?: any
 }
 
-export interface WalletTransaction {
+export class WalletTransaction {
   txid: string
-  action: string
+  action: 'sent' | 'received'
   amount: number
   fees: number
   time: number
+  addressTo: string
   confirmations: number
   feePerKb: number
   outputs: Output[]
@@ -17,3 +18,5 @@ export interface WalletTransaction {
   creatorName: string
   hasUnconfirmedInputs: boolean
 }
+
+export const didPayFee = (tx: WalletTransaction) => tx.action !== 'received'
