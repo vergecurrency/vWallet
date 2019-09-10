@@ -43,7 +43,7 @@ export class CoinStatsStore {
           this.loadingFinished = true
         })
         .catch(logger.error)
-    },          30000)
+    }, 30000)
   }
 
   getCoinStats(): Promise<CoinStats | null> {
