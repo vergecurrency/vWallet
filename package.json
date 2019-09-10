@@ -64,8 +64,8 @@
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "preinstall": "git submodule update --init",
-    "postinstall": "electron-builder install-app-deps && cd bitcore && npm install",
+    "preinstall": "git submodule update --init && cd bitcore/packages/bitcore-lib && npm install && cd ../bitcore-mnemonic && npm install && cd ../bitcore-stealth && npm install && cd ../bitcore-lib-cash && npm install && cd ../bitcore-wallet-client && npm install",
+    "postinstall": "electron-builder install-app-deps",
     "dist": "yarn clean && yarn run build && electron-builder",
     "publishDist": "yarn clean && yarn run build && electron-builder -p always",
     "test": "jest --watch",
