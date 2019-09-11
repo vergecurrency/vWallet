@@ -16,7 +16,10 @@ const MnemonicDiv = styledComponents.div`
     padding: 20px;
 `
 
-export default class Mnemonic extends React.Component<{}, { confirm: string, password: string}> {
+export default class Mnemonic extends React.Component<
+  {},
+  { confirm: string; password: string }
+> {
   constructor(props) {
     super(props)
     this.state = { confirm: '', ...props.history.location.state }
@@ -34,9 +37,7 @@ export default class Mnemonic extends React.Component<{}, { confirm: string, pas
         small
         step="/wallet/mnemonic"
       >
-        <MnemonicDiv>
-          {Wallet.getMnemonic()}
-        </MnemonicDiv>
+        <MnemonicDiv>{Wallet.getMnemonic()}</MnemonicDiv>
       </Step>
     )
   }
