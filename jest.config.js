@@ -7,4 +7,9 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   verbose: true,
   reporters: ["default", "jest-junit"],
+  globals: {
+    'ts-jest': {
+      diagnostics: false
+    }
+  }
 }

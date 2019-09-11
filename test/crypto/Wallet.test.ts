@@ -36,9 +36,7 @@ describe('[Component] Wallet management system', () => {
     expect(client.isWalletLocked()).toBe(false)
     expect(client.isWalletAlreadyExistent()).toBe(false)
 
-    expect(() =>
-      client.createNewWallet(undefined),
-    ).toThrowErrorMatchingSnapshot()
+    expect(() => client.createNewWallet('')).toThrowErrorMatchingSnapshot()
 
     expect(client.isWalletReady()).toBe(false)
     expect(client.isWalletLocked()).toBe(false)
