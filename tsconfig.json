@@ -12,24 +12,32 @@
     "module": "commonjs",
     "target": "es2016",
     "jsx": "react",
-    "lib": ["dom", "es7", "dom.iterable", "scripthost"],
-    "types": [],
-
+    "lib": [
+      "dom",
+      "es7",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "types": [
+      "jest",
+      "mocha",
+      "node"
+    ],
     "alwaysStrict": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     "sourceMap": true,
-
     "outDir": "dist"
   },
-  "files": ["src/index.ts", "src/index.d.ts"],
+  "files": [
+    "src/index.tsx",
+    "src/index.d.ts"
+  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
@@ -39,5 +47,7 @@
     "src/**/*.svg",
     "src/**/*.scss"
   ],
-  "exclude": ["dist"]
+  "exclude": [
+    "dist"
+  ]
 }
