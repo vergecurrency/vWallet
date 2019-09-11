@@ -1,46 +1,22 @@
-import React, { Component } from 'react'
+import * as React from 'react'
+import { Link } from 'react-router-dom'
+import Step from '../Step'
+import * as crypto from 'crypto'
+import styledComponents from 'styled-components'
 
 import CheckCircle from '../../icons/CheckCircle'
 import CrossCircle from '../../icons/CrossCircle'
-import { Link } from 'react-router-dom'
-import Step from '../Step'
-import crypto from 'crypto'
-import styled from 'styled-components'
+import { PrimaryButton } from '../../base-components/PrimaryButton'
+import { DisabledButton } from '../../base-components/DisabledButton'
 
-const NewButton = styled.button`
-  width: 192px;
-  height: 95px;
-  border-radius: 4px;
-  background-color: #00b8dc;
-  color: #fff;
-  border: none;
-  height: 78px;
-  font-size: 27px;
-  font-weight: 500;
-  line-height: 33.78px;
-`
-
-const DisabledButton = styled.button`
-  width: 192px;
-  height: 95px;
-  border-radius: 4px;
-  background-color: #e9ecef;
-  color: #2f363d;
-  border: none;
-  height: 78px;
-  font-size: 27px;
-  font-weight: 400;
-  line-height: 33.78px;
-`
-
-const PasswordHelper = styled.div`
+const PasswordHelper = styledComponents.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
   margin-top: 30px;
 `
 
-const Tip = styled.span`
+const Hint = styledComponents.span`
   color: #506f89;
   font-size: 13px;
   font-style: italic;
@@ -63,7 +39,7 @@ const checkedOrNot = (func, pass) =>
     <CrossCircle width="20px" height="20px" />
   )
 
-export default class PasswordCreate extends Component {
+export default class PasswordCreate extends React.Component {
   state = { password: '' }
 
   updatePassword(e) {
@@ -102,7 +78,7 @@ export default class PasswordCreate extends Component {
                 },
               }}
             >
-              <NewButton>Continue</NewButton>
+              <PrimaryButton>Continue</PrimaryButton>
             </Link>
           ) : (
             <DisabledButton>Continue</DisabledButton>
@@ -110,11 +86,11 @@ export default class PasswordCreate extends Component {
         </div>
         <PasswordHelper>
           {checkedOrNot(checkLength, this.state.password)}
-          <Tip>Min. 8 characters</Tip>
+          <Hint>Min. 8 characters</Hint>
           {checkedOrNot(checkUpperLowerCase, this.state.password)}
-          <Tip>Uppercase and lowercase characters</Tip>
+          <Hint>Uppercase and lowercase characters</Hint>
           {checkedOrNot(checkForSpecial, this.state.password)}
-          <Tip>Special character (!.,-#€%&+#)</Tip>
+          <Hint>Special character (!.,-#€%&+#)</Hint>
         </PasswordHelper>
       </Step>
     )

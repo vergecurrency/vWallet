@@ -5,19 +5,7 @@ import Step from '../Step'
 import { inject } from 'mobx-react'
 import { AccountInformationStore } from '../../stores/AccountInformationStore'
 import { Link } from 'react-router-dom'
-
-const NewButton = styled.default.button`
-  width: 192px;
-  height: 95px;
-  border-radius: 4px;
-  background-color: #00b8dc;
-  color: #fff;
-  border: none;
-  height: 78px;
-  font-size: 27px;
-  font-weight: 500;
-  line-height: 33.78px;
-`
+import { PrimaryButton } from '../../base-components/PrimaryButton'
 
 const PasswordHint = styled.default.div`
   color: #506f89;
@@ -62,7 +50,7 @@ class EnterPassword extends React.Component<{
               )
             }}
           >
-            <NewButton>Login</NewButton>
+            <PrimaryButton>Login</PrimaryButton>
           </Link>
         </div>
         <PasswordHint>

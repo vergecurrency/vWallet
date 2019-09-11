@@ -1,37 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
+import * as React from 'react'
+import styledComponents from 'styled-components'
 import Step from '../Step'
 import { Link } from 'react-router-dom'
-import crypto from 'crypto'
+import * as crypto from 'crypto'
 import Wallet from '../../crypto/Wallet'
+import { PrimaryButton } from '../../base-components/PrimaryButton'
+import { DisabledButton } from '../../base-components/DisabledButton'
 
-const NewButton = styled.button`
-  width: 192px;
-  height: 95px;
-  border-radius: 4px;
-  background-color: #00b8dc;
-  color: #fff;
-  border: none;
-  height: 78px;
-  font-size: 27px;
-  font-weight: 500;
-  line-height: 33.78px;
-`
-
-const DisabledButton = styled.button`
-  width: 192px;
-  height: 95px;
-  border-radius: 4px;
-  background-color: #e9ecef;
-  color: #2f363d;
-  border: none;
-  height: 78px;
-  font-size: 27px;
-  font-weight: 400;
-  line-height: 33.78px;
-`
-
-const PasswordHint = styled.div`
+const PasswordHint = styledComponents.div`
   color: #506f89;
   font-size: 16px;
   font-style: italic;
@@ -40,7 +16,10 @@ const PasswordHint = styled.div`
   margin-top: 30px;
 `
 
-export default class ConfirmPassword extends React.Component {
+export default class ConfirmPassword extends React.Component<
+  {},
+  { confirm: string; password: string }
+> {
   constructor(props) {
     super(props)
     this.state = { confirm: '', ...props.history.location.state }
@@ -79,17 +58,15 @@ export default class ConfirmPassword extends React.Component {
               }}
               onClick={async () => {
                 if (fullfillsRequirements) {
-                  await Wallet.createNewWallet(
-                    this.state.confirm,
-                  )
+                  await Wallet.createNewWallet(this.state.confirm)
                 }
               }}
             >
-              <NewButton>Continue</NewButton>
+              <PrimaryButton>Continue</PrimaryButton>
             </Link>
           ) : (
-              <DisabledButton>Continue</DisabledButton>
-            )}
+            <DisabledButton>Continue</DisabledButton>
+          )}
         </div>
         <PasswordHint>
           This password is very important. If you lock your wallet, and you
