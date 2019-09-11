@@ -390,6 +390,10 @@ export class VergeLightClient {
       )
     }
   }
+
+  public getMnemonic(): string {
+    return this.client.credentials.mnemonic
+  }
 }
 
 export default new VergeLightClient(client)

@@ -15,6 +15,10 @@ const STEP_LINKS = [
     returnable: true,
   },
   {
+    link: '/wallet/mnemonic',
+    returnable: false,
+  },
+  {
     link: '/buyhelp',
     returnable: false,
   },

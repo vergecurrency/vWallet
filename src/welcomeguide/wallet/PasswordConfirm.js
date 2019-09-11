@@ -75,7 +75,7 @@ export default class ConfirmPassword extends React.Component {
           {fullfillsRequirements ? (
             <Link
               to={{
-                pathname: '/buyhelp',
+                pathname: '/wallet/mnemonic',
               }}
               onClick={async () => {
                 if (fullfillsRequirements) {
