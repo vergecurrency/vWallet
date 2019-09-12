@@ -12,3 +12,15 @@ export const PrimaryButton = styledComponents.button`
     font-weight: 500;
     line-height: 33.78px;
 `
+
+export const SmallPrimaryButton = styledComponents.button`
+    width: 192px;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #00b8dc;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 33.78px;
+`

@@ -1,6 +1,6 @@
 import * as Client from '../../bitcore/packages/bitcore-wallet-client/'
 import settings from '../settings'
-import { randomBytes } from 'crypto'
+// import { randomBytes } from 'crypto'
 import { Balance } from './Balance'
 import { Address } from './Address'
 import { WalletTransaction } from './Transaction'
@@ -17,15 +17,13 @@ const client = new Client({
   doNotVerifyPayPro: true,
 })
 
-interface CreatedWalletData {
-  mnemonic: string
-}
-
 export class VergeLightClient {
   private readonly client: any
   private readonly KEY: string = 'WALLET'
+
   private password: string
   private scannedErrors: number[] = []
+
   private isScanning: boolean = true
 
   constructor(client) {
@@ -63,7 +61,7 @@ export class VergeLightClient {
    * Creates OR overrides a wallet
    * @param passphrase
    */
-  public createNewWallet(passphrase: string): Promise<CreatedWalletData> {
+  public createNewWallet(passphrase: string): Promise<string> {
     invariant(!!passphrase, 'No Empty passphrase allowed')
     // check that we aren't mindlessly overwriting wallets
     invariant(
@@ -78,26 +76,26 @@ export class VergeLightClient {
       account: settings.DEFAULT_ACCOUNT, // account zero, we won't support multiple acc
     })
 
-    return new Promise(resolve => {
-      this.client.createWallet(
-        'wallet',
-        // removing names because of tracking
-        randomBytes(128).toString('hex'),
-        1, // N
-        1, // M
-        { network: settings.NETWORK, coin: settings.COIN },
-        err => {
-          // check if we received errors
-          invariant(!err, `Error happend while creating wallet: ${err}`)
+    return Promise.resolve('LOL')
+    // TODO REACTIVATE
+    // return new Promise(resolve => {
+    //   this.client.createWallet(
+    //     'wallet',
+    //     // removing names because of tracking
+    //     randomBytes(128).toString('hex'),
+    //     1, // N
+    //     1, // M
+    //     { network: settings.NETWORK, coin: settings.COIN },
+    //     err => {
+    //       // check if we received errors
+    //       invariant(!err, `Error happend while creating wallet: ${err}`)
 
-          this.exportEncryptedWalletToFile(passphrase)
+    //       this.exportEncryptedWalletToFile(passphrase)
 
-          return resolve({
-            mnemonic: this.client.credentials.mnemonic,
-          })
-        },
-      )
-    })
+    //       return resolve(this.client.credentials.mnemonic)
+    //     },
+    //   )
+    // })
   }
 
   exportEncryptedWalletToFile(passphrase: string) {
@@ -357,7 +355,7 @@ export class VergeLightClient {
   }
 
   /**
-   * Restores a wallet with a given mnmoic
+   * Restores a wallet with a given mnemoic
    * Basic restoring of keys and additional information
    *
    * No transactions or Balances or used Addresses
